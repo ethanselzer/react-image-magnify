@@ -1,0 +1,72 @@
+{
+  "name": "react-image-magnify",
+  "version": "1.0.0",
+  "description": "A React component displaying side by side enlarged image view, with tinted control-image mask.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ethanselzer/react-image-zoom.git"
+  },
+  "author": "Ethan Selzer <ethanselzer@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ethanselzer/react-image-zoom/issues"
+  },
+  "homepage": "https://github.com/ethanselzer/react-image-zoom",
+  "keywords": [
+    "react-image-zoom",
+    "photo",
+    "photograph",
+    "magnify",
+    "magnifier",
+    "enlarge",
+    "zoomer",
+    "image magnifier",
+    "image enlarge",
+    "image zoomer",
+    "photo magnifier",
+    "photo enlarge",
+    "photo zoom"
+  ],
+  "main": "dist/ImageZoom.js",
+  "scripts": {
+    "prepublish": "babel --plugins 'transform-es2015-modules-umd' src --ignore __tests__ --out-dir ./dist",
+    "lint": "eslint ./src",
+    "lintfix": "eslint ./src --fix",
+    "testonly": "mocha --require scripts/mocha_runner test/*.spec.js",
+    "test": "npm run lint && npm run testonly",
+    "test-watch": "npm run testonly -- --watch --watch-extensions js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.6.4",
+    "babel-core": "^6.7.4",
+    "babel-eslint": "^6.0.2",
+    "babel-plugin-transform-es2015-modules-umd": "^6.6.5",
+    "babel-polyfill": "^6.7.4",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-2": "^6.5.0",
+    "chai": "^3.5.0",
+    "enzyme": "^2.2.0",
+    "eslint": "^2.7.0",
+    "eslint-plugin-babel": "^3.1.0",
+    "eslint-plugin-react": "^4.2.3",
+    "jsdom": "^8.1.0",
+    "mocha": "^2.4.5",
+    "nodemon": "^1.9.1",
+    "react-addons-test-utils": "^15.0.0",
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0",
+    "sinon": "^1.17.3"
+  },
+  "peerDependencies": {
+    "react": "~0.14.8 || ^15.0.0",
+    "react-dom": "~0.14.8 || ^15.0.0"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.6.1",
+    "lodash.assign": "^4.2.0",
+    "lodash.clamp": "^4.0.3",
+    "react-cursor-position": "^1.1.0",
+    "react-hover-observer": "^1.1.0"
+  }
+}
