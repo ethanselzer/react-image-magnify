@@ -36,8 +36,7 @@
   ],
   "main": "dist/ReactImageMagnify.js",
   "files": [
-    "dist/ReactImageMagnify.js",
-    "LICENCE"
+    "dist"
   ],
   "scripts": {
     "prepublish": "babel --plugins 'transform-es2015-modules-umd' src --out-dir ./dist",
