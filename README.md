@@ -8,6 +8,10 @@ Supports arbitrary image sizes. Scales magnification automatically.
 
 Supports delaying hover and hover-off, which can help reduce unintentional triggering.
 
+## Demo
+[Basic demo](http://www.webpackbin.com/4y0NrwmaW)
+
+See ReactImageMagnify.js tab.
 
 ## Installation
 

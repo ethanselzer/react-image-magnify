@@ -45,7 +45,11 @@ const ReactImageMagnify = ({
             }}>
                 <img { ...{
                     src: smallImage.src,
-                    alt: smallImage.alt
+                    alt: smallImage.alt,
+                    style: {
+                        width: `${smallImage.width}px`,
+                        height: `${smallImage.height}px`
+                    }
                 }} />
                 <LensTop { ...{
                     fadeDurationInMs,
