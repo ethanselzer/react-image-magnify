@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
 import ReactCursorPosition from 'react-cursor-position';
 import ReactHoverObserver from 'react-hover-observer';
-import LensTop from './ImageZoomLensTop';
-import LensLeft from './ImageZoomLensLeft';
-import LensRight from './ImageZoomLensRight';
-import LensBottom from './ImageZoomLensBottom';
-import Magnifier from './ImageZoomMagnifier';
+import LensTop from './LensTop';
+import LensLeft from './LensLeft';
+import LensRight from './LensRight';
+import LensBottom from './LensBottom';
+import EnlargedImage from './EnlargedImage';
 
-const ImageZoom = ({
+const ReactImageMagnify = ({
     className,
     fadeDurationInMs,
     hoverDelayInMs,
@@ -67,7 +67,7 @@ const ImageZoom = ({
                     smallImage,
                     cursorOffset
                 }} />
-                <Magnifier { ...{
+                <EnlargedImage { ...{
                     fadeDurationInMs,
                     largeImage,
                     smallImage,
@@ -85,7 +85,7 @@ const Image = PropTypes.shape({
     height: PropTypes.number.isRequired
 });
 
-ImageZoom.propTypes = {
+ReactImageMagnify.propTypes = {
     fadeDurationInMs: PropTypes.number,
     className: PropTypes.string,
     hoverDelayInMs: PropTypes.number,
@@ -95,10 +95,10 @@ ImageZoom.propTypes = {
     style: PropTypes.object
 };
 
-ImageZoom.defaultProps = {
+ReactImageMagnify.defaultProps = {
     fadeDurationInMs: 300,
     hoverDelayInMs: 250,
     hoverOffDelayInMs: 150
 };
 
-export default ImageZoom;
+export default ReactImageMagnify;

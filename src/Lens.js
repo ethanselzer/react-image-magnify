@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const ImageZoomLens = (props) => {
+const Lens = (props) => {
     const {
         fadeDurationInMs,
         isHovering,
@@ -21,7 +21,7 @@ const ImageZoomLens = (props) => {
     return <div style={ Object.assign({}, defaultStyle, style) }/>;
 }
 
-ImageZoomLens.propTypes = {
+Lens.propTypes = {
     fadeDurationInMs: PropTypes.number,
     isHovering: PropTypes.bool,
     style: PropTypes.shape({
@@ -39,7 +39,7 @@ ImageZoomLens.propTypes = {
     translateY: PropTypes.number
 };
 
-ImageZoomLens.defaultProps = {
+Lens.defaultProps = {
     isHovering: false,
     fadeDurationInMs: 0,
     style: {
@@ -57,4 +57,4 @@ ImageZoomLens.defaultProps = {
     translateY: 0
 };
 
-export default ImageZoomLens;
+export default Lens;

@@ -65,13 +65,13 @@ Image struct shape:
 
 ## Support
 
-Please [open an issue](https://github.com/ethanselzer/react-image-zoom/issues).
+Please [open an issue](https://github.com/ethanselzer/react-image-magnify/issues).
 
 ## Development
 
 ```ssh
-git clone https://github.com/ethanselzer/react-image-zoom.git
-cd react-image-zoom
+git clone https://github.com/ethanselzer/react-image-magnify.git
+cd react-image-magnify
 npm install
 ```
 See available commands:
@@ -82,7 +82,7 @@ npm run
 ## Contributing
 
 Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch,
-add commits, and [open a pull request](https://github.com/ethanselzer/react-image-zoom/compare/).
+add commits, and [open a pull request](https://github.com/ethanselzer/react-image-magnify/compare/).
 
 ## License
 

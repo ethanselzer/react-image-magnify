@@ -4,32 +4,43 @@
   "description": "A React component displaying side by side enlarged image view, with tinted control-image mask.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ethanselzer/react-image-zoom.git"
+    "url": "https://github.com/ethanselzer/react-image-magnify.git"
   },
   "author": "Ethan Selzer <ethanselzer@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ethanselzer/react-image-zoom/issues"
+    "url": "https://github.com/ethanselzer/react-image-magnify/issues"
   },
-  "homepage": "https://github.com/ethanselzer/react-image-zoom",
+  "homepage": "https://github.com/ethanselzer/react-image-magnify",
   "keywords": [
     "react-image-zoom",
-    "photo",
-    "photograph",
-    "magnify",
-    "magnifier",
-    "enlarge",
-    "zoomer",
+    "react-image-magnifier",
+    "react-image-enlarger",
+    "react-image-lens",
+    "react-photo-zoom",
+    "react-photo-magnifier",
+    "react-photo-enlarger",
+    "react-photo-lens",
+    "react-zoom",
+    "react-magnify",
+    "react-lens",
+    "image zoom",
     "image magnifier",
-    "image enlarge",
-    "image zoomer",
+    "image enlarger",
+    "photo zoom",
     "photo magnifier",
-    "photo enlarge",
-    "photo zoom"
+    "photo enlarger",
+    "zoom",
+    "magnify",
+    "enlarge"
   ],
-  "main": "dist/ImageZoom.js",
+  "main": "dist/ReactImageMagnify.js",
+  "files": [
+    "dist/ReactImageMagnify.js",
+    "LICENCE"
+  ],
   "scripts": {
-    "prepublish": "babel --plugins 'transform-es2015-modules-umd' src --ignore __tests__ --out-dir ./dist",
+    "prepublish": "babel --plugins 'transform-es2015-modules-umd' src --out-dir ./dist",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
     "testonly": "mocha --require scripts/mocha_runner test/*.spec.js",

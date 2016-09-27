@@ -1,6 +1,6 @@
 import React from 'react';
 import clamp from 'lodash.clamp';
-import Lens from './ImageZoomLens';
+import Lens from './Lens';
 
 export default ({
     cursorOffset,
@@ -12,8 +12,8 @@ export default ({
     const height = cursorOffset.y * 2;
     const maxHeight =  smallImage.height - height;
     const maxWidth = smallImage.width - (cursorOffset.x * 2);
-    const width = clamp(smallImage.width - cursorPosition.x - cursorOffset.x, 0, maxWidth);
-    const translateY = clamp(Math.round(cursorPosition.y - cursorOffset.y), 0, maxHeight);
+    const width = clamp(cursorPosition.x - cursorOffset.x, 0, maxWidth);
+    const translateY = clamp(cursorPosition.y - cursorOffset.y, 0, maxHeight);
 
     return (
         <Lens {...{
@@ -23,7 +23,7 @@ export default ({
                 width: `${width}px`,
                 backgroundColor: 'rgba(0,0,0,.4)',
                 top: '0px',
-                right: '0px'
+                left: '0px'
             },
             translateY
         }}/>

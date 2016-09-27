@@ -3,7 +3,7 @@ import clamp from 'lodash.clamp';
 
 export default React.createClass({
 
-    displayName: 'ImageZoomMagnifier',
+    displayName: 'EnlargedImage',
 
     getInitialState() {
         return {
