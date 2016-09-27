@@ -1,6 +1,6 @@
 {
   "name": "react-image-magnify",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React component displaying side by side enlarged image view, with tinted control-image mask.",
   "repository": {
     "type": "git",
