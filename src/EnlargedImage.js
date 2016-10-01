@@ -35,8 +35,8 @@ export default React.createClass({
         imageClassName: PropTypes.string,
         imageStyle: PropTypes.object,
         isHovering: PropTypes.bool.isRequired,
-        largeImage: Image.isRequired,
-        smallImage: Image.isRequired
+        largeImage: Image,
+        smallImage: Image
     },
 
     componentWillReceiveProps(nextProps) {
