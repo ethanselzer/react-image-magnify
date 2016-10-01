@@ -82,7 +82,7 @@ const ReactImageMagnify = ({
     );
 }
 
-const Image = PropTypes.shape({
+export const Image = PropTypes.shape({
     alt: PropTypes.string,
     src: PropTypes.string.isRequired,
     width: PropTypes.number.isRequired,

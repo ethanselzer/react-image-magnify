@@ -3,7 +3,7 @@ import { shallow, mount, render } from 'enzyme';
 import { expect } from 'chai';
 import Lens from '../src/Lens';
 
-describe('Image Zoom Lens', () => {
+describe('Image Lens', () => {
     it('applies default inline style', () => {
         const expected = 'position:absolute;transform:translate(0px, 0px);-webkit-transform:translate(0px, 0px);-ms-transform:translate(0px, 0px);opacity:0;transition:opacity 0ms ease-in;width:auto;height:auto;top:auto;right:auto;bottom:auto;left:auto;display:block;background-color:transparent;cursor:auto;';
 

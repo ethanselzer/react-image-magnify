@@ -1,5 +1,11 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import clamp from 'lodash.clamp';
+import { Image } from './ReactImageMagnify';
+
+export const Point = PropTypes.shape({
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired
+});
 
 export default React.createClass({
 
@@ -14,10 +20,23 @@ export default React.createClass({
         };
     },
 
-    getDefaultPRops() {
+    getDefaultProps() {
         return {
             fadeDurationInMs: 0
         };
+    },
+
+    propTypes: {
+        containerClassName: PropTypes.string,
+        containerStyle: PropTypes.object,
+        cursorOffset: Point.isRequired,
+        cursorPosition: Point.isRequired,
+        fadeDurationInMs: PropTypes.number,
+        imageClassName: PropTypes.string,
+        imageStyle: PropTypes.object,
+        isHovering: PropTypes.bool.isRequired,
+        largeImage: Image.isRequired,
+        smallImage: Image.isRequired
     },
 
     componentWillReceiveProps(nextProps) {
@@ -51,13 +70,16 @@ export default React.createClass({
 
     render() {
         const {
-            className,
+            containerClassName,
+            containerStyle,
             cursorOffset,
             cursorPosition,
             fadeDurationInMs,
+            imageClassName,
+            imageStyle,
             isHovering,
             largeImage,
-            smallImage
+            smallImage,
         } = this.props;
 
         const {
@@ -88,8 +110,6 @@ export default React.createClass({
             y: clamp(differentiatedImageCoordinates.y, minCoordinates.y, maxCoordinate)
         };
 
-        const translate = `translate(${imageCoordinates.x}px, ${imageCoordinates.y}px)`;
-
         let isVisible;
         if (isTransitionEntering || isTransitionActive || isTransitionLeaving) {
             isVisible = true;
@@ -97,32 +117,43 @@ export default React.createClass({
             isVisible = false;
         }
 
+        const defaultContainerStyle = {
+            marginLeft: '10px',
+            position: 'absolute',
+            left: '100%',
+            top: '0px',
+            border: '1px solid #d6d6d6',
+            overflow: 'hidden'
+        };
+
+        const computedContainerStyle = {
+            width: smallImage.width,
+            height: smallImage.height,
+            opacity: this.state.isTransitionActive ? 1 : 0,
+            transition: `opacity ${fadeDurationInMs}ms ease-in`
+        };
+
+        const translate = `translate(${imageCoordinates.x}px, ${imageCoordinates.y}px)`;
+
+        const computedImageStyle = {
+            width: largeImage.width,
+            height: largeImage.height,
+            transform: translate,
+            WebkitTransform: translate,
+            msTransform: translate
+        };
+
         const component = (
             <div { ...{
-                className,
-                key: 'zoom',
-                style: {
-                    width: smallImage.width,
-                    height: smallImage.height,
-                    marginLeft: '10px',
-                    position: 'absolute',
-                    left: '100%',
-                    top: '0px',
-                    border: '1px solid #d6d6d6',
-                    overflow: 'hidden',
-                    opacity: this.state.isTransitionActive ? 1 : 0,
-                    transition: `opacity ${fadeDurationInMs}ms ease-in`
-                }
+                className: containerClassName,
+                key: 'enlarged',
+                style: Object.assign({}, defaultContainerStyle, containerStyle, computedContainerStyle)
             }}>
                 <img data-hover="false" { ...{
+                    alt: largeImage.alt,
+                    className: imageClassName,
                     src: largeImage.src,
-                    style: {
-                        width: largeImage.width,
-                        height: largeImage.height,
-                        transform: translate,
-                        WebkitTransform: translate,
-                        msTransform: translate
-                    }
+                    style: Object.assign({}, imageStyle, computedImageStyle)
                 }}/>
             </div>
         );
