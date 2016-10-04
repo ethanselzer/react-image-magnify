@@ -4,15 +4,15 @@ import { expect } from 'chai';
 import Lens from '../src/Lens';
 
 describe('Image Lens', () => {
-    it('applies default inline style', () => {
-        const expected = 'position:absolute;transform:translate(0px, 0px);-webkit-transform:translate(0px, 0px);-ms-transform:translate(0px, 0px);opacity:0;transition:opacity 0ms ease-in;width:auto;height:auto;top:auto;right:auto;bottom:auto;left:auto;display:block;background-color:transparent;cursor:auto;';
+    it('applies computed style', () => {
+        const expected = 'width:auto;height:auto;top:auto;right:auto;bottom:auto;left:auto;display:block;position:absolute;transform:translate(0px, 0px);-webkit-transform:translate(0px, 0px);-ms-transform:translate(0px, 0px);opacity:0;transition:opacity 0ms ease-in;';
 
         const c = render(<Lens />);
 
         expect(c.find('div').attr('style')).to.equal(expected);
     });
 
-    it('applies supplied inline style', () => {
+    it('applies supplied style', () => {
         const expected = 'width:1px;height:2px;top:3px;right:4px;bottom:5px;left:6px;display:inline-block;background-color:#fff;cursor:pointer;'
 
         const c = render(
@@ -31,7 +31,7 @@ describe('Image Lens', () => {
             }}/>
         );
 
-        expect(c.find('div').attr('style').endsWith(expected)).to.be.true;
+        expect(c.find('div').attr('style').startsWith(expected)).to.be.true;
     });
 
     it('applies translateX and translateY props to CSS transform translate function', () => {

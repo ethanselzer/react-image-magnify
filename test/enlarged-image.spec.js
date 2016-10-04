@@ -1,39 +1,41 @@
 import React, { PropTypes } from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import EnlargedImage, { Point } from '../src/EnlargedImage';
+import EnlargedImage, { Point, ImageShape } from '../src/EnlargedImage';
 import { Image } from '../src/ReactImageMagnify';
 
 describe('Enlarged Image', () => {
     let shallowWrapper;
 
     beforeEach(() => {
-        shallowWrapper = shallow(<EnlargedImage {...{
-            cursorOffset: {
-                x: 0,
-                y: 0
-            },
-            cursorPosition: {
-                x: 0,
-                y: 0
-            },
-            fadeDurationInMs: 0,
-            isHovering: true,
-            largeImage: {
-                alt: 'foo',
-                src: 'bar',
-                width: 12,
-                height: 16
-            },
-            smallImage: {
-                alt: 'baz',
-                src: 'qux',
-                width: 3,
-                height: 4
-            }
-        }}/>);
+        shallowWrapper = shallow(
+            <EnlargedImage {...{
+                cursorOffset: {
+                    x: 0,
+                    y: 0
+                },
+                cursorPosition: {
+                    x: 0,
+                    y: 0
+                },
+                fadeDurationInMs: 0,
+                isHovering: true,
+                largeImage: {
+                    alt: 'foo',
+                    src: 'bar',
+                    width: 12,
+                    height: 16
+                },
+                smallImage: {
+                    alt: 'baz',
+                    src: 'qux',
+                    width: 3,
+                    height: 4
+                }
+            }}/>
+        );
 
-        shallowWrapper.setState({ isTransitionActive: true});
+        shallowWrapper.setState({ isTransitionActive: true });
     });
 
     it('has display name EnlargedImage', () => {
@@ -53,14 +55,14 @@ describe('Enlarged Image', () => {
         expect(shallowWrapper.instance().constructor.propTypes).to.deep.equal({
             containerClassName: React.PropTypes.string,
             containerStyle: React.PropTypes.object,
-            cursorOffset: Point.isRequired,
-            cursorPosition: Point.isRequired,
+            cursorOffset: Point,
+            cursorPosition: Point,
             fadeDurationInMs: PropTypes.number,
             imageClassName: PropTypes.string,
             imageStyle: PropTypes.object,
-            isHovering: PropTypes.bool.isRequired,
-            largeImage: Image.isRequired,
-            smallImage: Image.isRequired
+            isHovering: PropTypes.bool,
+            largeImage: ImageShape,
+            smallImage: ImageShape
         });
     });
 
@@ -310,10 +312,12 @@ describe('Enlarged Image', () => {
                     y: 5
                 },
                 largeImage: {
+                    src: 'foo',
                     width: 8,
                     height: 8
                 },
                 smallImage: {
+                    src: 'bar',
                     width: 4,
                     height: 4
                 }
@@ -334,10 +338,12 @@ describe('Enlarged Image', () => {
                     y: -1
                 },
                 largeImage: {
+                    src: 'foo',
                     width: 8,
                     height: 8
                 },
                 smallImage: {
+                    src: 'bar',
                     width: 4,
                     height: 4
                 }

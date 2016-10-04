@@ -41,23 +41,23 @@ import ReactImageMagnify from 'react-image-magnify';
 ...
 ```
 
-### Props API
+## Props API
 
-`className` : String [optional] - A CSS class to be applied to the container element rendered by react-image-magnify.
+| Prop                          | Type   | Required | Default | Description                                                |
+|-------------------------------|--------|----------|---------|------------------------------------------------------------|
+| `smallImage`                  | Object | Yes      |         | Small image information. See `Image Struct` below.         |
+| `largeImage`                  | Object | Yes      |         | Large image information. See `Image Struct` below.         |
+| `className`                   | String | No       |         | CSS class applied to root container element.               |
+| `style`                       | Object | No       |         | Style applied to root container element.                   |
+| `hoverDelayInMs`              | Number | No       | 250     | Milliseconds to delay hover trigger.                       |
+| `hoverOffDelayInMs`           | Number | No       | 150     | Milliseconds to delay hover-off trigger.                   |
+| `fadeDurationInMs`            | Number | No       | 300     | Milliseconds duration of magnified image fade in/fade out. |
+| `imageStyle`                  | Object | No       |         | Style applied to small image element.                      |
+| `lensStyle`                   | Object | No       |         | Style applied to tinted lens element.                      |
+| `enlargedImageContainerStyle` | Object | No       |         | Style applied to enlarged image container element.         |
+| `enlargedImageStyle`          | Object | No       |         | Style applied to enlarged image element.                   |
 
-`style` : Object [optional] - Style to be applied to the container element rendered by react-image-magnify.
-
-`hoverDelayInMs` : Number [optional] - Milliseconds to delay hover trigger. Defaults to 250.
-
-`hoverOffDelayInMs` : Number [optional] - Milliseconds to delay hover-off trigger. Defaults to 150.
-
-`fadeDurationInMs` : Number [optional] - Milliseconds duration of magnified image fade in/fade out. Defaults to 300.
-
-`smallImage` : Object - Image struct.
-
-`largeImage` : Object - Image struct.
-
-Image struct shape:
+### Image Struct
 ```
 {
     alt: String,

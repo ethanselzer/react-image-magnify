@@ -9,10 +9,14 @@ import EnlargedImage from './EnlargedImage';
 
 const ReactImageMagnify = ({
     className,
+    enlargedImageContainerStyle,
+    enlargedImageStyle,
     fadeDurationInMs,
     hoverDelayInMs,
     hoverOffDelayInMs,
+    imageStyle,
     largeImage,
+    lensStyle,
     smallImage,
     style
 }) => {
@@ -21,6 +25,8 @@ const ReactImageMagnify = ({
         x: Math.round(((smallImage.width / largeImage.width) * smallImage.width) / 2),
         y: Math.round(((smallImage.height / largeImage.height) * smallImage.height) / 2)
     };
+    const defaultLensStyle = { backgroundColor: 'rgba(0,0,0,.4)' };
+    const compositLensStyle = Object.assign({}, defaultLensStyle, lensStyle);
 
     return (
         <ReactCursorPosition { ...{
@@ -46,43 +52,49 @@ const ReactImageMagnify = ({
                 <img { ...{
                     src: smallImage.src,
                     alt: smallImage.alt,
-                    style: {
+                    style: Object.assign({
                         width: `${smallImage.width}px`,
                         height: `${smallImage.height}px`
-                    }
+                    }, imageStyle)
                 }} />
                 <LensTop { ...{
+                    cursorOffset,
                     fadeDurationInMs,
                     smallImage,
-                    cursorOffset
+                    style: compositLensStyle
                 }} />
                 <LensLeft { ...{
+                    cursorOffset,
                     fadeDurationInMs,
                     smallImage,
-                    cursorOffset
+                    style: compositLensStyle
                 }} />
                 <LensRight { ...{
+                    cursorOffset,
                     fadeDurationInMs,
                     smallImage,
-                    cursorOffset
+                    style: compositLensStyle
                 }} />
                 <LensBottom { ...{
+                    cursorOffset,
                     fadeDurationInMs,
                     smallImage,
-                    cursorOffset
+                    style: compositLensStyle,
                 }} />
                 <EnlargedImage { ...{
+                    containerStyle: enlargedImageContainerStyle,
+                    cursorOffset,
                     fadeDurationInMs,
+                    imageStyle: enlargedImageStyle,
                     largeImage,
                     smallImage,
-                    cursorOffset
                 }}/>
             </ReactHoverObserver>
         </ReactCursorPosition>
     );
 }
 
-export const Image = PropTypes.shape({
+export const ImageShape = PropTypes.shape({
     alt: PropTypes.string,
     src: PropTypes.string.isRequired,
     width: PropTypes.number.isRequired,
@@ -90,12 +102,16 @@ export const Image = PropTypes.shape({
 });
 
 ReactImageMagnify.propTypes = {
-    fadeDurationInMs: PropTypes.number,
     className: PropTypes.string,
+    enlargedImageContainerStyle: PropTypes.object,
+    enlargedImageStyle: PropTypes.object,
+    fadeDurationInMs: PropTypes.number,
     hoverDelayInMs: PropTypes.number,
     hoverOffDelayInMs: PropTypes.number,
-    largeImage: Image,
-    smallImage: Image,
+    imageStyle: PropTypes.object,
+    largeImage: ImageShape,
+    lensStyle: PropTypes.object,
+    smallImage: ImageShape,
     style: PropTypes.object
 };
 

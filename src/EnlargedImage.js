@@ -7,6 +7,13 @@ export const Point = PropTypes.shape({
     y: PropTypes.number.isRequired
 });
 
+export const ImageShape = PropTypes.shape({
+    alt: PropTypes.string,
+    src: PropTypes.string.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired
+});
+
 export default React.createClass({
 
     displayName: 'EnlargedImage',
@@ -29,14 +36,14 @@ export default React.createClass({
     propTypes: {
         containerClassName: PropTypes.string,
         containerStyle: PropTypes.object,
-        cursorOffset: Point.isRequired,
-        cursorPosition: Point.isRequired,
+        cursorOffset: Point,
+        cursorPosition: Point,
         fadeDurationInMs: PropTypes.number,
         imageClassName: PropTypes.string,
         imageStyle: PropTypes.object,
-        isHovering: PropTypes.bool.isRequired,
-        largeImage: Image,
-        smallImage: Image
+        isHovering: PropTypes.bool,
+        largeImage: ImageShape,
+        smallImage: ImageShape
     },
 
     componentWillReceiveProps(nextProps) {

@@ -2,25 +2,30 @@ import React from 'react';
 import clamp from 'lodash.clamp';
 import Lens from './Lens';
 
-export default ({
+const LensTop = ({
     cursorOffset,
     cursorPosition,
+    fadeDurationInMs,
     isHovering,
-    smallImage
+    smallImage,
+    style
 }) => {
 
     const maxHeight = smallImage.height - (cursorOffset.y * 2);
     const height = clamp(cursorPosition.y - cursorOffset.y, 0, maxHeight);
+    const computedStyle = {
+        height: `${height}px`,
+        width: '100%',
+        top: '0px'
+    };
 
     return (
         <Lens {...{
+            fadeDurationInMs,
             isHovering,
-            style: {
-                height: `${height}px`,
-                width: '100%',
-                backgroundColor: 'rgba(0,0,0,.4)',
-                top: '0px'
-            }
+            style: Object.assign({}, style, computedStyle)
         }}/>
     );
-}
+};
+
+export default LensTop;
