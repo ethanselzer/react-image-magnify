@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import ReactImageMagnify from '../../dist/ReactImageMagnify';
+import ReactImageMagnifyTouch from '../../dist/ReactImageMagnifyTouch';
 
 class App extends Component {
   render() {
@@ -15,6 +16,26 @@ class App extends Component {
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
         <ReactImageMagnify {...{
+          largeImage: {
+            alt: 'hello large image',
+            src: 'https://goo.gl/Bi9OCm',
+            width: 1200,
+            height: 672
+          },
+          smallImage: {
+            alt: 'hello small image',
+            src: 'https://goo.gl/Bi9OCm',
+            width: 300,
+            height: 168
+          }
+        }}/>
+
+        <ReactImageMagnifyTouch {...{
+          enlargedImageContainerStyle: {
+            left: '0px',
+            border: 'none',
+            margin: '0px'
+          },
           largeImage: {
             alt: 'hello large image',
             src: 'https://goo.gl/Bi9OCm',

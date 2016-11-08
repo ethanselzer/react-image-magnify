@@ -1,17 +1,23 @@
 # react-image-magnify
 
-A React component displaying side by side enlarged image view, with tinted control-image mask.
+A React component for desktop and touch environments.
 
-Intended for desktop, but will be updated with touch experience soon.
+Desktop displays a side by side enlarged image view, with tinted control-image mask.
+Supports delaying hover and hover-off, which may help reduce unintentional triggering.
+
+Touch displays an in place enlarged image view.
+Supports press to pan. Does not interfere with scrolling.
 
 Supports arbitrary image sizes. Scales magnification automatically.
 
-Supports delaying hover and hover-off, which can help reduce unintentional triggering.
-
 ## Demo
-[Basic demo](http://www.webpackbin.com/N18FshAaW)
+[Desktop](https://react-image-magnify-egeoxscwwk.now.sh/)
 
-See ReactImageMagnify.js tab.
+[Touch](https://goo.gl/A6DZog)
+
+<img src="./docs/qr-2.png?raw=true" alt="Touch Demo"/>
+
+https://goo.gl/A6DZog
 
 ## Installation
 
@@ -20,11 +26,33 @@ npm install --save react-image-magnify
 ```
 
 ## Usage
+### Desktop
 
 ```JSX
 import ReactImageMagnify from 'react-image-magnify';
 ...
 <ReactImageMagnify {...{
+    largeImage: {
+        alt: 'large image description goes here',
+        src: 'https://example.com/large/image.jpg',
+        width: 1200,
+        height: 1800
+    },
+    smallImage: {
+        alt: 'small image description goes here',
+        src: 'https://example.com/small/image.jpg',
+        width: 400,
+        height: 600
+    }
+}}/>
+...
+```
+### Touch
+
+```JavaScript
+import ReactImageMagnifyTouch from 'react-image-magnify';
+...
+<ReactImageMagnifyTouch {...{
     largeImage: {
         alt: 'large image description goes here',
         src: 'https://example.com/large/image.jpg',
@@ -53,7 +81,7 @@ import ReactImageMagnify from 'react-image-magnify';
 | `hoverOffDelayInMs`           | Number | No       | 150     | Milliseconds to delay hover-off trigger.                   |
 | `fadeDurationInMs`            | Number | No       | 300     | Milliseconds duration of magnified image fade in/fade out. |
 | `imageStyle`                  | Object | No       |         | Style applied to small image element.                      |
-| `lensStyle`                   | Object | No       |         | Style applied to tinted lens element.                      |
+| `lensStyle`                   | Object | No       |         | Style applied to tinted lens element. Desktop only         |
 | `enlargedImageContainerStyle` | Object | No       |         | Style applied to enlarged image container element.         |
 | `enlargedImageStyle`          | Object | No       |         | Style applied to enlarged image element.                   |
 
