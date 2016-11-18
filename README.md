@@ -19,6 +19,12 @@ Supports arbitrary image sizes. Scales magnification automatically.
 
 https://goo.gl/A6DZog
 
+
+## Status
+[![CircleCI](https://circleci.com/gh/ethanselzer/react-image-magnify.svg?style=svg)](https://circleci.com/gh/ethanselzer/react-image-magnify)
+
+[![npm](https://nodei.co/npm/react-image-magnify.svg?downloads=true)](https://nodei.co/npm/react-image-magnify/)
+
 ## Installation
 
 ```sh
