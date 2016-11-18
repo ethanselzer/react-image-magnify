@@ -12,11 +12,11 @@ const ReactImageMagnify = ({
     enlargedImageContainerStyle,
     enlargedImageStyle,
     fadeDurationInMs,
-    hoverDelayInMs,
-    hoverOffDelayInMs,
+    isActivatedOnTouch,
     imageStyle,
     largeImage,
-    lensStyle,
+    pressDuration,
+    pressMoveThreshold,
     smallImage,
     style
 }) => {
@@ -29,6 +29,9 @@ const ReactImageMagnify = ({
     return (
         <ReactTouchPosition { ...{
             className,
+            isActivatedOnTouch,
+            pressDuration,
+            pressMoveThreshold,
             style: Object.assign({
                 width: `${smallImage.width}px`,
                 height: `${smallImage.height}px`,
@@ -70,20 +73,19 @@ ReactImageMagnify.propTypes = {
     className: PropTypes.string,
     enlargedImageContainerStyle: PropTypes.object,
     enlargedImageStyle: PropTypes.object,
-    fadeDurationInMs: PropTypes.number,
-    hoverDelayInMs: PropTypes.number,
-    hoverOffDelayInMs: PropTypes.number,
+    isActivatedOnTouch: PropTypes.bool,
     imageStyle: PropTypes.object,
     largeImage: ImageShape,
-    lensStyle: PropTypes.object,
+    pressDuration: PropTypes.number,
+    pressMoveThreshold: PropTypes.number,
     smallImage: ImageShape,
     style: PropTypes.object
 };
 
 ReactImageMagnify.defaultProps = {
-    fadeDurationInMs: 300,
-    hoverDelayInMs: 250,
-    hoverOffDelayInMs: 150
+    isActivatedOnTouch: false,
+    pressDuration: 100,
+    pressMoveThreshold: 5
 };
 
 export default ReactImageMagnify;

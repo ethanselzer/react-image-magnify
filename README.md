@@ -1,6 +1,6 @@
 # react-image-magnify
 
-A React component for desktop and touch environments.
+A React image magnification component for desktop and touch.
 
 Desktop displays a side by side enlarged image view, with tinted control-image mask.
 Supports delaying hover and hover-off, which may help reduce unintentional triggering.
@@ -71,19 +71,31 @@ import ReactImageMagnifyTouch from 'react-image-magnify';
 
 ## Props API
 
+### Desktop and Touch
 | Prop                          | Type   | Required | Default | Description                                                |
 |-------------------------------|--------|----------|---------|------------------------------------------------------------|
 | `smallImage`                  | Object | Yes      |         | Small image information. See `Image Struct` below.         |
 | `largeImage`                  | Object | Yes      |         | Large image information. See `Image Struct` below.         |
 | `className`                   | String | No       |         | CSS class applied to root container element.               |
 | `style`                       | Object | No       |         | Style applied to root container element.                   |
-| `hoverDelayInMs`              | Number | No       | 250     | Milliseconds to delay hover trigger.                       |
-| `hoverOffDelayInMs`           | Number | No       | 150     | Milliseconds to delay hover-off trigger.                   |
 | `fadeDurationInMs`            | Number | No       | 300     | Milliseconds duration of magnified image fade in/fade out. |
 | `imageStyle`                  | Object | No       |         | Style applied to small image element.                      |
-| `lensStyle`                   | Object | No       |         | Style applied to tinted lens element. Desktop only         |
 | `enlargedImageContainerStyle` | Object | No       |         | Style applied to enlarged image container element.         |
 | `enlargedImageStyle`          | Object | No       |         | Style applied to enlarged image element.                   |
+
+### Desktop Only
+| Prop                          | Type   | Required | Default | Description                                                |
+|-------------------------------|--------|----------|---------|------------------------------------------------------------|
+| `hoverDelayInMs`              | Number | No       | 250     | Milliseconds to delay hover trigger.                       |
+| `hoverOffDelayInMs`           | Number | No       | 150     | Milliseconds to delay hover-off trigger.                   |
+| `lensStyle`                   | Object | No       |         | Style applied to tinted lens.                      |
+
+### Touch Only
+| Prop                          | Type   | Required | Default | Description                                                |
+|-------------------------------|--------|----------|---------|------------------------------------------------------------|
+| `isActivatedOnTouch`          | Boolean| No       | false   | Activate magnification immediately on touch.               |
+| `pressDuration`               | Number | No       | 500     | Milliseconds to delay press activation (long touch).       |
+| `pressMoveThreshold`          | Number | No       | 5       | Pixels of movement allowed during press activation         |
 
 ### Image Struct
 ```
