@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Head from 'next/head';
 import ReactImageMagnifyTouch from '../src/ReactImageMagnifyTouch';
 
 class App extends Component {
@@ -24,6 +25,10 @@ class App extends Component {
     render() {
         return (
             <div>
+                <Head>
+                    <title>React Image Magnify Touch</title>
+                    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+                </Head>
                 <ReactImageMagnifyTouch {...{
                     style: {
                         margin: '20px auto 0'
@@ -33,6 +38,7 @@ class App extends Component {
                         border: 'none',
                         margin: '0px'
                     },
+                    fadeDurationInMs: 500,
                     largeImage: {
                         alt: 'Wrist watch face',
                         src: 'static/large-a.jpg',
@@ -42,12 +48,12 @@ class App extends Component {
                     smallImage: {
                         alt: 'Wrist watch face',
                         src: 'static/large-a.jpg',
-                        width: 400,
-                        height: 600
+                        width: 300,
+                        height: 450
                     }
                 }} />
                 <div style={{
-                    width: '400px',
+                    width: '300px',
                     height: '2000px',
                     margin: '0 auto',
                     font: '22px Arial'
