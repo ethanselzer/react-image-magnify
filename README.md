@@ -11,11 +11,11 @@ Supports press to pan. Does not interfere with scrolling.
 Supports arbitrary image sizes. Scales magnification automatically.
 
 ## Demo
-[Desktop](https://react-image-magnify-egeoxscwwk.now.sh/)
+[Desktop](https://goo.gl/YLldFQ)
 
-[Touch](https://goo.gl/A6DZog)
+[Touch](https://goo.gl/mxGybY)
 
-<img src="./docs/qr-2.png?raw=true" alt="Touch Demo"/>
+<img src="./docs/qr.png?raw=true" alt="Touch Demo"/>
 
 https://goo.gl/A6DZog
 
