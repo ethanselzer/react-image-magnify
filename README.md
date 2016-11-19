@@ -2,13 +2,13 @@
 
 A React image magnification component for desktop and touch.
 
-Desktop displays a side by side enlarged image view, with tinted control-image mask.
-Supports delaying hover and hover-off, which may help reduce unintentional triggering.
+Supports arbitrary image sizes and fade-transitions. Scales magnification automatically.
 
-Touch displays an in place enlarged image view.
+Desktop displays side by side enlarged image view, with tinted control-image mask.
+Supports hover intent.
+
+Touch displays in place enlarged image view.
 Supports press to pan. Does not interfere with scrolling.
-
-Supports arbitrary image sizes. Scales magnification automatically.
 
 ## Demo
 [Desktop](https://goo.gl/YLldFQ)
