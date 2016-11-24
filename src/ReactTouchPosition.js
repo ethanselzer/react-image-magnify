@@ -3,7 +3,6 @@ import React, {
     cloneElement,
     PropTypes
 } from 'react';
-import assign from 'lodash.assign';
 import noop from 'lodash.noop';
 import omit from 'lodash.omit';
 
@@ -13,9 +12,9 @@ export default React.createClass({
 
     getInitialState() {
         return {
-            isHovering: false,
+            isActive: false,
             isTouchOutside: false,
-            cursorPosition: {
+            touchPosition: {
                 x: 0,
                 y: 0
             }
@@ -23,10 +22,13 @@ export default React.createClass({
     },
 
     propTypes: {
+        children: PropTypes.any,
         className: PropTypes.string,
         isActivatedOnTouch: PropTypes.bool,
+        mapPropNames: PropTypes.func,
         onActivationChanged: PropTypes.func,
         onPositionChanged: PropTypes.func,
+        onTouchOutside: PropTypes.func,
         pressDuration: PropTypes.number,
         pressMoveThreshold: PropTypes.number,
         shouldDecorateChildren: PropTypes.bool,
@@ -36,6 +38,9 @@ export default React.createClass({
     getDefaultProps() {
         return {
             isActivatedOnTouch: false,
+            mapPropNames: ({ isActive, isTouchOutside, touchPosition }) => {
+                return arguments[0];
+            },
             onActivationChanged: noop,
             onPositionChanged: noop,
             pressDuration: 500,
@@ -52,7 +57,7 @@ export default React.createClass({
             e.preventDefault();
 
             this.setState({
-                isHovering: true
+                isActive: true
             });
 
             return;
@@ -66,7 +71,7 @@ export default React.createClass({
     onTouchMove(e) {
         this.setPressEventCriteria(e.touches[0]);
 
-        if (!this.state.isHovering) {
+        if (!this.state.isActive) {
             return;
         }
 
@@ -75,43 +80,43 @@ export default React.createClass({
         e.preventDefault();
     },
 
-    onTouchEnd() {
+    unsetIsActive() {
         this.clearTimers();
 
         this.setState({
-            isHovering: false,
+            isActive: false,
             isTouchOutside: false
         });
 
-        this.props.onActivationChanged({ isHovering: false });
+        this.props.onActivationChanged({ isActive: false });
     },
 
     setPosition(e) {
         const viewportRelativeTouchPosition = this.getViewportRelativeTouchPosition(e);
         const elementOffsetRect = this.elementOffsetRect;
-        const cursorPosition = this.getElementRelativeTouchPosition(viewportRelativeTouchPosition, elementOffsetRect);
+        const touchPosition = this.getElementRelativeTouchPosition(viewportRelativeTouchPosition, elementOffsetRect);
         const isPositionOutside = this.getIsPositionOutside(viewportRelativeTouchPosition, elementOffsetRect);
 
         this.setState({
-            cursorPosition,
+            touchPosition,
             isPositionOutside
         });
 
-        this.props.onPositionChanged(Object.assign({ isPositionOutside }, cursorPosition));
+        this.props.onPositionChanged(Object.assign({ isPositionOutside }, touchPosition));
     },
 
     setPressEventTimer() {
         this.pressDurationTimerId = setTimeout(() => {
             if (Math.abs(this.currentElTop - this.initialElTop) < this.props.pressMoveThreshold) {
-                this.setState({ isHovering: true });
-                this.props.onActivationChanged({ isHovering: true });
+                this.setState({ isActive: true });
+                this.props.onActivationChanged({ isActive: true });
             }
         }, this.props.pressDuration);
     },
 
     setPressEventCriteria(touch) {
         if (!this.props.isActivatedOnTouch) {
-            if (!this.state.isHovering) {
+            if (!this.state.isActive) {
                 this.currentElTop = touch.clientY;
             } else {
                 this.initialElTop = touch.clientY;
@@ -175,7 +180,7 @@ export default React.createClass({
         return cloneElement(child, props);
     },
 
-    renderChildrenWithProps(children, props) {
+    decorateChildren(children, props) {
         return Children.map(children, (child) => {
             return this.shouldDecorateChild(child) ? this.decorateChild(child, props) : child;
         });
@@ -189,41 +194,36 @@ export default React.createClass({
         this.clearTimers();
     },
 
+    getPassThroughProps() {
+        const ownPropNames = Object.keys(this.constructor.propTypes);
+        return omit(this.props, ownPropNames)
+    },
+
     render() {
-        const { children, className, style } = this.props;
-        const { isHovering, isTouchOutside, cursorPosition } = this.state;
-        const childProps = assign(
+        const { children, className, mapPropNames, style } = this.props;
+        const { isActive, isTouchOutside, touchPosition } = this.state;
+        const props = Object.assign(
             {},
-            {
-                isHovering,
+            mapPropNames({
+                isActive,
                 isTouchOutside,
-                cursorPosition
-            },
-            omit(this.props, [
-                'children',
-                'className',
-                'isActivatedOnTouch',
-                'onActivationChanged',
-                'onPositionChanged',
-                'onTouchOutside',
-                'pressDuration',
-                'pressMoveThreshold',
-                'shouldDecorateChildren',
-                'style'
-            ])
+                touchPosition
+            }),
+            this.getPassThroughProps()
         );
 
         return (
             <div { ...{
                 onTouchStart: this.onTouchStart,
                 onTouchMove: this.onTouchMove,
-                onTouchEnd: this.onTouchEnd,
+                onTouchEnd: this.unsetIsActive,
+                onTouchCancel: this.unsetIsActive,
                 className,
                 style: Object.assign({}, style, {
                     WebkitUserSelect: 'none'
                 })
             }}>
-                { this.renderChildrenWithProps(children, childProps) }
+                { this.decorateChildren(children, props) }
             </div>
         );
     }
