@@ -49,6 +49,10 @@ export default React.createClass({
     componentWillReceiveProps(nextProps) {
         const { isHovering } = nextProps;
 
+        if (isHovering === this.props.isHovering) {
+            return;
+        }
+
         if (isHovering) {
             this.setState({
                 isTransitionEntering: true
@@ -68,8 +72,7 @@ export default React.createClass({
 
             setTimeout(() => {
                 this.setState({
-                    isTransitionLeaving: false,
-                    isTransitionDone: true
+                    isTransitionLeaving: false
                 });
             }, this.props.fadeDurationInMs);
         }
