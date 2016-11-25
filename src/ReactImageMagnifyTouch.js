@@ -1,13 +1,8 @@
 import React, { PropTypes } from 'react';
-import ReactHoverObserver from 'react-hover-observer';
 import ReactTouchPosition from './ReactTouchPosition';
-import LensTop from './LensTop';
-import LensLeft from './LensLeft';
-import LensRight from './LensRight';
-import LensBottom from './LensBottom';
 import EnlargedImage from './EnlargedImage';
 
-const ReactImageMagnify = ({
+const ReactImageMagnifyTouch = ({
     className,
     enlargedImageContainerStyle,
     enlargedImageStyle,
@@ -30,6 +25,11 @@ const ReactImageMagnify = ({
         <ReactTouchPosition { ...{
             className,
             isActivatedOnTouch,
+            mapPropNames: ({ isActive, isTouchOutside, touchPosition }) => ({
+                isHovering: isActive,
+                isTouchOutside,
+                cursorPosition: touchPosition
+            }),
             pressDuration,
             pressMoveThreshold,
             style: Object.assign({
@@ -69,10 +69,11 @@ export const ImageShape = PropTypes.shape({
     height: PropTypes.number.isRequired
 });
 
-ReactImageMagnify.propTypes = {
+ReactImageMagnifyTouch.propTypes = {
     className: PropTypes.string,
     enlargedImageContainerStyle: PropTypes.object,
     enlargedImageStyle: PropTypes.object,
+    fadeDurationInMs: PropTypes.number,
     isActivatedOnTouch: PropTypes.bool,
     imageStyle: PropTypes.object,
     largeImage: ImageShape,
@@ -82,10 +83,8 @@ ReactImageMagnify.propTypes = {
     style: PropTypes.object
 };
 
-ReactImageMagnify.defaultProps = {
-    isActivatedOnTouch: false,
-    pressDuration: 100,
-    pressMoveThreshold: 5
+ReactImageMagnifyTouch.defaultProps = {
+    fadeDurationInMs: 500
 };
 
-export default ReactImageMagnify;
+export default ReactImageMagnifyTouch;
