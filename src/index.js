@@ -1,7 +1,7 @@
 import ReactImageMagnify from './ReactImageMagnify';
 import ReactImageMagnifyTouch from './ReactImageMagnifyTouch';
 
-export default {
+export {
     ReactImageMagnify,
     ReactImageMagnifyTouch
 }
