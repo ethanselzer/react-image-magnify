@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import ReactImageMagnify from '../../../dist/ReactImageMagnify';
+import { ReactImageMagnify } from '../../../dist';
 
 class App extends Component {
     render() {

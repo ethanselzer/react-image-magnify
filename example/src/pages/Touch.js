@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import ReactImageMagnifyTouch from '../../../dist/ReactImageMagnifyTouch';
+import { ReactImageMagnifyTouch } from '../../../dist';
 
 class App extends Component {
     render() {
