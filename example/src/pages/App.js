@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import ReactImageMagnify from '../../../dist/ReactImageMagnify';
 
@@ -7,26 +6,27 @@ class App extends Component {
     render() {
         return (
             <div className="App">
-                <div className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h2>React Image Magnify</h2>
+                <div style={{
+                    width: '400px',
+                    margin: '20px 0 10px',
+                    font: '21px Arial',
+                    textAlign: 'center'
+                }}>
+                    Hover image to magnify
                 </div>
                 <div className="App-body">
-                    <p className="App-intro">
-                        Roll over image to enlarge.
-                    </p>
                   <ReactImageMagnify {...{
                       largeImage: {
-                          alt: 'hello large image',
-                          src: 'https://goo.gl/Bi9OCm',
+                          alt: 'Enlarged product image',
+                          src: 'large-a.jpg',
                           width: 1200,
-                          height: 672
+                          height: 1800
                       },
                       smallImage: {
-                          alt: 'hello small image',
-                          src: 'https://goo.gl/Bi9OCm',
+                          alt: 'Product image',
+                          src: 'large-a.jpg',
                           width: 300,
-                          height: 168
+                          height: 450
                       }
                   }} />
                 </div>
