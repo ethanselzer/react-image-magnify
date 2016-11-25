@@ -12,6 +12,6 @@
   },
   "dependencies": {
     "next": "^1.1.0",
-    "react-image-magnify": "^1.4.0"
+    "react-image-magnify": "^1.4.1"
   }
 }

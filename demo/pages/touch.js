@@ -33,15 +33,14 @@ class App extends Component {
                     smallImage: {
                         alt: 'Wrist watch face',
                         src: 'static/large-a.jpg',
-                        width: 300,
-                        height: 450
+                        width: 250,
+                        height: 375
                     }
                 }} />
                 <div style={{
-                    width: '300px',
-                    height: '2000px',
-                    margin: '0 auto',
-                    font: '22px Arial'
+                    margin: '0 20px',
+                    height: '500px',
+                    font: '16px Arial'
                 }}>
                     <p>Press (long touch) image to magnify. Pan (drag) to traverse image.</p>
                     <p>Note the page can be scrolled when touch begins on image.</p>
