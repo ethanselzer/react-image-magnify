@@ -13,7 +13,7 @@ Supports press to pan. Does not interfere with scrolling.
 ## Demo
 [Desktop](https://goo.gl/5gS1L5)
 
-[Touch](https://goo.gl/L1FlFg)
+[Touch](https://goo.gl/kyRELs)
 
 <img src="./docs/qr.png?raw=true" alt="Touch Demo"/>
 
