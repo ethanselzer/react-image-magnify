@@ -1,25 +1,10 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
-import ReactImageMagnifyTouch from '../src/ReactImageMagnifyTouch';
+import { ReactImageMagnifyTouch } from 'react-image-magnify';
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            imageWidth: 0,
-            imageHeight: 0
-        };
-    }
-
-    componentDidMount() {
-        const rect = document.documentElement.getBoundingClientRect();
-        const screenWidth = rect.width;
-        const imageWidth = screenWidth - 300;
-
-        this.setState({
-            imageWidth,
-            imageHeight: imageWidth + (imageWidth / 2)
-        });
     }
 
     render() {

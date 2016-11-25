@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Head from 'next/head';
-import ReactImageMagnify from '../src/ReactImageMagnify';
+import { ReactImageMagnify } from 'react-image-magnify'
 
 class App extends Component {
     render() {
