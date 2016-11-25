@@ -33,8 +33,8 @@ class App extends Component {
                     smallImage: {
                         alt: 'Wrist watch face',
                         src: 'static/large-a.jpg',
-                        width: 250,
-                        height: 375
+                        width: 300,
+                        height: 450
                     }
                 }} />
                 <div style={{

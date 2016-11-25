@@ -29,7 +29,8 @@ export default React.createClass({
 
     getDefaultProps() {
         return {
-            fadeDurationInMs: 0
+            fadeDurationInMs: 0,
+            isRenderOnDemand: true
         };
     },
 
@@ -42,6 +43,7 @@ export default React.createClass({
         imageClassName: PropTypes.string,
         imageStyle: PropTypes.object,
         isHovering: PropTypes.bool,
+        isRenderOnDemand: PropTypes.bool,
         largeImage: ImageShape,
         smallImage: ImageShape
     },
@@ -87,7 +89,7 @@ export default React.createClass({
             fadeDurationInMs,
             imageClassName,
             imageStyle,
-            isHovering,
+            isRenderOnDemand,
             largeImage,
             smallImage,
         } = this.props;
@@ -168,6 +170,10 @@ export default React.createClass({
             </div>
         );
 
-        return isVisible ? component : null;
+        if (isRenderOnDemand) {
+            return isVisible ? component : null;
+        }
+
+        return component;
     }
 });

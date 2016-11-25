@@ -61,6 +61,7 @@ describe('Enlarged Image', () => {
             imageClassName: PropTypes.string,
             imageStyle: PropTypes.object,
             isHovering: PropTypes.bool,
+            isRenderOnDemand: PropTypes.bool,
             largeImage: ImageShape,
             smallImage: ImageShape
         });
@@ -68,7 +69,8 @@ describe('Enlarged Image', () => {
 
     it('has correct default props', () => {
         expect(shallowWrapper.instance().constructor.getDefaultProps()).to.deep.equal({
-            fadeDurationInMs: 0
+            fadeDurationInMs: 0,
+            isRenderOnDemand: true
         });
     });
 

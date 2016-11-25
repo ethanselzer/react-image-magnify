@@ -55,6 +55,7 @@ const ReactImageMagnifyTouch = ({
                     enlargedImageStyle,
                     { pointerEvents: 'none' }
                 ),
+                isRenderOnDemand: false,
                 largeImage,
                 smallImage,
             }}/>
