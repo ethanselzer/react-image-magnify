@@ -32,17 +32,17 @@ npm install --save react-image-magnify
 ### Desktop
 
 ```JSX
-import ReactImageMagnify from 'react-image-magnify';
+import { ReactImageMagnify } from 'react-image-magnify';
 ...
 <ReactImageMagnify {...{
     largeImage: {
-        alt: 'large image description goes here',
+        alt: 'Example description',
         src: 'https://example.com/large/image.jpg',
         width: 1200,
         height: 1800
     },
     smallImage: {
-        alt: 'small image description goes here',
+        alt: 'Example description',
         src: 'https://example.com/small/image.jpg',
         width: 400,
         height: 600
@@ -53,17 +53,17 @@ import ReactImageMagnify from 'react-image-magnify';
 ### Touch
 
 ```JavaScript
-import ReactImageMagnifyTouch from 'react-image-magnify';
+import { ReactImageMagnifyTouch } from 'react-image-magnify';
 ...
 <ReactImageMagnifyTouch {...{
     largeImage: {
-        alt: 'large image description goes here',
+        alt: 'Example description',
         src: 'https://example.com/large/image.jpg',
         width: 1200,
         height: 1800
     },
     smallImage: {
-        alt: 'small image description goes here',
+        alt: 'Example description',
         src: 'https://example.com/small/image.jpg',
         width: 400,
         height: 600
@@ -96,9 +96,9 @@ import ReactImageMagnifyTouch from 'react-image-magnify';
 ### Touch Only
 | Prop                          | Type   | Required | Default | Description                                                |
 |-------------------------------|--------|----------|---------|------------------------------------------------------------|
-| `isActivatedOnTouch`          | Boolean| No       | false   | Activate magnification immediately on touch.               |
+| `isActivatedOnTouch`          | Boolean| No       | false   | Activate magnification immediately on touch. May impact scrolling.|
 | `pressDuration`               | Number | No       | 500     | Milliseconds to delay press activation (long touch).       |
-| `pressMoveThreshold`          | Number | No       | 5       | Pixels of movement allowed during press activation         |
+| `pressMoveThreshold`          | Number | No       | 5       | Pixels of movement allowed during press activation.        |
 
 ### Image Struct
 ```

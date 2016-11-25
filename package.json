@@ -34,7 +34,7 @@
     "magnify",
     "enlarge"
   ],
-  "main": "dist/ReactImageMagnify.js",
+  "main": "dist/index.js",
   "files": [
     "dist"
   ],
