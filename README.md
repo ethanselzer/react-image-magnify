@@ -11,7 +11,7 @@ Touch displays in place enlarged image view.
 Supports press to pan. Does not interfere with scrolling.
 
 ## Demo
-[Desktop](https://goo.gl/5gS1L5)
+[Desktop](https://goo.gl/R7snea)
 
 [Touch](https://goo.gl/kyRELs)
 
