@@ -77,6 +77,7 @@
     "lodash.assign": "^4.2.0",
     "lodash.clamp": "^4.0.3",
     "react-cursor-position": "^1.1.0",
-    "react-hover-observer": "^1.1.0"
+    "react-hover-observer": "^1.1.0",
+    "react-touch-position": "^1.0.2"
   }
 }

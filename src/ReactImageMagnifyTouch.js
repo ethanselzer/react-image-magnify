@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import ReactTouchPosition from './ReactTouchPosition';
+import ReactTouchPosition from 'react-touch-position';
 import EnlargedImage from './EnlargedImage';
 
 const ReactImageMagnifyTouch = ({
