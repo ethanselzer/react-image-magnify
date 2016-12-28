@@ -15,7 +15,7 @@ Supports press to pan. Does not interfere with scrolling.
 
 [Touch](https://goo.gl/kyRELs)
 
-<img src="./docs/qr.png?raw=true" alt="Touch Demo"/>
+<img src="https://raw.githubusercontent.com/ethanselzer/react-image-magnify/master/docs/qr.png" width="150" height="150" alt="Touch Demo"/>
 
 ## Status
 [![CircleCI](https://circleci.com/gh/ethanselzer/react-image-magnify.svg?style=svg)](https://circleci.com/gh/ethanselzer/react-image-magnify)
