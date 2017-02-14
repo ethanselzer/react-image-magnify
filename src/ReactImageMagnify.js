@@ -10,6 +10,7 @@ import EnlargedImage from './EnlargedImage';
 const ReactImageMagnify = ({
     className,
     enlargedImageContainerStyle,
+    enlargedImageClassName,
     enlargedImageStyle,
     fadeDurationInMs,
     hoverDelayInMs,
@@ -85,6 +86,7 @@ const ReactImageMagnify = ({
                     containerStyle: enlargedImageContainerStyle,
                     cursorOffset,
                     fadeDurationInMs,
+                    imageClassName: enlargedImageClassName,
                     imageStyle: enlargedImageStyle,
                     largeImage,
                     smallImage,
@@ -104,6 +106,7 @@ export const ImageShape = PropTypes.shape({
 ReactImageMagnify.propTypes = {
     className: PropTypes.string,
     enlargedImageContainerStyle: PropTypes.object,
+    enlargedImageClassName: PropTypes.string,
     enlargedImageStyle: PropTypes.object,
     fadeDurationInMs: PropTypes.number,
     hoverDelayInMs: PropTypes.number,

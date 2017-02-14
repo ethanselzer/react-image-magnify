@@ -35,6 +35,7 @@ describe('React Image Magnify', () => {
         expect(ReactImageMagnify.propTypes).to.deep.equal({
             className: PropTypes.string,
             enlargedImageContainerStyle: PropTypes.object,
+            enlargedImageClassName: PropTypes.string,
             enlargedImageStyle: PropTypes.object,
             fadeDurationInMs: PropTypes.number,
             hoverDelayInMs: PropTypes.number,
@@ -127,6 +128,12 @@ describe('React Image Magnify', () => {
             shallowWrapper.setProps({ enlargedImageContainerStyle: style });
 
             expect(shallowWrapper.find('EnlargedImage').props().containerStyle).to.equal(style);
+        });
+
+        it('applies enlargedImageClassName to EnlargedImage component', () => {
+            shallowWrapper.setProps({ enlargedImageClassName: 'bar' });
+
+            expect(shallowWrapper.find('EnlargedImage').props().imageClassName).to.equal('bar');
         });
 
         it('applies enlargedImageStyle to EnlargedImage component', () => {

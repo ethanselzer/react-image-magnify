@@ -84,6 +84,7 @@ import { ReactImageMagnifyTouch } from 'react-image-magnify';
 | `fadeDurationInMs`            | Number | No       | 300     | Milliseconds duration of magnified image fade in/fade out. |
 | `imageStyle`                  | Object | No       |         | Style applied to small image element.                      |
 | `enlargedImageContainerStyle` | Object | No       |         | Style applied to enlarged image container element.         |
+| `enlargedImageClassName`      | String | No       |         | CSS class applied to enlarged image element.               |
 | `enlargedImageStyle`          | Object | No       |         | Style applied to enlarged image element.                   |
 
 ### Desktop Only
