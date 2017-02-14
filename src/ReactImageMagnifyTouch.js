@@ -5,9 +5,11 @@ import EnlargedImage from './EnlargedImage';
 const ReactImageMagnifyTouch = ({
     className,
     enlargedImageContainerStyle,
+    enlargedImageClassName,
     enlargedImageStyle,
     fadeDurationInMs,
     isActivatedOnTouch,
+    imageClassName,
     imageStyle,
     largeImage,
     pressDuration,
@@ -41,6 +43,7 @@ const ReactImageMagnifyTouch = ({
             <img { ...{
                 src: smallImage.src,
                 alt: smallImage.alt,
+                className: imageClassName,
                 style: Object.assign({
                     width: `${smallImage.width}px`,
                     height: `${smallImage.height}px`,
@@ -51,6 +54,7 @@ const ReactImageMagnifyTouch = ({
                 containerStyle: enlargedImageContainerStyle,
                 cursorOffset,
                 fadeDurationInMs,
+                imageClassName: enlargedImageClassName,
                 imageStyle: Object.assign({},
                     enlargedImageStyle,
                     { pointerEvents: 'none' }
@@ -66,6 +70,7 @@ const ReactImageMagnifyTouch = ({
 export const ImageShape = PropTypes.shape({
     alt: PropTypes.string,
     src: PropTypes.string.isRequired,
+    srcSet: PropTypes.string,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired
 });
@@ -73,9 +78,11 @@ export const ImageShape = PropTypes.shape({
 ReactImageMagnifyTouch.propTypes = {
     className: PropTypes.string,
     enlargedImageContainerStyle: PropTypes.object,
+    enlargedImageClassName: PropTypes.string,
     enlargedImageStyle: PropTypes.object,
     fadeDurationInMs: PropTypes.number,
     isActivatedOnTouch: PropTypes.bool,
+    imageClassName: PropTypes.string,
     imageStyle: PropTypes.object,
     largeImage: ImageShape,
     pressDuration: PropTypes.number,

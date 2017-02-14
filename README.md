@@ -82,8 +82,10 @@ import { ReactImageMagnifyTouch } from 'react-image-magnify';
 | `className`                   | String | No       |         | CSS class applied to root container element.               |
 | `style`                       | Object | No       |         | Style applied to root container element.                   |
 | `fadeDurationInMs`            | Number | No       | 300     | Milliseconds duration of magnified image fade in/fade out. |
+| `imageClassName`              | String | No       |         | CSS class applied to small image element.                  |
 | `imageStyle`                  | Object | No       |         | Style applied to small image element.                      |
 | `enlargedImageContainerStyle` | Object | No       |         | Style applied to enlarged image container element.         |
+| `enlargedImageClassName`      | String | No       |         | CSS class applied to enlarged image element.               |
 | `enlargedImageStyle`          | Object | No       |         | Style applied to enlarged image element.                   |
 
 ### Desktop Only
@@ -105,6 +107,7 @@ import { ReactImageMagnifyTouch } from 'react-image-magnify';
 {
     alt: String,
     src: String,
+    srcSet: String,
     width: Number,
     height: Number
 }
