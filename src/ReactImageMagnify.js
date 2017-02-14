@@ -15,6 +15,7 @@ const ReactImageMagnify = ({
     fadeDurationInMs,
     hoverDelayInMs,
     hoverOffDelayInMs,
+    imageClassName,
     imageStyle,
     largeImage,
     lensStyle,
@@ -53,6 +54,7 @@ const ReactImageMagnify = ({
                 <img { ...{
                     src: smallImage.src,
                     alt: smallImage.alt,
+                    className: imageClassName,
                     style: Object.assign({
                         width: `${smallImage.width}px`,
                         height: `${smallImage.height}px`
@@ -111,6 +113,7 @@ ReactImageMagnify.propTypes = {
     fadeDurationInMs: PropTypes.number,
     hoverDelayInMs: PropTypes.number,
     hoverOffDelayInMs: PropTypes.number,
+    imageClassName: PropTypes.string,
     imageStyle: PropTypes.object,
     largeImage: ImageShape,
     lensStyle: PropTypes.object,

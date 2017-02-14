@@ -40,6 +40,7 @@ describe('React Image Magnify', () => {
             fadeDurationInMs: PropTypes.number,
             hoverDelayInMs: PropTypes.number,
             hoverOffDelayInMs: PropTypes.number,
+            imageClassName: PropTypes.string,
             imageStyle: PropTypes.object,
             largeImage: ImageShape,
             lensStyle: PropTypes.object,
@@ -80,6 +81,13 @@ describe('React Image Magnify', () => {
             shallowWrapper.setProps({ hoverOffDelayInMs: 2 });
 
             expect(shallowWrapper.find('ReactHoverObserver').props().hoverOffDelayInMs).to.equal(2);
+        });
+
+        it('applies imageClassName to small image element', () => {
+            shallowWrapper.setProps({ imageClassName: 'baz' });
+
+            // expect(shallowWrapper.find('img').props().imageClassName).to.equal('baz');
+            expect(shallowWrapper.find('img').hasClass('baz')).to.be.true;
         });
 
         it('applies imageStyle to small image element', () => {
