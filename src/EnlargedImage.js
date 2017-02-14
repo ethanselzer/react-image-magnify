@@ -10,6 +10,7 @@ export const Point = PropTypes.shape({
 export const ImageShape = PropTypes.shape({
     alt: PropTypes.string,
     src: PropTypes.string.isRequired,
+    srcSet: PropTypes.string,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired
 });
@@ -154,7 +155,7 @@ export default React.createClass({
             WebkitTransform: translate,
             msTransform: translate
         };
-
+        
         const component = (
             <div { ...{
                 className: containerClassName,
@@ -165,11 +166,12 @@ export default React.createClass({
                     alt: largeImage.alt,
                     className: imageClassName,
                     src: largeImage.src,
+                    srcSet: largeImage.srcSet,
                     style: Object.assign({}, imageStyle, computedImageStyle)
                 }}/>
             </div>
         );
-
+        
         if (isRenderOnDemand) {
             return isVisible ? component : null;
         }

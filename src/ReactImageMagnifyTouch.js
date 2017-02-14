@@ -70,6 +70,7 @@ const ReactImageMagnifyTouch = ({
 export const ImageShape = PropTypes.shape({
     alt: PropTypes.string,
     src: PropTypes.string.isRequired,
+    srcSet: PropTypes.string,
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired
 });

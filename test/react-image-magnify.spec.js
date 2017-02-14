@@ -8,6 +8,7 @@ describe('React Image Magnify', () => {
     const smallImage = {
         alt: 'baz',
         src: 'qux',
+        srcSet: 'quux',
         width: 3,
         height: 4
     };
@@ -15,6 +16,7 @@ describe('React Image Magnify', () => {
     const largeImage = {
         alt: 'foo',
         src: 'bar',
+        srcSet: 'corge',
         width: 12,
         height: 16
     };
@@ -99,6 +101,7 @@ describe('React Image Magnify', () => {
         it('applies smallImage to small image element', () => {
             expect(shallowWrapper.find('img').props().alt).to.equal(smallImage.alt);
             expect(shallowWrapper.find('img').props().src).to.equal(smallImage.src);
+            expect(shallowWrapper.find('img').props().srcSet).to.equal(smallImage.srcSet);
             expect(shallowWrapper.find('img').props().style.width).to.equal(smallImage.width + 'px');
             expect(shallowWrapper.find('img').props().style.height).to.equal(smallImage.height + 'px');
         });

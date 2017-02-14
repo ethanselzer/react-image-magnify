@@ -107,6 +107,7 @@ import { ReactImageMagnifyTouch } from 'react-image-magnify';
 {
     alt: String,
     src: String,
+    srcSet: String,
     width: Number,
     height: Number
 }
