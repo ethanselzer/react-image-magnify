@@ -4,6 +4,7 @@ import EnlargedImage from './EnlargedImage';
 
 const ReactImageMagnifyTouch = ({
     className,
+    enlargedImageContainerClassName,
     enlargedImageContainerStyle,
     enlargedImageClassName,
     enlargedImageStyle,
@@ -51,6 +52,7 @@ const ReactImageMagnifyTouch = ({
                 }, imageStyle)
             }} />
             <EnlargedImage { ...{
+                containerClassName: enlargedImageContainerClassName,
                 containerStyle: enlargedImageContainerStyle,
                 cursorOffset,
                 fadeDurationInMs,
@@ -77,6 +79,7 @@ export const ImageShape = PropTypes.shape({
 
 ReactImageMagnifyTouch.propTypes = {
     className: PropTypes.string,
+    enlargedImageContainerClassName: PropTypes.string,
     enlargedImageContainerStyle: PropTypes.object,
     enlargedImageClassName: PropTypes.string,
     enlargedImageStyle: PropTypes.object,

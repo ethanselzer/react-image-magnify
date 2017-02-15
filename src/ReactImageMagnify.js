@@ -9,6 +9,7 @@ import EnlargedImage from './EnlargedImage';
 
 const ReactImageMagnify = ({
     className,
+    enlargedImageContainerClassName,
     enlargedImageContainerStyle,
     enlargedImageClassName,
     enlargedImageStyle,
@@ -86,6 +87,7 @@ const ReactImageMagnify = ({
                     style: compositLensStyle,
                 }} />
                 <EnlargedImage { ...{
+                    containerClassName: enlargedImageContainerClassName,
                     containerStyle: enlargedImageContainerStyle,
                     cursorOffset,
                     fadeDurationInMs,
@@ -109,6 +111,7 @@ export const ImageShape = PropTypes.shape({
 
 ReactImageMagnify.propTypes = {
     className: PropTypes.string,
+    enlargedImageContainerClassName: PropTypes.string,
     enlargedImageContainerStyle: PropTypes.object,
     enlargedImageClassName: PropTypes.string,
     enlargedImageStyle: PropTypes.object,
