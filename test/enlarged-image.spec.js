@@ -23,12 +23,14 @@ describe('Enlarged Image', () => {
                 largeImage: {
                     alt: 'foo',
                     src: 'bar',
+                    srcSet: 'corge',
                     width: 12,
                     height: 16
                 },
                 smallImage: {
                     alt: 'baz',
                     src: 'qux',
+                    srcSet: 'quux',
                     width: 3,
                     height: 4
                 }
@@ -129,6 +131,12 @@ describe('Enlarged Image', () => {
             const renderedWrapper = shallowWrapper.render();
 
             expect(renderedWrapper.find('img').attr('src')).to.equal('bar');
+        });
+
+        it('applies large image srcSet', () => {
+            const renderedWrapper = shallowWrapper.render();
+
+            expect(renderedWrapper.find('img').attr('srcset')).to.equal('corge');
         });
 
         it('applies large image width', () => {

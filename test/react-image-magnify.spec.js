@@ -8,6 +8,7 @@ describe('React Image Magnify', () => {
     const smallImage = {
         alt: 'baz',
         src: 'qux',
+        srcSet: 'quux',
         width: 3,
         height: 4
     };
@@ -15,6 +16,7 @@ describe('React Image Magnify', () => {
     const largeImage = {
         alt: 'foo',
         src: 'bar',
+        srcSet: 'corge',
         width: 12,
         height: 16
     };
@@ -34,11 +36,14 @@ describe('React Image Magnify', () => {
     it('has correct prop types', () => {
         expect(ReactImageMagnify.propTypes).to.deep.equal({
             className: PropTypes.string,
+            enlargedImageContainerClassName: PropTypes.string,
             enlargedImageContainerStyle: PropTypes.object,
+            enlargedImageClassName: PropTypes.string,
             enlargedImageStyle: PropTypes.object,
             fadeDurationInMs: PropTypes.number,
             hoverDelayInMs: PropTypes.number,
             hoverOffDelayInMs: PropTypes.number,
+            imageClassName: PropTypes.string,
             imageStyle: PropTypes.object,
             largeImage: ImageShape,
             lensStyle: PropTypes.object,
@@ -81,6 +86,12 @@ describe('React Image Magnify', () => {
             expect(shallowWrapper.find('ReactHoverObserver').props().hoverOffDelayInMs).to.equal(2);
         });
 
+        it('applies imageClassName to small image element', () => {
+            shallowWrapper.setProps({ imageClassName: 'baz' });
+
+            expect(shallowWrapper.find('img').hasClass('baz')).to.be.true;
+        });
+
         it('applies imageStyle to small image element', () => {
             shallowWrapper.setProps({ imageStyle: { color: 'green' } });
 
@@ -90,6 +101,7 @@ describe('React Image Magnify', () => {
         it('applies smallImage to small image element', () => {
             expect(shallowWrapper.find('img').props().alt).to.equal(smallImage.alt);
             expect(shallowWrapper.find('img').props().src).to.equal(smallImage.src);
+            expect(shallowWrapper.find('img').props().srcSet).to.equal(smallImage.srcSet);
             expect(shallowWrapper.find('img').props().style.width).to.equal(smallImage.width + 'px');
             expect(shallowWrapper.find('img').props().style.height).to.equal(smallImage.height + 'px');
         });
@@ -122,11 +134,23 @@ describe('React Image Magnify', () => {
             expect(shallowWrapper.find('LensBottom').props().smallImage).to.equal(smallImage);
         });
 
+        it('applies enlargedImageContainerClassName to EnlargedImage component', () => {
+            shallowWrapper.setProps({ enlargedImageContainerClassName: 'foo' });
+
+            expect(shallowWrapper.find('EnlargedImage').props().containerClassName).to.equal('foo');
+        });
+
         it('applies enlargedImageContainerStyle to EnlargedImage component', () => {
             const style = { color: 'red' };
             shallowWrapper.setProps({ enlargedImageContainerStyle: style });
 
             expect(shallowWrapper.find('EnlargedImage').props().containerStyle).to.equal(style);
+        });
+
+        it('applies enlargedImageClassName to EnlargedImage component', () => {
+            shallowWrapper.setProps({ enlargedImageClassName: 'bar' });
+
+            expect(shallowWrapper.find('EnlargedImage').props().imageClassName).to.equal('bar');
         });
 
         it('applies enlargedImageStyle to EnlargedImage component', () => {
