@@ -48,7 +48,8 @@ describe('React Image Magnify', () => {
             largeImage: ImageShape,
             lensStyle: PropTypes.object,
             smallImage: ImageShape,
-            style: PropTypes.object
+            style: PropTypes.object,
+            enlargedImagePosition: PropTypes.string
         });
     });
 
@@ -56,7 +57,8 @@ describe('React Image Magnify', () => {
         expect(ReactImageMagnify.defaultProps).to.deep.equal({
             fadeDurationInMs: 300,
             hoverDelayInMs: 250,
-            hoverOffDelayInMs: 150
+            hoverOffDelayInMs: 150,
+            enlargedImagePosition: 'beside'
         });
     });
 
@@ -172,6 +174,12 @@ describe('React Image Magnify', () => {
 
         it('applies largeImage to EnlargedImage element', () => {
             expect(shallowWrapper.find('EnlargedImage').props().largeImage).to.equal(largeImage);
+        });   
+
+        it('applies enlargedImagePosition to EnlargedImage element', () => {
+            shallowWrapper.setProps({ enlargedImagePosition: 'over' });
+
+            expect(shallowWrapper.find('EnlargedImage').props().imagePosition).to.equal('over');
         });
     });
 });

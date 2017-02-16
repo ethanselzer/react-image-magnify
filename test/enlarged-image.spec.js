@@ -65,7 +65,8 @@ describe('Enlarged Image', () => {
             isHovering: PropTypes.bool,
             isRenderOnDemand: PropTypes.bool,
             largeImage: ImageShape,
-            smallImage: ImageShape
+            smallImage: ImageShape,
+            imagePosition: PropTypes.string
         });
     });
 
@@ -119,6 +120,12 @@ describe('Enlarged Image', () => {
             const renderedWrapper = shallowWrapper.render();
 
             expect(renderedWrapper.find('img').css('border')).to.equal(borderValue);
+        });
+
+        it('applies imagePosition to image', () => {
+            const renderedWrapper = shallowWrapper.render();
+
+            expect(renderedWrapper.find('img').data('hover')).to.be.false;
         });
 
         it('applies large image alt', () => {
@@ -238,7 +245,7 @@ describe('Enlarged Image', () => {
         });
 
         it('applies default style', () => {
-            const expected = 'margin-left:10px;position:absolute;left:100%;top:0px;border:1px solid #d6d6d6;overflow:hidden;';
+            const expected = 'position:absolute;top:0px;overflow:hidden;';
 
             const renderedWrapper = shallowWrapper.render();
 

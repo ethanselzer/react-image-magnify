@@ -18,11 +18,6 @@ class App extends Component {
                     style: {
                         margin: '20px auto 0'
                     },
-                    enlargedImageContainerStyle: {
-                        left: '0px',
-                        border: 'none',
-                        margin: '0px'
-                    },
                     fadeDurationInMs: 500,
                     largeImage: {
                         alt: 'Wrist watch face',

@@ -46,7 +46,8 @@ export default React.createClass({
         isHovering: PropTypes.bool,
         isRenderOnDemand: PropTypes.bool,
         largeImage: ImageShape,
-        smallImage: ImageShape
+        smallImage: ImageShape,
+        imagePosition: PropTypes.string
     },
 
     componentWillReceiveProps(nextProps) {
@@ -93,6 +94,7 @@ export default React.createClass({
             isRenderOnDemand,
             largeImage,
             smallImage,
+            imagePosition
         } = this.props;
 
         const {
@@ -130,14 +132,32 @@ export default React.createClass({
             isVisible = false;
         }
 
-        const defaultContainerStyle = {
-            marginLeft: '10px',
+        let imgDataHover;
+        let defaultContainerStyle = {
             position: 'absolute',
-            left: '100%',
             top: '0px',
-            border: '1px solid #d6d6d6',
+            
             overflow: 'hidden'
         };
+        
+        switch (imagePosition) {
+        case 'over':
+            imgDataHover = true;
+            defaultContainerStyle = Object.assign({}, defaultContainerStyle, {
+                left: '0px'                    
+            });
+            break;
+            
+        case 'beside':
+        default:
+            imgDataHover = false;
+            defaultContainerStyle = Object.assign({}, defaultContainerStyle, {
+                left: '100%',
+                marginLeft: '10px',
+                border: '1px solid #d6d6d6',
+            });
+            break;
+        }
 
         const computedContainerStyle = {
             width: smallImage.width,
@@ -162,7 +182,7 @@ export default React.createClass({
                 key: 'enlarged',
                 style: Object.assign({}, defaultContainerStyle, containerStyle, computedContainerStyle)
             }}>
-                <img data-hover="false" { ...{
+                <img data-hover={imgDataHover} { ...{
                     alt: largeImage.alt,
                     className: imageClassName,
                     src: largeImage.src,

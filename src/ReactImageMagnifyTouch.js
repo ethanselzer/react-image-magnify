@@ -16,7 +16,8 @@ const ReactImageMagnifyTouch = ({
     pressDuration,
     pressMoveThreshold,
     smallImage,
-    style
+    style,
+    enlargedImagePosition
 }) => {
 
     const cursorOffset = {
@@ -64,6 +65,7 @@ const ReactImageMagnifyTouch = ({
                 isRenderOnDemand: false,
                 largeImage,
                 smallImage,
+                imagePosition: enlargedImagePosition
             }}/>
         </ReactTouchPosition>
     );
@@ -91,11 +93,13 @@ ReactImageMagnifyTouch.propTypes = {
     pressDuration: PropTypes.number,
     pressMoveThreshold: PropTypes.number,
     smallImage: ImageShape,
-    style: PropTypes.object
+    style: PropTypes.object,
+    enlargedImagePosition: PropTypes.string
 };
 
 ReactImageMagnifyTouch.defaultProps = {
-    fadeDurationInMs: 500
+    fadeDurationInMs: 500,
+    enlargedImagePosition: 'over'
 };
 
 export default ReactImageMagnifyTouch;
