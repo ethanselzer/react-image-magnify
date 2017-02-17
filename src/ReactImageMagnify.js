@@ -134,7 +134,7 @@ ReactImageMagnify.propTypes = {
     lensStyle: PropTypes.object,
     smallImage: ImageShape,
     style: PropTypes.object,
-    enlargedImagePosition: PropTypes.string
+    enlargedImagePosition: PropTypes.oneOf(['beside', 'over'])
 };
 
 ReactImageMagnify.defaultProps = {

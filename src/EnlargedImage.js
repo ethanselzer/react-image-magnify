@@ -47,7 +47,7 @@ export default React.createClass({
         isRenderOnDemand: PropTypes.bool,
         largeImage: ImageShape,
         smallImage: ImageShape,
-        imagePosition: PropTypes.string
+        imagePosition: PropTypes.oneOf(['beside', 'over'])
     },
 
     componentWillReceiveProps(nextProps) {
