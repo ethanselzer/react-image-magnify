@@ -30,20 +30,12 @@ const ReactImageMagnify = ({
         y: Math.round(((smallImage.height / largeImage.height) * smallImage.height) / 2)
     };
     
-    let defaultLensStyle = {};
+    let defaultLensStyle = {
+        backgroundColor: 'rgba(0,0,0,.4)'
+    };
     
-    switch (enlargedImagePosition) {
-    case 'over':
-        defaultLensStyle = Object.assign({}, defaultLensStyle, {
-        });
-        break;
-        
-    case 'beside':
-    default:
-        defaultLensStyle = Object.assign({}, defaultLensStyle, {
-            backgroundColor: 'rgba(0,0,0,.4)'
-        });
-        break;
+    if (enlargedImagePosition === 'over') {
+        defaultLensStyle = {};
     }
     
     const compositLensStyle = Object.assign({}, defaultLensStyle, lensStyle);
