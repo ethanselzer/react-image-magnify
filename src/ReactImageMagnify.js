@@ -21,14 +21,23 @@ const ReactImageMagnify = ({
     largeImage,
     lensStyle,
     smallImage,
-    style
+    style,
+    enlargedImagePosition
 }) => {
 
     const cursorOffset = {
         x: Math.round(((smallImage.width / largeImage.width) * smallImage.width) / 2),
         y: Math.round(((smallImage.height / largeImage.height) * smallImage.height) / 2)
     };
-    const defaultLensStyle = { backgroundColor: 'rgba(0,0,0,.4)' };
+    
+    let defaultLensStyle = {
+        backgroundColor: 'rgba(0,0,0,.4)'
+    };
+    
+    if (enlargedImagePosition === 'over') {
+        defaultLensStyle = {};
+    }
+    
     const compositLensStyle = Object.assign({}, defaultLensStyle, lensStyle);
 
     return (
@@ -95,6 +104,7 @@ const ReactImageMagnify = ({
                     imageStyle: enlargedImageStyle,
                     largeImage,
                     smallImage,
+                    imagePosition: enlargedImagePosition
                 }}/>
             </ReactHoverObserver>
         </ReactCursorPosition>
@@ -123,13 +133,15 @@ ReactImageMagnify.propTypes = {
     largeImage: ImageShape,
     lensStyle: PropTypes.object,
     smallImage: ImageShape,
-    style: PropTypes.object
+    style: PropTypes.object,
+    enlargedImagePosition: PropTypes.oneOf(['beside', 'over'])
 };
 
 ReactImageMagnify.defaultProps = {
     fadeDurationInMs: 300,
     hoverDelayInMs: 250,
-    hoverOffDelayInMs: 150
+    hoverOffDelayInMs: 150,
+    enlargedImagePosition: 'beside'
 };
 
 export default ReactImageMagnify;

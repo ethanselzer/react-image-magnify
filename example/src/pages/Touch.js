@@ -8,11 +8,6 @@ class App extends Component {
             <div className="App">
                 <div style={{width: '300px', margin: '0 auto'}}>
                     <ReactImageMagnifyTouch {...{
-                        enlargedImageContainerStyle: {
-                            left: '0px',
-                            border: 'none',
-                            margin: '0px'
-                        },
                         fadeDurationInMs: 500,
                         largeImage: {
                             alt: 'Enlarged product image',

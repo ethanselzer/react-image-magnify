@@ -95,6 +95,7 @@ import { ReactImageMagnifyTouch } from 'react-image-magnify';
 | `hoverDelayInMs`              | Number | No       | 250     | Milliseconds to delay hover trigger.                       |
 | `hoverOffDelayInMs`           | Number | No       | 150     | Milliseconds to delay hover-off trigger.                   |
 | `lensStyle`                   | Object | No       |         | Style applied to tinted lens.                      |
+| `enlargedImagePosition`       | String | No       | beside  | Enlarged image position. Can be 'beside' or 'over'.        |
 
 ### Touch Only
 | Prop                          | Type   | Required | Default | Description                                                |
@@ -102,6 +103,7 @@ import { ReactImageMagnifyTouch } from 'react-image-magnify';
 | `isActivatedOnTouch`          | Boolean| No       | false   | Activate magnification immediately on touch. May impact scrolling.|
 | `pressDuration`               | Number | No       | 500     | Milliseconds to delay press activation (long touch).       |
 | `pressMoveThreshold`          | Number | No       | 5       | Pixels of movement allowed during press activation.        |
+| `enlargedImagePosition`       | String | No       | over    | Enlarged image position. Can be 'beside' or 'over'.        |
 
 ### Image Struct
 ```
