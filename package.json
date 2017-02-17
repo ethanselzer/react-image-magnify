@@ -40,6 +40,7 @@
   ],
   "scripts": {
     "prepublish": "babel --plugins 'transform-es2015-modules-umd' src --out-dir ./dist",
+    "prepublish-cjs": "babel src --out-dir ./dist",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
     "testonly": "mocha --require scripts/mocha_runner test/*.spec.js",

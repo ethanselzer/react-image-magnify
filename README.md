@@ -120,17 +120,31 @@ import { ReactImageMagnifyTouch } from 'react-image-magnify';
 
 Please [open an issue](https://github.com/ethanselzer/react-image-magnify/issues).
 
+## Example Project
+```ssh
+git clone https://github.com/ethanselzer/react-image-magnify.git
+cd react-image-magnify/example
+npm install
+npm start
+```
+If your default browser does not start automatically, open a new browser window and go to localhost:3000
+
+Navigate to /touch for an example of the touch specific version.
+
 ## Development
 
 ```ssh
 git clone https://github.com/ethanselzer/react-image-magnify.git
 cd react-image-magnify
 npm install
+npm run #See available commands
 ```
-See available commands:
-```ssh
-npm run
-```
+
+The [Example Project](#example-project) may be used in development of react-image-magnify. At this time, the command `npm run prepublsih`
+must be run from the root of the project each time you want your changes to be reflected in the example.
+
+If you experience [ReferenceError: Unknown plugin "'transform-es2015-modules-umd'"](https://github.com/ethanselzer/react-image-magnify/issues/1) 
+when running `prepublish` you may try running `prepublish-cjs`.
 
 ## Contributing
 
