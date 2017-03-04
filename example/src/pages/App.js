@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import { ReactImageMagnify } from '../../../dist';
+import { ReactImageMagnify } from 'react-image-magnify';
 
 class App extends Component {
     render() {
         return (
             <div className="App">
                 <div style={{
-                    width: '400px',
+                    width: '342px',
                     margin: '20px 0 10px',
                     font: '21px Arial',
                     textAlign: 'center'
