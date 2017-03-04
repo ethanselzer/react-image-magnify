@@ -11,16 +11,16 @@ Touch displays in place enlarged image view.
 Supports press to pan. Does not interfere with scrolling.
 
 ## Demo
-[Desktop](https://goo.gl/R7snea)
+[Desktop](https://ethanselzer.github.io/react-image-magnify)
 
-[Touch](https://goo.gl/kyRELs)
+[Touch](https://ethanselzer.github.io/react-image-magnify/#/touch)
 
-<img src="https://raw.githubusercontent.com/ethanselzer/react-image-magnify/master/docs/qr.png" width="150" height="150" alt="Touch Demo"/>
+<img src="https://raw.githubusercontent.com/ethanselzer/react-image-magnify/master/images/qrcode.png" width="75" height="75" alt="Touch Demo"/>
 
 ## Status
-[![CircleCI](https://circleci.com/gh/ethanselzer/react-image-magnify.svg?style=svg)](https://circleci.com/gh/ethanselzer/react-image-magnify)
-
-[![npm](https://nodei.co/npm/react-image-magnify.svg?downloads=true)](https://nodei.co/npm/react-image-magnify/)
+[![CircleCI](https://img.shields.io/circleci/project/github/ethanselzer/react-image-magnify.svg)](https://circleci.com/gh/ethanselzer/react-image-magnify)
+[![npm](https://img.shields.io/npm/v/react-image-magnify.svg)](https://www.npmjs.com/package/react-image-magnify)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Installation
 

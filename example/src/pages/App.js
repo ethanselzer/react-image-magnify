@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
 import { ReactImageMagnify } from 'react-image-magnify';
+
+import './App.css';
+
+import watchImg from '../../images/large-a.jpg';
 
 class App extends Component {
     render() {
@@ -18,13 +21,13 @@ class App extends Component {
                   <ReactImageMagnify {...{
                       largeImage: {
                           alt: 'Enlarged product image',
-                          src: 'large-a.jpg',
+                          src: watchImg,
                           width: 1200,
                           height: 1800
                       },
                       smallImage: {
                           alt: 'Product image',
-                          src: 'large-a.jpg',
+                          src: watchImg,
                           width: 300,
                           height: 450
                       }

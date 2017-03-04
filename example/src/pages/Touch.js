@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
-// import { ReactImageMagnifyTouch } from '../../../dist';
 import { ReactImageMagnifyTouch } from 'react-image-magnify';
+
+import './App.css';
+
+import watchImg from '../../images/large-a.jpg';
 
 class App extends Component {
     render() {
@@ -12,19 +14,19 @@ class App extends Component {
                         fadeDurationInMs: 500,
                         largeImage: {
                             alt: 'Enlarged product image',
-                            src: 'large-a.jpg',
+                            src: watchImg,
                             width: 1200,
                             height: 1800
                         },
                         smallImage: {
                             alt: 'Product image',
-                            src: 'large-a.jpg',
+                            src: watchImg,
                             width: 300,
                             height: 450
                         }
                     }} />
                     <p className="App-intro">Press (long touch) image to magnify. Pan (drag) to traverse image.</p>
-                    <p style={{ display: 'none' }} className="App-intro">Note the page can be scrolled when touch begins on image.</p>
+                    <p className="App-intro">Note the page can be scrolled when touch begins on image.</p>
                     <div style={{height: '1000px'}} />
                 </div>
             </div>
