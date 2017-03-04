@@ -29,9 +29,9 @@ const ReactImageMagnifyTouch = ({
         <ReactTouchPosition { ...{
             className,
             isActivatedOnTouch,
-            mapPropNames: ({ isActive, isTouchOutside, touchPosition }) => ({
+            mapChildProps: ({ isActive, isPositionOutside, touchPosition }) => ({
                 isHovering: isActive,
-                isTouchOutside,
+                isTouchOutside: isPositionOutside,
                 cursorPosition: touchPosition
             }),
             pressDuration,
