@@ -1,21 +1,15 @@
 # react-image-magnify
 
-A React image magnification component for desktop and touch.
+A responsive React image zoom component for desktop and mobile.
 
-Supports arbitrary image sizes and fade-transitions. Scales magnification automatically.
-
-Desktop displays side by side enlarged image view, with tinted control-image mask.
-Supports hover intent.
-
-Touch displays in place enlarged image view.
-Supports press to pan. Does not interfere with scrolling.
+Supports hover intnet, long-press gesture, and fade transitions.
 
 ## Demo
-[Desktop](https://ethanselzer.github.io/react-image-magnify)
+[Desktop](https://ethanselzer.github.io/react-image-magnify/#/pointer/fluid)
 
-[Touch](https://ethanselzer.github.io/react-image-magnify/#/touch)
+[Touch](https://ethanselzer.github.io/react-image-magnify/#/touch/fluid)
 
-<img src="https://raw.githubusercontent.com/ethanselzer/react-image-magnify/master/images/qrcode.png" width="75" height="75" alt="Touch Demo"/>
+<img src="https://raw.githubusercontent.com/ethanselzer/react-image-magnify/master/images/qrcode_touch_fluid.png" width="75" height="75" alt="Touch Demo"/>
 
 ## Status
 [![CircleCI](https://img.shields.io/circleci/project/github/ethanselzer/react-image-magnify.svg)](https://circleci.com/gh/ethanselzer/react-image-magnify)
@@ -29,56 +23,47 @@ npm install --save react-image-magnify
 ```
 
 ## Usage
-### Desktop
-
-```JSX
-import { ReactImageMagnify } from 'react-image-magnify';
-...
-<ReactImageMagnify {...{
-    largeImage: {
-        alt: 'Example description',
-        src: 'https://example.com/large/image.jpg',
-        width: 1200,
-        height: 1800
-    },
-    smallImage: {
-        alt: 'Example description',
-        src: 'https://example.com/small/image.jpg',
-        width: 400,
-        height: 600
-    }
-}}/>
-...
-```
-### Touch
-
 ```JavaScript
 import { ReactImageMagnifyTouch } from 'react-image-magnify';
 ...
 <ReactImageMagnifyTouch {...{
+    smallImage: {
+        alt: 'Wristwatch by Ted Baker London',
+        isFluidWidth: true,
+        src: watchImg1200,
+        srcSet: [
+            `${watchImg355} 355w`,
+            `${watchImg481} 481w`,
+            `${watchImg584} 584w`,
+            `${watchImg687} 687w`,
+            `${watchImg770} 770w`,
+            `${watchImg861} 861w`,
+            `${watchImg955} 955w`,
+            `${watchImg1033} 1033w`,
+            `${watchImg1112} 1112w`,
+            `${watchImg1192} 1192w`,
+            `${watchImg1200} 1200w`,
+        ].join(', ');,
+        sizes: '(min-width: 480px) 30vw, 80vw'
+    },
     largeImage: {
-        alt: 'Example description',
-        src: 'https://example.com/large/image.jpg',
+        alt: '',
+        src: watchImg1200,
         width: 1200,
         height: 1800
-    },
-    smallImage: {
-        alt: 'Example description',
-        src: 'https://example.com/small/image.jpg',
-        width: 400,
-        height: 600
     }
-}}/>
+}} />
 ...
 ```
+See more usage examples in the [example project](https://github.com/ethanselzer/react-image-magnify/tree/master/example/src/pages).
 
 ## Props API
 
 ### Desktop and Touch
 | Prop                          | Type   | Required | Default | Description                                                |
 |-------------------------------|--------|----------|---------|------------------------------------------------------------|
-| `smallImage`                  | Object | Yes      |         | Small image information. See `Image Struct` below.         |
-| `largeImage`                  | Object | Yes      |         | Large image information. See `Image Struct` below.         |
+| `smallImage`                  | Object | Yes      |         | Small image information. See [Small Image](#small-image) below.         |
+| `largeImage`                  | Object | Yes      |         | Large image information. See [Large Image](#large-image) below.         |
 | `className`                   | String | No       |         | CSS class applied to root container element.               |
 | `style`                       | Object | No       |         | Style applied to root container element.                   |
 | `fadeDurationInMs`            | Number | No       | 300     | Milliseconds duration of magnified image fade in/fade out. |
@@ -101,18 +86,32 @@ import { ReactImageMagnifyTouch } from 'react-image-magnify';
 | Prop                          | Type   | Required | Default | Description                                                |
 |-------------------------------|--------|----------|---------|------------------------------------------------------------|
 | `isActivatedOnTouch`          | Boolean| No       | false   | Activate magnification immediately on touch. May impact scrolling.|
-| `pressDuration`               | Number | No       | 500     | Milliseconds to delay press activation (long touch).       |
-| `pressMoveThreshold`          | Number | No       | 5       | Pixels of movement allowed during press activation.        |
+| `pressDuration`               | Number | No       | 500     | Milliseconds to delay long-press activation (long touch).       |
+| `pressMoveThreshold`          | Number | No       | 5       | Pixels of movement allowed during long-press activation.        |
 | `enlargedImagePosition`       | String | No       | over    | Enlarged image position. Can be 'beside' or 'over'.        |
 
-### Image Struct
+### Small Image
 ```
 {
     alt: String,
-    src: String,
+    isFluidWidth: Boolean, (default false)
+    src: String, (required)
     srcSet: String,
-    width: Number,
-    height: Number
+    sizes: String,
+    width: Number, (required if isFluidWidth is not set)
+    height: Number (required if isFluidWidth is not set)
+}
+```
+
+### Large Image
+```
+{
+    alt: String,
+    src: String, (required)
+    srcSet: String,
+    sizes: String,
+    width: Number, (required)
+    height: Number (required)
 }
 ```
 
@@ -129,7 +128,8 @@ npm start
 ```
 If your default browser does not start automatically, open a new browser window and go to localhost:3000
 
-Navigate to /touch for an example of the touch specific version.
+Navigate to /touch/fluid or /pointer/fluid for fluid width examples.
+Navigate to /touch for fixed width.
 
 ## Development
 
