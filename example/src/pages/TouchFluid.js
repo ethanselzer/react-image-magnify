@@ -35,24 +35,28 @@ class App extends Component {
 
     render() {
         return (
-            <div className="touch-fluid">            
-                <ReactImageMagnifyTouch {...{
-                    largeImage: {
-                        alt: '',
-                        src: watchImg1200,
-                        width: 1200,
-                        height: 1800
-                    },
-                    smallImage: {
-                        isFluidWidth: true,
-                        alt: 'Wristwatch by Ted Baker London',
-                        src: watchImg1200,
-                        srcSet: this.srcSet,
-                        sizes: '(min-width: 480px) 30vw, 80vw'
-                    }
-                }} />
-                <p className="App-intro">Press (long touch) image to magnify. Pan (drag) to traverse image.</p>
-                <p className="App-intro">Note the page can be scrolled when touch begins on image.</p>
+            <div className="touch-fluid">
+                <div className="touch-fluid__image-container">
+                    <ReactImageMagnifyTouch {...{
+                        largeImage: {
+                            alt: '',
+                            src: watchImg1200,
+                            width: 1200,
+                            height: 1800
+                        },
+                        smallImage: {
+                            isFluidWidth: true,
+                            alt: 'Wristwatch by Ted Baker London',
+                            src: watchImg1200,
+                            srcSet: this.srcSet,
+                            sizes: '(min-width: 480px) 30vw, 80vw'
+                        }
+                    }} />
+                </div>
+                <div className="touch-fluid__instructions">
+                    <p className="App-intro">Press (long touch) image to magnify. Pan (drag) to traverse image.</p>
+                    <p className="App-intro">Note the page can be scrolled when touch begins on image.</p>
+                </div>
                 <div style={{height: '1000px'}} />
             </div>
         );

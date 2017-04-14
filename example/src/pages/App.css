@@ -24,12 +24,35 @@ body {
 }
 
 .touch-fluid {
+  display: flex;
+  flex-direction: column;
+}
+
+.touch-fluid__image-container {
+  flex: 0 0 100%;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.touch-fluid__instructions {
+  flex: 0 0 100%;
   width: 80%;
   margin: 0 auto;
 }
 
 @media (min-width: 480px) {
   .touch-fluid {
-    width: 30%;
+    flex-direction: row;
+  }
+
+  .touch-fluid__image-container{
+    flex: 0 0 30%;
+    width: auto;
+  }
+
+  .touch-fluid__instructions {
+    flex: 0 0 50%;
+    width: auto;
+    padding-top: 20px;
   }
 }
