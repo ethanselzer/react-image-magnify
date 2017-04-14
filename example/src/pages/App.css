@@ -2,6 +2,11 @@ body {
   font-family: Arial;
 }
 
+.layout {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
 .pointer {
   width: 300px;
   margin: 20px 0 0 20px;

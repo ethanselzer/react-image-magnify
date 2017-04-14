@@ -35,25 +35,27 @@ export default class extends Component {
 
     render() {
         return (
-            <div className="pointer-fluid">
-                <div className="pointer-fluid__instructions">
-                    Hover image to magnify
+            <div className="layout">
+                <div className="pointer-fluid">
+                    <div className="pointer-fluid__instructions">
+                        Hover image to magnify
+                    </div>
+                    <ReactImageMagnify {...{
+                        largeImage: {
+                            alt: '',
+                            src: watchImg1200,
+                            width: 1200,
+                            height: 1800
+                        },
+                        smallImage: {
+                            alt: 'Wristwatch by Ted Baker London',
+                            isFluidWidth: true,
+                            src: watchImg1200,
+                            srcSet: this.srcSet,
+                            sizes: '30vw'
+                        }
+                    }} />
                 </div>
-                <ReactImageMagnify {...{
-                    largeImage: {
-                        alt: '',
-                        src: watchImg1200,
-                        width: 1200,
-                        height: 1800
-                    },
-                    smallImage: {
-                        alt: 'Wristwatch by Ted Baker London',
-                        isFluidWidth: true,
-                        src: watchImg1200,
-                        srcSet: this.srcSet,
-                        sizes: '30vw'
-                    }
-                }} />
             </div>
         );
     }
