@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { ReactImageMagnifyTouch } from 'react-image-magnify';
+// import { ReactImageMagnify } from 'react-image-magnify';
+import ReactImageMagnify from '../../../dist/ReactImageMagnify';
 
 import './App.css';
 
@@ -8,8 +9,11 @@ import watchImg from '../../images/wristwatch_1200.jpg';
 export default class extends Component {
     render() {
         return (
-            <div className="touch">
-                <ReactImageMagnifyTouch {...{
+            <div className="pointer">
+                <div className="pointer__instructions">
+                    Hover image to magnify
+                </div>
+                <ReactImageMagnify {...{
                     largeImage: {
                         alt: '',
                         src: watchImg,
@@ -23,9 +27,6 @@ export default class extends Component {
                         height: 450
                     }
                 }} />
-                <p className="App-intro">Press (long touch) image to magnify. Pan (drag) to traverse image.</p>
-                <p className="App-intro">Note the page can be scrolled when touch begins on image.</p>
-                <div style={{height: '1000px'}} />
             </div>
         );
     }

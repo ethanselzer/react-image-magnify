@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import { mount, shallow } from 'enzyme';
 import { expect } from 'chai';
-import ReactImageMagnify, { ImageShape } from '../src/ReactImageMagnify';
+import sinon from 'sinon';
+
+import ReactImageMagnify from '../src/ReactImageMagnify';
 
 describe('React Image Magnify', () => {
     let shallowWrapper;
@@ -9,50 +11,60 @@ describe('React Image Magnify', () => {
         alt: 'baz',
         src: 'qux',
         srcSet: 'quux',
+        sizes: 'grault',
         width: 3,
         height: 4
     };
-
     const largeImage = {
         alt: 'foo',
         src: 'bar',
         srcSet: 'corge',
+        sizes: 'garply',
         width: 12,
         height: 16
     };
 
-    beforeEach(() => {
-        shallowWrapper = shallow(
-            <ReactImageMagnify {...{
-                fadeDurationInMs: 0,
-                hoverDelayInMs: 0,
-                hoverOffDelayInMs: 0,
-                largeImage,
-                smallImage
-            }}/>
-        );
-    });
+    function getShallowWrapper(props) {
+        const compositProps = Object.assign({
+            fadeDurationInMs: 0,
+            hoverDelayInMs: 0,
+            hoverOffDelayInMs: 0,
+            largeImage,
+            smallImage
+        }, props);
 
-    // Checking PropTypes.oneOf doesn't work
-    // it('has correct prop types', () => {
-        // expect(ReactImageMagnify.propTypes).to.deep.equal({
-            // className: PropTypes.string,
-            // enlargedImageContainerClassName: PropTypes.string,
-            // enlargedImageContainerStyle: PropTypes.object,
-            // enlargedImageClassName: PropTypes.string,
-            // enlargedImageStyle: PropTypes.object,
-            // fadeDurationInMs: PropTypes.number,
-            // hoverDelayInMs: PropTypes.number,
-            // hoverOffDelayInMs: PropTypes.number,
-            // imageClassName: PropTypes.string,
-            // imageStyle: PropTypes.object,
-            // largeImage: ImageShape,
-            // lensStyle: PropTypes.object,
-            // smallImage: ImageShape,
-            // style: PropTypes.object,
-            // enlargedImagePosition: PropTypes.oneOf(['beside', 'over'])
-        // });
-    // });
+        return shallow(
+            <ReactImageMagnify {...compositProps} />
+        );
+    }
+
+    function getMountedWrapper(props) {
+        const compositProps = Object.assign({
+            fadeDurationInMs: 0,
+            hoverDelayInMs: 0,
+            hoverOffDelayInMs: 0,
+            largeImage,
+            smallImage
+        }, props);
+
+        return mount(
+            <ReactImageMagnify {...compositProps} />
+        );
+    }
+
+    function simulateWindowResize() {
+        var event = new MouseEvent('resize', {
+            'view': window,
+            'bubbles': true,
+            'cancelable': true
+        });
+
+        window.dispatchEvent(event);
+    }
+
+    beforeEach(() => {
+        shallowWrapper = getShallowWrapper();
+    });
 
     it('has correct default props', () => {
         expect(ReactImageMagnify.defaultProps).to.deep.equal({
@@ -63,6 +75,23 @@ describe('React Image Magnify', () => {
         });
     });
 
+    it('sets initial smallImageWidth and smallImageHeight state to zero', () => {
+        const instance = shallowWrapper.instance();
+        const state = instance.state;
+
+        expect(state.smallImageWidth).to.equal(0);
+        expect(state.smallImageHeight).to.equal(0);
+    });
+
+    it('applies default sytle to lens elements', () => {
+        const expected = { backgroundColor: 'rgba(0,0,0,.4)' };
+
+        expect(shallowWrapper.find('LensTop').props().style).to.deep.equal(expected);
+        expect(shallowWrapper.find('LensLeft').props().style).to.deep.equal(expected);
+        expect(shallowWrapper.find('LensRight').props().style).to.deep.equal(expected);
+        expect(shallowWrapper.find('LensBottom').props().style).to.deep.equal(expected);
+    });
+
     describe('Props API', () => {
 
         it('applies className to root component', () => {
@@ -71,10 +100,51 @@ describe('React Image Magnify', () => {
             expect(shallowWrapper.find('ReactCursorPosition').props().className).to.equal('foo');
         });
 
-        it('applies style to root component', () => {
-            shallowWrapper.setProps({ style: { color: 'red' } });
+        describe('style', () => {
+            it('applies style to root component', () => {
+                shallowWrapper.setProps({ style: { color: 'red' } });
 
-            expect(shallowWrapper.find('ReactCursorPosition').props().style.color).to.equal('red');
+                expect(shallowWrapper.find('ReactCursorPosition').props().style.color).to.equal('red');
+            });
+            
+            it('prioritizes required fluid root component style over user specified style', () => {
+                const props = {
+                    style: {
+                        width: '1px',
+                        fontSize: '2px',
+                        position: 'absolute'
+                    },
+                    smallImage: {
+                        isFluidWidth: true,
+                        src: 'foo'
+                    }
+                };
+                shallowWrapper.setProps(props);
+                
+                // Root component renders the root container element
+                const { style } = shallowWrapper.find('ReactCursorPosition').props();
+                expect(style.width).to.equal('auto');
+                expect(style.height).to.equal('auto');
+                expect(style.fontSize).to.equal('0px');
+                expect(style.position).to.equal('relative');
+            });
+
+            it('prioritizes required fixed width root component style over user specified style', () => {
+                const props = {
+                    style: {
+                        width: '1px',
+                        height: '2px',
+                        position: 'absolute'
+                    }
+                };
+                shallowWrapper.setProps(props);
+
+                // Root component renders the root container element
+                const { style } = shallowWrapper.find('ReactCursorPosition').props();
+                expect(style.width).to.equal('3px');
+                expect(style.height).to.equal('4px');
+                expect(style.position).to.equal('relative');
+            });
         });
 
         it('applies hoverDelayInMs to ReactHoverObserver component', () => {
@@ -94,29 +164,259 @@ describe('React Image Magnify', () => {
 
             expect(shallowWrapper.find('img').hasClass('baz')).to.be.true;
         });
+        
+        describe('imageStyle', () => {
+            it('applies imageStyle to small image element', () => {
+                shallowWrapper.setProps({ imageStyle: { color: 'green' } });
 
-        it('applies imageStyle to small image element', () => {
-            shallowWrapper.setProps({ imageStyle: { color: 'green' } });
+                expect(shallowWrapper.find('img').props().style.color).to.equal('green');
+            });
 
-            expect(shallowWrapper.find('img').props().style.color).to.equal('green');
+            it('prioritizes required fixed width style over user specified style', () => {
+                shallowWrapper.setProps({ 
+                    imageStyle: { 
+                        width: '10px',
+                        height: '11px'
+                    }
+                });
+
+                const { style } = shallowWrapper.find('img').props();
+                expect(style.width).to.equal('3px');
+                expect(style.height).to.equal('4px');
+            });
+
+            it('prioritizes required fluid width style over user specified style', () => {
+                shallowWrapper.setProps({
+                    imageStyle: {
+                        width: '10px',
+                        height: '11px',
+                        display: 'inline-block'
+                    },
+                    smallImage: {
+                        isFluidWidth: true
+                    }
+                });
+
+                const { style } = shallowWrapper.find('img').props();
+                expect(style.width).to.equal('100%');
+                expect(style.height).to.equal('auto');
+                expect(style.display).to.equal('block');
+            });
+
         });
 
-        it('applies smallImage to small image element', () => {
-            expect(shallowWrapper.find('img').props().alt).to.equal(smallImage.alt);
-            expect(shallowWrapper.find('img').props().src).to.equal(smallImage.src);
-            expect(shallowWrapper.find('img').props().srcSet).to.equal(smallImage.srcSet);
-            expect(shallowWrapper.find('img').props().style.width).to.equal(smallImage.width + 'px');
-            expect(shallowWrapper.find('img').props().style.height).to.equal(smallImage.height + 'px');
-        });
+        describe('smallImage', () => {
+            it('applies fixed width dimensions to root element', () => {
+                const { style } = shallowWrapper.find('ReactCursorPosition').props();
 
-        it('applies lensStyle to lens elements', () => {
-            const style = { backgroundColor: '#efefef' };
-            shallowWrapper.setProps({ lensStyle: style });
+                expect(style.width).to.equal('3px');
+                expect(style.height).to.equal('4px');
+            });
 
-            expect(shallowWrapper.find('LensTop').props().style).to.deep.equal(style);
-            expect(shallowWrapper.find('LensLeft').props().style).to.deep.equal(style);
-            expect(shallowWrapper.find('LensRight').props().style).to.deep.equal(style);
-            expect(shallowWrapper.find('LensBottom').props().style).to.deep.equal(style);
+            it('does not apply fixed width dimensions to root element, in the fluid scenario', () => {
+                shallowWrapper.setProps({ 
+                    smallImage: {
+                        isFluidWidth: true,
+                        src: 'foo'
+                    }
+                });
+                const { style } = shallowWrapper.find('ReactCursorPosition').props();
+
+                expect(style.width).to.equal('auto');
+                expect(style.height).to.equal('auto');
+            });
+
+            it('applies fixed width smallImage values to small image element', () => {
+                const { alt, src, srcSet, sizes, style } = shallowWrapper.find('img').props();
+                expect(alt).to.equal(smallImage.alt);
+                expect(src).to.equal(smallImage.src);
+                expect(srcSet).to.equal(smallImage.srcSet);
+                expect(sizes).to.equal(smallImage.sizes);
+                expect(style.width).to.equal(smallImage.width + 'px');
+                expect(style.height).to.equal(smallImage.height + 'px');
+            });
+
+            it('applies fluid width smallImage values to small image element', () => {
+                shallowWrapper.setProps({
+                    smallImage: Object.assign(
+                        {
+                            isFluidWidth: true,
+                            src: 'foo'
+                        },
+                        smallImage
+                    )
+                });
+
+                const { alt, src, srcSet, sizes, style } = shallowWrapper.find('img').props();
+                expect(alt).to.equal(smallImage.alt);
+                expect(src).to.equal(smallImage.src);
+                expect(srcSet).to.equal(smallImage.srcSet);
+                expect(sizes).to.equal(smallImage.sizes);
+                expect(style.width).to.equal('100%');
+                expect(style.height).to.equal('auto');
+            });
+
+            it('applies fixed width smallImage to lens elements', () => {
+                shallowWrapper.setProps({ fadeDurationInMs: 1 });
+
+                expect(shallowWrapper.find('LensTop').props().smallImage).to.deep.equal(smallImage);
+                expect(shallowWrapper.find('LensLeft').props().smallImage).to.deep.equal(smallImage);
+                expect(shallowWrapper.find('LensRight').props().smallImage).to.deep.equal(smallImage);
+                expect(shallowWrapper.find('LensBottom').props().smallImage).to.deep.equal(smallImage);
+            });
+
+            it('applies fluid width smallImage to lens elements', () => {
+                shallowWrapper.setProps({ 
+                    fadeDurationInMs: 1,
+                    smallImage: Object.assign(
+                        {
+                            isFluidWidth: true,
+                            src: 'foo'
+                        },
+                        smallImage
+                    )
+                });
+
+                const expected = Object.assign(
+                    {},
+                    smallImage,
+                    {
+                        isFluidWidth: true,
+                        width: 0,
+                        height: 0
+                    }
+                );
+                expect(shallowWrapper.find('LensTop').props().smallImage).to.deep.equal(expected);
+                expect(shallowWrapper.find('LensLeft').props().smallImage).to.deep.equal(expected);
+                expect(shallowWrapper.find('LensRight').props().smallImage).to.deep.equal(expected);
+                expect(shallowWrapper.find('LensBottom').props().smallImage).to.deep.equal(expected);
+            });
+
+            it('applies fixed width smallImage to EnlargedImage element', () => {
+                expect(shallowWrapper.find('EnlargedImage').props().smallImage).to.deep.equal(smallImage);
+            });
+
+            it('applies fluid width smallImage to EnlargedImage element', () => {
+                shallowWrapper.setProps({
+                    smallImage: Object.assign(
+                        {
+                            isFluidWidth: true
+                        },
+                        smallImage
+                    )
+                });
+                
+                const expected = Object.assign(
+                    { isFluidWidth: true},
+                    smallImage,
+                    {
+                        width: 0,
+                        height: 0
+                    }
+                );
+                expect(shallowWrapper.find('EnlargedImage').props().smallImage).to.deep.equal(expected);
+            });
+
+            describe('isFluidWidth', () => {
+                it('applies fluid width style to container element, when set', () => {
+                    shallowWrapper.setProps({
+                        smallImage: {
+                            isFluidWidth: true,
+                            src: 'foo'
+                        }
+                    });
+                    const { style } = shallowWrapper.find('ReactCursorPosition').props();
+
+                    expect(style.width).to.equal('auto');
+                    expect(style.height).to.equal('auto');
+                });
+
+                it('applies fluid width style to small image element, when set', () => {
+                    const shallowWrapper = getShallowWrapper({ 
+                        smallImage: {
+                            isFluidWidth: true,
+                            src: 'foo'
+                        }
+                    });
+                    const { style } = shallowWrapper.find('img').props();
+
+                    expect(style.width).to.equal('100%');
+                    expect(style.height).to.equal('auto');
+                });
+
+                it('sets smallImageWidth and smallImageHeight state with offset values, when component mounts', () => {
+                    shallowWrapper.setProps({ 
+                        smallImage: {
+                            isFluidWidth: true,
+                            src: 'foo'
+                        }
+                    });
+                    const instance = shallowWrapper.instance();
+                    instance.smallImageEl = {
+                        offsetWidth: 10,
+                        offsetHeight: 20
+                    }
+
+                    instance.componentDidMount();
+
+                    expect(shallowWrapper.state().smallImageWidth).to.equal(10);
+                    expect(shallowWrapper.state().smallImageHeight).to.equal(20);
+                });
+
+                it('listens for window resize event on mount', () => {
+                    sinon.spy(window, 'addEventListener');
+                    const mountedWrapper = getMountedWrapper({
+                        smallImage: {
+                            isFluidWidth: true,
+                            src: 'foo'
+                        }
+                    });
+
+                    expect(window.addEventListener.calledWith('resize')).to.be.true;
+                    window.addEventListener.restore();
+                });
+
+                it('removes window resize listener when unmounted', () => {
+                    sinon.spy(window, 'removeEventListener');
+                    const mountedWrapper = getMountedWrapper({
+                        smallImage: {
+                            isFluidWidth: true,
+                            src: 'foo'
+                        }
+                    });
+                    mountedWrapper.unmount();
+
+                    expect(window.removeEventListener.calledWith('resize')).to.be.true;
+                    window.removeEventListener.restore();
+                });
+
+                it('does not listen for window resize event when isFluidWidthSmallImage is not set', () => {
+                    sinon.spy(window, 'addEventListener');
+                    const mountedWrapper = getMountedWrapper();
+
+                    expect(window.addEventListener.calledWith('resize')).to.be.false;
+                    window.addEventListener.restore();
+                });
+
+                it('sets small image offset height and width state when the browser is resized', () => {
+                    const mountedWrapper = getMountedWrapper({
+                        smallImage: {
+                            isFluidWidth: true,
+                            src: 'foo'
+                        }
+                    });
+                    const instance = mountedWrapper.instance();
+                    instance.smallImageEl = {
+                        offsetWidth: 50,
+                        offsetHeight: 51
+                    };
+
+                    simulateWindowResize();
+
+                    expect(mountedWrapper.state('smallImageWidth')).to.equal(50);
+                    expect(mountedWrapper.state('smallImageHeight')).to.equal(51);
+                });
+            });
         });
 
         it('applies fadeDurationInMs to lens elements', () => {
@@ -126,15 +426,6 @@ describe('React Image Magnify', () => {
             expect(shallowWrapper.find('LensLeft').props().fadeDurationInMs).to.deep.equal(1);
             expect(shallowWrapper.find('LensRight').props().fadeDurationInMs).to.deep.equal(1);
             expect(shallowWrapper.find('LensBottom').props().fadeDurationInMs).to.deep.equal(1);
-        });
-
-        it('applies smallImage to lens elements', () => {
-            shallowWrapper.setProps({ fadeDurationInMs: 1 });
-
-            expect(shallowWrapper.find('LensTop').props().smallImage).to.equal(smallImage);
-            expect(shallowWrapper.find('LensLeft').props().smallImage).to.equal(smallImage);
-            expect(shallowWrapper.find('LensRight').props().smallImage).to.equal(smallImage);
-            expect(shallowWrapper.find('LensBottom').props().smallImage).to.equal(smallImage);
         });
 
         it('applies enlargedImageContainerClassName to EnlargedImage component', () => {
@@ -167,10 +458,6 @@ describe('React Image Magnify', () => {
             shallowWrapper.setProps({ fadeDurationInMs: 1 });
 
             expect(shallowWrapper.find('EnlargedImage').props().fadeDurationInMs).to.equal(1);
-        });
-
-        it('applies smallImage to EnlargedImage element', () => {
-            expect(shallowWrapper.find('EnlargedImage').props().smallImage).to.equal(smallImage);
         });
 
         it('applies largeImage to EnlargedImage element', () => {

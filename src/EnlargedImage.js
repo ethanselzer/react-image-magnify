@@ -1,18 +1,10 @@
 import React, { PropTypes } from 'react';
 import clamp from 'lodash.clamp';
-import { Image } from './ReactImageMagnify';
+import ImageShape from './ImageShape';
 
 export const Point = PropTypes.shape({
     x: PropTypes.number.isRequired,
     y: PropTypes.number.isRequired
-});
-
-export const ImageShape = PropTypes.shape({
-    alt: PropTypes.string,
-    src: PropTypes.string.isRequired,
-    srcSet: PropTypes.string,
-    width: PropTypes.number.isRequired,
-    height: PropTypes.number.isRequired
 });
 
 export default React.createClass({
@@ -187,6 +179,7 @@ export default React.createClass({
                     className: imageClassName,
                     src: largeImage.src,
                     srcSet: largeImage.srcSet,
+                    sizes: largeImage.sizes,
                     style: Object.assign({}, imageStyle, computedImageStyle)
                 }}/>
             </div>
