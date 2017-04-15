@@ -57,6 +57,10 @@ import { ReactImageMagnifyTouch } from 'react-image-magnify';
 ```
 See more usage examples in the [example project](https://github.com/ethanselzer/react-image-magnify/tree/master/example/src/pages).
 
+If you would like more information on responsive images, please try these resources:  
+[https://cloudfour.com/thinks/responsive-images-101-definitions/](https://cloudfour.com/thinks/responsive-images-101-definitions/)  
+[https://bitsofco.de/the-srcset-and-sizes-attributes/](https://bitsofco.de/the-srcset-and-sizes-attributes/)
+
 ## Props API
 
 ### Desktop and Touch
