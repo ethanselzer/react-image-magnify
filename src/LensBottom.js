@@ -1,10 +1,10 @@
 import React from 'react';
-import clamp from 'lodash.clamp';
+import clamp from 'clamp';
 import Lens from './Lens';
 
 const LensBottom = ({
     cursorOffset,
-    cursorPosition,
+    position,
     fadeDurationInMs,
     isHovering,
     smallImage,
@@ -12,7 +12,7 @@ const LensBottom = ({
 }) => {
 
     const maxHeight = smallImage.height - (cursorOffset.y * 2);
-    const height = clamp(smallImage.height - cursorPosition.y - cursorOffset.y, 0, maxHeight);
+    const height = clamp(smallImage.height - position.y - cursorOffset.y, 0, maxHeight);
     const computedStyle = {
         height: `${height}px`,
         width: '100%',

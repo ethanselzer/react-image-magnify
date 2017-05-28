@@ -1,37 +1,33 @@
-import React, { PropTypes } from 'react';
-import clamp from 'lodash.clamp';
+import React from 'react';
+import PropTypes from 'prop-types';
+import clamp from 'clamp';
 import ImageShape from './ImageShape';
+import Point from './Point';
 
-export const Point = PropTypes.shape({
-    x: PropTypes.number.isRequired,
-    y: PropTypes.number.isRequired
-});
+export default class extends React.Component {
+    constructor(props) {
+        super(props);
 
-export default React.createClass({
-
-    displayName: 'EnlargedImage',
-
-    getInitialState() {
-        return {
+        this.state = {
             isTransitionEntering: false,
             isTransitionActive: false,
             isTransitionLeaving: false,
             isTransitionDone: false
         };
-    },
+    }
 
-    getDefaultProps() {
-        return {
-            fadeDurationInMs: 0,
-            isRenderOnDemand: true
-        };
-    },
+    static displayName = 'EnlargedImage';
 
-    propTypes: {
+    static defaultProps = {
+        fadeDurationInMs: 0,
+        isRenderOnDemand: true
+    };
+
+    static propTypes = {
         containerClassName: PropTypes.string,
         containerStyle: PropTypes.object,
         cursorOffset: Point,
-        cursorPosition: Point,
+        position: Point,
         fadeDurationInMs: PropTypes.number,
         imageClassName: PropTypes.string,
         imageStyle: PropTypes.object,
@@ -40,7 +36,7 @@ export default React.createClass({
         largeImage: ImageShape,
         smallImage: ImageShape,
         imagePosition: PropTypes.oneOf(['beside', 'over'])
-    },
+    };
 
     componentWillReceiveProps(nextProps) {
         const { isHovering } = nextProps;
@@ -72,14 +68,14 @@ export default React.createClass({
                 });
             }, this.props.fadeDurationInMs);
         }
-    },
+    }
 
     render() {
         const {
             containerClassName,
             containerStyle,
             cursorOffset,
-            cursorPosition,
+            position,
             fadeDurationInMs,
             imageClassName,
             imageStyle,
@@ -101,8 +97,8 @@ export default React.createClass({
         };
 
         const differentiatedImageCoordinates = {
-            x: (Math.round((cursorPosition.x - cursorOffset.x) * offsetRatio.x) * -1),
-            y: (Math.round((cursorPosition.y - cursorOffset.y) * offsetRatio.y) * -1)
+            x: (Math.round((position.x - cursorOffset.x) * offsetRatio.x) * -1),
+            y: (Math.round((position.y - cursorOffset.y) * offsetRatio.y) * -1)
         };
 
         const minCoordinates = {
@@ -191,4 +187,4 @@ export default React.createClass({
 
         return component;
     }
-});
+}

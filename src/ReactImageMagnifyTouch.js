@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
-import ReactTouchPosition from 'react-touch-position';
+import React from 'react';
+import PropTypes from 'prop-types';
+import ReactCursorPosition from 'react-cursor-position';
 import requiredIf from 'react-required-if';
 
 import EnlargedImage from './EnlargedImage';
@@ -162,13 +163,13 @@ class ReactImageMagnifyTouch extends React.Component {
         );
 
         return (
-            <ReactTouchPosition { ...{
+            <ReactCursorPosition { ...{
                 className,
                 isActivatedOnTouch,
-                mapChildProps: ({ isActive, isPositionOutside, touchPosition }) => ({
+                mapChildProps: ({ isActive, isPositionOutside, position }) => ({
                     isHovering: isActive,
-                    isTouchOutside: isPositionOutside,
-                    cursorPosition: touchPosition
+                    isPositionOutside,
+                    position
                 }),
                 pressDuration,
                 pressMoveThreshold,
@@ -199,7 +200,7 @@ class ReactImageMagnifyTouch extends React.Component {
                     smallImage,
                     imagePosition: enlargedImagePosition
                 }} />
-            </ReactTouchPosition>
+            </ReactCursorPosition>
         );
     }
 }

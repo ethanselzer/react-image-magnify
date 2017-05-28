@@ -43,7 +43,7 @@
         "yoda": [1, "never"]
     },
     "plugins": [
-        // "react"
+        "react"
     ],
     "globals": {
 

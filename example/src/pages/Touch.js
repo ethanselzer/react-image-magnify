@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { ReactImageMagnifyTouch } from 'react-image-magnify';
+import ReactImageMagnifyTouch from '../pkg-lnk/ReactImageMagnifyTouch';
 
 import './App.css';
 
-import watchImg from '../../images/wristwatch_1200.jpg';
+import watchImg from '../images/wristwatch_1200.jpg';
 
 export default class extends Component {
     render() {

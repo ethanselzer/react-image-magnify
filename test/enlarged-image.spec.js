@@ -1,51 +1,29 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import EnlargedImage, { Point, ImageShape } from '../src/EnlargedImage';
-import { Image } from '../src/ReactImageMagnify';
+import EnlargedImage from '../src/EnlargedImage';
+import Point from '../src/Point';
+import ImageShape from '../src/ImageShape';
 
 describe('Enlarged Image', () => {
     let shallowWrapper;
 
     beforeEach(() => {
-        shallowWrapper = shallow(
-            <EnlargedImage {...{
-                cursorOffset: {
-                    x: 0,
-                    y: 0
-                },
-                cursorPosition: {
-                    x: 0,
-                    y: 0
-                },
-                fadeDurationInMs: 0,
-                isHovering: true,
-                largeImage: {
-                    alt: 'foo',
-                    src: 'bar',
-                    srcSet: 'corge',
-                    width: 12,
-                    height: 16
-                },
-                smallImage: {
-                    alt: 'baz',
-                    src: 'qux',
-                    srcSet: 'quux',
-                    width: 3,
-                    height: 4
-                }
-            }}/>
-        );
+        shallowWrapper = getShallowWrapper();
 
-        shallowWrapper.setState({ isTransitionActive: true });
+        shallowWrapper.setState({
+            isHovering: true,
+            isTransitionActive: true 
+        });
     });
 
     it('has display name EnlargedImage', () => {
-        expect(shallowWrapper.instance().constructor.displayName).to.equal('EnlargedImage');
+        expect(EnlargedImage.displayName).to.equal('EnlargedImage');
     });
 
     it('has correct initial state', () => {
-        expect(shallowWrapper.instance().getInitialState()).to.deep.equal({
+        const shallowWrapper = getShallowWrapper();
+        expect(shallowWrapper.state()).to.deep.equal({
             isTransitionEntering: false,
             isTransitionActive: false,
             isTransitionLeaving: false,
@@ -53,26 +31,8 @@ describe('Enlarged Image', () => {
         });
     });
 
-    // Checking PropTypes.oneOf doesn't work
-    // it('has correct prop types', () => {
-        // expect(shallowWrapper.instance().constructor.propTypes).to.deep.equal({
-            // containerClassName: React.PropTypes.string,
-            // containerStyle: React.PropTypes.object,
-            // cursorOffset: Point,
-            // cursorPosition: Point,
-            // fadeDurationInMs: PropTypes.number,
-            // imageClassName: PropTypes.string,
-            // imageStyle: PropTypes.object,
-            // isHovering: PropTypes.bool,
-            // isRenderOnDemand: PropTypes.bool,
-            // largeImage: ImageShape,
-            // smallImage: ImageShape,
-            // imagePosition: PropTypes.oneOf(['beside', 'over'])
-        // });
-    // });
-
     it('has correct default props', () => {
-        expect(shallowWrapper.instance().constructor.getDefaultProps()).to.deep.equal({
+        expect(EnlargedImage.defaultProps).to.deep.equal({
             fadeDurationInMs: 0,
             isRenderOnDemand: true
         });
@@ -267,7 +227,7 @@ describe('Enlarged Image', () => {
 
         it('computes cursor position and applies the result to CSS transfrom translate', () => {
             shallowWrapper.setProps({
-                cursorPosition: {
+                position: {
                     x: 1,
                     y: 2
                 }
@@ -283,7 +243,7 @@ describe('Enlarged Image', () => {
                     x: 1,
                     y: 2
                 },
-                cursorPosition: {
+                position: {
                     x: 2,
                     y: 4
                 }
@@ -299,7 +259,7 @@ describe('Enlarged Image', () => {
                     x: 0,
                     y: 0
                 },
-                cursorPosition: {
+                position: {
                     x: 1,
                     y: 2
                 },
@@ -325,7 +285,7 @@ describe('Enlarged Image', () => {
                     x: 0,
                     y: 0
                 },
-                cursorPosition: {
+                position: {
                     x: 5,
                     y: 5
                 },
@@ -351,7 +311,7 @@ describe('Enlarged Image', () => {
                     x: 0,
                     y: 0
                 },
-                cursorPosition: {
+                position: {
                     x: -1,
                     y: -1
                 },
@@ -373,7 +333,7 @@ describe('Enlarged Image', () => {
 
         it('applies vendor prefixes to CSS transform property', () => {
             shallowWrapper.setProps({
-                cursorPosition: {
+                position: {
                     x: 1,
                     y: 2
                 }
@@ -386,4 +346,35 @@ describe('Enlarged Image', () => {
         });
 
     });
+
+    function getShallowWrapper() {
+        return shallow(
+            <EnlargedImage {...{
+                cursorOffset: {
+                    x: 0,
+                    y: 0
+                },
+                position: {
+                    x: 0,
+                    y: 0
+                },
+                fadeDurationInMs: 0,
+                isHovering: false,
+                largeImage: {
+                    alt: 'foo',
+                    src: 'bar',
+                    srcSet: 'corge',
+                    width: 12,
+                    height: 16
+                },
+                smallImage: {
+                    alt: 'baz',
+                    src: 'qux',
+                    srcSet: 'quux',
+                    width: 3,
+                    height: 4
+                }
+            }} />
+        );
+    }
 });

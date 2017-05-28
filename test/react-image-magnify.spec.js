@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
@@ -6,9 +6,9 @@ import sinon from 'sinon';
 import ReactImageMagnify from '../src/ReactImageMagnify';
 
 describe('React Image Magnify', () => {
-    let shallowWrapper;
     const smallImage = {
         alt: 'baz',
+        isFluidWidth: false,
         src: 'qux',
         srcSet: 'quux',
         sizes: 'grault',
@@ -24,31 +24,30 @@ describe('React Image Magnify', () => {
         height: 16
     };
 
+    function getCompositProps(props) {
+        return Object.assign(
+            {
+                fadeDurationInMs: 0,
+                hoverDelayInMs: 0,
+                hoverOffDelayInMs: 0
+            },
+            {
+                largeImage,
+                smallImage
+            },
+            props
+        );
+    }
+    
     function getShallowWrapper(props) {
-        const compositProps = Object.assign({
-            fadeDurationInMs: 0,
-            hoverDelayInMs: 0,
-            hoverOffDelayInMs: 0,
-            largeImage,
-            smallImage
-        }, props);
-
         return shallow(
-            <ReactImageMagnify {...compositProps} />
+            <ReactImageMagnify {...getCompositProps(props)} />
         );
     }
 
     function getMountedWrapper(props) {
-        const compositProps = Object.assign({
-            fadeDurationInMs: 0,
-            hoverDelayInMs: 0,
-            hoverOffDelayInMs: 0,
-            largeImage,
-            smallImage
-        }, props);
-
         return mount(
-            <ReactImageMagnify {...compositProps} />
+            <ReactImageMagnify {...getCompositProps(props)} />
         );
     }
 
@@ -61,6 +60,8 @@ describe('React Image Magnify', () => {
 
         window.dispatchEvent(event);
     }
+
+    let shallowWrapper = getShallowWrapper();
 
     beforeEach(() => {
         shallowWrapper = getShallowWrapper();
@@ -114,10 +115,11 @@ describe('React Image Magnify', () => {
                         fontSize: '2px',
                         position: 'absolute'
                     },
-                    smallImage: {
-                        isFluidWidth: true,
-                        src: 'foo'
-                    }
+                    smallImage: Object.assign(
+                        {},
+                        smallImage,
+                        { isFluidWidth: true }
+                    )
                 };
                 shallowWrapper.setProps(props);
                 
@@ -192,9 +194,13 @@ describe('React Image Magnify', () => {
                         height: '11px',
                         display: 'inline-block'
                     },
-                    smallImage: {
-                        isFluidWidth: true
-                    }
+                    smallImage: Object.assign(
+                        {},
+                        smallImage,
+                        {
+                            isFluidWidth: true
+                        }
+                    )
                 });
 
                 const { style } = shallowWrapper.find('img').props();
@@ -228,6 +234,7 @@ describe('React Image Magnify', () => {
 
             it('applies fixed width smallImage values to small image element', () => {
                 const { alt, src, srcSet, sizes, style } = shallowWrapper.find('img').props();
+                
                 expect(alt).to.equal(smallImage.alt);
                 expect(src).to.equal(smallImage.src);
                 expect(srcSet).to.equal(smallImage.srcSet);
@@ -239,11 +246,11 @@ describe('React Image Magnify', () => {
             it('applies fluid width smallImage values to small image element', () => {
                 shallowWrapper.setProps({
                     smallImage: Object.assign(
+                        {},
+                        smallImage,
                         {
-                            isFluidWidth: true,
-                            src: 'foo'
-                        },
-                        smallImage
+                            isFluidWidth: true
+                        }
                     )
                 });
 
@@ -269,11 +276,11 @@ describe('React Image Magnify', () => {
                 shallowWrapper.setProps({ 
                     fadeDurationInMs: 1,
                     smallImage: Object.assign(
+                        {},
+                        smallImage,
                         {
                             isFluidWidth: true,
-                            src: 'foo'
-                        },
-                        smallImage
+                        }
                     )
                 });
 
@@ -299,17 +306,19 @@ describe('React Image Magnify', () => {
             it('applies fluid width smallImage to EnlargedImage element', () => {
                 shallowWrapper.setProps({
                     smallImage: Object.assign(
+                        {},
+                        smallImage,
                         {
                             isFluidWidth: true
-                        },
-                        smallImage
+                        }
                     )
                 });
                 
                 const expected = Object.assign(
-                    { isFluidWidth: true},
+                    {},
                     smallImage,
                     {
+                        isFluidWidth: true,
                         width: 0,
                         height: 0
                     }

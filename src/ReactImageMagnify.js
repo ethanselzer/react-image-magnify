@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import requiredIf from 'react-required-if';
-import ReactCursorPosition from 'react-cursor-position';
+import Reactposition from 'react-cursor-position';
 import ReactHoverObserver from 'react-hover-observer';
 
 import LensTop from './LensTop';
@@ -178,7 +179,7 @@ class ReactImageMagnify extends React.Component {
         );
 
         return (
-            <ReactCursorPosition { ...{
+            <Reactposition { ...{
                 className,
                 style: compositContainerStyle,
             }}>
@@ -239,7 +240,7 @@ class ReactImageMagnify extends React.Component {
                         imagePosition: enlargedImagePosition
                     }}/>
                 </ReactHoverObserver>
-            </ReactCursorPosition>
+            </Reactposition>
         );
     }
 }

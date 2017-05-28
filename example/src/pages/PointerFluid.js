@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
-import ReactImageMagnify from '../../../dist/ReactImageMagnify';
-// import { ReactImageMagnify } from 'react-image-magnify';
+import ReactImageMagnify from '../pkg-lnk/ReactImageMagnify';
 
 import './App.css';
 
-import watchImg355 from '../../images/wristwatch_355.jpg';
-import watchImg481 from '../../images/wristwatch_481.jpg';
-import watchImg584 from '../../images/wristwatch_584.jpg';
-import watchImg687 from '../../images/wristwatch_687.jpg';
-import watchImg770 from '../../images/wristwatch_770.jpg';
-import watchImg861 from '../../images/wristwatch_861.jpg';
-import watchImg955 from '../../images/wristwatch_955.jpg';
-import watchImg1033 from '../../images/wristwatch_1033.jpg';
-import watchImg1112 from '../../images/wristwatch_1112.jpg';
-import watchImg1192 from '../../images/wristwatch_1192.jpg';
-import watchImg1200 from '../../images/wristwatch_1200.jpg';
+import watchImg355 from '../images/wristwatch_355.jpg';
+import watchImg481 from '../images/wristwatch_481.jpg';
+import watchImg584 from '../images/wristwatch_584.jpg';
+import watchImg687 from '../images/wristwatch_687.jpg';
+import watchImg770 from '../images/wristwatch_770.jpg';
+import watchImg861 from '../images/wristwatch_861.jpg';
+import watchImg955 from '../images/wristwatch_955.jpg';
+import watchImg1033 from '../images/wristwatch_1033.jpg';
+import watchImg1112 from '../images/wristwatch_1112.jpg';
+import watchImg1192 from '../images/wristwatch_1192.jpg';
+import watchImg1200 from '../images/wristwatch_1200.jpg';
 
 export default class extends Component {
     get srcSet() {
