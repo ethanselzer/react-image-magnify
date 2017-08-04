@@ -32,9 +32,9 @@ module.exports = {
          * Can be `server`, `static` or `disabled`.
          * In `server` mode analyzer will start HTTP server to show bundle report.
          * In `static` mode single HTML file with bundle report will be generated.
-         * In `disabled` mode you can use this plugin to just generate Webpack Stats 
+         * In `disabled` mode you can use this plugin to just generate Webpack Stats
          * JSON file by setting `generateStatsFile` to true.
          */
-        analyzerMode: 'server',
+        analyzerMode: 'disabled',
     })]
 };

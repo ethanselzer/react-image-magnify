@@ -6,6 +6,11 @@ Supports hover intnet, long-press gesture, and fade transitions.
 
 Use for shopping sites or anywhere image detail is desired.
 
+## Status
+[![CircleCI](https://img.shields.io/circleci/project/github/ethanselzer/react-image-magnify.svg)](https://circleci.com/gh/ethanselzer/react-image-magnify) [![Coverage Status](https://coveralls.io/repos/github/ethanselzer/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/ethanselzer/react-image-magnify?branch=master)
+[![npm](https://img.shields.io/npm/v/react-image-magnify.svg)](https://www.npmjs.com/package/react-image-magnify)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 ## Demo
 [Responsive Example](https://ethanselzer.github.io/react-image-magnify/#/)
 
@@ -13,10 +18,6 @@ Use for shopping sites or anywhere image detail is desired.
 
 <img src="https://raw.githubusercontent.com/ethanselzer/react-image-magnify/master/images/qrcode.png" width="50" height="50" alt="demo"/>
 
-## Status
-[![CircleCI](https://img.shields.io/circleci/project/github/ethanselzer/react-image-magnify.svg)](https://circleci.com/gh/ethanselzer/react-image-magnify) [![Coverage Status](https://coveralls.io/repos/github/ethanselzer/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/ethanselzer/react-image-magnify?branch=master)
-[![npm](https://img.shields.io/npm/v/react-image-magnify.svg)](https://www.npmjs.com/package/react-image-magnify)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Installation
 
@@ -25,6 +26,8 @@ npm install --save react-image-magnify
 ```
 
 ## Usage
+If you are upgrading from v1x to v2x, please see the [release notes](https://github.com/ethanselzer/react-image-magnify/releases/tag/v2.0.0).
+
 ```JavaScript
 import { ReactImageMagnifyTouch } from 'react-image-magnify';
 ...
