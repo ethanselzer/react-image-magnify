@@ -1,18 +1,20 @@
 # react-image-magnify
 
-A responsive React image zoom component for desktop and mobile.
+A responsive React image zoom component for touch and mouse.
 
 Supports hover intnet, long-press gesture, and fade transitions.
 
+Use for shopping sites or anywhere image detail is desired.
+
 ## Demo
-[Desktop](https://ethanselzer.github.io/react-image-magnify/#/pointer/fluid)
+[Responsive Example](https://ethanselzer.github.io/react-image-magnify/#/)
 
-[Touch](https://ethanselzer.github.io/react-image-magnify/#/touch/fluid)
+[Fixed Width Example](https://ethanselzer.github.io/react-image-magnify/#/fixed)
 
-<img src="https://raw.githubusercontent.com/ethanselzer/react-image-magnify/master/images/qrcode_touch_fluid.png" width="75" height="75" alt="Touch Demo"/>
+<img src="https://raw.githubusercontent.com/ethanselzer/react-image-magnify/master/images/qrcode.png" width="50" height="50" alt="demo"/>
 
 ## Status
-[![CircleCI](https://img.shields.io/circleci/project/github/ethanselzer/react-image-magnify.svg)](https://circleci.com/gh/ethanselzer/react-image-magnify)
+[![CircleCI](https://img.shields.io/circleci/project/github/ethanselzer/react-image-magnify.svg)](https://circleci.com/gh/ethanselzer/react-image-magnify) [![Coverage Status](https://coveralls.io/repos/github/ethanselzer/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/ethanselzer/react-image-magnify?branch=master)
 [![npm](https://img.shields.io/npm/v/react-image-magnify.svg)](https://www.npmjs.com/package/react-image-magnify)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
@@ -78,7 +80,7 @@ If you would like more information on responsive images, please try these resour
 | `enlargedImageClassName`      | String | No       |         | CSS class applied to enlarged image element.               |
 | `enlargedImageStyle`          | Object | No       |         | Style applied to enlarged image element.                   |
 
-### Desktop Only
+### Mouse Specific
 | Prop                          | Type   | Required | Default | Description                                                |
 |-------------------------------|--------|----------|---------|------------------------------------------------------------|
 | `hoverDelayInMs`              | Number | No       | 250     | Milliseconds to delay hover trigger.                       |
@@ -86,7 +88,7 @@ If you would like more information on responsive images, please try these resour
 | `lensStyle`                   | Object | No       |         | Style applied to tinted lens.                      |
 | `enlargedImagePosition`       | String | No       | beside  | Enlarged image position. Can be 'beside' or 'over'.        |
 
-### Touch Only
+### Touch Specific
 | Prop                          | Type   | Required | Default | Description                                                |
 |-------------------------------|--------|----------|---------|------------------------------------------------------------|
 | `isActivatedOnTouch`          | Boolean| No       | false   | Activate magnification immediately on touch. May impact scrolling.|
@@ -127,33 +129,38 @@ Please [open an issue](https://github.com/ethanselzer/react-image-magnify/issues
 ```ssh
 git clone https://github.com/ethanselzer/react-image-magnify.git
 cd react-image-magnify/example
-npm install
-npm start
+yarn
+yarn start
 ```
 If your default browser does not start automatically, open a new browser window and go to localhost:3000
-
-Navigate to /touch/fluid or /pointer/fluid for fluid width examples.
-Navigate to /touch for fixed width.
 
 ## Development
 
 ```ssh
 git clone https://github.com/ethanselzer/react-image-magnify.git
 cd react-image-magnify
-npm install
+yarn
 npm run #See available commands
 ```
 
-The [Example Project](#example-project) may be used in development of react-image-magnify. At this time, the command `npm run prepublsih`
-must be run from the root of the project each time you want your changes to be reflected in the example.
-
-If you experience [ReferenceError: Unknown plugin "'transform-es2015-modules-umd'"](https://github.com/ethanselzer/react-image-magnify/issues/1) 
-when running `prepublish` you may try running `prepublish-cjs`.
+The [Example Project](#example-project) may be used in development. To watch the source for changes, run npm run build-watch.
 
 ## Contributing
 
 Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch,
 add commits, and [open a pull request](https://github.com/ethanselzer/react-image-magnify/compare/).
+
+## Attribution
+
+Thanks to the following community members for opening GitHub Issues and Pull Requests. Your input is very much appreciated!
+
+@damien916  
+@colepatrickturner  
+@andreatosatto90  
+@nathanziarek  
+@hombrew
+
+You are awesome! ✨💫
 
 ## License
 

@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import objectAssign from 'object-assign';
 
 const Lens = (props) => {
     const {
         fadeDurationInMs,
-        isHovering,
+        isActive,
+        isPositionOutside,
         style,
         translateX,
         translateY
@@ -15,7 +17,7 @@ const Lens = (props) => {
         transform: translate,
         WebkitTransform: translate,
         msTransform: translate,
-        opacity: isHovering ? 1 : 0,
+        opacity: (isActive && !isPositionOutside) ? 1 : 0,
         transition: `opacity ${fadeDurationInMs}ms ease-in`
     };
     const defaultStyle = {
@@ -28,20 +30,20 @@ const Lens = (props) => {
         display: 'block'
     };
 
-    return <div style={ Object.assign({}, defaultStyle, style, computedStyle) }/>;
+    return <div style={ objectAssign({}, defaultStyle, style, computedStyle) }/>;
 }
 
 Lens.propTypes = {
     style: PropTypes.object,
     fadeDurationInMs: PropTypes.number,
-    isHovering: PropTypes.bool,
+    isActive: PropTypes.bool,
     translateX: PropTypes.number,
     translateY: PropTypes.number,
     userStyle: PropTypes.object
 };
 
 Lens.defaultProps = {
-    isHovering: false,
+    isActive: false,
     fadeDurationInMs: 0,
     translateX: 0,
     translateY: 0

@@ -1,7 +1,6 @@
-.DS_Store
 .nyc_output/
+.vscode/
 coverage/
 dist/
-npm-debug.log
-node_modules/
+example/
 stats.json

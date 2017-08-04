@@ -2,8 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import EnlargedImage from '../src/EnlargedImage';
-import Point from '../src/Point';
-import ImageShape from '../src/ImageShape';
 
 describe('Enlarged Image', () => {
     let shallowWrapper;
@@ -12,8 +10,8 @@ describe('Enlarged Image', () => {
         shallowWrapper = getShallowWrapper();
 
         shallowWrapper.setState({
-            isHovering: true,
-            isTransitionActive: true 
+            isActive: true,
+            isTransitionActive: true
         });
     });
 
@@ -34,8 +32,18 @@ describe('Enlarged Image', () => {
     it('has correct default props', () => {
         expect(EnlargedImage.defaultProps).to.deep.equal({
             fadeDurationInMs: 0,
-            isRenderOnDemand: true
+            isLazyLoaded: true
         });
+    });
+
+    it('renders lazily by default', () => {
+        const wrapper = getShallowWrapper();
+        expect(wrapper.find('div')).to.have.length(0);
+    });
+
+    it('renders nonlazily if isLazyLoaded is set to false', () => {
+        const wrapper = getShallowWrapper({ isLazyLoaded: false });
+        expect(wrapper.find('div')).to.have.length(1);
     });
 
     describe('Props API', () => {
@@ -83,10 +91,15 @@ describe('Enlarged Image', () => {
             expect(renderedWrapper.find('img').css('border')).to.equal(borderValue);
         });
 
-        it('applies imagePosition to image', () => {
-            const renderedWrapper = shallowWrapper.render();
+        it('applies CSS to container element based on imagePosition prop', () => {
+            shallowWrapper.setProps({ imagePosition: 'over' });
+            expect(shallowWrapper.render().find('div').css('left')).to.equal('0px');
 
-            expect(renderedWrapper.find('img').data('hover')).to.be.false;
+            shallowWrapper.setProps({ imagePosition: 'beside' });
+            expect(shallowWrapper.render().find('div').css('left')).to.equal('100%');
+            expect(shallowWrapper.render().find('div').css('margin-left')).to.equal('10px');
+            expect(shallowWrapper.render().find('div').css('border')).to.equal('1px solid #d6d6d6');
+
         });
 
         it('applies large image alt', () => {
@@ -214,7 +227,7 @@ describe('Enlarged Image', () => {
         });
 
         it('applies computed style', () => {
-            const expected = 'width:3px;height:4px;opacity:1;transition:opacity 0ms ease-in;';
+            const expected = 'width:3px;height:4px;opacity:1;transition:opacity 0ms ease-in;pointer-events:none;';
 
             const renderedWrapper = shallowWrapper.render();
 
@@ -259,6 +272,7 @@ describe('Enlarged Image', () => {
                     x: 0,
                     y: 0
                 },
+                isActive: true,
                 position: {
                     x: 1,
                     y: 2
@@ -285,6 +299,7 @@ describe('Enlarged Image', () => {
                     x: 0,
                     y: 0
                 },
+                isPositionOutside: true,
                 position: {
                     x: 5,
                     y: 5
@@ -347,34 +362,36 @@ describe('Enlarged Image', () => {
 
     });
 
-    function getShallowWrapper() {
+    const props = {
+        cursorOffset: {
+            x: 0,
+            y: 0
+        },
+        position: {
+            x: 0,
+            y: 0
+        },
+        fadeDurationInMs: 0,
+        isActive: false,
+        largeImage: {
+            alt: 'foo',
+            src: 'bar',
+            srcSet: 'corge',
+            width: 12,
+            height: 16
+        },
+        smallImage: {
+            alt: 'baz',
+            src: 'qux',
+            srcSet: 'quux',
+            width: 3,
+            height: 4
+        }
+    };
+
+    function getShallowWrapper(optionalProps) {
         return shallow(
-            <EnlargedImage {...{
-                cursorOffset: {
-                    x: 0,
-                    y: 0
-                },
-                position: {
-                    x: 0,
-                    y: 0
-                },
-                fadeDurationInMs: 0,
-                isHovering: false,
-                largeImage: {
-                    alt: 'foo',
-                    src: 'bar',
-                    srcSet: 'corge',
-                    width: 12,
-                    height: 16
-                },
-                smallImage: {
-                    alt: 'baz',
-                    src: 'qux',
-                    srcSet: 'quux',
-                    width: 3,
-                    height: 4
-                }
-            }} />
+            <EnlargedImage {...props} {...optionalProps} />
         );
     }
 });

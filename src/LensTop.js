@@ -1,16 +1,17 @@
 import React from 'react';
 import clamp from 'clamp';
+import objectAssign from 'object-assign';
 import Lens from './Lens';
 
 const LensTop = ({
     cursorOffset,
     position,
     fadeDurationInMs,
-    isHovering,
+    isActive,
+    isPositionOutside,
     smallImage,
     style
 }) => {
-
     const maxHeight = smallImage.height - (cursorOffset.y * 2);
     const height = clamp(position.y - cursorOffset.y, 0, maxHeight);
     const computedStyle = {
@@ -22,8 +23,9 @@ const LensTop = ({
     return (
         <Lens {...{
             fadeDurationInMs,
-            isHovering,
-            style: Object.assign({}, style, computedStyle)
+            isActive,
+            isPositionOutside,
+            style: objectAssign({}, style, computedStyle)
         }}/>
     );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import objectAssign from 'object-assign';
 import clamp from 'clamp';
 import Lens from './Lens';
 
@@ -6,7 +7,8 @@ const LensLeft = ({
     cursorOffset,
     position,
     fadeDurationInMs,
-    isHovering,
+    isActive,
+    isPositionOutside,
     smallImage,
     style
 }) => {
@@ -26,8 +28,9 @@ const LensLeft = ({
     return (
         <Lens {...{
             fadeDurationInMs,
-            isHovering,
-            style: Object.assign({}, style, computedStyle),
+            isActive,
+            isPositionOutside,
+            style: objectAssign({}, style, computedStyle),
             translateY
         }}/>
     );

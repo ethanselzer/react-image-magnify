@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import requiredIf from 'react-required-if';
-import Reactposition from 'react-cursor-position';
-import ReactHoverObserver from 'react-hover-observer';
+import ReactCursorPosition from 'react-cursor-position';
+import objectAssign from 'object-assign';
 
-import LensTop from './LensTop';
-import LensLeft from './LensLeft';
-import LensRight from './LensRight';
-import LensBottom from './LensBottom';
+import ImageLensShaded from './ImageLensShaded';
 import EnlargedImage from './EnlargedImage';
 import ImageShape from './ImageShape';
 
@@ -18,11 +15,18 @@ class ReactImageMagnify extends React.Component {
 
         this.state = {
             smallImageWidth: 0,
-            smallImageHeight: 0
+            smallImageHeight: 0,
+            detectedEnvironment: {
+                isMouseDeteced: false,
+                isTouchDetected: false
+            },
+            isActive: false
         }
 
         this.onSmallImageLoad = this.onSmallImageLoad.bind(this);
         this.setSmallImageDimensionState = this.setSmallImageDimensionState.bind(this);
+        this.onDetectedEnvironmentChanged = this.onDetectedEnvironmentChanged.bind(this);
+        this.onActivationChanged = this.onActivationChanged.bind(this);
     }
 
     static propTypes = {
@@ -34,10 +38,13 @@ class ReactImageMagnify extends React.Component {
         fadeDurationInMs: PropTypes.number,
         hoverDelayInMs: PropTypes.number,
         hoverOffDelayInMs: PropTypes.number,
+        isActivatedOnTouch: PropTypes.bool,
         imageClassName: PropTypes.string,
         imageStyle: PropTypes.object,
         largeImage: ImageShape,
         lensStyle: PropTypes.object,
+        pressDuration: PropTypes.number,
+        pressMoveThreshold: PropTypes.number,
         smallImage: PropTypes.shape({
             alt: PropTypes.string,
             isFluidWidth: PropTypes.bool,
@@ -52,7 +59,6 @@ class ReactImageMagnify extends React.Component {
     };
 
     static defaultProps = {
-        enlargedImagePosition: 'beside',
         fadeDurationInMs: 300,
         hoverDelayInMs: 250,
         hoverOffDelayInMs: 150
@@ -78,6 +84,29 @@ class ReactImageMagnify extends React.Component {
         });
     }
 
+    onDetectedEnvironmentChanged(detectedEnvironment) {
+        this.setState({
+            detectedEnvironment
+        });
+    }
+
+    onActivationChanged({ isActive }) {
+        this.setState({
+            isActive
+        });
+    }
+
+    getEnlargedImagePlacement() {
+        const { enlargedImagePosition } = this.props;
+        const {
+            detectedEnvironment: {
+                isTouchDetected
+            }
+        } = this.state;
+
+        return enlargedImagePosition || (isTouchDetected ? 'over' : 'beside');
+    }
+
     componentDidMount() {
         if (this.props.smallImage.isFluidWidth) {
             this.setSmallImageDimensionState();
@@ -86,12 +115,14 @@ class ReactImageMagnify extends React.Component {
     }
 
     componentWillUnmount() {
-        if (this.props.smallImage.isFluidWidth) {
-            window.removeEventListener('resize', this.setSmallImageDimensionState);
-        }
+        window.removeEventListener('resize', this.setSmallImageDimensionState);
     }
 
-    render() {     
+    getCursorOffsetDimension(smallImageDimension, largeImageDimension) {
+        return Math.round(((smallImageDimension / largeImageDimension) * smallImageDimension) / 2);
+    }
+
+    render() {
         const {
             className,
             enlargedImageContainerClassName,
@@ -101,23 +132,32 @@ class ReactImageMagnify extends React.Component {
             fadeDurationInMs,
             hoverDelayInMs,
             hoverOffDelayInMs,
-            smallImage: {
-                isFluidWidth: isSmallImageFluidWidth
-            },
+            isActivatedOnTouch,
             imageClassName,
             imageStyle,
             largeImage,
             lensStyle,
+            pressDuration,
+            pressMoveThreshold,
+            smallImage: {
+                isFluidWidth: isSmallImageFluidWidth
+            },
             style,
-            enlargedImagePosition
         } = this.props;
+        const {
+            smallImageWidth,
+            smallImageHeight,
+            detectedEnvironment: {
+                isTouchDetected
+            }
+        } = this.state;
 
-        const fluidWidthSmallImage = Object.assign(
+        const fluidWidthSmallImage = objectAssign(
             {},
             this.props.smallImage,
             {
-                width: this.state.smallImageWidth,
-                height: this.state.smallImageHeight
+                width: smallImageWidth,
+                height: smallImageHeight
             }
         );
         const fixedWidthSmallImage = this.props.smallImage;
@@ -126,17 +166,9 @@ class ReactImageMagnify extends React.Component {
             : fixedWidthSmallImage
 
         const cursorOffset = {
-            x: Math.round(((smallImage.width / largeImage.width) * smallImage.width) / 2),
-            y: Math.round(((smallImage.height / largeImage.height) * smallImage.height) / 2)
+            x: this.getCursorOffsetDimension(smallImage.width, largeImage.width),
+            y: this.getCursorOffsetDimension(smallImage.height, largeImage.height)
         };
-        
-        let defaultLensStyle = {
-            backgroundColor: 'rgba(0,0,0,.4)'
-        };       
-        if (enlargedImagePosition === 'over') {
-            defaultLensStyle = {};
-        }
-        const compositLensStyle = Object.assign({}, defaultLensStyle, lensStyle);
 
         const fluidWidthContainerStyle = {
             width: 'auto',
@@ -152,7 +184,7 @@ class ReactImageMagnify extends React.Component {
         const priorityContainerStyle = isSmallImageFluidWidth
             ? fluidWidthContainerStyle
             : fixedWidthContainerStyle;
-        const compositContainerStyle = Object.assign(
+        const compositContainerStyle = objectAssign(
             {
                 cursor: 'crosshair',
             },
@@ -163,84 +195,70 @@ class ReactImageMagnify extends React.Component {
         const fluidWidthSmallImageStyle = {
             width: '100%',
             height: 'auto',
-            display: 'block'
+            display: 'block',
+            pointerEvents: 'none'
         };
         const fixedWidthSmallImageStyle = {
             width: `${smallImage.width}px`,
-            height: `${smallImage.height}px`
+            height: `${smallImage.height}px`,
+            pointerEvents: 'none'
         };
         const prioritySmallImageStyle = isSmallImageFluidWidth
             ? fluidWidthSmallImageStyle
             : fixedWidthSmallImageStyle;
-        const compositSmallImageStyle = Object.assign(
+        const compositSmallImageStyle = objectAssign(
             {},
             imageStyle,
             prioritySmallImageStyle
         );
+        const enlargedImagePlacement = this.getEnlargedImagePlacement();
+        const shouldShowLens = (
+            enlargedImagePlacement !== 'over' &&
+            !isTouchDetected
+        );
 
         return (
-            <Reactposition { ...{
+            <ReactCursorPosition { ...{
                 className,
-                style: compositContainerStyle,
+                hoverDelayInMs,
+                hoverOffDelayInMs,
+                isActivatedOnTouch,
+                onActivationChanged: this.onActivationChanged,
+                onDetectedEnvironmentChanged: this.onDetectedEnvironmentChanged,
+                pressDuration,
+                pressMoveThreshold,
+                style: compositContainerStyle
             }}>
-                <ReactHoverObserver { ...{
-                    hoverDelayInMs,
-                    hoverOffDelayInMs,
-                    onMouseEnter: ({ setIsHovering }) => setIsHovering(),
-                    onMouseLeave: ({ unsetIsHovering }) => unsetIsHovering(),
-                    onMouseOver: ({ e, unsetIsHovering }) => {
-                        if (e.target.getAttribute('data-hover') === 'false') {
-                            unsetIsHovering();
-                        }
-                    }
-                }}>
-                    <img { ...{
-                        src: smallImage.src,
-                        srcSet: smallImage.srcSet,
-                        sizes: smallImage.sizes,
-                        alt: smallImage.alt,
-                        className: imageClassName,
-                        style: compositSmallImageStyle,
-                        ref: (el) => this.smallImageEl = el,
-                        onLoad: this.onSmallImageLoad
-                    }} />
-                    <LensTop { ...{
+                <img { ...{
+                    src: smallImage.src,
+                    srcSet: smallImage.srcSet,
+                    sizes: smallImage.sizes,
+                    alt: smallImage.alt,
+                    className: imageClassName,
+                    style: compositSmallImageStyle,
+                    ref: (el) => this.smallImageEl = el,
+                    onLoad: this.onSmallImageLoad
+                }} />
+                {shouldShowLens &&
+                    <ImageLensShaded {...{
                         cursorOffset,
                         fadeDurationInMs,
                         smallImage,
-                        style: compositLensStyle
+                        style: lensStyle
                     }} />
-                    <LensLeft { ...{
-                        cursorOffset,
-                        fadeDurationInMs,
-                        smallImage,
-                        style: compositLensStyle
-                    }} />
-                    <LensRight { ...{
-                        cursorOffset,
-                        fadeDurationInMs,
-                        smallImage,
-                        style: compositLensStyle
-                    }} />
-                    <LensBottom { ...{
-                        cursorOffset,
-                        fadeDurationInMs,
-                        smallImage,
-                        style: compositLensStyle,
-                    }} />
-                    <EnlargedImage { ...{
-                        containerClassName: enlargedImageContainerClassName,
-                        containerStyle: enlargedImageContainerStyle,
-                        cursorOffset,
-                        fadeDurationInMs,
-                        imageClassName: enlargedImageClassName,
-                        imageStyle: enlargedImageStyle,
-                        largeImage,
-                        smallImage,
-                        imagePosition: enlargedImagePosition
-                    }}/>
-                </ReactHoverObserver>
-            </Reactposition>
+                }
+                <EnlargedImage { ...{
+                    containerClassName: enlargedImageContainerClassName,
+                    containerStyle: enlargedImageContainerStyle,
+                    cursorOffset,
+                    fadeDurationInMs,
+                    imageClassName: enlargedImageClassName,
+                    imageStyle: enlargedImageStyle,
+                    imagePosition: enlargedImagePlacement,
+                    largeImage,
+                    smallImage
+                }}/>
+            </ReactCursorPosition>
         );
     }
 }

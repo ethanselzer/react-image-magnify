@@ -1,4 +1,5 @@
 import React from 'react';
+import objectAssign from 'object-assign';
 import PropTypes from 'prop-types';
 import clamp from 'clamp';
 import ImageShape from './ImageShape';
@@ -14,13 +15,15 @@ export default class extends React.Component {
             isTransitionLeaving: false,
             isTransitionDone: false
         };
+
+        this.timers = [];
     }
 
     static displayName = 'EnlargedImage';
 
     static defaultProps = {
         fadeDurationInMs: 0,
-        isRenderOnDemand: true
+        isLazyLoaded: true
     };
 
     static propTypes = {
@@ -31,43 +34,55 @@ export default class extends React.Component {
         fadeDurationInMs: PropTypes.number,
         imageClassName: PropTypes.string,
         imageStyle: PropTypes.object,
-        isHovering: PropTypes.bool,
-        isRenderOnDemand: PropTypes.bool,
+        isActive: PropTypes.bool,
+        isLazyLoaded: PropTypes.bool,
         largeImage: ImageShape,
         smallImage: ImageShape,
         imagePosition: PropTypes.oneOf(['beside', 'over'])
     };
 
     componentWillReceiveProps(nextProps) {
-        const { isHovering } = nextProps;
+        const {
+            fadeDurationInMs,
+            isActive,
+            isPositionOutside
+        } = this.props;
 
-        if (isHovering === this.props.isHovering) {
+        if (isActive === nextProps.isActive && isPositionOutside === nextProps.isPositionOutside) {
             return;
         }
 
-        if (isHovering) {
+        if (nextProps.isActive && !nextProps.isPositionOutside) {
             this.setState({
+                isTrainsitionDone: false,
                 isTransitionEntering: true
             });
 
-            setTimeout(() => {
+            this.timers.push(setTimeout(() => {
                 this.setState({
                     isTransitionEntering: false,
                     isTransitionActive: true
                 });
-            }, 0);
+            }, 0));
         } else {
             this.setState({
-                isTransitionActive: false,
-                isTransitionLeaving: true
+                isTransitionLeaving: true,
+                isTransitionActive: false
             });
 
-            setTimeout(() => {
+            this.timers.push(setTimeout(() => {
                 this.setState({
+                    isTransitionDone: true,
                     isTransitionLeaving: false
                 });
-            }, this.props.fadeDurationInMs);
+            }, fadeDurationInMs));
         }
+    }
+
+    componentWillUnmount() {
+        this.timers.forEach((timerId) => {
+            clearTimeout(timerId);
+        });
     }
 
     render() {
@@ -79,7 +94,7 @@ export default class extends React.Component {
             fadeDurationInMs,
             imageClassName,
             imageStyle,
-            isRenderOnDemand,
+            isLazyLoaded,
             largeImage,
             smallImage,
             imagePosition
@@ -120,26 +135,21 @@ export default class extends React.Component {
             isVisible = false;
         }
 
-        let imgDataHover;
         let defaultContainerStyle = {
             position: 'absolute',
             top: '0px',
-            
             overflow: 'hidden'
         };
-        
+
         switch (imagePosition) {
         case 'over':
-            imgDataHover = true;
-            defaultContainerStyle = Object.assign({}, defaultContainerStyle, {
-                left: '0px'                    
+            defaultContainerStyle = objectAssign({}, defaultContainerStyle, {
+                left: '0px'
             });
             break;
-            
         case 'beside':
         default:
-            imgDataHover = false;
-            defaultContainerStyle = Object.assign({}, defaultContainerStyle, {
+            defaultContainerStyle = objectAssign({}, defaultContainerStyle, {
                 left: '100%',
                 marginLeft: '10px',
                 border: '1px solid #d6d6d6',
@@ -151,7 +161,8 @@ export default class extends React.Component {
             width: smallImage.width,
             height: smallImage.height,
             opacity: this.state.isTransitionActive ? 1 : 0,
-            transition: `opacity ${fadeDurationInMs}ms ease-in`
+            transition: `opacity ${fadeDurationInMs}ms ease-in`,
+            pointerEvents: 'none'
         };
 
         const translate = `translate(${imageCoordinates.x}px, ${imageCoordinates.y}px)`;
@@ -161,27 +172,27 @@ export default class extends React.Component {
             height: largeImage.height,
             transform: translate,
             WebkitTransform: translate,
-            msTransform: translate
+            msTransform: translate,
+            pointerEvents: 'none'
         };
-        
+
         const component = (
             <div { ...{
                 className: containerClassName,
-                key: 'enlarged',
-                style: Object.assign({}, defaultContainerStyle, containerStyle, computedContainerStyle)
+                style: objectAssign({}, defaultContainerStyle, containerStyle, computedContainerStyle)
             }}>
-                <img data-hover={imgDataHover} { ...{
+                <img { ...{
                     alt: largeImage.alt,
                     className: imageClassName,
                     src: largeImage.src,
                     srcSet: largeImage.srcSet,
                     sizes: largeImage.sizes,
-                    style: Object.assign({}, imageStyle, computedImageStyle)
+                    style: objectAssign({}, imageStyle, computedImageStyle)
                 }}/>
             </div>
         );
-        
-        if (isRenderOnDemand) {
+
+        if (isLazyLoaded) {
             return isVisible ? component : null;
         }
 

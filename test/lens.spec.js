@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount, render } from 'enzyme';
+import { render } from 'enzyme';
 import { expect } from 'chai';
 import Lens from '../src/Lens';
 
@@ -58,14 +58,14 @@ describe('Image Lens', () => {
         expect(c.find('div').css('-webkit-transform')).to.equal('translate(1px, 2px)');
     });
 
-    it('applies a value of 0 to CSS opacity property when isHovering is unset', () => {
+    it('applies a value of 0 to CSS opacity property when isActive is unset', () => {
         const c = render(<Lens />);
 
         expect(c.find('div').css('opacity')).to.equal('0');
     });
 
-    it('applies a value of 1 to CSS opacity property when isHovering is set', () => {
-        const c = render(<Lens isHovering />);
+    it('applies a value of 1 to CSS opacity property when isActive is set', () => {
+        const c = render(<Lens isActive />);
 
         expect(c.find('div').css('opacity')).to.equal('1');
     });

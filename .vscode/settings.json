@@ -2,6 +2,7 @@
 {
     "search.exclude": {
         "**/node_modules": true,
+        "coverage": true,
         "dist": true,
         "example/build": true
     }

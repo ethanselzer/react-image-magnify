@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactImageMagnifyTouch from '../pkg-lnk/ReactImageMagnifyTouch';
+import ReactImageMagnify from '../pkg-lnk/ReactImageMagnify';
 
 import './App.css';
 
@@ -34,9 +34,9 @@ class App extends Component {
 
     render() {
         return (
-            <div className="touch-fluid">
-                <div className="touch-fluid__image-container">
-                    <ReactImageMagnifyTouch {...{
+            <div className="fluid">
+                <div className="fluid__image-container">
+                    <ReactImageMagnify {...{
                         largeImage: {
                             alt: '',
                             src: watchImg1200,
@@ -52,9 +52,12 @@ class App extends Component {
                         }
                     }} />
                 </div>
-                <div className="touch-fluid__instructions">
+                <div className="fluid__instructions">
+                    <h3>Touch</h3>
                     <p className="App-intro">Press (long touch) image to magnify. Pan (drag) to traverse image.</p>
                     <p className="App-intro">Note the page can be scrolled when touch begins on image.</p>
+                    <h3>Mouse</h3>
+                    <p>Hover image to magnify</p>
                 </div>
                 <div style={{height: '1000px'}} />
             </div>
