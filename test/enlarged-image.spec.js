@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
+import sinon from 'sinon';
 import EnlargedImage from '../src/EnlargedImage';
 
 describe('Enlarged Image', () => {
@@ -44,6 +45,19 @@ describe('Enlarged Image', () => {
     it('renders nonlazily if isLazyLoaded is set to false', () => {
         const wrapper = getShallowWrapper({ isLazyLoaded: false });
         expect(wrapper.find('div')).to.have.length(1);
+    });
+
+    it('cleans up timers on teardown', () => {
+        const instance = shallowWrapper.instance();
+        instance.timers = [1, 2];
+        sinon.spy(global, 'clearTimeout');
+
+        shallowWrapper.unmount();
+
+        expect(global.clearTimeout.calledTwice).to.be.true;
+        expect(global.clearTimeout.getCall(0).args[0]).to.equal(1);
+        expect(global.clearTimeout.getCall(1).args[0]).to.equal(2);
+        global.clearTimeout.restore();
     });
 
     describe('Props API', () => {
