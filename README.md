@@ -29,9 +29,9 @@ npm install --save react-image-magnify
 If you are upgrading from v1x to v2x, please see the [release notes](https://github.com/ethanselzer/react-image-magnify/releases/tag/v2.0.0).
 
 ```JavaScript
-import { ReactImageMagnifyTouch } from 'react-image-magnify';
+import ReactImageMagnify from 'react-image-magnify';
 ...
-<ReactImageMagnifyTouch {...{
+<ReactImageMagnify {...{
     smallImage: {
         alt: 'Wristwatch by Ted Baker London',
         isFluidWidth: true,
