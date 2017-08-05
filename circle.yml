@@ -3,3 +3,7 @@ machine:
     version: v6.1.0
   environment:
     PATH: "${PATH}:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
+
+test:
+  override:
+    - npm run test-ci
