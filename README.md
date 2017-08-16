@@ -131,10 +131,14 @@ Please [open an issue](https://github.com/ethanselzer/react-image-magnify/issues
 ## Example Project
 ```ssh
 git clone https://github.com/ethanselzer/react-image-magnify.git
-cd react-image-magnify/example
+cd react-image-magnify
+yarn
+yarn run build
+cd example
 yarn
 yarn start
 ```
+
 If your default browser does not start automatically, open a new browser window and go to localhost:3000
 
 ## Development
@@ -146,7 +150,9 @@ yarn
 npm run #See available commands
 ```
 
-The [Example Project](#example-project) may be used in development. To watch the source for changes, run npm run build-watch.
+The [Example Project](#example-project) may be used in development.
+
+To rebuild the source automatically when changes are made, run `yarn run build-watch`.
 
 ## Contributing
 
