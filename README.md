@@ -18,6 +18,10 @@ Use for shopping sites or anywhere image detail is desired.
 
 <img src="https://raw.githubusercontent.com/ethanselzer/react-image-magnify/master/images/qrcode.png" width="50" height="50" alt="demo"/>
 
+Experiment with react-image-magnify [live on CodePen](https://codepen.io/ethanselzer/full/oePMNY/).
+Use the Change View button to select editing mode or for different layout options.
+Use the Fork button to save your changes.
+
 
 ## Installation
 
@@ -37,9 +41,6 @@ import ReactImageMagnify from 'react-image-magnify';
         isFluidWidth: true,
         src: watchImg1200,
         srcSet: [
-            `${watchImg355} 355w`,
-            `${watchImg481} 481w`,
-            `${watchImg584} 584w`,
             `${watchImg687} 687w`,
             `${watchImg770} 770w`,
             `${watchImg861} 861w`,
