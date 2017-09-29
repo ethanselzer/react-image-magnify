@@ -42,7 +42,7 @@
     "lint": "eslint \"@(src|test)/**/*.js\"",
     "stats": "webpack -p --profile --json > stats.json",
     "test": "npm run lint && npm run test-only",
-    "test-only": "cross-env BABEL_ENV=test mocha --require babel-core/register --require test/support/jsdom test/*.spec.js",
+    "test-only": "cross-env BABEL_ENV=test mocha --require babel-core/register --require test/setup test/*.spec.js",
     "test-watch": "npm run test-only -- --watch",
     "test-coverage": "rimraf coverage && nyc --reporter=lcov npm run test-only && nyc report",
     "test-ci": "npm run lint && npm run test-coverage && npm run coveralls",
@@ -69,7 +69,8 @@
     "chai": "^4.1.0",
     "coveralls": "^2.13.1",
     "cross-env": "^5.0.1",
-    "enzyme": "^2.9.1",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-16": "^1.0.0",
     "eslint": "^4.3.0",
     "eslint-plugin-chai-friendly": "^0.3.6",
     "eslint-plugin-import": "^2.7.0",
@@ -78,16 +79,16 @@
     "jsdom": "^11.1.0",
     "mocha": "^3.4.2",
     "nyc": "^11.0.3",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-test-renderer": "^15.6.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-test-renderer": "^16.0.0",
     "rimraf": "^2.6.1",
     "sinon": "^2.4.1",
     "webpack": "^3.4.1",
     "webpack-bundle-analyzer": "^2.8.3"
   },
   "peerDependencies": {
-    "react": "~0.14.9 || ^15.0.0"
+    "react": "~0.14.9 || ^15.0.0 || ^16.0.0"
   },
   "dependencies": {
     "clamp": "^1.0.1",

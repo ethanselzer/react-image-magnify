@@ -73,15 +73,17 @@ class ReactImageMagnify extends React.Component {
     }
 
     setSmallImageDimensionState() {
-        const {
-            offsetWidth: smallImageWidth,
-            offsetHeight: smallImageHeight
-        } = this.smallImageEl;
+        if (this.smallImageEl) {
+            const {
+                offsetWidth: smallImageWidth,
+                offsetHeight: smallImageHeight
+            } = this.smallImageEl;
 
-        this.setState({
-            smallImageWidth,
-            smallImageHeight
-        });
+            this.setState({
+                smallImageWidth,
+                smallImageHeight
+            });
+        }
     }
 
     onDetectedEnvironmentChanged(detectedEnvironment) {
