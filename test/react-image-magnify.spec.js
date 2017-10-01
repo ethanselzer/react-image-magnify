@@ -374,7 +374,7 @@ describe('React Image Magnify', () => {
                 });
 
                 it('applies fluid width style to small image element, when set', () => {
-                    const shallowWrapper = getShallowWrapper({
+                    shallowWrapper.setProps({
                         smallImage: {
                             isFluidWidth: true,
                             src: 'foo'
