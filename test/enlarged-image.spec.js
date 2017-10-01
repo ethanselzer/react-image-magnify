@@ -67,7 +67,7 @@ describe('Enlarged Image', () => {
 
             const renderedWrapper = shallowWrapper.render();
 
-            expect(renderedWrapper.find('div').hasClass('foo')).to.be.true;
+            expect(renderedWrapper.hasClass('foo')).to.be.true;
         });
 
         it('applies containerStyle to container CSS style', () => {
@@ -77,14 +77,14 @@ describe('Enlarged Image', () => {
             });
             const renderedWrapper = shallowWrapper.render();
 
-            expect(renderedWrapper.find('div').css('border')).to.equal(borderValue);
+            expect(renderedWrapper.css('border')).to.equal(borderValue);
         });
 
         it('applies fadeDurationInMs to container CSS opacity transition', () => {
             shallowWrapper.setProps({ fadeDurationInMs: 100 });
             const renderedWrapper = shallowWrapper.render();
 
-            expect(renderedWrapper.find('div').css('transition')).to.equal('opacity 100ms ease-in');
+            expect(renderedWrapper.css('transition')).to.equal('opacity 100ms ease-in');
         });
 
         it('applies imageClassName to image CSS class', () => {
@@ -107,12 +107,12 @@ describe('Enlarged Image', () => {
 
         it('applies CSS to container element based on imagePosition prop', () => {
             shallowWrapper.setProps({ imagePosition: 'over' });
-            expect(shallowWrapper.render().find('div').css('left')).to.equal('0px');
+            expect(shallowWrapper.render().css('left')).to.equal('0px');
 
             shallowWrapper.setProps({ imagePosition: 'beside' });
-            expect(shallowWrapper.render().find('div').css('left')).to.equal('100%');
-            expect(shallowWrapper.render().find('div').css('margin-left')).to.equal('10px');
-            expect(shallowWrapper.render().find('div').css('border')).to.equal('1px solid #d6d6d6');
+            expect(shallowWrapper.render().css('left')).to.equal('100%');
+            expect(shallowWrapper.render().css('margin-left')).to.equal('10px');
+            expect(shallowWrapper.render().css('border')).to.equal('1px solid #d6d6d6');
 
         });
 
@@ -205,7 +205,7 @@ describe('Enlarged Image', () => {
             });
             const renderedWrapper = shallowWrapper.render();
 
-            expect(renderedWrapper.find('div').css('opacity')).to.equal('0');
+            expect(renderedWrapper.css('opacity')).to.equal('0');
         });
 
         it('applies a value of 1 to CSS opacity property when transition is active', () => {
@@ -217,7 +217,7 @@ describe('Enlarged Image', () => {
             });
             const renderedWrapper = shallowWrapper.render();
 
-            expect(renderedWrapper.find('div').css('opacity')).to.equal('1');
+            expect(renderedWrapper.css('opacity')).to.equal('1');
         });
 
         it('applies a value of 0 to CSS opacity property when transition is leaving', () => {
@@ -229,7 +229,7 @@ describe('Enlarged Image', () => {
             });
             const renderedWrapper = shallowWrapper.render();
 
-            expect(renderedWrapper.find('div').css('opacity')).to.equal('0');
+            expect(renderedWrapper.css('opacity')).to.equal('0');
         });
 
         it('applies default style', () => {
@@ -237,15 +237,15 @@ describe('Enlarged Image', () => {
 
             const renderedWrapper = shallowWrapper.render();
 
-            expect(renderedWrapper.find('div').attr('style').startsWith(expected)).to.be.true;
+            expect(renderedWrapper.attr('style').startsWith(expected)).to.be.true;
         });
 
         it('applies computed style', () => {
-            const expected = 'width:3px;height:4px;opacity:1;transition:opacity 0ms ease-in;pointer-events:none;';
+            const expected = 'width:3px;height:4px;opacity:1;transition:opacity 0ms ease-in;pointer-events:none';
 
             const renderedWrapper = shallowWrapper.render();
 
-            expect(renderedWrapper.find('div').attr('style').endsWith(expected)).to.be.true;
+            expect(renderedWrapper.attr('style').endsWith(expected)).to.be.true;
         });
 
     });
