@@ -168,7 +168,8 @@ Thanks to the following community members for opening GitHub Issues and Pull Req
 @colepatrickturner  
 @andreatosatto90  
 @nathanziarek  
-@hombrew
+@hombrew  
+@smashercosmo
 
 You are awesome! ✨💫
 
