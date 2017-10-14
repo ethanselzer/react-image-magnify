@@ -49,7 +49,7 @@ import ReactImageMagnify from 'react-image-magnify';
             `${watchImg1112} 1112w`,
             `${watchImg1192} 1192w`,
             `${watchImg1200} 1200w`,
-        ].join(', ');,
+        ].join(', '),
         sizes: '(min-width: 480px) 30vw, 80vw'
     },
     largeImage: {
