@@ -187,7 +187,8 @@ export default class extends React.Component {
                     src: largeImage.src,
                     srcSet: largeImage.srcSet,
                     sizes: largeImage.sizes,
-                    style: objectAssign({}, imageStyle, computedImageStyle)
+                    style: objectAssign({}, imageStyle, computedImageStyle),
+                    onLoad: largeImage.onLoad
                 }}/>
             </div>
         );

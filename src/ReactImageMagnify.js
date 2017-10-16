@@ -52,7 +52,8 @@ class ReactImageMagnify extends React.Component {
             srcSet: PropTypes.string,
             sizes: PropTypes.string,
             width: requiredIf(PropTypes.number, props => !props.isFluidWidth),
-            height: requiredIf(PropTypes.number, props => !props.isFluidWidth)
+            height: requiredIf(PropTypes.number, props => !props.isFluidWidth),
+            onLoad: PropTypes.func
         }),
         style: PropTypes.object,
         enlargedImagePosition: PropTypes.oneOf(['beside', 'over'])
@@ -66,10 +67,17 @@ class ReactImageMagnify extends React.Component {
 
     onSmallImageLoad() {
         if (!this.props.smallImage.isFluidWidth) {
+            if (this.props.smallImage.onLoad) {
+                this.props.smallImage.onLoad.apply(null, arguments);
+            }
             return;
         }
 
         this.setSmallImageDimensionState();
+
+        if (this.props.smallImage.onLoad) {
+            this.props.smallImage.onLoad.apply(null, arguments);
+        }
     }
 
     setSmallImageDimensionState() {
