@@ -479,7 +479,7 @@ describe('React Image Magnify', () => {
                     const wrapper = getMountedWrapper({
                         smallImage: {
                             src: 'foo',
-                            isFluidWidth: false,
+                            isFluidWidth: true,
                             onLoad
                         },
                     });
