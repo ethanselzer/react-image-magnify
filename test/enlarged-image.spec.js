@@ -146,6 +146,15 @@ describe('Enlarged Image', () => {
             expect(renderedWrapper.find('img').css('height')).to.equal('16px');
         });
 
+        it('passes large image onLoad', () => {
+            const onLoad = sinon.spy();
+
+            shallowWrapper.setProps({ largeImage: { src: 'foo', onLoad } });
+            shallowWrapper.find('img').simulate('load');
+
+            expect(onLoad.called).to.be.true;
+        });
+
     });
 
     describe('Container Element', () => {
