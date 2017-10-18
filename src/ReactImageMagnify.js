@@ -7,6 +7,7 @@ import objectAssign from 'object-assign';
 import ImageLensShaded from './ImageLensShaded';
 import EnlargedImage from './EnlargedImage';
 import ImageShape from './ImageShape';
+import noop from './noop';
 
 class ReactImageMagnify extends React.Component {
 
@@ -65,19 +66,20 @@ class ReactImageMagnify extends React.Component {
         hoverOffDelayInMs: 150
     };
 
-    onSmallImageLoad() {
-        if (!this.props.smallImage.isFluidWidth) {
-            if (this.props.smallImage.onLoad) {
-                this.props.smallImage.onLoad.apply(null, arguments);
+    onSmallImageLoad(e) {
+        const {
+            smallImage: {
+                onLoad = noop
             }
+        } = this.props;
+
+        onLoad(e);
+
+        if (!this.props.smallImage.isFluidWidth) {
             return;
         }
 
         this.setSmallImageDimensionState();
-
-        if (this.props.smallImage.onLoad) {
-            this.props.smallImage.onLoad.apply(null, arguments);
-        }
     }
 
     setSmallImageDimensionState() {
