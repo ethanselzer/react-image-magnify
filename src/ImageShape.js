@@ -6,5 +6,6 @@ export default PropTypes.shape({
     srcSet: PropTypes.string,
     sizes: PropTypes.string,
     width: PropTypes.number.required,
-    height: PropTypes.number.required
+    height: PropTypes.number.required,
+    onLoad: PropTypes.func,
 });

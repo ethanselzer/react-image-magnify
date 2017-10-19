@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import clamp from 'clamp';
 import ImageShape from './ImageShape';
 import Point from './Point';
+import noop from './noop';
 
 export default class extends React.Component {
     constructor(props) {
@@ -96,6 +97,9 @@ export default class extends React.Component {
             imageStyle,
             isLazyLoaded,
             largeImage,
+            largeImage: {
+                onLoad = noop
+            },
             smallImage,
             imagePosition
         } = this.props;
@@ -187,7 +191,8 @@ export default class extends React.Component {
                     src: largeImage.src,
                     srcSet: largeImage.srcSet,
                     sizes: largeImage.sizes,
-                    style: objectAssign({}, imageStyle, computedImageStyle)
+                    style: objectAssign({}, imageStyle, computedImageStyle),
+                    onLoad
                 }}/>
             </div>
         );
