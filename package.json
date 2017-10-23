@@ -91,10 +91,10 @@
     "react": "~0.14.9 || ^15.0.0 || ^16.0.0"
   },
   "dependencies": {
-    "clamp": "^1.0.1",
-    "object-assign": "^4.1.1",
+    "clamp": "1.0.1",
+    "object-assign": "4.1.1",
     "prop-types": "^15.6.0",
     "react-cursor-position": "2.2.2",
-    "react-required-if": "^1.0.1"
+    "react-required-if": "1.0.1"
   }
 }
