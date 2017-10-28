@@ -164,7 +164,7 @@ add commits, and [open a pull request](https://github.com/ethanselzer/react-imag
 
 ## Attribution
 
-Thanks to the following community members for opening GitHub Issues and Pull Requests. Your input is very much appreciated!
+Thanks to the following community members for opening GitHub Issues and Pull Requests.
 
 @damien916  
 @colepatrickturner  
@@ -172,7 +172,9 @@ Thanks to the following community members for opening GitHub Issues and Pull Req
 @nathanziarek  
 @hombrew  
 @smashercosmo  
-@sk1e
+@sk1e  
+@vidries  
+@ionutzp  
 
 You are awesome! ✨💫
 
