@@ -2,7 +2,7 @@
 
 A responsive React image zoom component for touch and mouse.
 
-Includes "hint" instructions feature.
+Includes "hint" feature to explain and encourage interaction.
 
 Supports hover intnet, long-press gesture, and fade transitions.
 
