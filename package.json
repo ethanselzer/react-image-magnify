@@ -27,6 +27,7 @@
     "product"
   ],
   "main": "dist/ReactImageMagnify.js",
+  "module": "dist/es/ReactImageMagnify.js",
   "files": [
     "dist",
     "LICENCE"
@@ -92,8 +93,9 @@
   },
   "dependencies": {
     "clamp": "1.0.1",
+    "detect-it": "3.0.3",
     "object-assign": "4.1.1",
-    "prop-types": "^15.6.0",
+    "prop-types": "15.6.0",
     "react-cursor-position": "2.2.2",
     "react-required-if": "1.0.1"
   }

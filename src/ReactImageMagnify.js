@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import requiredIf from 'react-required-if';
 import ReactCursorPosition from 'react-cursor-position';
 import objectAssign from 'object-assign';
+import detectIt from 'detect-it';
 
 import ImageLensShaded from './ImageLensShaded';
 import EnlargedImage from './EnlargedImage';
+import DisplayUntilActive from './hint/DisplayUntilActive';
+import Hint from './hint/DefaultHint';
 import ImageShape from './ImageShape';
 import noop from './noop';
 
@@ -18,8 +21,8 @@ class ReactImageMagnify extends React.Component {
             smallImageWidth: 0,
             smallImageHeight: 0,
             detectedEnvironment: {
-                isMouseDeteced: false,
-                isTouchDetected: false
+                isMouseDeteced: detectIt.hasMouse,
+                isTouchDetected: detectIt.hasTouch
             },
             isActive: false
         }
@@ -37,6 +40,11 @@ class ReactImageMagnify extends React.Component {
         enlargedImageClassName: PropTypes.string,
         enlargedImageStyle: PropTypes.object,
         fadeDurationInMs: PropTypes.number,
+        hintComponent: PropTypes.func,
+        shouldHideHintAfterFirstActivation: PropTypes.bool,
+        isHintEnabled: PropTypes.bool,
+        hintTextMouse: PropTypes.string,
+        hinTextTouch: PropTypes.string,
         hoverDelayInMs: PropTypes.number,
         hoverOffDelayInMs: PropTypes.number,
         isActivatedOnTouch: PropTypes.bool,
@@ -62,6 +70,11 @@ class ReactImageMagnify extends React.Component {
 
     static defaultProps = {
         fadeDurationInMs: 300,
+        hintComponent: Hint,
+        shouldHideHintAfterFirstActivation: true,
+        isHintEnabled: false,
+        hintTextMouse: 'Hover to Zoom',
+        hintTextTouch: 'Long-Touch to Zoom',
         hoverDelayInMs: 250,
         hoverOffDelayInMs: 150
     };
@@ -140,6 +153,11 @@ class ReactImageMagnify extends React.Component {
             enlargedImageClassName,
             enlargedImageStyle,
             fadeDurationInMs,
+            hintComponent: HintComponent,
+            shouldHideHintAfterFirstActivation,
+            isHintEnabled,
+            hintTextMouse,
+            hintTextTouch,
             hoverDelayInMs,
             hoverOffDelayInMs,
             isActivatedOnTouch,
@@ -249,6 +267,17 @@ class ReactImageMagnify extends React.Component {
                     ref: (el) => this.smallImageEl = el,
                     onLoad: this.onSmallImageLoad
                 }} />
+                {isHintEnabled &&
+                    <DisplayUntilActive {...{
+                        shouldHideAfterFirstActivation: shouldHideHintAfterFirstActivation
+                    }}>
+                        <HintComponent {...{
+                            isTouchDetected,
+                            hintTextMouse,
+                            hintTextTouch
+                        }}/>
+                    </DisplayUntilActive>
+                }
                 {shouldShowLens &&
                     <ImageLensShaded {...{
                         cursorOffset,

@@ -22,7 +22,8 @@ export default class extends Component {
                             src: watchImg,
                             width: 300,
                             height: 450
-                        }
+                        },
+                        isHintEnabled: true
                     }} />
                 </div>
                 <div className="fluid__instructions">

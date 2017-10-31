@@ -49,7 +49,8 @@ class App extends Component {
                             src: watchImg1200,
                             srcSet: this.srcSet,
                             sizes: '(min-width: 480px) 30vw, 80vw'
-                        }
+                        },
+                        isHintEnabled: true
                     }} />
                 </div>
                 <div className="fluid__instructions">

@@ -2,6 +2,8 @@
 
 A responsive React image zoom component for touch and mouse.
 
+Includes "hint" instructions feature.
+
 Supports hover intnet, long-press gesture, and fade transitions.
 
 Use for shopping sites or anywhere image detail is desired.
@@ -72,8 +74,8 @@ If you would like more information on responsive images, please try these resour
 ### Desktop and Touch
 | Prop                          | Type   | Required | Default | Description                                                |
 |-------------------------------|--------|----------|---------|------------------------------------------------------------|
-| `smallImage`                  | Object | Yes      |         | Small image information. See [Small Image](#small-image) below.         |
-| `largeImage`                  | Object | Yes      |         | Large image information. See [Large Image](#large-image) below.         |
+| `smallImage`                  | Object | Yes      |         | Small image information. See [Small Image](#small-image) below.|
+| `largeImage`                  | Object | Yes      |         | Large image information. See [Large Image](#large-image) below.|
 | `className`                   | String | No       |         | CSS class applied to root container element.               |
 | `style`                       | Object | No       |         | Style applied to root container element.                   |
 | `fadeDurationInMs`            | Number | No       | 300     | Milliseconds duration of magnified image fade in/fade out. |
@@ -83,21 +85,26 @@ If you would like more information on responsive images, please try these resour
 | `enlargedImageContainerStyle` | Object | No       |         | Style applied to enlarged image container element.         |
 | `enlargedImageClassName`      | String | No       |         | CSS class applied to enlarged image element.               |
 | `enlargedImageStyle`          | Object | No       |         | Style applied to enlarged image element.                   |
+| `hintComponent`               |Function| No       |(Provided)| Reference to a component class or functional component. A Default is provided.|
+| `shouldHideHintAfterFirstActivation`| Boolean | No | true   | Only show hint until the first interaction begins.         |
+| `isHintEnabled`               | Boolean| No       | false   | Enable hint feature.                                       |
+| `hintTextMouse`               | String | No       |Hover to Zoom| Hint text for mouse.                                   |
+| `hintTextTouch`               | String | No       |Long-Touch to Zoom| Hint text for touch.                              |
 
 ### Mouse Specific
 | Prop                          | Type   | Required | Default | Description                                                |
 |-------------------------------|--------|----------|---------|------------------------------------------------------------|
 | `hoverDelayInMs`              | Number | No       | 250     | Milliseconds to delay hover trigger.                       |
 | `hoverOffDelayInMs`           | Number | No       | 150     | Milliseconds to delay hover-off trigger.                   |
-| `lensStyle`                   | Object | No       |         | Style applied to tinted lens.                      |
+| `lensStyle`                   | Object | No       |         | Style applied to tinted lens.                              |
 | `enlargedImagePosition`       | String | No       | beside  | Enlarged image position. Can be 'beside' or 'over'.        |
 
 ### Touch Specific
 | Prop                          | Type   | Required | Default | Description                                                |
 |-------------------------------|--------|----------|---------|------------------------------------------------------------|
 | `isActivatedOnTouch`          | Boolean| No       | false   | Activate magnification immediately on touch. May impact scrolling.|
-| `pressDuration`               | Number | No       | 500     | Milliseconds to delay long-press activation (long touch).       |
-| `pressMoveThreshold`          | Number | No       | 5       | Pixels of movement allowed during long-press activation.        |
+| `pressDuration`               | Number | No       | 500     | Milliseconds to delay long-press activation (long touch).  |
+| `pressMoveThreshold`          | Number | No       | 5       | Pixels of movement allowed during long-press activation.   |
 | `enlargedImagePosition`       | String | No       | over    | Enlarged image position. Can be 'beside' or 'over'.        |
 
 ### Small Image

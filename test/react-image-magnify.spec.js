@@ -4,6 +4,8 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 
 import ReactImageMagnify from '../src/ReactImageMagnify';
+import Hint from '../src/hint/DefaultHint';
+import UserDefinedHint from './support/UserDefinedHint';
 
 describe('React Image Magnify', () => {
     const smallImage = {
@@ -71,7 +73,12 @@ describe('React Image Magnify', () => {
         expect(ReactImageMagnify.defaultProps).to.deep.equal({
             fadeDurationInMs: 300,
             hoverDelayInMs: 250,
-            hoverOffDelayInMs: 150
+            hoverOffDelayInMs: 150,
+            hintComponent: Hint,
+            shouldHideHintAfterFirstActivation: true,
+            isHintEnabled: false,
+            hintTextMouse: 'Hover to Zoom',
+            hintTextTouch: 'Long-Touch to Zoom'
         });
     });
 
@@ -144,7 +151,7 @@ describe('React Image Magnify', () => {
                 expect(shallowWrapper.find('ReactCursorPosition').props().style.color).to.equal('red');
             });
 
-            it('prioritizes required fluid root component style over user specified style', () => {
+            it('weights prioritized fluid root component style over user specified style', () => {
                 const props = {
                     style: {
                         width: '1px',
@@ -159,7 +166,6 @@ describe('React Image Magnify', () => {
                 };
                 shallowWrapper.setProps(props);
 
-                // Root component renders the root container element
                 const { style } = shallowWrapper.find('ReactCursorPosition').props();
                 expect(style.width).to.equal('auto');
                 expect(style.height).to.equal('auto');
@@ -167,7 +173,7 @@ describe('React Image Magnify', () => {
                 expect(style.position).to.equal('relative');
             });
 
-            it('prioritizes required fixed width root component style over user specified style', () => {
+            it('weights prioritized fixed width root component style over user specified style', () => {
                 const props = {
                     style: {
                         width: '1px',
@@ -177,7 +183,6 @@ describe('React Image Magnify', () => {
                 };
                 shallowWrapper.setProps(props);
 
-                // Root component renders the root container element
                 const { style } = shallowWrapper.find('ReactCursorPosition').props();
                 expect(style.width).to.equal('3px');
                 expect(style.height).to.equal('4px');
@@ -539,6 +544,190 @@ describe('React Image Magnify', () => {
             shallowWrapper.setProps({ enlargedImagePosition: 'over' });
 
             expect(shallowWrapper.find('EnlargedImage').props().imagePosition).to.equal('over');
+        });
+
+        describe('Hint', () => {
+            it('is disabled by default', () => {
+                const mountedWrapper = getMountedWrapper({ enlargedImagePosition: 'over' });
+
+                const hint = mountedWrapper.find('DefaultHint');
+
+                expect(hint).to.have.length(0);
+            });
+
+            it('supports enabling', () => {
+                const mountedWrapper = getMountedWrapper({
+                    isHintEnabled: true,
+                    enlargedImagePosition: 'over'
+                });
+
+                const hint = mountedWrapper.find('DefaultHint');
+
+                expect(hint).to.have.length(1);
+            });
+
+            it('is hidden when magnification is active', (done) => {
+                const mountedWrapper = getMountedWrapper({
+                    isHintEnabled: true,
+                    fadeDurationInMs: 0,
+                    enlargedImagePosition: 'over'
+                });
+                let hint = mountedWrapper.find('DefaultHint');
+                expect(hint).to.have.length(1);
+                const rootComponent = mountedWrapper.find('ReactCursorPosition');
+
+                rootComponent.simulate('mouseenter');
+
+                setTimeout(() => {
+                    mountedWrapper.update();
+                    hint = mountedWrapper.find('DefaultHint');
+                    expect(hint).to.have.length(0);
+                    done();
+                }, 0);
+            });
+
+            it('is hidden after first activation by default', (done) => {
+                const mountedWrapper = getMountedWrapper({
+                    isHintEnabled: true,
+                    fadeDurationInMs: 0,
+                    enlargedImagePosition: 'over'
+                });
+                let hint = mountedWrapper.find('DefaultHint');
+                expect(hint).to.have.length(1);
+                const rootComponent = mountedWrapper.find('ReactCursorPosition');
+
+                rootComponent.simulate('mouseenter');
+
+                setTimeout(() => {
+                    mountedWrapper.update();
+                    hint = mountedWrapper.find('DefaultHint');
+                    expect(hint).to.have.length(0);
+
+                    rootComponent.simulate('mouseleave');
+
+                    setTimeout(() => {
+                        mountedWrapper.update();
+                        hint = mountedWrapper.find('DefaultHint');
+                        expect(hint).to.have.length(0);
+                        done();
+                    }, 0);
+                }, 0);
+            });
+
+            it('can be configured to always show when not active', (done) => {
+                const mountedWrapper = getMountedWrapper({
+                    isHintEnabled: true,
+                    shouldHideHintAfterFirstActivation: false,
+                    fadeDurationInMs: 0,
+                    enlargedImagePosition: 'over'
+                });
+                let hint = mountedWrapper.find('DefaultHint');
+                expect(hint).to.have.length(1);
+                const rootComponent = mountedWrapper.find('ReactCursorPosition');
+
+                rootComponent.simulate('mouseenter');
+
+                setTimeout(() => {
+                    mountedWrapper.update();
+                    hint = mountedWrapper.find('DefaultHint');
+                    expect(hint).to.have.length(0);
+
+                    rootComponent.simulate('mouseleave');
+
+                    setTimeout(() => {
+                        mountedWrapper.update();
+                        hint = mountedWrapper.find('DefaultHint');
+                        expect(hint).to.have.length(1);
+                        done();
+                    }, 0);
+                }, 0);
+            });
+
+            it('supports default hint text for mouse environments', () => {
+                const mountedWrapper = getMountedWrapper({
+                    isHintEnabled: true,
+                    enlargedImagePosition: 'over'
+                });
+
+                const hint = mountedWrapper.find('DefaultHint');
+
+                expect(hint.text()).to.equal('Hover to Zoom');
+            });
+
+            it('supports default hint text for touch environments', () => {
+                const mountedWrapper = getMountedWrapper({
+                    isHintEnabled: true,
+                    enlargedImagePosition: 'over'
+                });
+                mountedWrapper.setState({
+                    detectedEnvironment: {
+                        isMouseDetected: false,
+                        isTouchDetected: true
+                    }
+                });
+
+                const hint = mountedWrapper.find('DefaultHint');
+
+                expect(hint.text()).to.equal('Long-Touch to Zoom');
+            });
+
+            it('supports user defined hint text for mouse environments', () => {
+                const mountedWrapper = getMountedWrapper({
+                    isHintEnabled: true,
+                    hintTextMouse: 'foo',
+                    enlargedImagePosition: 'over'
+                });
+
+                const hint = mountedWrapper.find('DefaultHint');
+
+                expect(hint.text()).to.equal('foo');
+            });
+
+            it('supports user defined hint text for touch environments', () => {
+                const mountedWrapper = getMountedWrapper({
+                    isHintEnabled: true,
+                    hintTextTouch: 'bar',
+                    enlargedImagePosition: 'over'
+                });
+                mountedWrapper.setState({
+                    detectedEnvironment: {
+                        isMouseDetected: false,
+                        isTouchDetected: true
+                    }
+                });
+
+                const hint = mountedWrapper.find('DefaultHint');
+
+                expect(hint.text()).to.equal('bar');
+            });
+
+            it('supports user defined hint component', () => {
+                const mountedWrapper = getMountedWrapper({
+                    isHintEnabled: true,
+                    hintComponent: UserDefinedHint,
+                    enlargedImagePosition: 'over'
+                });
+
+                const hint = mountedWrapper.find('UserDefinedHint');
+
+                expect(hint.text()).to.equal('User Defined Mouse');
+            });
+
+            it('provides correct props to user defined component', () => {
+                const mountedWrapper = getMountedWrapper({
+                    isHintEnabled: true,
+                    hintComponent: UserDefinedHint,
+                    enlargedImagePosition: 'over'
+                });
+
+                const hint = mountedWrapper.find('UserDefinedHint');
+
+                expect(hint.props()).to.deep.equal({
+                    isTouchDetected: false,
+                    hintTextMouse: 'Hover to Zoom',
+                    hintTextTouch: 'Long-Touch to Zoom'
+                });
+            });
         });
     });
 });
