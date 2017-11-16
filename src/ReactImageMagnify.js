@@ -7,7 +7,7 @@ import requiredIf from 'react-required-if';
 
 import DisplayUntilActive from './hint/DisplayUntilActive';
 import EnlargedImage from './EnlargedImage';
-import { getLensCursorOffset } from '../src/lib/lens';
+import { getLensCursorOffset } from './lib/lens';
 import Hint from './hint/DefaultHint';
 import ShadedLens from './shaded-lens';
 import ImageShape from './prop-types/ImageShape';
