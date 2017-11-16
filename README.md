@@ -2,11 +2,11 @@
 
 A responsive React image zoom component for touch and mouse.
 
-Includes "hint" feature to explain and encourage interaction.
+Designed for shopping site product detail.
 
-Supports hover intnet, long-press gesture, and fade transitions.
+Supports in-place and side-by-side image enlargement.
 
-Use for shopping sites or anywhere image detail is desired.
+Features tinted guide lens, interaction hint, hover intent, long-press gesture, and fade transitions.
 
 ## Status
 [![CircleCI](https://img.shields.io/circleci/project/github/ethanselzer/react-image-magnify.svg)](https://circleci.com/gh/ethanselzer/react-image-magnify) [![Coverage Status](https://coveralls.io/repos/github/ethanselzer/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/ethanselzer/react-image-magnify?branch=master)

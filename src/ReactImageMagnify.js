@@ -1,16 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import requiredIf from 'react-required-if';
-import ReactCursorPosition from 'react-cursor-position';
-import objectAssign from 'object-assign';
 import detectIt from 'detect-it';
+import objectAssign from 'object-assign';
+import PropTypes from 'prop-types';
+import React from 'react';
+import ReactCursorPosition from 'react-cursor-position';
+import requiredIf from 'react-required-if';
 
-import ImageLensShaded from './ImageLensShaded';
-import EnlargedImage from './EnlargedImage';
 import DisplayUntilActive from './hint/DisplayUntilActive';
+import EnlargedImage from './EnlargedImage';
+import { getLensCursorOffset } from '../src/lib/lens';
 import Hint from './hint/DefaultHint';
-import ImageShape from './ImageShape';
-import noop from './noop';
+import ShadedLens from './shaded-lens';
+import ImageShape from './prop-types/ImageShape';
+import noop from './utils/noop';
 
 class ReactImageMagnify extends React.Component {
 
@@ -79,6 +80,25 @@ class ReactImageMagnify extends React.Component {
         hoverOffDelayInMs: 150
     };
 
+    componentDidMount() {
+        const {
+            smallImage: {
+                isFluidWidth
+            }
+        } = this.props;
+
+        if (!isFluidWidth) {
+            return;
+        }
+
+        this.setSmallImageDimensionState();
+        window.addEventListener('resize', this.setSmallImageDimensionState);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.setSmallImageDimensionState);
+    }
+
     onSmallImageLoad(e) {
         const {
             smallImage: {
@@ -130,21 +150,6 @@ class ReactImageMagnify extends React.Component {
         return enlargedImagePosition || (isTouchDetected ? 'over' : 'beside');
     }
 
-    componentDidMount() {
-        if (this.props.smallImage.isFluidWidth) {
-            this.setSmallImageDimensionState();
-            window.addEventListener('resize', this.setSmallImageDimensionState);
-        }
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.setSmallImageDimensionState);
-    }
-
-    getCursorOffsetDimension(smallImageDimension, largeImageDimension) {
-        return Math.round(((smallImageDimension / largeImageDimension) * smallImageDimension) / 2);
-    }
-
     render() {
         const {
             className,
@@ -172,6 +177,7 @@ class ReactImageMagnify extends React.Component {
             },
             style,
         } = this.props;
+
         const {
             smallImageWidth,
             smallImageHeight,
@@ -188,15 +194,12 @@ class ReactImageMagnify extends React.Component {
                 height: smallImageHeight
             }
         );
+
         const fixedWidthSmallImage = this.props.smallImage;
+
         const smallImage = isSmallImageFluidWidth
             ? fluidWidthSmallImage
             : fixedWidthSmallImage
-
-        const cursorOffset = {
-            x: this.getCursorOffsetDimension(smallImage.width, largeImage.width),
-            y: this.getCursorOffsetDimension(smallImage.height, largeImage.height)
-        };
 
         const fluidWidthContainerStyle = {
             width: 'auto',
@@ -239,11 +242,15 @@ class ReactImageMagnify extends React.Component {
             imageStyle,
             prioritySmallImageStyle
         );
+
         const enlargedImagePlacement = this.getEnlargedImagePlacement();
+
         const shouldShowLens = (
             enlargedImagePlacement !== 'over' &&
             !isTouchDetected
         );
+
+        const cursorOffset = getLensCursorOffset(smallImage, largeImage);
 
         return (
             <ReactCursorPosition { ...{
@@ -279,7 +286,7 @@ class ReactImageMagnify extends React.Component {
                     </DisplayUntilActive>
                 }
                 {shouldShowLens &&
-                    <ImageLensShaded {...{
+                    <ShadedLens {...{
                         cursorOffset,
                         fadeDurationInMs,
                         smallImage,

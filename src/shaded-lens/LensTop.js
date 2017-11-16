@@ -12,7 +12,8 @@ const LensTop = ({
     smallImage,
     style
 }) => {
-    const maxHeight = smallImage.height - (cursorOffset.y * 2);
+    const clearLensHeight =  cursorOffset.y * 2;
+    const maxHeight = smallImage.height - clearLensHeight;
     const height = clamp(position.y - cursorOffset.y, 0, maxHeight);
     const computedStyle = {
         height: `${height}px`,

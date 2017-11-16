@@ -1,9 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { expect } from 'chai';
-import ImageLensShaded from '../src/ImageLensShaded';
+import ImageLensShaded from '../../src/shaded-lens';
 
-describe('Image Lens Shaded', () => {
+describe('Shaded Lens', () => {
     const smallImage = {
         alt: 'baz',
         isFluidWidth: false,

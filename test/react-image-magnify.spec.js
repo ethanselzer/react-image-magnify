@@ -367,10 +367,11 @@ describe('React Image Magnify', () => {
             it('calls onLoad callback', () => {
                 const onLoad = sinon.spy();
                 shallowWrapper.setProps({
-                    smallImage: {
-                        src: 'foo',
-                        onLoad
-                    }
+                    smallImage: Object.assign(
+                        {},
+                        smallImage,
+                        { onLoad }
+                    )
                 });
 
                 shallowWrapper.find('img').simulate('load');
@@ -482,14 +483,18 @@ describe('React Image Magnify', () => {
                 it('calls onLoad callback', () => {
                     const onLoad = sinon.spy();
                     const wrapper = getMountedWrapper({
-                        smallImage: {
-                            src: 'foo',
-                            isFluidWidth: true,
-                            onLoad
-                        },
+                        imageClassName: 'foo',
+                        smallImage: Object.assign(
+                            {},
+                            smallImage,
+                            {
+                                onLoad,
+                                isFluidWidth: true,
+                            }
+                        )
                     });
 
-                    wrapper.find('img').simulate('load');
+                    wrapper.find('img.foo').simulate('load');
 
                     expect(onLoad.called).to.be.true;
                 });

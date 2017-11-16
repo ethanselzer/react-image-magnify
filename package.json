@@ -43,7 +43,7 @@
     "lint": "eslint \"@(src|test)/**/*.js\"",
     "stats": "webpack -p --profile --json > stats.json",
     "test": "npm run lint && npm run test-only",
-    "test-only": "cross-env BABEL_ENV=test mocha --require babel-core/register --require test/setup test/*.spec.js",
+    "test-only": "cross-env BABEL_ENV=test mocha --recursive --require babel-core/register --require test/setup test",
     "test-watch": "npm run test-only -- --watch",
     "test-coverage": "rimraf coverage && nyc --reporter=lcov npm run test-only && nyc report",
     "test-ci": "npm run lint && npm run test-coverage && npm run coveralls",
