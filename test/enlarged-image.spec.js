@@ -155,6 +155,15 @@ describe('Enlarged Image', () => {
             expect(onLoad.called).to.be.true;
         });
 
+        it('passes large image onError', () => {
+            const onError = sinon.spy();
+
+            shallowWrapper.setProps({ largeImage: { src: 'foo', onError } });
+            shallowWrapper.find('img').simulate('error');
+
+            expect(onError.called).to.be.true;
+        });
+
     });
 
     describe('Container Element', () => {

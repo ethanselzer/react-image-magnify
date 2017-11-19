@@ -8,4 +8,5 @@ export default PropTypes.shape({
     width: PropTypes.number.required,
     height: PropTypes.number.required,
     onLoad: PropTypes.func,
+    onError: PropTypes.func,
 });

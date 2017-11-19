@@ -29,6 +29,7 @@ class ReactImageMagnify extends React.Component {
         }
 
         this.onSmallImageLoad = this.onSmallImageLoad.bind(this);
+        this.onSmallImageError = this.onSmallImageError.bind(this);
         this.setSmallImageDimensionState = this.setSmallImageDimensionState.bind(this);
         this.onDetectedEnvironmentChanged = this.onDetectedEnvironmentChanged.bind(this);
         this.onActivationChanged = this.onActivationChanged.bind(this);
@@ -63,7 +64,8 @@ class ReactImageMagnify extends React.Component {
             sizes: PropTypes.string,
             width: requiredIf(PropTypes.number, props => !props.isFluidWidth),
             height: requiredIf(PropTypes.number, props => !props.isFluidWidth),
-            onLoad: PropTypes.func
+            onLoad: PropTypes.func,
+            onError: PropTypes.func
         }),
         style: PropTypes.object,
         enlargedImagePosition: PropTypes.oneOf(['beside', 'over'])
@@ -113,6 +115,16 @@ class ReactImageMagnify extends React.Component {
         }
 
         this.setSmallImageDimensionState();
+    }
+
+    onSmallImageError(e) {
+        const {
+            smallImage: {
+                onError = noop
+            }
+        } = this.props;
+
+        onError(e);
     }
 
     setSmallImageDimensionState() {
@@ -272,7 +284,8 @@ class ReactImageMagnify extends React.Component {
                     className: imageClassName,
                     style: compositSmallImageStyle,
                     ref: (el) => this.smallImageEl = el,
-                    onLoad: this.onSmallImageLoad
+                    onLoad: this.onSmallImageLoad,
+                    onError: this.onSmallImageError
                 }} />
                 {isHintEnabled &&
                     <DisplayUntilActive {...{

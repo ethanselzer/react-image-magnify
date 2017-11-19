@@ -378,6 +378,20 @@ describe('React Image Magnify', () => {
                 expect(onLoad.called).to.be.true;
             });
 
+            it('calls onError callback', () => {
+                const onError = sinon.spy();
+                shallowWrapper.setProps({
+                    smallImage: Object.assign(
+                        {},
+                        smallImage,
+                        { onError }
+                    )
+                });
+
+                shallowWrapper.find('img').simulate('error');
+                expect(onError.called).to.be.true;
+            });
+
             describe('isFluidWidth', () => {
                 it('applies fluid width style to container element, when set', () => {
                     shallowWrapper.setProps({
@@ -497,6 +511,25 @@ describe('React Image Magnify', () => {
                     wrapper.find('img.foo').simulate('load');
 
                     expect(onLoad.called).to.be.true;
+                });
+
+                it('calls onError callback', () => {
+                    const onError = sinon.spy();
+                    const wrapper = getMountedWrapper({
+                        imageClassName: 'foo',
+                        smallImage: Object.assign(
+                            {},
+                            smallImage,
+                            {
+                                onError,
+                                isFluidWidth: true,
+                            }
+                        )
+                    });
+
+                    wrapper.find('img.foo').simulate('error');
+
+                    expect(onError.called).to.be.true;
                 });
             });
         });
