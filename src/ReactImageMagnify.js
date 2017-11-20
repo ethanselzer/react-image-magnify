@@ -11,7 +11,7 @@ import { getLensCursorOffset } from './lib/lens';
 import Hint from './hint/DefaultHint';
 import ShadedLens from './shaded-lens';
 import ImageShape from './prop-types/ImageShape';
-import noop from './utils/noop';
+import { noop } from './utils';
 
 class ReactImageMagnify extends React.Component {
 
@@ -29,7 +29,6 @@ class ReactImageMagnify extends React.Component {
         }
 
         this.onSmallImageLoad = this.onSmallImageLoad.bind(this);
-        this.onSmallImageError = this.onSmallImageError.bind(this);
         this.setSmallImageDimensionState = this.setSmallImageDimensionState.bind(this);
         this.onDetectedEnvironmentChanged = this.onDetectedEnvironmentChanged.bind(this);
         this.onActivationChanged = this.onActivationChanged.bind(this);
@@ -117,16 +116,6 @@ class ReactImageMagnify extends React.Component {
         this.setSmallImageDimensionState();
     }
 
-    onSmallImageError(e) {
-        const {
-            smallImage: {
-                onError = noop
-            }
-        } = this.props;
-
-        onError(e);
-    }
-
     setSmallImageDimensionState() {
         const {
             offsetWidth: smallImageWidth,
@@ -185,7 +174,8 @@ class ReactImageMagnify extends React.Component {
             pressDuration,
             pressMoveThreshold,
             smallImage: {
-                isFluidWidth: isSmallImageFluidWidth
+                isFluidWidth: isSmallImageFluidWidth,
+                onError = noop
             },
             style,
         } = this.props;
@@ -285,7 +275,7 @@ class ReactImageMagnify extends React.Component {
                     style: compositSmallImageStyle,
                     ref: (el) => this.smallImageEl = el,
                     onLoad: this.onSmallImageLoad,
-                    onError: this.onSmallImageError
+                    onError
                 }} />
                 {isHintEnabled &&
                     <DisplayUntilActive {...{

@@ -7,7 +7,7 @@ import {
     getInPlaceEnlargedImageCoordinates
 } from './lib/imageCoordinates';
 import ImageShape from './prop-types/ImageShape';
-import noop from './utils/noop';
+import { noop } from './utils';
 import Point from './prop-types/Point';
 
 export default class extends React.Component {

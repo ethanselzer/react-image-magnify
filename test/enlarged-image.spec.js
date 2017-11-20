@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import EnlargedImage from '../src/EnlargedImage';
+import * as utils from '../src/utils';
 
 describe('Enlarged Image', () => {
     let shallowWrapper;
@@ -146,24 +147,106 @@ describe('Enlarged Image', () => {
             expect(renderedWrapper.find('img').css('height')).to.equal('16px');
         });
 
-        it('passes large image onLoad', () => {
-            const onLoad = sinon.spy();
+        describe('Load Event', () => {
+            it('supports a listener function', () => {
+                const onLoad = sinon.spy();
+                shallowWrapper.setProps({
+                    largeImage: Object.assign(
+                        {},
+                        props.largeImage,
+                        { onLoad }
+                    )
+                });
 
-            shallowWrapper.setProps({ largeImage: { src: 'foo', onLoad } });
-            shallowWrapper.find('img').simulate('load');
+                shallowWrapper.find('img').simulate('load');
 
-            expect(onLoad.called).to.be.true;
+                expect(onLoad.called).to.be.true;
+            });
+
+            it('provides the browser event object to listener function', () => {
+                const onLoad = sinon.spy();
+                shallowWrapper.setProps({
+                    largeImage: Object.assign(
+                        {},
+                        props.largeImage,
+                        { onLoad }
+                    )
+                });
+                const eventObject = {};
+
+                shallowWrapper.find('img').simulate('load', eventObject);
+
+                const listenerArguments = onLoad.getCall(0).args;
+                expect(listenerArguments.length).to.equal(1);
+                expect(listenerArguments[0]).to.equal(eventObject);
+            });
+
+            it('defaults the listener to noop', () => {
+                sinon.spy(utils, 'noop');
+                const shallowWrapper = getShallowWrapper();
+                shallowWrapper.setState({
+                    isActive: true,
+                    isTransitionActive: true
+                });
+
+                shallowWrapper.find('img').simulate('load');
+
+                expect(utils.noop.called).to.be.true;
+
+                utils.noop.restore();
+            });
         });
 
-        it('passes large image onError', () => {
-            const onError = sinon.spy();
+        describe('Error Event', () => {
+            it('supports a listener function', () => {
+                const onError = sinon.spy();
+                shallowWrapper.setProps({
+                    largeImage: Object.assign(
+                        {},
+                        props.largeImage,
+                        { onError }
+                    )
+                });
 
-            shallowWrapper.setProps({ largeImage: { src: 'foo', onError } });
-            shallowWrapper.find('img').simulate('error');
+                shallowWrapper.find('img').simulate('error');
 
-            expect(onError.called).to.be.true;
+                expect(onError.called).to.be.true;
+            });
+
+            it('provides the browser event object to listener function', () => {
+                const onError = sinon.spy();
+                shallowWrapper.setProps({
+                    largeImage: Object.assign(
+                        {},
+                        props.largeImage,
+                        { onError }
+                    )
+                });
+                const eventObject = {};
+
+                shallowWrapper.find('img').simulate('error', eventObject);
+
+                const listenerArguments = onError.getCall(0).args;
+                expect(listenerArguments.length).to.equal(1);
+                expect(listenerArguments[0]).to.equal(eventObject);
+            });
+
+            it('defaults the listener to noop', () => {
+                sinon.spy(utils, 'noop');
+                const shallowWrapper = getShallowWrapper();
+                shallowWrapper.setState({
+                    isActive: true,
+                    isTransitionActive: true
+                });
+
+
+                shallowWrapper.find('img').simulate('error');
+
+                expect(utils.noop.called).to.be.true;
+
+                utils.noop.restore();
+            });
         });
-
     });
 
     describe('Container Element', () => {
