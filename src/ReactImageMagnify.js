@@ -12,25 +12,35 @@ import Hint from './hint/DefaultHint';
 import ShadedLens from './shaded-lens';
 import ImageShape from './prop-types/ImageShape';
 import { noop } from './utils';
+import {
+    INPUT_TYPE,
+    ENLARGED_IMAGE_POSITION
+} from './constants';
 
 class ReactImageMagnify extends React.Component {
 
     constructor(props) {
         super(props);
 
+        const { primaryInput } = detectIt;
+        const {
+            mouse: MOUSE,
+            touch: TOUCH
+        } = INPUT_TYPE;
+
         this.state = {
             smallImageWidth: 0,
             smallImageHeight: 0,
-            detectedEnvironment: {
-                isMouseDeteced: detectIt.hasMouse,
-                isTouchDetected: detectIt.hasTouch
+            detectedInputType: {
+                isMouseDeteced: (primaryInput === MOUSE),
+                isTouchDetected: (primaryInput === TOUCH)
             },
             isActive: false
         }
 
         this.onSmallImageLoad = this.onSmallImageLoad.bind(this);
         this.setSmallImageDimensionState = this.setSmallImageDimensionState.bind(this);
-        this.onDetectedEnvironmentChanged = this.onDetectedEnvironmentChanged.bind(this);
+        this.onDetectedInputTypeChanged = this.onDetectedInputTypeChanged.bind(this);
         this.onActivationChanged = this.onActivationChanged.bind(this);
     }
 
@@ -67,7 +77,10 @@ class ReactImageMagnify extends React.Component {
             onError: PropTypes.func
         }),
         style: PropTypes.object,
-        enlargedImagePosition: PropTypes.oneOf(['beside', 'over'])
+        enlargedImagePosition: PropTypes.oneOf([
+            ENLARGED_IMAGE_POSITION.beside,
+            ENLARGED_IMAGE_POSITION.over
+        ])
     };
 
     static defaultProps = {
@@ -128,9 +141,9 @@ class ReactImageMagnify extends React.Component {
         });
     }
 
-    onDetectedEnvironmentChanged(detectedEnvironment) {
+    onDetectedInputTypeChanged(detectedInputType) {
         this.setState({
-            detectedEnvironment
+            detectedInputType
         });
     }
 
@@ -141,14 +154,19 @@ class ReactImageMagnify extends React.Component {
     }
 
     getEnlargedImagePlacement() {
-        const { enlargedImagePosition } = this.props;
+        const { enlargedImagePosition: userDefinedEnlargedImagePosition } = this.props;
         const {
-            detectedEnvironment: {
+            detectedInputType: {
                 isTouchDetected
             }
         } = this.state;
+        const computedEnlargedImagePosition = (
+            isTouchDetected
+                ? ENLARGED_IMAGE_POSITION.over
+                : ENLARGED_IMAGE_POSITION.beside
+        );
 
-        return enlargedImagePosition || (isTouchDetected ? 'over' : 'beside');
+        return userDefinedEnlargedImagePosition || computedEnlargedImagePosition;
     }
 
     render() {
@@ -183,7 +201,7 @@ class ReactImageMagnify extends React.Component {
         const {
             smallImageWidth,
             smallImageHeight,
-            detectedEnvironment: {
+            detectedInputType: {
                 isTouchDetected
             }
         } = this.state;
@@ -248,7 +266,7 @@ class ReactImageMagnify extends React.Component {
         const enlargedImagePlacement = this.getEnlargedImagePlacement();
 
         const shouldShowLens = (
-            enlargedImagePlacement !== 'over' &&
+            enlargedImagePlacement !== ENLARGED_IMAGE_POSITION.over &&
             !isTouchDetected
         );
 
@@ -261,7 +279,7 @@ class ReactImageMagnify extends React.Component {
                 hoverOffDelayInMs,
                 isActivatedOnTouch,
                 onActivationChanged: this.onActivationChanged,
-                onDetectedEnvironmentChanged: this.onDetectedEnvironmentChanged,
+                onDetectedInputTypeChanged: this.onDetectedInputTypeChanged,
                 pressDuration,
                 pressMoveThreshold,
                 style: compositContainerStyle

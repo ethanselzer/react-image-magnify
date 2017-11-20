@@ -3,10 +3,15 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import EnlargedImage from '../src/EnlargedImage';
+import { ENLARGED_IMAGE_POSITION } from '../src/constants';
 import * as utils from '../src/utils';
 
 describe('Enlarged Image', () => {
     let shallowWrapper;
+    const {
+        beside: BESIDE,
+        over: OVER
+    } = ENLARGED_IMAGE_POSITION;
 
     beforeEach(() => {
         shallowWrapper = getShallowWrapper();
@@ -107,10 +112,10 @@ describe('Enlarged Image', () => {
         });
 
         it('applies CSS to container element based on imagePosition prop', () => {
-            shallowWrapper.setProps({ imagePosition: 'over' });
+            shallowWrapper.setProps({ imagePosition: OVER });
             expect(shallowWrapper.render().css('left')).to.equal('0px');
 
-            shallowWrapper.setProps({ imagePosition: 'beside' });
+            shallowWrapper.setProps({ imagePosition: BESIDE });
             expect(shallowWrapper.render().css('left')).to.equal('100%');
             expect(shallowWrapper.render().css('margin-left')).to.equal('10px');
             expect(shallowWrapper.render().css('border')).to.equal('1px solid #d6d6d6');

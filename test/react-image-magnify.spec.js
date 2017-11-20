@@ -6,6 +6,7 @@ import sinon from 'sinon';
 import ReactImageMagnify from '../src/ReactImageMagnify';
 import Hint from '../src/hint/DefaultHint';
 import UserDefinedHint from './support/UserDefinedHint';
+import { ENLARGED_IMAGE_POSITION } from '../src/constants';
 import * as utils from '../src/utils';
 
 describe('React Image Magnify', () => {
@@ -26,6 +27,9 @@ describe('React Image Magnify', () => {
         width: 12,
         height: 16
     };
+    const {
+        over: OVER
+    } = ENLARGED_IMAGE_POSITION;
 
     function getCompositProps(props) {
         return Object.assign(
@@ -119,14 +123,14 @@ describe('React Image Magnify', () => {
         instance.setSmallImageDimensionState.restore();
     });
 
-    it('sets environment state when onDetectedEnvironmentChanged is called', () => {
+    it('sets environment state when onDetectedInputTypeChanged is called', () => {
         const mountedWrapper = getMountedWrapper();
         const instance = mountedWrapper.instance();
-        const detectedEnvironment = { isTouchDetected: true, isMouseDetected: false };
+        const detectedInputType = { isTouchDetected: true, isMouseDetected: false };
 
-        instance.onDetectedEnvironmentChanged(detectedEnvironment);
+        instance.onDetectedInputTypeChanged(detectedInputType);
 
-        expect(mountedWrapper.state('detectedEnvironment')).to.deep.equal(detectedEnvironment);
+        expect(mountedWrapper.state('detectedInputType')).to.deep.equal(detectedInputType);
     });
 
     it('sets isActive state when onActivationChanged is called', () => {
@@ -614,14 +618,14 @@ describe('React Image Magnify', () => {
         });
 
         it('applies enlargedImagePosition to EnlargedImage component', () => {
-            shallowWrapper.setProps({ enlargedImagePosition: 'over' });
+            shallowWrapper.setProps({ enlargedImagePosition: OVER });
 
-            expect(shallowWrapper.find('EnlargedImage').props().imagePosition).to.equal('over');
+            expect(shallowWrapper.find('EnlargedImage').props().imagePosition).to.equal(OVER);
         });
 
         describe('Hint', () => {
             it('is disabled by default', () => {
-                const mountedWrapper = getMountedWrapper({ enlargedImagePosition: 'over' });
+                const mountedWrapper = getMountedWrapper({ enlargedImagePosition: OVER });
 
                 const hint = mountedWrapper.find('DefaultHint');
 
@@ -631,7 +635,7 @@ describe('React Image Magnify', () => {
             it('supports enabling', () => {
                 const mountedWrapper = getMountedWrapper({
                     isHintEnabled: true,
-                    enlargedImagePosition: 'over'
+                    enlargedImagePosition: OVER
                 });
 
                 const hint = mountedWrapper.find('DefaultHint');
@@ -643,7 +647,7 @@ describe('React Image Magnify', () => {
                 const mountedWrapper = getMountedWrapper({
                     isHintEnabled: true,
                     fadeDurationInMs: 0,
-                    enlargedImagePosition: 'over'
+                    enlargedImagePosition: OVER
                 });
                 let hint = mountedWrapper.find('DefaultHint');
                 expect(hint).to.have.length(1);
@@ -663,7 +667,7 @@ describe('React Image Magnify', () => {
                 const mountedWrapper = getMountedWrapper({
                     isHintEnabled: true,
                     fadeDurationInMs: 0,
-                    enlargedImagePosition: 'over'
+                    enlargedImagePosition: OVER
                 });
                 let hint = mountedWrapper.find('DefaultHint');
                 expect(hint).to.have.length(1);
@@ -692,7 +696,7 @@ describe('React Image Magnify', () => {
                     isHintEnabled: true,
                     shouldHideHintAfterFirstActivation: false,
                     fadeDurationInMs: 0,
-                    enlargedImagePosition: 'over'
+                    enlargedImagePosition: OVER
                 });
                 let hint = mountedWrapper.find('DefaultHint');
                 expect(hint).to.have.length(1);
@@ -719,7 +723,7 @@ describe('React Image Magnify', () => {
             it('supports default hint text for mouse environments', () => {
                 const mountedWrapper = getMountedWrapper({
                     isHintEnabled: true,
-                    enlargedImagePosition: 'over'
+                    enlargedImagePosition: OVER
                 });
 
                 const hint = mountedWrapper.find('DefaultHint');
@@ -730,10 +734,10 @@ describe('React Image Magnify', () => {
             it('supports default hint text for touch environments', () => {
                 const mountedWrapper = getMountedWrapper({
                     isHintEnabled: true,
-                    enlargedImagePosition: 'over'
+                    enlargedImagePosition: OVER
                 });
                 mountedWrapper.setState({
-                    detectedEnvironment: {
+                    detectedInputType: {
                         isMouseDetected: false,
                         isTouchDetected: true
                     }
@@ -748,7 +752,7 @@ describe('React Image Magnify', () => {
                 const mountedWrapper = getMountedWrapper({
                     isHintEnabled: true,
                     hintTextMouse: 'foo',
-                    enlargedImagePosition: 'over'
+                    enlargedImagePosition: OVER
                 });
 
                 const hint = mountedWrapper.find('DefaultHint');
@@ -760,10 +764,10 @@ describe('React Image Magnify', () => {
                 const mountedWrapper = getMountedWrapper({
                     isHintEnabled: true,
                     hintTextTouch: 'bar',
-                    enlargedImagePosition: 'over'
+                    enlargedImagePosition: OVER
                 });
                 mountedWrapper.setState({
-                    detectedEnvironment: {
+                    detectedInputType: {
                         isMouseDetected: false,
                         isTouchDetected: true
                     }
@@ -778,7 +782,7 @@ describe('React Image Magnify', () => {
                 const mountedWrapper = getMountedWrapper({
                     isHintEnabled: true,
                     hintComponent: UserDefinedHint,
-                    enlargedImagePosition: 'over'
+                    enlargedImagePosition: OVER
                 });
 
                 const hint = mountedWrapper.find('UserDefinedHint');
@@ -790,7 +794,7 @@ describe('React Image Magnify', () => {
                 const mountedWrapper = getMountedWrapper({
                     isHintEnabled: true,
                     hintComponent: UserDefinedHint,
-                    enlargedImagePosition: 'over'
+                    enlargedImagePosition: OVER
                 });
 
                 const hint = mountedWrapper.find('UserDefinedHint');

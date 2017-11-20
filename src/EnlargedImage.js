@@ -9,6 +9,7 @@ import {
 import ImageShape from './prop-types/ImageShape';
 import { noop } from './utils';
 import Point from './prop-types/Point';
+import { ENLARGED_IMAGE_POSITION } from './constants';
 
 export default class extends React.Component {
     constructor(props) {
@@ -43,7 +44,10 @@ export default class extends React.Component {
         isLazyLoaded: PropTypes.bool,
         largeImage: ImageShape,
         smallImage: ImageShape,
-        imagePosition: PropTypes.oneOf(['beside', 'over'])
+        imagePosition: PropTypes.oneOf([
+            ENLARGED_IMAGE_POSITION.beside,
+            ENLARGED_IMAGE_POSITION.over
+        ])
     };
 
     componentWillReceiveProps(nextProps) {
@@ -103,7 +107,8 @@ export default class extends React.Component {
             top: '0px',
             overflow: 'hidden'
         };
-        const isInPlaceMode = imagePosition === 'over';
+        const { over: OVER } = ENLARGED_IMAGE_POSITION;
+        const isInPlaceMode = imagePosition === OVER;
 
         if (isInPlaceMode) {
             return objectAssign(baseContainerStyle, {
@@ -126,7 +131,8 @@ export default class extends React.Component {
             smallImage,
             position
         } = this.props;
-        const isInPlaceMode = imagePosition === 'over';
+        const { over: OVER } = ENLARGED_IMAGE_POSITION;
+        const isInPlaceMode = imagePosition === OVER;
 
         if (isInPlaceMode) {
             return getInPlaceEnlargedImageCoordinates(
