@@ -6,6 +6,7 @@ import sinon from 'sinon';
 import ReactImageMagnify from '../src/ReactImageMagnify';
 import Hint from '../src/hint/DefaultHint';
 import UserDefinedHint from './support/UserDefinedHint';
+import * as utils from '../src/utils';
 
 describe('React Image Magnify', () => {
     const smallImage = {
@@ -364,18 +365,104 @@ describe('React Image Magnify', () => {
                 expect(shallowWrapper.find('EnlargedImage').props().smallImage).to.deep.equal(expected);
             });
 
-            it('calls onLoad callback', () => {
-                const onLoad = sinon.spy();
-                shallowWrapper.setProps({
-                    smallImage: Object.assign(
-                        {},
-                        smallImage,
-                        { onLoad }
-                    )
+            describe('Load Event', () => {
+                it('supports a listener function', () => {
+                    const onLoad = sinon.spy();
+                    shallowWrapper.setProps({
+                        smallImage: Object.assign(
+                            {},
+                            smallImage,
+                            { onLoad }
+                        )
+                    });
+
+                    shallowWrapper.find('img').simulate('load');
+
+                    expect(onLoad.called).to.be.true;
                 });
 
-                shallowWrapper.find('img').simulate('load');
-                expect(onLoad.called).to.be.true;
+                it('provides the browser event object to listener function', () => {
+                    const onLoad = sinon.spy();
+                    shallowWrapper.setProps({
+                        smallImage: Object.assign(
+                            {},
+                            smallImage,
+                            { onLoad }
+                        )
+                    });
+                    const eventObject = {};
+
+                    shallowWrapper.find('img').simulate('load', eventObject);
+
+                    const listenerArguments = onLoad.getCall(0).args;
+                    expect(listenerArguments.length).to.equal(1);
+                    expect(listenerArguments[0]).to.equal(eventObject);
+                });
+
+                it('defaults the listener to noop', () => {
+                    sinon.spy(utils, 'noop');
+                    const shallowWrapper = getShallowWrapper();
+                    shallowWrapper.setState({
+                        isActive: true,
+                        isTransitionActive: true
+                    });
+
+                    shallowWrapper.find('img').simulate('load');
+
+                    expect(utils.noop.called).to.be.true;
+
+                    utils.noop.restore();
+                });
+            });
+
+            describe('Error Event', () => {
+                it('supports a listener function', () => {
+                    const onError = sinon.spy();
+                    shallowWrapper.setProps({
+                        smallImage: Object.assign(
+                            {},
+                            smallImage,
+                            { onError }
+                        )
+                    });
+
+                    shallowWrapper.find('img').simulate('error');
+
+                    expect(onError.called).to.be.true;
+                });
+
+                it('provides the browser event object to listener function', () => {
+                    const onError = sinon.spy();
+                    shallowWrapper.setProps({
+                        smallImage: Object.assign(
+                            {},
+                            smallImage,
+                            { onError }
+                        )
+                    });
+                    const eventObject = {};
+
+                    shallowWrapper.find('img').simulate('error', eventObject);
+
+                    const listenerArguments = onError.getCall(0).args;
+                    expect(listenerArguments.length).to.equal(1);
+                    expect(listenerArguments[0]).to.equal(eventObject);
+                });
+
+                it('defaults the listener to noop', () => {
+                    sinon.spy(utils, 'noop');
+                    const shallowWrapper = getShallowWrapper();
+                    shallowWrapper.setState({
+                        isActive: true,
+                        isTransitionActive: true
+                    });
+
+                    shallowWrapper.find('img').simulate('error');
+
+                    expect(utils.noop.called).to.be.true;
+
+                    utils.noop.restore();
+                });
             });
 
             describe('isFluidWidth', () => {
@@ -478,25 +565,6 @@ describe('React Image Magnify', () => {
 
                     expect(mountedWrapper.state('smallImageWidth')).to.equal(50);
                     expect(mountedWrapper.state('smallImageHeight')).to.equal(51);
-                });
-
-                it('calls onLoad callback', () => {
-                    const onLoad = sinon.spy();
-                    const wrapper = getMountedWrapper({
-                        imageClassName: 'foo',
-                        smallImage: Object.assign(
-                            {},
-                            smallImage,
-                            {
-                                onLoad,
-                                isFluidWidth: true,
-                            }
-                        )
-                    });
-
-                    wrapper.find('img.foo').simulate('load');
-
-                    expect(onLoad.called).to.be.true;
                 });
             });
         });

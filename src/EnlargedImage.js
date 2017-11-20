@@ -7,7 +7,7 @@ import {
     getInPlaceEnlargedImageCoordinates
 } from './lib/imageCoordinates';
 import ImageShape from './prop-types/ImageShape';
-import noop from './utils/noop';
+import { noop } from './utils';
 import Point from './prop-types/Point';
 
 export default class extends React.Component {
@@ -154,7 +154,8 @@ export default class extends React.Component {
             isLazyLoaded,
             largeImage,
             largeImage: {
-                onLoad = noop
+                onLoad = noop,
+                onError = noop
             },
             smallImage,
         } = this.props;
@@ -200,7 +201,8 @@ export default class extends React.Component {
                     srcSet: largeImage.srcSet,
                     sizes: largeImage.sizes,
                     style: compositeImageStyle,
-                    onLoad
+                    onLoad,
+                    onError
                 }}/>
             </div>
         );

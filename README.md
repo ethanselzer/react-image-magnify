@@ -117,7 +117,8 @@ If you would like more information on responsive images, please try these resour
     sizes: String,
     width: Number, (required if isFluidWidth is not set)
     height: Number, (required if isFluidWidth is not set)
-    onLoad: Function
+    onLoad: Function,
+    onError: Function
 }
 ```
 
@@ -130,7 +131,8 @@ If you would like more information on responsive images, please try these resour
     sizes: String,
     width: Number, (required)
     height: Number, (required)
-    onLoad: Function
+    onLoad: Function,
+    onError: Function
 }
 ```
 

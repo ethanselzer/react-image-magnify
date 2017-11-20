@@ -11,7 +11,7 @@ import { getLensCursorOffset } from './lib/lens';
 import Hint from './hint/DefaultHint';
 import ShadedLens from './shaded-lens';
 import ImageShape from './prop-types/ImageShape';
-import noop from './utils/noop';
+import { noop } from './utils';
 
 class ReactImageMagnify extends React.Component {
 
@@ -63,7 +63,8 @@ class ReactImageMagnify extends React.Component {
             sizes: PropTypes.string,
             width: requiredIf(PropTypes.number, props => !props.isFluidWidth),
             height: requiredIf(PropTypes.number, props => !props.isFluidWidth),
-            onLoad: PropTypes.func
+            onLoad: PropTypes.func,
+            onError: PropTypes.func
         }),
         style: PropTypes.object,
         enlargedImagePosition: PropTypes.oneOf(['beside', 'over'])
@@ -173,7 +174,8 @@ class ReactImageMagnify extends React.Component {
             pressDuration,
             pressMoveThreshold,
             smallImage: {
-                isFluidWidth: isSmallImageFluidWidth
+                isFluidWidth: isSmallImageFluidWidth,
+                onError = noop
             },
             style,
         } = this.props;
@@ -272,7 +274,8 @@ class ReactImageMagnify extends React.Component {
                     className: imageClassName,
                     style: compositSmallImageStyle,
                     ref: (el) => this.smallImageEl = el,
-                    onLoad: this.onSmallImageLoad
+                    onLoad: this.onSmallImageLoad,
+                    onError
                 }} />
                 {isHintEnabled &&
                     <DisplayUntilActive {...{
