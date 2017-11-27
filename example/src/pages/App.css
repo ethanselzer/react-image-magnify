@@ -12,11 +12,6 @@ body {
   flex-direction: column;
 }
 
-.fluid__image-container {
-  flex: 0 0 auto;
-  margin: 20px auto;
-}
-
 .fluid__instructions {
   flex: 0 0 auto;
   margin: 0 20px;
@@ -29,6 +24,7 @@ body {
 
   .fluid__image-container{
     flex: 0 0 30%;
+    margin: 20px;
   }
 
   .fluid__instructions {

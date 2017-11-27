@@ -16,7 +16,7 @@ Features tinted guide lens, interaction hint, hover intent, long-press gesture, 
 ## Demo
 [Responsive Example](https://ethanselzer.github.io/react-image-magnify/#/)
 
-[Fixed Width Example](https://ethanselzer.github.io/react-image-magnify/#/fixed)
+[In-Place Example](https://ethanselzer.github.io/react-image-magnify/#/in-place)
 
 <img src="https://raw.githubusercontent.com/ethanselzer/react-image-magnify/master/images/qrcode.png" width="50" height="50" alt="demo"/>
 
@@ -46,11 +46,7 @@ import ReactImageMagnify from 'react-image-magnify';
             `${watchImg687} 687w`,
             `${watchImg770} 770w`,
             `${watchImg861} 861w`,
-            `${watchImg955} 955w`,
-            `${watchImg1033} 1033w`,
-            `${watchImg1112} 1112w`,
-            `${watchImg1192} 1192w`,
-            `${watchImg1200} 1200w`,
+            `${watchImg955} 955w`
         ].join(', '),
         sizes: '(min-width: 480px) 30vw, 80vw'
     },
