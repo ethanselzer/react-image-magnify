@@ -2,12 +2,9 @@ body {
   font-family: Arial;
 }
 
-.layout {
-  max-width: 960px;
-  margin: 0 auto;
-}
-
 .fluid {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 }
@@ -17,6 +14,18 @@ body {
   margin: 0 20px;
 }
 
+a {
+  color: black;
+}
+
+a:hover {
+  color: #666;
+}
+
+.code {
+  font-family: Courier New, Courier, monospace;
+}
+
 @media (min-width: 480px) {
   .fluid {
     flex-direction: row;
@@ -24,11 +33,11 @@ body {
 
   .fluid__image-container{
     flex: 0 0 30%;
-    margin: 20px;
+    margin: 20px 0 20px 20px;
   }
 
   .fluid__instructions {
     flex: 0 0 50%;
-    padding-top: 20px;
+    padding-top: 30px;
   }
 }

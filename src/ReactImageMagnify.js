@@ -55,7 +55,7 @@ class ReactImageMagnify extends React.Component {
         shouldHideHintAfterFirstActivation: PropTypes.bool,
         isHintEnabled: PropTypes.bool,
         hintTextMouse: PropTypes.string,
-        hinTextTouch: PropTypes.string,
+        hintTextTouch: PropTypes.string,
         hoverDelayInMs: PropTypes.number,
         hoverOffDelayInMs: PropTypes.number,
         isActivatedOnTouch: PropTypes.bool,
@@ -282,6 +282,7 @@ class ReactImageMagnify extends React.Component {
                 onDetectedInputTypeChanged: this.onDetectedInputTypeChanged,
                 pressDuration,
                 pressMoveThreshold,
+                shouldStopTouchMovePropagation: true,
                 style: compositContainerStyle
             }}>
                 <img { ...{

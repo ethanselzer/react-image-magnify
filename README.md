@@ -14,9 +14,9 @@ Features tinted guide lens, interaction hint, hover intent, long-press gesture, 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Demo
-[Responsive Example](https://ethanselzer.github.io/react-image-magnify/#/)
+[Basic Example](https://ethanselzer.github.io/react-image-magnify/#/)
 
-[In-Place Example](https://ethanselzer.github.io/react-image-magnify/#/in-place)
+[Integration with react-slick carousel](https://ethanselzer.github.io/react-image-magnify/#/react-slick)
 
 <img src="https://raw.githubusercontent.com/ethanselzer/react-image-magnify/master/images/qrcode.png" width="50" height="50" alt="demo"/>
 

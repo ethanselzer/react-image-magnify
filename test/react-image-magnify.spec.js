@@ -645,6 +645,7 @@ describe('React Image Magnify', () => {
 
             it('is hidden when magnification is active', (done) => {
                 const mountedWrapper = getMountedWrapper({
+                    className: 'foo',
                     isHintEnabled: true,
                     fadeDurationInMs: 0,
                     enlargedImagePosition: OVER
@@ -653,7 +654,7 @@ describe('React Image Magnify', () => {
                 expect(hint).to.have.length(1);
                 const rootComponent = mountedWrapper.find('ReactCursorPosition');
 
-                rootComponent.simulate('mouseenter');
+                rootComponent.instance().onMouseEnter({});
 
                 setTimeout(() => {
                     mountedWrapper.update();
@@ -673,14 +674,14 @@ describe('React Image Magnify', () => {
                 expect(hint).to.have.length(1);
                 const rootComponent = mountedWrapper.find('ReactCursorPosition');
 
-                rootComponent.simulate('mouseenter');
+                rootComponent.instance().onMouseEnter({});
 
                 setTimeout(() => {
                     mountedWrapper.update();
                     hint = mountedWrapper.find('DefaultHint');
                     expect(hint).to.have.length(0);
 
-                    rootComponent.simulate('mouseleave');
+                    rootComponent.instance().onMouseLeave({});
 
                     setTimeout(() => {
                         mountedWrapper.update();
@@ -702,14 +703,14 @@ describe('React Image Magnify', () => {
                 expect(hint).to.have.length(1);
                 const rootComponent = mountedWrapper.find('ReactCursorPosition');
 
-                rootComponent.simulate('mouseenter');
+                rootComponent.instance().onMouseEnter({});
 
                 setTimeout(() => {
                     mountedWrapper.update();
                     hint = mountedWrapper.find('DefaultHint');
                     expect(hint).to.have.length(0);
 
-                    rootComponent.simulate('mouseleave');
+                    rootComponent.instance().onMouseLeave({});
 
                     setTimeout(() => {
                         mountedWrapper.update();

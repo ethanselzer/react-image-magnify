@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactImageMagnify from '../pkg-lnk/ReactImageMagnify';
+import SpacedSpan from '../components/SpacedSpan';
 
 import './App.css';
 
@@ -15,7 +16,7 @@ import watchImg1112 from '../images/wristwatch_1112.jpg';
 import watchImg1192 from '../images/wristwatch_1192.jpg';
 import watchImg1200 from '../images/wristwatch_1200.jpg';
 
-class App extends Component {
+export default class BasicExample extends Component {
     get srcSet() {
         return [
             `${watchImg355} 355w`,
@@ -48,27 +49,45 @@ class App extends Component {
                             alt: 'Wristwatch by Ted Baker London',
                             src: watchImg1200,
                             srcSet: this.srcSet,
-                            sizes: '(min-width: 480px) 30vw, 80vw'
+                            sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
                         },
-                        isHintEnabled: true,
-                        enlargedImagePosition: 'over'
+                        isHintEnabled: true
                     }} />
                 </div>
                 <div className="fluid__instructions">
-                    <h3>Touch</h3>
-                    <p className="App-intro">Press (long touch) image to magnify. Pan (drag) to traverse image.</p>
-                    <p className="App-intro">Note the page can be scrolled when touch begins on image.</p>
-                    <h3>Mouse</h3>
-                  <p>Hover image to magnify</p>
-                    <p>
-                        Specify enlargedImagePosition: 'over' for in-place image enlargement
-                        in the mouse environment.
+                    <h3>Basic Example</h3>
+                    <p className="App-intro">
+                        Side by Side enlargement for mouse input.
+                    </p>
+                    <p className="App-intro">
+                        In place enlargement for touch input.
+                    </p>
+                    <p className="App-intro">
+                        Fluid between breakpoints.
+                    </p>
+                    <p className="App-intro">
+                        Initial file size optimized via
+                        <SpacedSpan className="code">
+                            srcSet
+                        </SpacedSpan>
+                        and
+                        <SpacedSpan className="code">
+                            sizes
+                        </SpacedSpan>
+                        attributes.
+                    </p>
+                    <p className="App-intro">
+                        Please see
+                        <SpacedSpan>
+                            <a href="https://github.com/ethanselzer/react-image-magnify/tree/master/example">
+                                source code
+                            </a>
+                        </SpacedSpan>
+                        for details.
                     </p>
                 </div>
-                <div style={{height: '1000px'}} />
+                <div style={{height: '500px'}} />
             </div>
         );
     }
 }
-
-export default App;
