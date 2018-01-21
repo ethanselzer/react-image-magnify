@@ -5046,9 +5046,9 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-cursor-position@2.2.2:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/react-cursor-position/-/react-cursor-position-2.2.2.tgz#7e5de475a92feaa235fe01ee31fda3eb9b0e48de"
+react-cursor-position@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-cursor-position/-/react-cursor-position-2.4.0.tgz#e11c8859ec72592bc1b928f1f98e9bd580c26e5b"
   dependencies:
     object-assign "^4.1.1"
     object.omit "^3.0.0"
@@ -5097,15 +5097,15 @@ react-error-overlay@^1.0.9:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
-react-image-magnify@2.3.3:
-  version "2.3.3"
-  resolved "https://registry.yarnpkg.com/react-image-magnify/-/react-image-magnify-2.3.3.tgz#433e62944eb9883971da9956f22a4222964b4453"
+react-image-magnify@2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-image-magnify/-/react-image-magnify-2.4.0.tgz#360068c466806d45cf9429b55e06fa3412d04752"
   dependencies:
     clamp "1.0.1"
     detect-it "3.0.3"
     object-assign "4.1.1"
     prop-types "15.6.0"
-    react-cursor-position "2.2.2"
+    react-cursor-position "2.4.0"
     react-required-if "1.0.1"
 
 react-required-if@1.0.1:

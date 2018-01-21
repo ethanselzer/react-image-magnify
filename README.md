@@ -18,8 +18,6 @@ Features tinted guide lens, interaction hint, hover intent, long-press gesture, 
 
 [Integration with react-slick carousel](https://ethanselzer.github.io/react-image-magnify/#/react-slick)
 
-<img src="https://raw.githubusercontent.com/ethanselzer/react-image-magnify/master/images/qrcode.png" width="50" height="50" alt="demo"/>
-
 Experiment with react-image-magnify [live on CodePen](https://codepen.io/ethanselzer/full/oePMNY/).
 Use the Change View button to select editing mode or for different layout options.
 Use the Fork button to save your changes.
