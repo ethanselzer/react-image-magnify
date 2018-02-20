@@ -76,6 +76,10 @@ describe('React Image Magnify', () => {
 
     it('has correct default props', () => {
         expect(ReactImageMagnify.defaultProps).to.deep.equal({
+            enlargedImageContainerDimensions: {
+                width: '100%',
+                height: '100%'
+            },
             fadeDurationInMs: 300,
             hoverDelayInMs: 250,
             hoverOffDelayInMs: 150,

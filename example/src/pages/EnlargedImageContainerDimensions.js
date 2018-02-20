@@ -16,7 +16,7 @@ import watchImg1112 from '../images/wristwatch_1112.jpg';
 import watchImg1192 from '../images/wristwatch_1192.jpg';
 import watchImg1200 from '../images/wristwatch_1200.jpg';
 
-export default class BasicExample extends Component {
+export default class EnlargedImageContainerDimensions extends Component {
     get srcSet() {
         return [
             `${watchImg355} 355w`,
@@ -51,35 +51,31 @@ export default class BasicExample extends Component {
                             srcSet: this.srcSet,
                             sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
                         },
-                        isHintEnabled: true
+                        isHintEnabled: true,
+                        enlargedImageContainerDimensions: {
+                            width: '200%',
+                            height: '100%'
+                        }
                     }} />
                 </div>
                 <div className="fluid__instructions">
-                    <h3>Basic Example</h3>
+                    <h3>Enlarged Image Container Dimensions Example</h3>
                     <p>
-                        Side by Side enlargement for mouse input.
+                        Specify dimensions as percentage of small image or number of pixels.
                     </p>
                     <p>
-                        In place enlargement for touch input.
+                        May be percentage for one dimension and number for the other.
                     </p>
                     <p>
-                        Fluid between breakpoints.
-                    </p>
-                    <p>
-                        Initial file size optimized via
-                        <SpacedSpan className="code">
-                            srcSet
-                        </SpacedSpan>
-                        and
-                        <SpacedSpan className="code">
-                            sizes
-                        </SpacedSpan>
-                        attributes.
+                        Exmample specifies width of
+                        <SpacedSpan className="code">200%</SpacedSpan>
+                        and height of
+                        <SpacedSpan className="code">100%.</SpacedSpan>
                     </p>
                     <p>
                         Please see
                         <SpacedSpan>
-                            <a href="https://github.com/ethanselzer/react-image-magnify/blob/master/example/src/pages/SideBySide.js">
+                            <a href="https://github.com/ethanselzer/react-image-magnify/blob/master/example/src/pages/EnlargedImageContainerDimensions.js">
                                 source code
                             </a>
                         </SpacedSpan>

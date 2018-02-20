@@ -15,7 +15,7 @@ import back_1020 from '../images/versace-blue/back-1020.jpg';
 import back_1200 from '../images/versace-blue/back-1200.jpg';
 import back_1426 from '../images/versace-blue/back-1426.jpg';
 
-import './App.css';
+import './app.css';
 import './react-slick.css';
 
 const frontSrcSet = [
@@ -87,25 +87,25 @@ export default class ReactSlickExample extends Component {
                         ))}
                     </ReactSlick>
                 </div>
-                <div id="hello" className="fluid__instructions">
+                <div className="fluid__instructions">
                     <h3>Carousel Example</h3>
-                    <p className="App-intro">
+                    <p>
                         Integration with&nbsp;
                         <a href="https://www.npmjs.com/package/react-slick">
                             react-slick
                         </a>
                         .
                     </p>
-                    <p className="App-intro">
+                    <p>
                         In-place enlargement for mouse and touch input.
                     </p>
-                    <p className="App-intro">
+                    <p>
                         Side-by-side enlargement not yet compatible with react-slick.
                     </p>
-                    <p className="App-intro">
+                    <p>
                         Responsive and fluid between breakpoints.
                     </p>
-                    <p className="App-intro">
+                    <p>
                         Initial file size optimized via
                         <SpacedSpan className="code">
                             srcSet
@@ -116,10 +116,10 @@ export default class ReactSlickExample extends Component {
                         </SpacedSpan>
                         attributes.
                     </p>
-                    <p className="App-intro">
+                    <p>
                         Please see
                         <SpacedSpan>
-                            <a href="https://github.com/ethanselzer/react-image-magnify/tree/master/example">
+                            <a href="https://github.com/ethanselzer/react-image-magnify/blob/master/example/src/pages/ReactSlick.js">
                                 source code
                             </a>
                         </SpacedSpan>

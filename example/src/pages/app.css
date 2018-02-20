@@ -14,6 +14,11 @@ body {
   margin: 0 20px;
 }
 
+.fixed__instructions {
+  flex: 1;
+  margin: 0 20px;
+}
+
 a {
   color: black;
 }
@@ -39,5 +44,10 @@ a:hover {
   .fluid__instructions {
     flex: 0 0 50%;
     padding-top: 30px;
+  }
+
+  .fixed__instructions {
+    padding-top: 30px;
+    margin: 0 10px;
   }
 }

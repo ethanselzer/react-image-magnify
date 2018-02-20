@@ -350,7 +350,6 @@ describe('Enlarged Image', () => {
             const expected = 'width:3px;height:4px;opacity:1;transition:opacity 0ms ease-in;pointer-events:none';
 
             const renderedWrapper = shallowWrapper.render();
-
             expect(renderedWrapper.attr('style').endsWith(expected)).to.be.true;
         });
 
@@ -415,6 +414,10 @@ describe('Enlarged Image', () => {
 
         it('computes max coordinates and applies the result to CSS transfrom translate', () => {
             shallowWrapper.setProps({
+                containerDimensions: {
+                    width: 4,
+                    height: 4
+                },
                 cursorOffset: {
                     x: 0,
                     y: 0
@@ -483,6 +486,10 @@ describe('Enlarged Image', () => {
     });
 
     const props = {
+        containerDimensions: {
+            width: 3,
+            height: 4
+        },
         cursorOffset: {
             x: 0,
             y: 0

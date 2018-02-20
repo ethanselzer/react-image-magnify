@@ -43,7 +43,10 @@ export default class extends React.Component {
         isActive: PropTypes.bool,
         isLazyLoaded: PropTypes.bool,
         largeImage: ImageShape,
-        smallImage: ImageShape,
+        containerDimensions: PropTypes.shape({
+            width: PropTypes.number,
+            height: PropTypes.number
+        }),
         imagePosition: PropTypes.oneOf([
             ENLARGED_IMAGE_POSITION.beside,
             ENLARGED_IMAGE_POSITION.over
@@ -128,26 +131,28 @@ export default class extends React.Component {
             imagePosition,
             cursorOffset,
             largeImage,
-            smallImage,
-            position
+            containerDimensions,
+            position,
+            smallImage
         } = this.props;
         const { over: OVER } = ENLARGED_IMAGE_POSITION;
         const isInPlaceMode = imagePosition === OVER;
 
         if (isInPlaceMode) {
-            return getInPlaceEnlargedImageCoordinates(
-                smallImage,
+            return getInPlaceEnlargedImageCoordinates({
+                containerDimensions,
                 largeImage,
                 position
-            );
+            });
         }
 
-        return getLensModeEnlargedImageCoordinates(
-            smallImage,
+        return getLensModeEnlargedImageCoordinates({
+            containerDimensions,
+            cursorOffset,
             largeImage,
             position,
-            cursorOffset
-        );
+            smallImage
+        });
     }
 
     render() {
@@ -163,7 +168,7 @@ export default class extends React.Component {
                 onLoad = noop,
                 onError = noop
             },
-            smallImage,
+            containerDimensions,
         } = this.props;
 
         const {
@@ -175,8 +180,8 @@ export default class extends React.Component {
 
         const defaultContainerStyle = this.getDefaultContainerStyle();
         const computedContainerStyle = {
-            width: smallImage.width,
-            height: smallImage.height,
+            width: containerDimensions.width,
+            height: containerDimensions.height,
             opacity: this.state.isTransitionActive ? 1 : 0,
             transition: `opacity ${fadeDurationInMs}ms ease-in`,
             pointerEvents: 'none'

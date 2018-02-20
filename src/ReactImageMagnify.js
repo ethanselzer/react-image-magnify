@@ -8,6 +8,10 @@ import requiredIf from 'react-required-if';
 import DisplayUntilActive from './hint/DisplayUntilActive';
 import EnlargedImage from './EnlargedImage';
 import { getLensCursorOffset } from './lib/lens';
+import {
+    getEnlargedImageContainerDimension,
+    getDefaultEnlargedImageContainerDimensions
+} from './lib/dimensions';
 import Hint from './hint/DefaultHint';
 import ShadedLens from './shaded-lens';
 import ImageShape from './prop-types/ImageShape';
@@ -50,6 +54,7 @@ class ReactImageMagnify extends React.Component {
         enlargedImageContainerStyle: PropTypes.object,
         enlargedImageClassName: PropTypes.string,
         enlargedImageStyle: PropTypes.object,
+        enlargedImageContainerDimensions: PropTypes.object,
         fadeDurationInMs: PropTypes.number,
         hintComponent: PropTypes.func,
         shouldHideHintAfterFirstActivation: PropTypes.bool,
@@ -84,6 +89,10 @@ class ReactImageMagnify extends React.Component {
     };
 
     static defaultProps = {
+        enlargedImageContainerDimensions: {
+            width: '100%',
+            height: '100%'
+        },
         fadeDurationInMs: 300,
         hintComponent: Hint,
         shouldHideHintAfterFirstActivation: true,
@@ -169,6 +178,65 @@ class ReactImageMagnify extends React.Component {
         return userDefinedEnlargedImagePosition || computedEnlargedImagePosition;
     }
 
+    get smallImage() {
+        const {
+            smallImage,
+            smallImage: {
+                isFluidWidth: isSmallImageFluidWidth
+            },
+        } = this.props;
+        const {
+            smallImageWidth,
+            smallImageHeight
+        } = this.state;
+
+        const fluidWidthSmallImage = objectAssign(
+            {},
+            smallImage,
+            {
+                width: smallImageWidth,
+                height: smallImageHeight
+            }
+        );
+        const fixedWidthSmallImage = smallImage;
+
+        return isSmallImageFluidWidth
+            ? fluidWidthSmallImage
+            : fixedWidthSmallImage
+    }
+
+    get isInPlaceMode() {
+        return this.getEnlargedImagePlacement() === ENLARGED_IMAGE_POSITION.over;
+    }
+
+    get enlargedImageContainerDimensions() {
+        const {
+            enlargedImageContainerDimensions: {
+                width: containerWidth,
+                height: containerHeight
+            }
+        } = this.props;
+        const {
+            width: smallImageWidth,
+            height: smallImageHeight
+        } = this.smallImage;
+
+        if (this.isInPlaceMode) {
+            return getDefaultEnlargedImageContainerDimensions(this.smallImage);
+        }
+
+        return {
+            width: getEnlargedImageContainerDimension({
+                containerDimension: containerWidth,
+                smallImageDimension: smallImageWidth
+            }),
+            height: getEnlargedImageContainerDimension({
+                containerDimension: containerHeight,
+                smallImageDimension: smallImageHeight
+            })
+        };
+    }
+
     render() {
         const {
             className,
@@ -198,28 +266,13 @@ class ReactImageMagnify extends React.Component {
             style,
         } = this.props;
 
+        const smallImage = this.smallImage;
+
         const {
-            smallImageWidth,
-            smallImageHeight,
             detectedInputType: {
                 isTouchDetected
             }
         } = this.state;
-
-        const fluidWidthSmallImage = objectAssign(
-            {},
-            this.props.smallImage,
-            {
-                width: smallImageWidth,
-                height: smallImageHeight
-            }
-        );
-
-        const fixedWidthSmallImage = this.props.smallImage;
-
-        const smallImage = isSmallImageFluidWidth
-            ? fluidWidthSmallImage
-            : fixedWidthSmallImage
 
         const fluidWidthContainerStyle = {
             width: 'auto',
@@ -270,7 +323,9 @@ class ReactImageMagnify extends React.Component {
             !isTouchDetected
         );
 
-        const cursorOffset = getLensCursorOffset(smallImage, largeImage);
+        const enlargedImageContainerDimensions = this.enlargedImageContainerDimensions;
+
+        const cursorOffset = getLensCursorOffset(smallImage, largeImage, enlargedImageContainerDimensions);
 
         return (
             <ReactCursorPosition { ...{
@@ -311,12 +366,14 @@ class ReactImageMagnify extends React.Component {
                     <ShadedLens {...{
                         cursorOffset,
                         fadeDurationInMs,
+                        enlargedImageContainerDimensions,
                         smallImage,
                         style: lensStyle
                     }} />
                 }
                 <EnlargedImage { ...{
                     containerClassName: enlargedImageContainerClassName,
+                    containerDimensions: enlargedImageContainerDimensions,
                     containerStyle: enlargedImageContainerStyle,
                     cursorOffset,
                     fadeDurationInMs,

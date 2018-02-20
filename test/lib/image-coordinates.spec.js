@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { getLensCursorOffset } from '../../src/lib/lens';
 import {
     getLensModeEnlargedImageCoordinates,
     getInPlaceEnlargedImageCoordinates
@@ -8,6 +7,10 @@ import {
 describe('Image Coordinates Library', () => {
     describe('getLensModeEnlargedImageCoordinates', () => {
         it('returns image coordinates relative to its container', () => {
+            const enlargedImageContainerDimensions = {
+                width: 4,
+                height: 4
+            };
             const smallImage = {
                 width: 4,
                 height: 4
@@ -20,18 +23,24 @@ describe('Image Coordinates Library', () => {
                 x: 2,
                 y: 2
             };
-            const lensCursorOffset = getLensCursorOffset(smallImage, largeImage);
-            const expected = {
-                x: -2,
-                y: -2
-            };
+            const lensCursorOffset = { x: 1, y: 1 };
 
-            const actual = getLensModeEnlargedImageCoordinates(smallImage, largeImage, position, lensCursorOffset);
+            const actual = getLensModeEnlargedImageCoordinates({
+                smallImage,
+                largeImage,
+                position,
+                cursorOffset: lensCursorOffset,
+                containerDimensions: enlargedImageContainerDimensions
+            });
 
-            expect(actual).to.deep.equal(expected);
+            expect(actual).to.deep.equal({ x: -2, y: -2 });
         });
 
         it('clamps position according to lens', () => {
+            const enlargedImageContainerDimensions = {
+                width: 4,
+                height: 4
+            };
             const smallImage = {
                 width: 4,
                 height: 4
@@ -44,21 +53,23 @@ describe('Image Coordinates Library', () => {
                 x: 1,
                 y: 3
             };
-            const lensCursorOffset = getLensCursorOffset(smallImage, largeImage);
-            const expected = {
-                x: -0,
-                y: -4
-            };
+            const lensCursorOffset = { x: 1, y: 1 };
 
-            const actual = getLensModeEnlargedImageCoordinates(smallImage, largeImage, position, lensCursorOffset);
+            const actual = getLensModeEnlargedImageCoordinates({
+                smallImage,
+                largeImage,
+                position,
+                cursorOffset: lensCursorOffset,
+                containerDimensions: enlargedImageContainerDimensions
+            });
 
-            expect(actual).to.deep.equal(expected);
+            expect(actual).to.deep.equal({ x: -0, y: -4 });
         });
     });
 
     describe('getInPlaceEnlargedImageCoordinates', () => {
         it('returns image coordinates relative to its container', () => {
-            const container = {
+            const containerDimensions = {
                 width: 4,
                 height: 4
             };
@@ -70,18 +81,14 @@ describe('Image Coordinates Library', () => {
                 x: 2,
                 y: 2
             };
-            const expected = {
-                x: -2,
-                y: -2
-            };
 
-            const actual = getInPlaceEnlargedImageCoordinates(container, largeImage, position);
+            const actual = getInPlaceEnlargedImageCoordinates({ containerDimensions, largeImage, position });
 
-            expect(actual).to.deep.equal(expected);
+            expect(actual).to.deep.equal({ x: -2, y: -2 });
         });
 
         it('clamps coordinates to the container when position is outside', () => {
-            const container = {
+            const containerDimensions = {
                 width: 4,
                 height: 4
             };
@@ -93,14 +100,10 @@ describe('Image Coordinates Library', () => {
                 x: 5,
                 y: -1
             };
-            const expected = {
-                x: -4,
-                y: 0
-            };
 
-            const actual = getInPlaceEnlargedImageCoordinates(container, largeImage, position);
+            const actual = getInPlaceEnlargedImageCoordinates({ containerDimensions, largeImage, position });
 
-            expect(actual).to.deep.equal(expected);
+            expect(actual).to.deep.equal({ x: -4, y: 0 });
         });
     });
 });

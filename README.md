@@ -18,6 +18,8 @@ Features tinted guide lens, interaction hint, hover intent, long-press gesture, 
 
 [Integration with react-slick carousel](https://ethanselzer.github.io/react-image-magnify/#/react-slick)
 
+[Specify Enlarged Image Container Dimensions](https://ethanselzer.github.io/react-image-magnify/#/dimensions)
+
 Experiment with react-image-magnify [live on CodePen](https://codepen.io/ethanselzer/full/oePMNY/).
 Use the Change View button to select editing mode or for different layout options.
 Use the Fork button to save your changes.
@@ -91,7 +93,8 @@ If you would like more information on responsive images, please try these resour
 | `hoverDelayInMs`              | Number | No       | 250     | Milliseconds to delay hover trigger.                       |
 | `hoverOffDelayInMs`           | Number | No       | 150     | Milliseconds to delay hover-off trigger.                   |
 | `lensStyle`                   | Object | No       |         | Style applied to tinted lens.                              |
-| `enlargedImagePosition`       | String | No       | beside  | Enlarged image position. Can be 'beside' or 'over'.        |
+| `enlargedImagePosition`       | String | No       | beside  | Enlarged image position. Can be 'beside' or 'over'. |
+| `enlargedImageContainerDimensions` | Object | No  | {width: '100%', height: '100%'} | Specify enlarged image container dimensions as an object with `width` and `height` properties. Values may be expressed as a percentage (e.g. '150%') or a number (e.g. 200). Percentage is based on small image dimension. Number is pixels. Not applied when `enlargedImagePosition` is set to 'over'. |
 
 ### Touch Specific
 | Prop                          | Type   | Required | Default | Description                                                |

@@ -1,13 +1,13 @@
 import { getLargeToSmallImageRatio } from './imageRatio';
 
-export function getLensCursorOffset(smallImage, largeImage) {
+export function getLensCursorOffset(smallImage, largeImage, enlargedImageContainerDimensions) {
     const ratio = getLargeToSmallImageRatio(smallImage, largeImage);
     return {
-        x: getLensCursorOffsetDimension(smallImage.width, ratio.x),
-        y: getLensCursorOffsetDimension(smallImage.height, ratio.y)
+        x: getLensCursorOffsetDimension(enlargedImageContainerDimensions.width, ratio.x),
+        y: getLensCursorOffsetDimension(enlargedImageContainerDimensions.height, ratio.y)
     }
 }
 
-function getLensCursorOffsetDimension(smallImageDimension, ratio) {
-    return Math.round((smallImageDimension * ratio) / 2);
+function getLensCursorOffsetDimension(enlargedImageContainerDimension, ratio) {
+    return Math.round((enlargedImageContainerDimension * ratio) / 2);
 }

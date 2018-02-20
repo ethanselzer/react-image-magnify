@@ -18,6 +18,8 @@ If your default browser does not start automatically, open a new browser window 
 
 [Integration with react-slick](http://localhost:3000/#/react-slick).
 
+[Specify Enlarged Image Container Dimensions](http://localhost:3000/#/dimensions).
+
 ## Reference
 If you would like more information on responsive images, please try these resources:  
 [https://cloudfour.com/thinks/responsive-images-101-definitions/](https://cloudfour.com/thinks/responsive-images-101-definitions/)  
