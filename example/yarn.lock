@@ -5097,9 +5097,9 @@ react-error-overlay@^1.0.9:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
-react-image-magnify@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/react-image-magnify/-/react-image-magnify-2.4.0.tgz#360068c466806d45cf9429b55e06fa3412d04752"
+react-image-magnify@2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/react-image-magnify/-/react-image-magnify-2.5.0.tgz#61dcbf8eeafa461f433f6cb700e5574a2730d6c4"
   dependencies:
     clamp "1.0.1"
     detect-it "3.0.3"
