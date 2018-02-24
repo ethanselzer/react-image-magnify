@@ -12,13 +12,11 @@ export default function ImageLensShaded({
     isPositionOutside,
     position,
     smallImage,
-    style
+    style: userSpecifiedStyle
 }) {
     const compositLensStyle = objectAssign(
-        {
-            backgroundColor: 'rgba(0,0,0,.4)'
-        },
-        style
+        { backgroundColor: 'rgba(0,0,0,.4)' },
+        userSpecifiedStyle
     );
 
     return (

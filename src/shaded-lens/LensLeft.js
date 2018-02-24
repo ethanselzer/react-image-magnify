@@ -10,7 +10,7 @@ const LensLeft = ({
     isActive,
     isPositionOutside,
     smallImage,
-    style
+    style: parentSpecifiedStyle
 }) => {
     const clearLensHeight = cursorOffset.y * 2;
     const clearLensWidth = cursorOffset.x * 2;
@@ -31,7 +31,11 @@ const LensLeft = ({
             fadeDurationInMs,
             isActive,
             isPositionOutside,
-            style: objectAssign({}, style, computedStyle),
+            style: objectAssign(
+                {},
+                parentSpecifiedStyle,
+                computedStyle
+            ),
             translateY
         }}/>
     );

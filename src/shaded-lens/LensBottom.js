@@ -10,7 +10,7 @@ const LensBottom = ({
     isActive,
     isPositionOutside,
     smallImage,
-    style
+    style: parentSpecifiedStyle
 }) => {
 
     const clearLensHeight = cursorOffset.y * 2;
@@ -32,7 +32,7 @@ const LensBottom = ({
             isPositionOutside,
             style: objectAssign(
                 {},
-                style,
+                parentSpecifiedStyle,
                 computedStyle
             )
         }}/>

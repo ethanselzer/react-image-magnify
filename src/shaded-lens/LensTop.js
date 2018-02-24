@@ -10,7 +10,7 @@ const LensTop = ({
     isActive,
     isPositionOutside,
     smallImage,
-    style
+    style: parentSpecifiedStyle
 }) => {
     const clearLensHeight =  cursorOffset.y * 2;
     const maxHeight = smallImage.height - clearLensHeight;
@@ -26,7 +26,11 @@ const LensTop = ({
             fadeDurationInMs,
             isActive,
             isPositionOutside,
-            style: objectAssign({}, style, computedStyle)
+            style: objectAssign(
+                {},
+                parentSpecifiedStyle,
+                computedStyle
+            )
         }}/>
     );
 };

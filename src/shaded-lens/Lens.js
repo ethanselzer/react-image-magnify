@@ -7,19 +7,13 @@ const Lens = (props) => {
         fadeDurationInMs,
         isActive,
         isPositionOutside,
-        style,
+        style: parentSpecifiedStyle,
         translateX,
         translateY
     } = props;
+
     const translate = `translate(${translateX}px, ${translateY}px)`;
-    const computedStyle = {
-        position: 'absolute',
-        transform: translate,
-        WebkitTransform: translate,
-        msTransform: translate,
-        opacity: (isActive && !isPositionOutside) ? 1 : 0,
-        transition: `opacity ${fadeDurationInMs}ms ease-in`
-    };
+
     const defaultStyle = {
         width: 'auto',
         height: 'auto',
@@ -30,7 +24,23 @@ const Lens = (props) => {
         display: 'block'
     };
 
-    return <div style={ objectAssign({}, defaultStyle, style, computedStyle) }/>;
+    const computedStyle = {
+        position: 'absolute',
+        transform: translate,
+        WebkitTransform: translate,
+        msTransform: translate,
+        opacity: (isActive && !isPositionOutside) ? 1 : 0,
+        transition: `opacity ${fadeDurationInMs}ms ease-in`
+    };
+
+    const compositStyle = objectAssign(
+        {},
+        defaultStyle,
+        parentSpecifiedStyle,
+        computedStyle
+    );
+
+    return <div style={compositStyle}/>;
 }
 
 Lens.propTypes = {
