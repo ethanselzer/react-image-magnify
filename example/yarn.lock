@@ -2447,7 +2447,7 @@ extsprintf@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.0.2.tgz#e1080e0658e300b06294990cc70e1502235fd550"
 
-fast-deep-equal@^1.0.0:
+fast-deep-equal@1.0.0, fast-deep-equal@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-1.0.0.tgz#96256a3bc975595eb36d82e9929d060d893439ff"
 
@@ -5097,12 +5097,13 @@ react-error-overlay@^1.0.9:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
-react-image-magnify@2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/react-image-magnify/-/react-image-magnify-2.5.0.tgz#61dcbf8eeafa461f433f6cb700e5574a2730d6c4"
+react-image-magnify@2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/react-image-magnify/-/react-image-magnify-2.5.1.tgz#627e47372d45d1d49371f9a46c0040d75d317e9e"
   dependencies:
     clamp "1.0.1"
     detect-it "3.0.3"
+    fast-deep-equal "1.0.0"
     object-assign "4.1.1"
     prop-types "15.6.0"
     react-cursor-position "2.4.0"
