@@ -2213,7 +2213,7 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
 
-fast-deep-equal@^1.0.0:
+fast-deep-equal@1.0.0, fast-deep-equal@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-1.0.0.tgz#96256a3bc975595eb36d82e9929d060d893439ff"
 
@@ -4018,9 +4018,9 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-cursor-position@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/react-cursor-position/-/react-cursor-position-2.4.0.tgz#e11c8859ec72592bc1b928f1f98e9bd580c26e5b"
+react-cursor-position@2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/react-cursor-position/-/react-cursor-position-2.4.1.tgz#458a91d97f01b5fcf093ba0f1fc0719e707148b2"
   dependencies:
     object-assign "^4.1.1"
     object.omit "^3.0.0"

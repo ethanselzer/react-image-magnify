@@ -184,6 +184,7 @@ Thanks to the following community members for opening Issues and Pull Requests.
 @sbloedel  
 @spiderbites  
 @Akarshit  
+@eddy20vt  
 
 You are awesome! ✨💫
 
