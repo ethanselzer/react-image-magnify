@@ -137,14 +137,6 @@ describe('React Image Magnify', () => {
         expect(mountedWrapper.state('detectedInputType')).to.deep.equal(detectedInputType);
     });
 
-    it('sets isActive state when onActivationChanged is called', () => {
-        const instance = shallowWrapper.instance();
-
-        instance.onActivationChanged({ isActive: true });
-
-        expect(shallowWrapper.state('isActive')).to.be.true;
-    });
-
     describe('Props API', () => {
 
         it('applies className to root component', () => {

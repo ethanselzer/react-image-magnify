@@ -42,14 +42,12 @@ class ReactImageMagnify extends React.Component {
             detectedInputType: {
                 isMouseDeteced: (primaryInput === MOUSE),
                 isTouchDetected: (primaryInput === TOUCH)
-            },
-            isActive: false
+            }
         }
 
         this.onSmallImageLoad = this.onSmallImageLoad.bind(this);
         this.setSmallImageDimensionState = this.setSmallImageDimensionState.bind(this);
         this.onDetectedInputTypeChanged = this.onDetectedInputTypeChanged.bind(this);
-        this.onActivationChanged = this.onActivationChanged.bind(this);
     }
 
     static propTypes = {
@@ -145,12 +143,6 @@ class ReactImageMagnify extends React.Component {
     onDetectedInputTypeChanged(detectedInputType) {
         this.setState({
             detectedInputType
-        });
-    }
-
-    onActivationChanged({ isActive }) {
-        this.setState({
-            isActive
         });
     }
 
@@ -309,7 +301,6 @@ class ReactImageMagnify extends React.Component {
                 hoverDelayInMs,
                 hoverOffDelayInMs,
                 isActivatedOnTouch,
-                onActivationChanged: this.onActivationChanged,
                 onDetectedInputTypeChanged: this.onDetectedInputTypeChanged,
                 pressDuration,
                 pressMoveThreshold,
