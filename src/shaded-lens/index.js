@@ -8,58 +8,26 @@ import LensBottom from './LensBottom';
 
 import LensPropTypes from '../prop-types/Lens';
 
-export default function ImageLensShaded({
-    cursorOffset,
-    fadeDurationInMs,
-    isActive,
-    isPositionOutside,
-    position,
-    smallImage,
-    style: userSpecifiedStyle
-}) {
+export default function ImageLensShaded(inputProps) {
+    const { style: userSpecifiedStyle } = inputProps;
+
     const compositLensStyle = objectAssign(
         { backgroundColor: 'rgba(0,0,0,.4)' },
         userSpecifiedStyle
     );
 
+    const props = objectAssign(
+        {},
+        inputProps,
+        { style: compositLensStyle }
+    );
+
     return (
         <div>
-            <LensTop { ...{
-                cursorOffset,
-                fadeDurationInMs,
-                isActive,
-                isPositionOutside,
-                position,
-                smallImage,
-                style: compositLensStyle
-            }} />
-            <LensLeft { ...{
-                cursorOffset,
-                fadeDurationInMs,
-                isActive,
-                isPositionOutside,
-                position,
-                smallImage,
-                style: compositLensStyle
-            }} />
-            <LensRight { ...{
-                cursorOffset,
-                fadeDurationInMs,
-                isActive,
-                isPositionOutside,
-                position,
-                smallImage,
-                style: compositLensStyle
-            }} />
-            <LensBottom { ...{
-                cursorOffset,
-                fadeDurationInMs,
-                isActive,
-                isPositionOutside,
-                position,
-                smallImage,
-                style: compositLensStyle
-            }} />
+            <LensTop { ...props} />
+            <LensLeft { ...props} />
+            <LensRight { ...props} />
+            <LensBottom { ...props} />
         </div>
     );
 }
