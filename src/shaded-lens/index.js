@@ -1,9 +1,12 @@
 import React from 'react';
 import objectAssign from 'object-assign';
+
 import LensTop from './LensTop';
 import LensLeft from './LensLeft';
 import LensRight from './LensRight';
 import LensBottom from './LensBottom';
+
+import LensPropTypes from '../prop-types/Lens';
 
 export default function ImageLensShaded({
     cursorOffset,
@@ -60,3 +63,5 @@ export default function ImageLensShaded({
         </div>
     );
 }
+
+ImageLensShaded.propTypes = LensPropTypes;

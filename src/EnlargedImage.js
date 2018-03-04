@@ -5,7 +5,11 @@ import {
     getLensModeEnlargedImageCoordinates,
     getInPlaceEnlargedImageCoordinates
 } from './lib/imageCoordinates';
-import ImageShape from './prop-types/ImageShape';
+import { LargeImageShape } from './prop-types/Image';
+import {
+    EnlargedImagePosition,
+    ContainerDimensions
+} from './prop-types/EnlargedImage';
 import { noop } from './utils';
 import Point from './prop-types/Point';
 import { ENLARGED_IMAGE_POSITION } from './constants';
@@ -45,15 +49,9 @@ export default class extends React.Component {
         imageStyle: PropTypes.object,
         isActive: PropTypes.bool,
         isLazyLoaded: PropTypes.bool,
-        largeImage: ImageShape,
-        containerDimensions: PropTypes.shape({
-            width: PropTypes.number,
-            height: PropTypes.number
-        }),
-        imagePosition: PropTypes.oneOf([
-            ENLARGED_IMAGE_POSITION.beside,
-            ENLARGED_IMAGE_POSITION.over
-        ])
+        largeImage: LargeImageShape,
+        containerDimensions: ContainerDimensions,
+        imagePosition: EnlargedImagePosition
     };
 
     componentWillReceiveProps(nextProps) {

@@ -2,6 +2,7 @@ import React from 'react';
 import clamp from 'clamp';
 import objectAssign from 'object-assign';
 import Lens from './Lens';
+import LensPropTypes from '../prop-types/Lens';
 
 const LensTop = ({
     cursorOffset,
@@ -34,5 +35,7 @@ const LensTop = ({
         }}/>
     );
 };
+
+LensTop.propTypes = LensPropTypes;
 
 export default LensTop;

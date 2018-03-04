@@ -3,10 +3,12 @@ import objectAssign from 'object-assign';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactCursorPosition from 'react-cursor-position';
-import requiredIf from 'react-required-if';
 
-import DisplayUntilActive from './hint/DisplayUntilActive';
 import EnlargedImage from './EnlargedImage';
+import ShadedLens from './shaded-lens';
+import DisplayUntilActive from './hint/DisplayUntilActive';
+import Hint from './hint/DefaultHint';
+
 import { getLensCursorOffset } from './lib/lens';
 import {
     getEnlargedImageContainerDimension,
@@ -16,9 +18,14 @@ import {
     getContainerStyle,
     getSmallImageStyle
 } from './lib/styles';
-import Hint from './hint/DefaultHint';
-import ShadedLens from './shaded-lens';
-import ImageShape from './prop-types/ImageShape';
+import {
+    LargeImageShape,
+    SmallImageShape
+} from './prop-types/Image';
+import {
+    EnlargedImagePosition,
+    EnlargedImageContainerDimensions
+} from './prop-types/EnlargedImage';
 import { noop } from './utils';
 import {
     INPUT_TYPE,
@@ -56,7 +63,7 @@ class ReactImageMagnify extends React.Component {
         enlargedImageContainerStyle: PropTypes.object,
         enlargedImageClassName: PropTypes.string,
         enlargedImageStyle: PropTypes.object,
-        enlargedImageContainerDimensions: PropTypes.object,
+        enlargedImageContainerDimensions: EnlargedImageContainerDimensions,
         fadeDurationInMs: PropTypes.number,
         hintComponent: PropTypes.func,
         shouldHideHintAfterFirstActivation: PropTypes.bool,
@@ -68,26 +75,13 @@ class ReactImageMagnify extends React.Component {
         isActivatedOnTouch: PropTypes.bool,
         imageClassName: PropTypes.string,
         imageStyle: PropTypes.object,
-        largeImage: ImageShape,
+        largeImage: LargeImageShape,
         lensStyle: PropTypes.object,
         pressDuration: PropTypes.number,
         pressMoveThreshold: PropTypes.number,
-        smallImage: PropTypes.shape({
-            alt: PropTypes.string,
-            isFluidWidth: PropTypes.bool,
-            src: PropTypes.string.isRequired,
-            srcSet: PropTypes.string,
-            sizes: PropTypes.string,
-            width: requiredIf(PropTypes.number, props => !props.isFluidWidth),
-            height: requiredIf(PropTypes.number, props => !props.isFluidWidth),
-            onLoad: PropTypes.func,
-            onError: PropTypes.func
-        }),
+        smallImage: SmallImageShape,
         style: PropTypes.object,
-        enlargedImagePosition: PropTypes.oneOf([
-            ENLARGED_IMAGE_POSITION.beside,
-            ENLARGED_IMAGE_POSITION.over
-        ])
+        enlargedImagePosition: EnlargedImagePosition
     };
 
     static defaultProps = {
