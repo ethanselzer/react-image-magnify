@@ -53,7 +53,7 @@ export default class EnlargedImageContainerDimensions extends Component {
                         },
                         isHintEnabled: true,
                         enlargedImageContainerDimensions: {
-                            width: ('200%'),
+                            width: '200%',
                             height: '100%'
                         }
                     }} />
