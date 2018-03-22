@@ -3,7 +3,7 @@ import React from 'react';
 export default function SpacedSpan({ className, children }) {
     return (
         <span className={className}>
-            &nbsp;{children}&nbsp;
+            {' '}{children}{' '}
         </span>
     );
 }

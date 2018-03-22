@@ -6,6 +6,8 @@ Designed for shopping site product detail.
 
 Supports in-place and side-by-side image enlargement.
 
+Supports react-slick carousel.
+
 Features tinted guide lens, interaction hint, hover intent, long-press gesture, and fade transitions.
 
 ## Status
@@ -18,7 +20,9 @@ Features tinted guide lens, interaction hint, hover intent, long-press gesture, 
 
 [Integration with react-slick carousel](https://ethanselzer.github.io/react-image-magnify/#/react-slick)
 
-[Specify Enlarged Image Container Dimensions](https://ethanselzer.github.io/react-image-magnify/#/dimensions)
+[Enlarged Image Container Dimensions](https://ethanselzer.github.io/react-image-magnify/#/dimensions)
+
+[External Enlarged Image](https://ethanselzer.github.io/react-image-magnify/#/external)
 
 Experiment with react-image-magnify [live on CodePen](https://codepen.io/ethanselzer/full/oePMNY/).
 Use the Change View button to select editing mode or for different layout options.
@@ -69,7 +73,7 @@ If you would like more information on responsive images, please try these resour
 
 ### Desktop and Touch
 | Prop                          | Type   | Required | Default | Description                                                |
-|-------------------------------|--------|----------|---------|------------------------------------------------------------|
+|-------------------------------|--------|----------|---------|-----------------------|
 | `smallImage`                  | Object | Yes      |         | Small image information. See [Small Image](#small-image) below.|
 | `largeImage`                  | Object | Yes      |         | Large image information. See [Large Image](#large-image) below.|
 | `className`                   | String | No       |         | CSS class applied to root container element.               |
@@ -80,25 +84,27 @@ If you would like more information on responsive images, please try these resour
 | `enlargedImageContainerClassName`| String | No    |         | CSS class applied to enlarged image container element.     |
 | `enlargedImageContainerStyle` | Object | No       |         | Style applied to enlarged image container element.         |
 | `enlargedImageClassName`      | String | No       |         | CSS class applied to enlarged image element.               |
-| `enlargedImageStyle`          | Object | No       |         | Style applied to enlarged image element.                   |
+| `enlargedImageStyle`          | Object | No       |         | Style applied to enlarged image element.|
+| `enlargedImageContainerDimensions` | Object | No  | {width: '100%', height: '100%'} | Specify enlarged image container dimensions as an object with `width` and `height` properties. Values may be expressed as a percentage (e.g. '150%') or a number (e.g. 200). Percentage is based on small image dimension. Number is pixels. Not applied when `enlargedImagePosition` is set to 'over', the default for touch input. |
+| `enlargedImagePortalId` | String | No |  | Render enlarged image into an HTML element of your choosing by specifying the target element id. Requires React v16. Ignored for touch input by default - see `isEnlargedImagePortalEnabledForTouch`.|
+| `isEnlargedImagePortalEnabledForTouch` | Boolean | No | false | Specify portal rendering should be honored for touch input. |
 | `hintComponent`               |Function| No       |(Provided)| Reference to a component class or functional component. A Default is provided.|
 | `shouldHideHintAfterFirstActivation`| Boolean | No | true   | Only show hint until the first interaction begins.         |
-| `isHintEnabled`               | Boolean| No       | false   | Enable hint feature.                                       |
-| `hintTextMouse`               | String | No       |Hover to Zoom| Hint text for mouse.                                   |
-| `hintTextTouch`               | String | No       |Long-Touch to Zoom| Hint text for touch.                              |
+| `isHintEnabled`               | Boolean| No       | false   | Enable hint feature. |
+| `hintTextMouse`               | String | No       |Hover to Zoom| Hint text for mouse. |
+| `hintTextTouch`               | String | No       |Long-Touch to Zoom| Hint text for touch. |
 
 ### Mouse Specific
 | Prop                          | Type   | Required | Default | Description                                                |
-|-------------------------------|--------|----------|---------|------------------------------------------------------------|
+|-------------------------------|--------|----------|---------|------------------------|
 | `hoverDelayInMs`              | Number | No       | 250     | Milliseconds to delay hover trigger.                       |
 | `hoverOffDelayInMs`           | Number | No       | 150     | Milliseconds to delay hover-off trigger.                   |
 | `lensStyle`                   | Object | No       |         | Style applied to tinted lens.                              |
 | `enlargedImagePosition`       | String | No       | beside  | Enlarged image position. Can be 'beside' or 'over'. |
-| `enlargedImageContainerDimensions` | Object | No  | {width: '100%', height: '100%'} | Specify enlarged image container dimensions as an object with `width` and `height` properties. Values may be expressed as a percentage (e.g. '150%') or a number (e.g. 200). Percentage is based on small image dimension. Number is pixels. Not applied when `enlargedImagePosition` is set to 'over'. |
 
 ### Touch Specific
 | Prop                          | Type   | Required | Default | Description                                                |
-|-------------------------------|--------|----------|---------|------------------------------------------------------------|
+|-------------------------------|--------|----------|---------|------------------------|
 | `isActivatedOnTouch`          | Boolean| No       | false   | Activate magnification immediately on touch. May impact scrolling.|
 | `pressDuration`               | Number | No       | 500     | Milliseconds to delay long-press activation (long touch).  |
 | `pressMoveThreshold`          | Number | No       | 5       | Pixels of movement allowed during long-press activation.   |

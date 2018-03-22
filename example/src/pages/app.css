@@ -1,5 +1,6 @@
 body {
   font-family: Arial;
+  line-height: 1.3;
 }
 
 .fluid {
@@ -49,5 +50,11 @@ a:hover {
   .fixed__instructions {
     padding-top: 30px;
     margin: 0 10px;
+  }
+
+  .portal {
+    position: absolute;
+    top: 40px;
+    left: -30px;
   }
 }

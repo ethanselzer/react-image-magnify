@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import {
     convertPercentageToDecimal,
-    getDefaultEnlargedImageContainerDimensions,
     getEnlargedImageContainerDimension,
     isPercentageFormat
 } from '../../src/lib/dimensions';
@@ -43,17 +42,25 @@ describe('Dimensions Library', () => {
 
             expect(actual).to.equal(4);
         });
-    });
 
-    describe('getDefaultEnlargedImageContainerDimensions', () => {
-        it('returns correct default enlarged image container dimensions', () => {
-            const smallImage = {
-                width: 1,
-                height: 2
-            };
-            const actual = getDefaultEnlargedImageContainerDimensions(smallImage);
+        it('ignores containerDimension value when isInPlaceMode is set', () => {
+            const actual = getEnlargedImageContainerDimension({
+                containerDimension: 4,
+                smallImageDimension: 2,
+                isInPlaceMode: true
+            });
 
-            expect(actual).to.deep.equal(smallImage);
+            expect(actual).to.equal(2);
+        });
+
+        it('honors user specified dimension when isInPlaceMode is not set', () => {
+            const actual = getEnlargedImageContainerDimension({
+                containerDimension: 4,
+                smallImageDimension: 2,
+                isInPlaceMode: false
+            });
+
+            expect(actual).to.equal(4);
         });
     });
 });

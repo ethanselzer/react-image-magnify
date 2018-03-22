@@ -4,16 +4,13 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactCursorPosition from 'react-cursor-position';
 
-import EnlargedImage from './EnlargedImage';
+import RenderEnlargedImage from './RenderEnlargedImage';
 import ShadedLens from './shaded-lens';
 import DisplayUntilActive from './hint/DisplayUntilActive';
 import Hint from './hint/DefaultHint';
 
 import { getLensCursorOffset } from './lib/lens';
-import {
-    getEnlargedImageContainerDimension,
-    getDefaultEnlargedImageContainerDimensions
-} from './lib/dimensions';
+import { getEnlargedImageContainerDimension } from './lib/dimensions';
 import {
     getContainerStyle,
     getSmallImageStyle
@@ -77,6 +74,8 @@ class ReactImageMagnify extends React.Component {
         enlargedImageStyle: PropTypes.object,
         enlargedImageContainerDimensions: EnlargedImageContainerDimensions,
         enlargedImagePosition: EnlargedImagePosition,
+        enlargedImagePortalId: PropTypes.string,
+        isEnlargedImagePortalEnabledForTouch: PropTypes.bool,
         hintComponent: PropTypes.func,
         hintTextMouse: PropTypes.string,
         hintTextTouch: PropTypes.string,
@@ -89,6 +88,7 @@ class ReactImageMagnify extends React.Component {
             width: '100%',
             height: '100%'
         },
+        isEnlargedImagePortalEnabledForTouch: false,
         fadeDurationInMs: 300,
         hintComponent: Hint,
         shouldHideHintAfterFirstActivation: true,
@@ -200,7 +200,8 @@ class ReactImageMagnify extends React.Component {
     }
 
     get isInPlaceMode() {
-        return this.enlargedImagePlacement === ENLARGED_IMAGE_POSITION.over;
+        const { over: OVER } = ENLARGED_IMAGE_POSITION;
+        return this.enlargedImagePlacement === OVER;
     }
 
     get enlargedImageContainerDimensions() {
@@ -214,65 +215,67 @@ class ReactImageMagnify extends React.Component {
             width: smallImageWidth,
             height: smallImageHeight
         } = this.smallImage;
-
-        if (this.isInPlaceMode) {
-            return getDefaultEnlargedImageContainerDimensions(this.smallImage);
-        }
+        const isInPlaceMode = this.isInPlaceMode;
 
         return {
             width: getEnlargedImageContainerDimension({
                 containerDimension: containerWidth,
-                smallImageDimension: smallImageWidth
+                smallImageDimension: smallImageWidth,
+                isInPlaceMode
             }),
             height: getEnlargedImageContainerDimension({
                 containerDimension: containerHeight,
-                smallImageDimension: smallImageHeight
+                smallImageDimension: smallImageHeight,
+                isInPlaceMode
             })
         };
     }
 
-    get shouldShowLens() {
+    get isTouchDetected() {
         const {
             detectedInputType: {
                 isTouchDetected
             }
         } = this.state;
 
-        const enlargeImagePlacement = this.enlargedImagePlacement;
+        return isTouchDetected;
+    }
 
+    get shouldShowLens() {
         return (
-            enlargeImagePlacement !== ENLARGED_IMAGE_POSITION.over &&
-            !isTouchDetected
+            !this.isInPlaceMode &&
+            !this.isTouchDetected
         );
-
     }
 
     render() {
         const {
             className,
-            enlargedImageContainerClassName,
-            enlargedImageContainerStyle,
-            enlargedImageClassName,
-            enlargedImageStyle,
-            fadeDurationInMs,
-            hintComponent: HintComponent,
-            shouldHideHintAfterFirstActivation,
-            isHintEnabled,
-            hintTextMouse,
-            hintTextTouch,
+            style,
             hoverDelayInMs,
             hoverOffDelayInMs,
             isActivatedOnTouch,
-            imageClassName,
-            imageStyle,
-            largeImage,
-            lensStyle,
             pressDuration,
             pressMoveThreshold,
             smallImage: {
                 onError = noop
             },
-            style,
+            imageClassName,
+            imageStyle,
+            lensStyle,
+            largeImage,
+            enlargedImageContainerClassName,
+            enlargedImageContainerStyle,
+            enlargedImageClassName,
+            enlargedImageStyle,
+            enlargedImagePortalId,
+            isEnlargedImagePortalEnabledForTouch,
+            fadeDurationInMs,
+            hintComponent: HintComponent,
+            isHintEnabled,
+            hintTextMouse,
+            hintTextTouch,
+            shouldHideHintAfterFirstActivation
         } = this.props;
 
         const smallImage = this.smallImage;
@@ -332,7 +335,7 @@ class ReactImageMagnify extends React.Component {
                         style: lensStyle
                     }} />
                 }
-                <EnlargedImage { ...{
+                <RenderEnlargedImage { ...{
                     containerClassName: enlargedImageContainerClassName,
                     containerDimensions: this.enlargedImageContainerDimensions,
                     containerStyle: enlargedImageContainerStyle,
@@ -340,9 +343,12 @@ class ReactImageMagnify extends React.Component {
                     fadeDurationInMs,
                     imageClassName: enlargedImageClassName,
                     imageStyle: enlargedImageStyle,
-                    imagePosition: this.enlargedImagePlacement,
                     largeImage,
-                    smallImage
+                    smallImage,
+                    portalId: enlargedImagePortalId,
+                    isPortalEnabledForTouch: isEnlargedImagePortalEnabledForTouch,
+                    isTouchDetected: this.isTouchDetected,
+                    isInPlaceMode: this.isInPlaceMode
                 }}/>
             </ReactCursorPosition>
         );

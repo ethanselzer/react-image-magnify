@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { mount, shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
@@ -69,9 +70,11 @@ describe('React Image Magnify', () => {
     }
 
     let shallowWrapper = getShallowWrapper();
+    let mountedWrapper = getMountedWrapper();
 
     beforeEach(() => {
         shallowWrapper = getShallowWrapper();
+        mountedWrapper = getMountedWrapper();
     });
 
     it('has correct default props', () => {
@@ -80,6 +83,7 @@ describe('React Image Magnify', () => {
                 width: '100%',
                 height: '100%'
             },
+            isEnlargedImagePortalEnabledForTouch: false,
             fadeDurationInMs: 300,
             hoverDelayInMs: 250,
             hoverOffDelayInMs: 150,
@@ -137,12 +141,28 @@ describe('React Image Magnify', () => {
         expect(mountedWrapper.state('detectedInputType')).to.deep.equal(detectedInputType);
     });
 
+    it('applies isInPlaceMode to EnlargedImage component', () => {
+        mountedWrapper.setProps({ enlargedImagePosition: OVER });
+
+        expect(mountedWrapper.find('EnlargedImage').prop('isInPlaceMode')).to.be.true;
+    });
+
+    it('applies isTouchDetected to RenderEnlargedImage', () => {
+        shallowWrapper.setState({
+            detectedInputType: {
+                isTouchDetected: true
+            }
+        });
+
+        expect(shallowWrapper.find('RenderEnlargedImage').prop('isTouchDetected')).to.be.true;
+    });
+
     describe('Props API', () => {
 
         it('applies className to root component', () => {
             shallowWrapper.setProps({ className: 'foo' });
 
-            expect(shallowWrapper.find('ReactCursorPosition').props().className).to.equal('foo');
+            expect(shallowWrapper.find('ReactCursorPosition').prop('className')).to.equal('foo');
         });
 
         describe('style', () => {
@@ -194,13 +214,13 @@ describe('React Image Magnify', () => {
         it('applies hoverDelayInMs to ReactHoverObserver component', () => {
             shallowWrapper.setProps({ hoverDelayInMs: 1 });
 
-            expect(shallowWrapper.find('ReactCursorPosition').props().hoverDelayInMs).to.equal(1);
+            expect(shallowWrapper.find('ReactCursorPosition').prop('hoverDelayInMs')).to.equal(1);
         });
 
         it('applies hoverOffDelayInMs to ReactHoverObserver component', () => {
             shallowWrapper.setProps({ hoverOffDelayInMs: 2 });
 
-            expect(shallowWrapper.find('ReactCursorPosition').props().hoverOffDelayInMs).to.equal(2);
+            expect(shallowWrapper.find('ReactCursorPosition').prop('hoverOffDelayInMs')).to.equal(2);
         });
 
         it('applies imageClassName to small image element', () => {
@@ -310,7 +330,7 @@ describe('React Image Magnify', () => {
                     .setProps({ fadeDurationInMs: 1 })
                     .setState({ isTouchDetected: false });
 
-                expect(shallowWrapper.find('ImageLensShaded').props().smallImage).to.deep.equal(smallImage);
+                expect(shallowWrapper.find('ImageLensShaded').prop('smallImage')).to.deep.equal(smallImage);
             });
 
             it('provides fluid width smallImage to lens component', () => {
@@ -335,15 +355,15 @@ describe('React Image Magnify', () => {
                         height: 0
                     }
                 );
-                expect(shallowWrapper.find('ImageLensShaded').props().smallImage).to.deep.equal(expected);
+                expect(shallowWrapper.find('ImageLensShaded').prop('smallImage')).to.deep.equal(expected);
             });
 
             it('provides fixed width smallImage to EnlargedImage component', () => {
-                expect(shallowWrapper.find('EnlargedImage').props().smallImage).to.deep.equal(smallImage);
+                expect(mountedWrapper.find('EnlargedImage').prop('smallImage')).to.deep.equal(smallImage);
             });
 
             it('provides fluid width smallImage to EnlargedImage component', () => {
-                shallowWrapper.setProps({
+                mountedWrapper.setProps({
                     smallImage: Object.assign(
                         {},
                         smallImage,
@@ -362,7 +382,7 @@ describe('React Image Magnify', () => {
                         height: 0
                     }
                 );
-                expect(shallowWrapper.find('EnlargedImage').props().smallImage).to.deep.equal(expected);
+                expect(mountedWrapper.find('EnlargedImage').prop('smallImage')).to.deep.equal(expected);
             });
 
             describe('Load Event', () => {
@@ -574,49 +594,57 @@ describe('React Image Magnify', () => {
                 .setProps({ fadeDurationInMs: 1 })
                 .setState({ isTouchDetected: false });
 
-            expect(shallowWrapper.find('ImageLensShaded').props().fadeDurationInMs).to.deep.equal(1);
+            expect(shallowWrapper.find('ImageLensShaded').prop('fadeDurationInMs')).to.deep.equal(1);
         });
 
         it('applies enlargedImageContainerClassName to EnlargedImage component', () => {
-            shallowWrapper.setProps({ enlargedImageContainerClassName: 'foo' });
+            mountedWrapper.setProps({ enlargedImageContainerClassName: 'foo' });
 
-            expect(shallowWrapper.find('EnlargedImage').props().containerClassName).to.equal('foo');
+            expect(mountedWrapper.find('EnlargedImage').prop('containerClassName')).to.equal('foo');
         });
 
         it('applies enlargedImageContainerStyle to EnlargedImage component', () => {
             const style = { color: 'red' };
-            shallowWrapper.setProps({ enlargedImageContainerStyle: style });
+            mountedWrapper.setProps({ enlargedImageContainerStyle: style });
 
-            expect(shallowWrapper.find('EnlargedImage').props().containerStyle).to.equal(style);
+            expect(mountedWrapper.find('EnlargedImage').prop('containerStyle')).to.equal(style);
         });
 
         it('applies enlargedImageClassName to EnlargedImage component', () => {
-            shallowWrapper.setProps({ enlargedImageClassName: 'bar' });
+            mountedWrapper.setProps({ enlargedImageClassName: 'bar' });
 
-            expect(shallowWrapper.find('EnlargedImage').props().imageClassName).to.equal('bar');
+            expect(mountedWrapper.find('EnlargedImage').prop('imageClassName')).to.equal('bar');
         });
 
         it('applies enlargedImageStyle to EnlargedImage component', () => {
             const style = { color: 'blue' };
-            shallowWrapper.setProps({ enlargedImageStyle: style });
+            mountedWrapper.setProps({ enlargedImageStyle: style });
 
-            expect(shallowWrapper.find('EnlargedImage').props().imageStyle.color).to.equal('blue');
+            expect(mountedWrapper.find('EnlargedImage').prop('imageStyle').color).to.equal('blue');
         });
 
         it('applies fadeDurationInMs to EnlargedImage component', () => {
-            shallowWrapper.setProps({ fadeDurationInMs: 1 });
+            mountedWrapper.setProps({ fadeDurationInMs: 1 });
 
-            expect(shallowWrapper.find('EnlargedImage').props().fadeDurationInMs).to.equal(1);
+            expect(mountedWrapper.find('EnlargedImage').prop('fadeDurationInMs')).to.equal(1);
         });
 
         it('applies largeImage to EnlargedImage component', () => {
-            expect(shallowWrapper.find('EnlargedImage').props().largeImage).to.equal(largeImage);
+            expect(mountedWrapper.find('EnlargedImage').prop('largeImage')).to.equal(largeImage);
         });
 
-        it('applies enlargedImagePosition to EnlargedImage component', () => {
-            shallowWrapper.setProps({ enlargedImagePosition: OVER });
+        it('applies enlargedImagePortalId to RenderEnlargedImage component', () => {
+            sinon.stub(ReactDOM, 'createPortal').callsFake(() => null);
+            mountedWrapper.setProps({'enlargedImagePortalId': 'foo'});
 
-            expect(shallowWrapper.find('EnlargedImage').props().imagePosition).to.equal(OVER);
+            expect(mountedWrapper.find('RenderEnlargedImage').prop('portalId')).to.equal('foo');
+            ReactDOM.createPortal.restore();
+        });
+
+        it('applies isPortalEnabledForTouch to RenderEnlargedImage component', () => {
+            mountedWrapper.setProps({ isEnlargedImagePortalEnabledForTouch: true });
+
+            expect(mountedWrapper.find('RenderEnlargedImage').prop('isPortalEnabledForTouch')).to.be.true;
         });
 
         describe('Hint', () => {

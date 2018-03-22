@@ -6,13 +6,9 @@ import {
     getInPlaceEnlargedImageCoordinates
 } from './lib/imageCoordinates';
 import { LargeImageShape } from './prop-types/Image';
-import {
-    EnlargedImagePosition,
-    ContainerDimensions
-} from './prop-types/EnlargedImage';
+import { ContainerDimensions } from './prop-types/EnlargedImage';
 import { noop } from './utils';
 import Point from './prop-types/Point';
-import { ENLARGED_IMAGE_POSITION } from './constants';
 import {
     getEnlargedImageContainerStyle,
     getEnlargedImageStyle
@@ -51,7 +47,8 @@ export default class extends React.Component {
         isLazyLoaded: PropTypes.bool,
         largeImage: LargeImageShape,
         containerDimensions: ContainerDimensions,
-        imagePosition: EnlargedImagePosition
+        isPortalRendered: PropTypes.bool,
+        isInPlaceMode: PropTypes.bool
     };
 
     componentWillReceiveProps(nextProps) {
@@ -106,15 +103,13 @@ export default class extends React.Component {
 
     getImageCoordinates() {
         const {
-            imagePosition,
             cursorOffset,
             largeImage,
             containerDimensions,
             position,
-            smallImage
+            smallImage,
+            isInPlaceMode
         } = this.props;
-        const { over: OVER } = ENLARGED_IMAGE_POSITION;
-        const isInPlaceMode = imagePosition === OVER;
 
         if (isInPlaceMode) {
             return getInPlaceEnlargedImageCoordinates({
@@ -152,7 +147,8 @@ export default class extends React.Component {
             containerStyle,
             containerDimensions,
             fadeDurationInMs,
-            imagePosition
+            isPortalRendered,
+            isInPlaceMode
         } = this.props;
 
         const { isTransitionActive } = this.state;
@@ -162,7 +158,8 @@ export default class extends React.Component {
             containerStyle,
             fadeDurationInMs,
             isTransitionActive,
-            placement: imagePosition
+            isInPlaceMode,
+            isPortalRendered
         });
     }
 

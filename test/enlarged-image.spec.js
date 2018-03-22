@@ -3,15 +3,10 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import EnlargedImage from '../src/EnlargedImage';
-import { ENLARGED_IMAGE_POSITION } from '../src/constants';
 import * as utils from '../src/utils';
 
 describe('Enlarged Image', () => {
     let shallowWrapper;
-    const {
-        beside: BESIDE,
-        over: OVER
-    } = ENLARGED_IMAGE_POSITION;
 
     beforeEach(() => {
         shallowWrapper = getShallowWrapper();
@@ -111,15 +106,14 @@ describe('Enlarged Image', () => {
             expect(renderedWrapper.find('img').css('border')).to.equal(borderValue);
         });
 
-        it('applies CSS to container element based on imagePosition prop', () => {
-            shallowWrapper.setProps({ imagePosition: OVER });
+        it('applies CSS to container element based on isInPlaceMode prop', () => {
+            shallowWrapper.setProps({ isInPlaceMode: true });
             expect(shallowWrapper.render().css('left')).to.equal('0px');
 
-            shallowWrapper.setProps({ imagePosition: BESIDE });
+            shallowWrapper.setProps({ isInPlaceMode: false });
             expect(shallowWrapper.render().css('left')).to.equal('100%');
             expect(shallowWrapper.render().css('margin-left')).to.equal('10px');
             expect(shallowWrapper.render().css('border')).to.equal('1px solid #d6d6d6');
-
         });
 
         it('applies large image alt', () => {
@@ -338,19 +332,30 @@ describe('Enlarged Image', () => {
             expect(renderedWrapper.css('opacity')).to.equal('0');
         });
 
-        it('applies default style', () => {
-            const expected = 'position:absolute;top:0px;overflow:hidden;';
+        it('applies correct style for placement to the right side of the small image (default)', () => {
+            const expected = 'overflow:hidden;position:absolute;top:0px;left:100%;margin-left:10px;border:1px solid #d6d6d6;width:3px;height:4px;opacity:1;transition:opacity 0ms ease-in;pointer-events:none';
 
             const renderedWrapper = shallowWrapper.render();
 
-            expect(renderedWrapper.attr('style').startsWith(expected)).to.be.true;
+            expect(renderedWrapper.attr('style')).to.equal(expected);
         });
 
-        it('applies computed style', () => {
-            const expected = 'width:3px;height:4px;opacity:1;transition:opacity 0ms ease-in;pointer-events:none';
+        it('applies correct style for placement over the small image ', () => {
+            const expected = 'overflow:hidden;position:absolute;top:0px;left:0px;width:3px;height:4px;opacity:1;transition:opacity 0ms ease-in;pointer-events:none';
+            shallowWrapper.setProps({ isInPlaceMode: true });
 
             const renderedWrapper = shallowWrapper.render();
-            expect(renderedWrapper.attr('style').endsWith(expected)).to.be.true;
+
+            expect(renderedWrapper.attr('style')).to.equal(expected);
+        });
+
+        it('applies correct style for portal rendering', () => {
+            const expected = 'overflow:hidden;width:3px;height:4px;opacity:1;transition:opacity 0ms ease-in;pointer-events:none';
+            shallowWrapper.setProps({isPortalRendered: true});
+
+            const renderedWrapper = shallowWrapper.render();
+
+            expect(renderedWrapper.attr('style')).to.equal(expected);
         });
 
     });

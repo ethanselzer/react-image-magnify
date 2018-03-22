@@ -1,6 +1,5 @@
 import objectAssign from 'object-assign';
 import isEqual from 'fast-deep-equal';
-import { ENLARGED_IMAGE_POSITION } from '../constants';
 
 export function getContainerStyle(smallImage, userSpecifiedStyle) {
     const {
@@ -68,45 +67,53 @@ export function getSmallImageStyle(smallImage, style) {
     return compositSmallImageStyle;
 }
 
-function getDefaultEnlargedImageContainerStyle(placement) {
+function getPrimaryEnlargedImageContainerStyle(isInPlaceMode, isPortalRendered) {
     const baseContainerStyle = {
-        position: 'absolute',
-        top: '0px',
         overflow: 'hidden'
     };
 
-    const { over: OVER } = ENLARGED_IMAGE_POSITION;
-    const isInPlaceMode = placement === OVER;
-
-    if (isInPlaceMode) {
-        return objectAssign(baseContainerStyle, {
-            left: '0px'
-        });
+    if (isPortalRendered) {
+        return baseContainerStyle
     }
 
-    return objectAssign(baseContainerStyle, {
-        left: '100%',
-        marginLeft: '10px',
-        border: '1px solid #d6d6d6',
-    });
+    const sharedPositionStyle = {
+        position: 'absolute',
+        top: '0px',
+    };
+
+    if (isInPlaceMode) {
+        return objectAssign(
+            baseContainerStyle,
+            sharedPositionStyle,
+            { left: '0px' }
+        );
+    }
+
+    return objectAssign(
+        baseContainerStyle,
+        sharedPositionStyle,
+        {
+            left: '100%',
+            marginLeft: '10px',
+            border: '1px solid #d6d6d6'
+        }
+    );
 }
 
-function getComputedEnlargedImageContainerStyle(params) {
+function getPriorityEnlargedImageContainerStyle(params) {
     const {
         containerDimensions,
         fadeDurationInMs,
         isTransitionActive
     } = params;
 
-    const computedContainerStyle = {
+    return {
         width: containerDimensions.width,
         height: containerDimensions.height,
         opacity: isTransitionActive ? 1 : 0,
         transition: `opacity ${fadeDurationInMs}ms ease-in`,
         pointerEvents: 'none'
     };
-
-    return computedContainerStyle;
 }
 
 const enlargedImageContainerStyleCache = {};
@@ -124,14 +131,15 @@ export function getEnlargedImageContainerStyle(params) {
 
     const {
         containerDimensions,
-        containerStyle: userSpecifiedContainerStyle,
+        containerStyle: userSpecifiedStyle,
         fadeDurationInMs,
         isTransitionActive,
-        placement
+        isInPlaceMode,
+        isPortalRendered
     } = params;
 
-    const defaultStyle = getDefaultEnlargedImageContainerStyle(placement);
-    const computedContainerStyle = getComputedEnlargedImageContainerStyle({
+    const primaryStyle = getPrimaryEnlargedImageContainerStyle(isInPlaceMode, isPortalRendered);
+    const priorityStyle = getPriorityEnlargedImageContainerStyle({
         containerDimensions,
         fadeDurationInMs,
         isTransitionActive
@@ -139,9 +147,9 @@ export function getEnlargedImageContainerStyle(params) {
 
     cache.compositStyle = objectAssign(
         {},
-        defaultStyle,
-        userSpecifiedContainerStyle,
-        computedContainerStyle
+        primaryStyle,
+        userSpecifiedStyle,
+        priorityStyle
     );
     cache.params = params;
 
@@ -157,7 +165,7 @@ export function getEnlargedImageStyle(params) {
 
     const translate = `translate(${imageCoordinates.x}px, ${imageCoordinates.y}px)`;
 
-    const computedImageStyle = {
+    const priorityStyle = {
         width: largeImage.width,
         height: largeImage.height,
         transform: translate,
@@ -166,7 +174,11 @@ export function getEnlargedImageStyle(params) {
         pointerEvents: 'none'
     };
 
-    const compositeImageStyle = objectAssign({}, userSpecifiedStyle, computedImageStyle);
+    const compositeImageStyle = objectAssign(
+        {},
+        userSpecifiedStyle,
+        priorityStyle
+    );
 
     return compositeImageStyle;
 }

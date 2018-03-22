@@ -9,22 +9,14 @@ export function convertPercentageToDecimal(percentage) {
     return parseInt(percentage) / 100;
 }
 
-export function getEnlargedImageContainerDimension({ containerDimension, smallImageDimension }) {
+export function getEnlargedImageContainerDimension({ containerDimension, smallImageDimension, isInPlaceMode }) {
+    if (isInPlaceMode) {
+        return smallImageDimension;
+    }
+
     if (isPercentageFormat(containerDimension)) {
         return smallImageDimension * convertPercentageToDecimal(containerDimension);
     }
 
     return containerDimension;
-}
-
-export function getDefaultEnlargedImageContainerDimensions(smallImage) {
-    const {
-        width,
-        height
-    } = smallImage;
-
-    return {
-        width,
-        height
-    };
 }
