@@ -10,7 +10,7 @@
   "dependencies": {
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-image-magnify": "2.5.1",
+    "react-image-magnify": "2.6.0",
     "react-router": "3.0.5",
     "react-slick": "0.15.4",
     "slick-carousel": "1.8.1"

@@ -5046,9 +5046,9 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-cursor-position@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/react-cursor-position/-/react-cursor-position-2.4.0.tgz#e11c8859ec72592bc1b928f1f98e9bd580c26e5b"
+react-cursor-position@2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/react-cursor-position/-/react-cursor-position-2.4.1.tgz#458a91d97f01b5fcf093ba0f1fc0719e707148b2"
   dependencies:
     object-assign "^4.1.1"
     object.omit "^3.0.0"
@@ -5097,16 +5097,16 @@ react-error-overlay@^1.0.9:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
-react-image-magnify@2.5.1:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/react-image-magnify/-/react-image-magnify-2.5.1.tgz#627e47372d45d1d49371f9a46c0040d75d317e9e"
+react-image-magnify@2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/react-image-magnify/-/react-image-magnify-2.6.0.tgz#b06aba77c81e7a9aa4f6b5fdaeeb8ecb9be0b91c"
   dependencies:
     clamp "1.0.1"
     detect-it "3.0.3"
     fast-deep-equal "1.0.0"
     object-assign "4.1.1"
     prop-types "15.6.0"
-    react-cursor-position "2.4.0"
+    react-cursor-position "2.4.1"
     react-required-if "1.0.1"
 
 react-required-if@1.0.1:
@@ -5168,7 +5168,7 @@ react-scripts@^1.0.10:
   optionalDependencies:
     fsevents "1.1.2"
 
-react-slick@^0.15.4:
+react-slick@0.15.4:
   version "0.15.4"
   resolved "https://registry.yarnpkg.com/react-slick/-/react-slick-0.15.4.tgz#6709c87b06e7640feeacc06711be42cc2066aabe"
   dependencies:
@@ -5647,7 +5647,7 @@ slice-ansi@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/slice-ansi/-/slice-ansi-0.0.4.tgz#edbf8903f66f7ce2f8eafd6ceed65e264c831b35"
 
-slick-carousel@^1.6.0, slick-carousel@^1.8.1:
+slick-carousel@1.8.1, slick-carousel@^1.6.0:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/slick-carousel/-/slick-carousel-1.8.1.tgz#a4bfb29014887bb66ce528b90bd0cda262cc8f8d"
 
