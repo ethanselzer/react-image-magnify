@@ -183,6 +183,7 @@ export default class extends React.Component {
             isLazyLoaded,
             largeImage,
             largeImage: {
+                alt = '',
                 onLoad = noop,
                 onError = noop
             },
@@ -194,7 +195,7 @@ export default class extends React.Component {
                 style: this.containerStyle
             }}>
                 <img { ...{
-                    alt: largeImage.alt,
+                    alt,
                     className: imageClassName,
                     src: largeImage.src,
                     srcSet: largeImage.srcSet,

@@ -117,9 +117,17 @@ describe('Enlarged Image', () => {
         });
 
         it('applies large image alt', () => {
+            shallowWrapper.setProps({ largeImage: {alt: 'foo'}});
+
             const renderedWrapper = shallowWrapper.render();
 
             expect(renderedWrapper.find('img').attr('alt')).to.equal('foo');
+        });
+
+        it('defaults large image alt to empty string', () => {
+            const renderedWrapper = shallowWrapper.render();
+
+            expect(renderedWrapper.find('img').attr('alt')).to.equal('');
         });
 
         it('applies large image src', () => {
@@ -506,7 +514,6 @@ describe('Enlarged Image', () => {
         fadeDurationInMs: 0,
         isActive: false,
         largeImage: {
-            alt: 'foo',
             src: 'bar',
             srcSet: 'corge',
             width: 12,
