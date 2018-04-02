@@ -156,27 +156,27 @@ class ReactImageMagnify extends React.Component {
         const {
             smallImage,
             smallImage: {
-                isFluidWidth: isSmallImageFluidWidth
+                isFluidWidth
             },
         } = this.props;
+
+        if (!isFluidWidth) {
+            return smallImage;
+        }
+
         const {
-            smallImageWidth,
-            smallImageHeight
+            smallImageWidth: fluidWidth,
+            smallImageHeight: fluidHeight
         } = this.state;
 
-        const fluidWidthSmallImage = objectAssign(
+        return objectAssign(
             {},
             smallImage,
             {
-                width: smallImageWidth,
-                height: smallImageHeight
+                width: fluidWidth,
+                height: fluidHeight
             }
         );
-        const fixedWidthSmallImage = smallImage;
-
-        return isSmallImageFluidWidth
-            ? fluidWidthSmallImage
-            : fixedWidthSmallImage
     }
 
     get enlargedImagePlacement() {
