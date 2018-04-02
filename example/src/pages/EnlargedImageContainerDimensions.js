@@ -38,20 +38,18 @@ export default class EnlargedImageContainerDimensions extends Component {
             <div className="fluid">
                 <div className="fluid__image-container">
                     <ReactImageMagnify {...{
-                        largeImage: {
-                            alt: '',
-                            src: watchImg1200,
-                            width: 1200,
-                            height: 1800
-                        },
-                        smallImage: {
-                            isFluidWidth: true,
+                         smallImage: {
                             alt: 'Wristwatch by Ted Baker London',
+                            isFluidWidth: true,
                             src: watchImg1200,
                             srcSet: this.srcSet,
                             sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
                         },
-                        isHintEnabled: true,
+                        largeImage: {
+                            src: watchImg1200,
+                            width: 1200,
+                            height: 1800
+                        },
                         enlargedImageContainerDimensions: {
                             width: '200%',
                             height: '100%'
@@ -67,7 +65,7 @@ export default class EnlargedImageContainerDimensions extends Component {
                         May be percentage for one dimension and number for the other.
                     </p>
                     <p>
-                        Exmample specifies width of
+                        This example specifies width of
                         <SpacedSpan className="code">200%</SpacedSpan>
                         and height of
                         <SpacedSpan className="code">100%.</SpacedSpan>

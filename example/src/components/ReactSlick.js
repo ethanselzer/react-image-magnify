@@ -69,19 +69,19 @@ export default class ReactSlickExample extends Component {
                     <div key={index}>
                         <ReactImageMagnify
                             {...{
+                                smallImage: {
+                                    alt: 'Wristwatch by Versace',
+                                    isFluidWidth: true,
+                                    src: src.small,
+                                    srcSet: src.srcSet,
+                                    sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
+                                },
                                 largeImage: {
-                                    alt: '',
                                     src: src.large,
                                     width: 1426,
                                     height: 2000
                                 },
-                                smallImage: {
-                                    isFluidWidth: true,
-                                    alt: 'Wristwatch by Versace',
-                                    src: src.small,
-                                    srcSet: src.srcSet,
-                                    sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
-                                }
+                                lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' }
                             }}
                             {...rimProps}
                         />

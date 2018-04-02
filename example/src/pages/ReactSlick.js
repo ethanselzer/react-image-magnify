@@ -45,7 +45,7 @@ export default class ReactSlickExample extends Component {
                     <p>
                         Initial file size optimized via
                         <SpacedSpan className="code">
-                            srcSet
+                            srcset
                         </SpacedSpan>
                         and
                         <SpacedSpan className="code">

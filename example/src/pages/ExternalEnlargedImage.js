@@ -12,14 +12,7 @@ export default class ReactSlickExample extends Component {
                 <div className="fluid__image-container">
                     <ReactSlick {...{
                         rimProps: {
-                            isHintEnabled: true,
-                            shouldHideHintAfterFirstActivation: false,
-                            enlargedImagePortalId: 'portal',
-                            enlargedImageContainerDimensions: {
-                                width: '150%',
-                                height: '100%'
-                            },
-                            lensStyle: { backgroundColor: 'rgba(0,0,0,.6)' }
+                            enlargedImagePortalId: 'portal'
                         }
                     }}/>
                 </div>

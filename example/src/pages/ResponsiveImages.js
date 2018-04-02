@@ -38,37 +38,29 @@ export default class BasicExample extends Component {
             <div className="fluid">
                 <div className="fluid__image-container">
                     <ReactImageMagnify {...{
-                        largeImage: {
-                            alt: '',
-                            src: watchImg1200,
-                            width: 1200,
-                            height: 1800
-                        },
                         smallImage: {
-                            isFluidWidth: true,
                             alt: 'Wristwatch by Ted Baker London',
+                            isFluidWidth: true,
                             src: watchImg1200,
                             srcSet: this.srcSet,
                             sizes: '(max-width: 480px) 100vw, (max-width: 1200px) 30vw, 360px'
                         },
-                        isHintEnabled: true
+                        largeImage: {
+                            src: watchImg1200,
+                            width: 1200,
+                            height: 1800
+                        }
                     }} />
                 </div>
                 <div className="fluid__instructions">
-                    <h3>Basic Example</h3>
-                    <p>
-                        Side by Side enlargement for mouse input.
-                    </p>
-                    <p>
-                        In place enlargement for touch input.
-                    </p>
+                    <h3>Responsive Images Example</h3>
                     <p>
                         Fluid between breakpoints.
                     </p>
                     <p>
                         Initial file size optimized via
                         <SpacedSpan className="code">
-                            srcSet
+                            srcset
                         </SpacedSpan>
                         and
                         <SpacedSpan className="code">
@@ -77,9 +69,20 @@ export default class BasicExample extends Component {
                         attributes.
                     </p>
                     <p>
+                        For more information on responsive images, please try these resources:
+                        <br />
+                        <a href="https://cloudfour.com/thinks/responsive-images-101-definitions">
+                            Responsive Images 101
+                        </a>
+                        <br />
+                        <a href="https://bitsofco.de/the-srcset-and-sizes-attributes/">
+                            Responsive Images - The srcset and sizes Attributes
+                        </a>
+                    </p>
+                    <p>
                         Please see
                         <SpacedSpan>
-                            <a href="https://github.com/ethanselzer/react-image-magnify/blob/master/example/src/pages/SideBySide.js">
+                            <a href="https://github.com/ethanselzer/react-image-magnify/blob/master/example/src/pages/ResponsiveImages.js">
                                 source code
                             </a>
                         </SpacedSpan>

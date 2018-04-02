@@ -11,17 +11,16 @@ export default class extends Component {
             <div className="fluid">
                 <div className="fluid__image-container">
                     <ReactImageMagnify {...{
-                        largeImage: {
-                            alt: '',
-                            src: watchImg,
-                            width: 1200,
-                            height: 1800
-                        },
                         smallImage: {
                             alt: 'Wristwatch by Ted Baker London',
                             src: watchImg,
                             width: 300,
                             height: 450
+                        },
+                        largeImage: {
+                            src: watchImg,
+                            width: 1200,
+                            height: 1800
                         },
                         isHintEnabled: true
                     }} />
