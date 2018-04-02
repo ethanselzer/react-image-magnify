@@ -1,4 +1,4 @@
-# react-image-magnify examples
+# react-image-magnify Examples Project
 
 ## Install and Start
 ```ssh
@@ -14,15 +14,21 @@ yarn start
 If your default browser does not start automatically, open a new browser window and go to localhost:3000
 
 ## Examples
-[Side-by-Side enlarged image](http://localhost:3000).
+[Basic Example](http://localhost:3000/#/)
 
-[Integration with react-slick](http://localhost:3000/#/react-slick).
+[Interaction Hint](http://localhost:3000/#/hint)
 
-[Specify Enlarged Image Container Dimensions](http://localhost:3000/#/dimensions).
+[Responsive Images](http://localhost:3000/#/responsive-images)
+
+[Enlarged Image Container Dimensions](http://localhost:3000/#/dimensions)
+
+[Integration with react-slick carousel](http://localhost:3000/#/react-slick)
+
+[External Enlarged Image](http://localhost:3000/#/external)
 
 ## Reference
-If you would like more information on responsive images, please try these resources:  
-[https://cloudfour.com/thinks/responsive-images-101-definitions/](https://cloudfour.com/thinks/responsive-images-101-definitions/)  
-[https://bitsofco.de/the-srcset-and-sizes-attributes/](https://bitsofco.de/the-srcset-and-sizes-attributes/)
+For more information on responsive images, please try these resources:  
+[Responsive Images 101](https://cloudfour.com/thinks/responsive-images-101-definitions/)  
+[Responsive Images - The srcset and sizes Attributes](https://bitsofco.de/the-srcset-and-sizes-attributes/)
 
 

@@ -4,11 +4,16 @@ A responsive React image zoom component for touch and mouse.
 
 Designed for shopping site product detail.
 
-Supports in-place and side-by-side image enlargement.
-
-Supports react-slick carousel.
-
-Features tinted guide lens, interaction hint, hover intent, long-press gesture, and fade transitions.
+Features Include:
+* In-place and side-by-side image enlargement
+* Tinted guide lens
+* Interaction hint
+* Configurable enlarged image dimensions
+* Optional enlarged image external render
+* Hover intent
+* Long-press gesture
+* Fade transitions
+* Basic react-slick carousel support
 
 ## Status
 [![CircleCI](https://img.shields.io/circleci/project/github/ethanselzer/react-image-magnify.svg)](https://circleci.com/gh/ethanselzer/react-image-magnify) [![Coverage Status](https://coveralls.io/repos/github/ethanselzer/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/ethanselzer/react-image-magnify?branch=master)
@@ -18,11 +23,16 @@ Features tinted guide lens, interaction hint, hover intent, long-press gesture, 
 ## Demo
 [Basic Example](https://ethanselzer.github.io/react-image-magnify/#/)
 
-[Integration with react-slick carousel](https://ethanselzer.github.io/react-image-magnify/#/react-slick)
+[Interaction Hint](https://ethanselzer.github.io/react-image-magnify/#/hint)
+
+[Responsive Images](https://ethanselzer.github.io/react-image-magnify/#/responsive-images)
 
 [Enlarged Image Container Dimensions](https://ethanselzer.github.io/react-image-magnify/#/dimensions)
 
+[Integration with react-slick carousel](https://ethanselzer.github.io/react-image-magnify/#/react-slick)
+
 [External Enlarged Image](https://ethanselzer.github.io/react-image-magnify/#/external)
+
 
 Experiment with react-image-magnify [live on CodePen](https://codepen.io/ethanselzer/full/oePMNY/).
 Use the Change View button to select editing mode or for different layout options.
@@ -32,7 +42,7 @@ Use the Fork button to save your changes.
 ## Installation
 
 ```sh
-npm install --save react-image-magnify
+npm install react-image-magnify
 ```
 
 ## Usage
@@ -45,17 +55,9 @@ import ReactImageMagnify from 'react-image-magnify';
     smallImage: {
         alt: 'Wristwatch by Ted Baker London',
         isFluidWidth: true,
-        src: watchImg1200,
-        srcSet: [
-            `${watchImg687} 687w`,
-            `${watchImg770} 770w`,
-            `${watchImg861} 861w`,
-            `${watchImg955} 955w`
-        ].join(', '),
-        sizes: '(min-width: 480px) 30vw, 80vw'
+        src: watchImg300
     },
     largeImage: {
-        alt: '',
         src: watchImg1200,
         width: 1200,
         height: 1800
@@ -63,77 +65,74 @@ import ReactImageMagnify from 'react-image-magnify';
 }} />
 ...
 ```
-See more usage examples in the [example project](https://github.com/ethanselzer/react-image-magnify/tree/master/example/src/pages).
+See more usage examples in the [example project](https://github.com/ethanselzer/react-image-magnify/tree/master/example).
 
-If you would like more information on responsive images, please try these resources:  
-[https://cloudfour.com/thinks/responsive-images-101-definitions/](https://cloudfour.com/thinks/responsive-images-101-definitions/)  
-[https://bitsofco.de/the-srcset-and-sizes-attributes/](https://bitsofco.de/the-srcset-and-sizes-attributes/)
-
-## Props API
-
-### Desktop and Touch
-| Prop                          | Type   | Required | Default | Description                                                |
-|-------------------------------|--------|----------|---------|-----------------------|
-| `smallImage`                  | Object | Yes      |         | Small image information. See [Small Image](#small-image) below.|
-| `largeImage`                  | Object | Yes      |         | Large image information. See [Large Image](#large-image) below.|
-| `className`                   | String | No       |         | CSS class applied to root container element.               |
-| `style`                       | Object | No       |         | Style applied to root container element.                   |
-| `fadeDurationInMs`            | Number | No       | 300     | Milliseconds duration of magnified image fade in/fade out. |
-| `imageClassName`              | String | No       |         | CSS class applied to small image element.                  |
-| `imageStyle`                  | Object | No       |         | Style applied to small image element.                      |
-| `enlargedImageContainerClassName`| String | No    |         | CSS class applied to enlarged image container element.     |
-| `enlargedImageContainerStyle` | Object | No       |         | Style applied to enlarged image container element.         |
-| `enlargedImageClassName`      | String | No       |         | CSS class applied to enlarged image element.               |
-| `enlargedImageStyle`          | Object | No       |         | Style applied to enlarged image element.|
-| `enlargedImageContainerDimensions` | Object | No  | {width: '100%', height: '100%'} | Specify enlarged image container dimensions as an object with `width` and `height` properties. Values may be expressed as a percentage (e.g. '150%') or a number (e.g. 200). Percentage is based on small image dimension. Number is pixels. Not applied when `enlargedImagePosition` is set to 'over', the default for touch input. |
-| `enlargedImagePortalId` | String | No |  | Render enlarged image into an HTML element of your choosing by specifying the target element id. Requires React v16. Ignored for touch input by default - see `isEnlargedImagePortalEnabledForTouch`.|
-| `isEnlargedImagePortalEnabledForTouch` | Boolean | No | false | Specify portal rendering should be honored for touch input. |
-| `hintComponent`               |Function| No       |(Provided)| Reference to a component class or functional component. A Default is provided.|
-| `shouldHideHintAfterFirstActivation`| Boolean | No | true   | Only show hint until the first interaction begins.         |
-| `isHintEnabled`               | Boolean| No       | false   | Enable hint feature. |
-| `hintTextMouse`               | String | No       |Hover to Zoom| Hint text for mouse. |
-| `hintTextTouch`               | String | No       |Long-Touch to Zoom| Hint text for touch. |
-
-### Mouse Specific
-| Prop                          | Type   | Required | Default | Description                                                |
-|-------------------------------|--------|----------|---------|------------------------|
-| `hoverDelayInMs`              | Number | No       | 250     | Milliseconds to delay hover trigger.                       |
-| `hoverOffDelayInMs`           | Number | No       | 150     | Milliseconds to delay hover-off trigger.                   |
-| `lensStyle`                   | Object | No       |         | Style applied to tinted lens.                              |
-| `enlargedImagePosition`       | String | No       | beside  | Enlarged image position. Can be 'beside' or 'over'. |
-
-### Touch Specific
-| Prop                          | Type   | Required | Default | Description                                                |
-|-------------------------------|--------|----------|---------|------------------------|
-| `isActivatedOnTouch`          | Boolean| No       | false   | Activate magnification immediately on touch. May impact scrolling.|
-| `pressDuration`               | Number | No       | 500     | Milliseconds to delay long-press activation (long touch).  |
-| `pressMoveThreshold`          | Number | No       | 5       | Pixels of movement allowed during long-press activation.   |
-| `enlargedImagePosition`       | String | No       | over    | Enlarged image position. Can be 'beside' or 'over'.        |
+## Required Props
+| Prop                        | Type   | Default | Description                                                |
+|-----------------------------|--------|---------|--------------------------------|
+| smallImage                  | Object | N/A     | Small image information. See [Small Image](#small-image) below.|
+| largeImage                  | Object | N/A     | Large image information. See [Large Image](#large-image) below.|
+## Optional Styling Props
+| Prop                        | Type   | Default | Description                                                |
+|-----------------------------|--------|---------|---------------------------------|
+| className                   | String | N/A     | CSS class applied to root container element.               |
+| style                       | Object | N/A     | Style applied to root container element.                   |
+| imageClassName              | String | N/A     | CSS class applied to small image element.                  |
+| imageStyle                  | Object | N/A     | Style applied to small image element.                      |
+| lensStyle                   | Object | N/A   | Style applied to tinted lens.                              |
+| enlargedImageContainerClassName| String |  N/A       | CSS class applied to enlarged image container element.     |
+| enlargedImageContainerStyle | Object | N/A     | Style applied to enlarged image container element.         |
+| enlargedImageClassName      | String | N/A     | CSS class applied to enlarged image element.               |
+| enlargedImageStyle          | Object | N/A     | Style applied to enlarged image element.|
+## Optional Interaction Props
+| Prop                        | Type | Default | Description                                                |
+|-----------------------------|--------|-------|---------------------------------|
+| fadeDurationInMs            | Number | 300     | Milliseconds duration of magnified image fade in/fade out. |
+| hoverDelayInMs              | Number | 250   | Milliseconds to delay hover trigger.                       |
+| hoverOffDelayInMs           | Number | 150   | Milliseconds to delay hover-off trigger.                   |
+| isActivatedOnTouch          | Boolean| false   | Activate magnification immediately on touch. May impact scrolling.|
+| pressDuration               | Number | 500     | Milliseconds to delay long-press activation (long touch).  |
+| pressMoveThreshold          | Number | 5       | Pixels of movement allowed during long-press activation.   |
+## Optional Behavioral Props
+| Prop                        | Type | Default | Description                                                |
+|-----------------------------|--------|-------|---------------------------------|
+| enlargedImagePosition       | String |beside (over for touch)| Enlarged image placement. Can be 'beside' or 'over'.|
+| enlargedImageContainerDimensions | Object | {width: '100%', height: '100%'} | Specify enlarged image container dimensions as an object with width and height properties. Values may be expressed as a percentage (e.g. '150%') or a number (e.g. 200). Percentage is based on small image dimension. Number is pixels. Not applied when enlargedImagePosition is set to 'over', the default for touch input. |
+| enlargedImagePortalId | String | N/A | Render enlarged image into an HTML element of your choosing by specifying the target element id. Requires React v16. Ignored for touch input by default - see isEnlargedImagePortalEnabledForTouch.|
+| isEnlargedImagePortalEnabledForTouch | Boolean | false | Specify portal rendering should be honored for touch input. |
+| hintComponent               |Function|(Provided)| Reference to a component class or functional component. A Default is provided.|
+| shouldHideHintAfterFirstActivation| Boolean | true   | Only show hint until the first interaction begins.         |
+| isHintEnabled               | Boolean| false   | Enable hint feature. |
+| hintTextMouse               | String |Hover to Zoom| Hint text for mouse. |
+| hintTextTouch               | String |Long-Touch to Zoom| Hint text for touch. |
 
 ### Small Image
 ```
 {
-    alt: String,
-    isFluidWidth: Boolean, (default false)
     src: String, (required)
     srcSet: String,
     sizes: String,
     width: Number, (required if isFluidWidth is not set)
     height: Number, (required if isFluidWidth is not set)
+    isFluidWidth: Boolean, (default false)
+    alt: String,
     onLoad: Function,
     onError: Function
 }
 ```
+For more information on responsive images, please try these resources:  
+[Responsive Images 101](https://cloudfour.com/thinks/responsive-images-101-definitions/)  
+[Responsive Images - The srcset and sizes Attributes](https://bitsofco.de/the-srcset-and-sizes-attributes/)
 
 ### Large Image
 ```
 {
-    alt: String,
     src: String, (required)
     srcSet: String,
     sizes: String,
     width: Number, (required)
     height: Number, (required)
+    alt: String, (defaults to empty string)
     onLoad: Function,
     onError: Function
 }
