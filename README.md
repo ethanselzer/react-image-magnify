@@ -21,18 +21,7 @@ Features Include:
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 ## Demo
-[Basic Example](https://ethanselzer.github.io/react-image-magnify/#/)
-
-[Interaction Hint](https://ethanselzer.github.io/react-image-magnify/#/hint)
-
-[Responsive Images](https://ethanselzer.github.io/react-image-magnify/#/responsive-images)
-
-[Enlarged Image Container Dimensions](https://ethanselzer.github.io/react-image-magnify/#/dimensions)
-
-[Integration with react-slick carousel](https://ethanselzer.github.io/react-image-magnify/#/react-slick)
-
-[External Enlarged Image](https://ethanselzer.github.io/react-image-magnify/#/external)
-
+Please visit the [react-image-magnify demo site](https://ethanselzer.github.io/react-image-magnify/#/)
 
 Experiment with react-image-magnify [live on CodePen](https://codepen.io/ethanselzer/full/oePMNY/).
 Use the Change View button to select editing mode or for different layout options.

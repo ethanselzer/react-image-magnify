@@ -1,52 +1,39 @@
 import React, { Component } from 'react';
-import ReactImageMagnify from '../pkg-lnk/ReactImageMagnify';
-import SpacedSpan from '../components/SpacedSpan';
+import {
+  Col,
+  Grid,
+  Jumbotron,
+  Row
+} from 'react-bootstrap';
+import Helmet from 'react-helmet';
 
-import './app.css';
+import Header from '../components/Header';
+import Basic from '../components/Basic';
 
-import watchImg687 from '../images/wristwatch_687.jpg';
-import watchImg1200 from '../images/wristwatch_1200.jpg';
+import 'bootstrap/dist/css/bootstrap.css';
+import '../styles/app.css';
 
-export default class BasicExample extends Component {
+export default class extends Component {
     render() {
         return (
-            <div className="fluid">
-                <div className="fluid__image-container">
-                    <ReactImageMagnify {...{
-                        smallImage: {
-                            alt: 'Wristwatch by Ted Baker London',
-                            isFluidWidth: true,
-                            src: watchImg687,
-                        },
-                        largeImage: {
-                            src: watchImg1200,
-                            width: 1200,
-                            height: 1800
-                        }
-                    }} />
-                </div>
-                <div className="fluid__instructions">
-                    <h3>Basic Example</h3>
-                    <p>
-                        Side by Side enlargement for mouse input.
-                    </p>
-                    <p>
-                        In place enlargement for touch input.
-                    </p>
-                    <p>
-                        Fluid between breakpoints.
-                    </p>
-                    <p>
-                        Please see
-                        <SpacedSpan>
-                            <a href="https://github.com/ethanselzer/react-image-magnify/blob/master/example/src/pages/Basic.js">
-                                source code
-                            </a>
-                        </SpacedSpan>
-                        for details.
-                    </p>
-                </div>
-                <div style={{height: '500px'}} />
+            <div>
+                <Helmet title="Image Magnify | React Cursor Position" />
+                <Header {...this.props}/>
+                <Jumbotron>
+                    <Grid>
+                        <Row>
+                            <Col sm={12}>
+                            </Col>
+                        </Row>
+                    </Grid>
+                </Jumbotron>
+                <Grid>
+                    <Row>
+                        <Col sm={12}>
+                            <Basic />
+                        </Col>
+                    </Row>
+                </Grid>
             </div>
         );
     }

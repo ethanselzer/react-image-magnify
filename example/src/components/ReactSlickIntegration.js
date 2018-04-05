@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router';
 import ReactSlick from '../components/ReactSlick';
 import SpacedSpan from '../components/SpacedSpan';
 
-import './app.css';
-import './react-slick.css';
+import '../styles/app.css';
 
 export default class ReactSlickExample extends Component {
     render() {
@@ -21,7 +21,7 @@ export default class ReactSlickExample extends Component {
                 <div className="fluid__instructions">
                     <h3>Carousel Example</h3>
                     <p>
-                        Integration with&nbsp;
+                        Basic integration with&nbsp;
                         <a href="https://www.npmjs.com/package/react-slick">
                             react-slick
                         </a>
@@ -32,11 +32,11 @@ export default class ReactSlickExample extends Component {
                     </p>
                     <p>
                         Side-by-side enlargement supported, please see&nbsp;
-                        <a
-                            href="https://ethanselzer.github.io/react-image-magnify/#/external"
+                        <Link
+                            to="/external"
                         >
                             External Enlarged Image Demo
-                        </a>
+                        </Link>
                         .
                     </p>
                     <p>
@@ -56,7 +56,7 @@ export default class ReactSlickExample extends Component {
                     <p>
                         Please see
                         <SpacedSpan>
-                            <a href="https://github.com/ethanselzer/react-image-magnify/blob/master/example/src/pages/ReactSlick.js">
+                            <a href="https://github.com/ethanselzer/react-image-magnify/blob/master/example/src/components/ReactSlick.js#L60-L92">
                                 example source code
                             </a>
                         </SpacedSpan>

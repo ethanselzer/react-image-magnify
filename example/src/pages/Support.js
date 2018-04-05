@@ -8,7 +8,6 @@ import {
 import Helmet from 'react-helmet';
 
 import Header from '../components/Header';
-import EnlargedImageContainerDimensions from '../components/EnlargedImageContainerDimensions';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/app.css';
@@ -23,6 +22,7 @@ export default class extends Component {
                     <Grid>
                         <Row>
                             <Col sm={12}>
+                                <h2>Support</h2>
                             </Col>
                         </Row>
                     </Grid>
@@ -30,7 +30,10 @@ export default class extends Component {
                 <Grid>
                     <Row>
                         <Col sm={12}>
-                            <EnlargedImageContainerDimensions />
+                            Please&nbsp;
+                            <a href="https://github.com/ethanselzer/react-image-magnify/issues">
+                                open an issue
+                            </a> on GitHub. Thanks! ✨
                         </Col>
                     </Row>
                 </Grid>

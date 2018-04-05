@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import ReactImageMagnify from '../pkg-lnk/ReactImageMagnify';
 import ReactSlick from 'react-slick';
 
+import '../styles/react-slick.css';
+
 import front_500 from '../images/versace-blue/front-500.jpg'
 import front_779 from '../images/versace-blue/front-779.jpg';
 import front_1020 from '../images/versace-blue/front-1020.jpg';

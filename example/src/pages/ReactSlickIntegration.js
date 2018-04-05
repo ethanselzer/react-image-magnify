@@ -8,7 +8,7 @@ import {
 import Helmet from 'react-helmet';
 
 import Header from '../components/Header';
-import EnlargedImageContainerDimensions from '../components/EnlargedImageContainerDimensions';
+import ReactSlickIntegration from '../components/ReactSlickIntegration';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/app.css';
@@ -30,7 +30,7 @@ export default class extends Component {
                 <Grid>
                     <Row>
                         <Col sm={12}>
-                            <EnlargedImageContainerDimensions />
+                            <ReactSlickIntegration />
                         </Col>
                     </Row>
                 </Grid>

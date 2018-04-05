@@ -1,0 +1,30 @@
+.github-link img {
+    width: 32px;
+}
+
+.npm-link img {
+    height: 32px;
+}
+
+.navbar-nav > li.npm-link > a {
+    padding: 0 0 0 14px;
+}
+
+.navbar-nav > li.github-link > a {
+    padding: 0 0 10px 14px;
+}
+
+@media (min-width: 768px) {
+    .navbar-nav > li.github-link > a {
+        padding: 10px 0 5px 0;
+        margin-right: 20px;
+    }
+
+    .navbar-nav > li.npm-link > a {
+        padding: 11px 0 5px 0;
+    }
+
+    ul.navbar-right {
+        margin-right: 0;
+    }
+}

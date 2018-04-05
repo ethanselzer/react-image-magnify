@@ -4,15 +4,18 @@
   "private": true,
   "homepage": "https://ethanselzer.github.io/react-image-magnify",
   "devDependencies": {
-    "gh-pages": "^1.0.0",
-    "react-scripts": "^1.0.10"
+    "gh-pages": "1.1.0",
+    "react-scripts": "1.1.2"
   },
   "dependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "bootstrap": "3.3.7",
+    "react": "16.3.0",
+    "react-bootstrap": "0.31.3",
+    "react-dom": "16.3.0",
+    "react-helmet": "5.2.0",
     "react-image-magnify": "2.6.0",
     "react-router": "3.0.5",
-    "react-slick": "0.15.4",
+    "react-slick": "0.22.3",
     "slick-carousel": "1.8.1"
   },
   "scripts": {
