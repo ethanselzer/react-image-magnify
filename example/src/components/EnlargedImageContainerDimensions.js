@@ -65,6 +65,9 @@ export default class EnlargedImageContainerDimensions extends Component {
                         May be percentage for one dimension and number for the other.
                     </p>
                     <p>
+                        Not applied when enlargedImagePosition is set to 'over', the default for touch input.
+                    </p>
+                    <p>
                         This example specifies width of
                         <SpacedSpan className="code">200%</SpacedSpan>
                         and height of

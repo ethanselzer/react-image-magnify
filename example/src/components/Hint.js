@@ -23,7 +23,8 @@ export default class BasicExample extends Component {
                             width: 1200,
                             height: 1800
                         },
-                        isHintEnabled: true
+                        isHintEnabled: true,
+                        shouldHideHintAfterFirstActivation: false
                     }} />
                 </div>
                 <div className="fluid__instructions">
@@ -35,13 +36,14 @@ export default class BasicExample extends Component {
                         Configurable text for mouse and touch inputs. English defaults provided.
                     </p>
                     <p>
-                        Custom component option.
-                    </p>
-                    <p>
+                        Shown before and after each activation in this example.
                         Hidden after first interaction by default.
                     </p>
                     <p>
                         Disabled by default.
+                    </p>
+                    <p>
+                        Custom component option.
                     </p>
                     <p>
                         Please see
