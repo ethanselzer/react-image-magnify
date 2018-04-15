@@ -121,13 +121,14 @@ class ReactImageMagnify extends React.Component {
     onSmallImageLoad(e) {
         const {
             smallImage: {
-                onLoad = noop
+                onLoad = noop,
+                isFluidWidth
             }
         } = this.props;
 
         onLoad(e);
 
-        if (!this.props.smallImage.isFluidWidth) {
+        if (!isFluidWidth) {
             return;
         }
 
