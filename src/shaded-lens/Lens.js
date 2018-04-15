@@ -7,12 +7,8 @@ const Lens = (props) => {
         fadeDurationInMs,
         isActive,
         isPositionOutside,
-        style: parentSpecifiedStyle,
-        translateX,
-        translateY
+        style: parentSpecifiedStyle
     } = props;
-
-    const translate = `translate(${translateX}px, ${translateY}px)`;
 
     const defaultStyle = {
         width: 'auto',
@@ -26,9 +22,6 @@ const Lens = (props) => {
 
     const computedStyle = {
         position: 'absolute',
-        transform: translate,
-        WebkitTransform: translate,
-        msTransform: translate,
         opacity: (isActive && !isPositionOutside) ? 1 : 0,
         transition: `opacity ${fadeDurationInMs}ms ease-in`
     };

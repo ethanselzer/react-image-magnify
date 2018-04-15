@@ -19,11 +19,11 @@ const LensRight = ({
     const maxWidth = smallImage.width - clearLensWidth;
     const height = clearLensHeight;
     const width = clamp(smallImage.width - position.x - cursorOffset.x, 0, maxWidth);
-    const translateY = clamp(position.y - cursorOffset.y, 0, maxHeight);
+    const top = clamp(position.y - cursorOffset.y, 0, maxHeight);
     const computedStyle = {
         height: `${height}px`,
         width: `${width}px`,
-        top: '0px',
+        top: `${top}px`,
         right: '0px'
     };
 
@@ -36,8 +36,7 @@ const LensRight = ({
                 {},
                 parentSpecifiedStyle,
                 computedStyle
-            ),
-            translateY
+            )
         }}/>
     );
 };

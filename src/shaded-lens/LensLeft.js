@@ -19,11 +19,11 @@ const LensLeft = ({
     const maxWidth = smallImage.width - clearLensWidth;
     const height = clearLensHeight;
     const width = clamp(position.x - cursorOffset.x, 0, maxWidth);
-    const translateY = clamp(position.y - cursorOffset.y, 0, maxHeight);
+    const top = clamp(position.y - cursorOffset.y, 0, maxHeight);
     const computedStyle = {
         height: `${height}px`,
         width: `${width}px`,
-        top: '0px',
+        top: `${top}px`,
         left: '0px'
     };
 
@@ -36,8 +36,7 @@ const LensLeft = ({
                 {},
                 parentSpecifiedStyle,
                 computedStyle
-            ),
-            translateY
+            )
         }}/>
     );
 };

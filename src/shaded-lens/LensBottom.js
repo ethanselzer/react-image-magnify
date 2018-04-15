@@ -23,7 +23,7 @@ const LensBottom = ({
     const computedStyle = {
         height: `${height}px`,
         width: '100%',
-        top
+        top: `${top}px`
     };
 
     return (
