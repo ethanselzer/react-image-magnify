@@ -1,10 +1,10 @@
 import React from 'react';
-import clamp from 'clamp';
 import objectAssign from 'object-assign';
+import clamp from 'clamp';
 import Lens from './Lens';
-import LensPropTypes from '../prop-types/Lens';
+import LensPropTypes from '../../prop-types/Lens';
 
-const LensTop = ({
+const LensBottom = ({
     cursorOffset,
     position,
     fadeDurationInMs,
@@ -13,13 +13,17 @@ const LensTop = ({
     smallImage,
     style: parentSpecifiedStyle
 }) => {
-    const clearLensHeight =  cursorOffset.y * 2;
+
+    const clearLensHeight = cursorOffset.y * 2;
+    const computedHeight = smallImage.height - position.y - cursorOffset.y;
     const maxHeight = smallImage.height - clearLensHeight;
-    const height = clamp(position.y - cursorOffset.y, 0, maxHeight);
+    const height = clamp(computedHeight, 0, maxHeight);
+    const clearLensBottom = position.y + cursorOffset.y;
+    const top = Math.max(clearLensBottom, clearLensHeight);
     const computedStyle = {
         height: `${height}px`,
         width: '100%',
-        top: '0px'
+        top: `${top}px`
     };
 
     return (
@@ -36,6 +40,6 @@ const LensTop = ({
     );
 };
 
-LensTop.propTypes = LensPropTypes;
+LensBottom.propTypes = LensPropTypes;
 
-export default LensTop;
+export default LensBottom;

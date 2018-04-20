@@ -2,9 +2,9 @@ import React from 'react';
 import objectAssign from 'object-assign';
 import clamp from 'clamp';
 import Lens from './Lens';
-import LensPropTypes from '../prop-types/Lens';
+import LensPropTypes from '../../prop-types/Lens';
 
-const LensLeft = ({
+const LensRight = ({
     cursorOffset,
     position,
     fadeDurationInMs,
@@ -18,13 +18,13 @@ const LensLeft = ({
     const maxHeight =  smallImage.height - clearLensHeight;
     const maxWidth = smallImage.width - clearLensWidth;
     const height = clearLensHeight;
-    const width = clamp(position.x - cursorOffset.x, 0, maxWidth);
+    const width = clamp(smallImage.width - position.x - cursorOffset.x, 0, maxWidth);
     const top = clamp(position.y - cursorOffset.y, 0, maxHeight);
     const computedStyle = {
         height: `${height}px`,
         width: `${width}px`,
         top: `${top}px`,
-        left: '0px'
+        right: '0px'
     };
 
     return (
@@ -41,6 +41,6 @@ const LensLeft = ({
     );
 };
 
-LensLeft.propTypes = LensPropTypes;
+LensRight.propTypes = LensPropTypes;
 
-export default LensLeft;
+export default LensRight;

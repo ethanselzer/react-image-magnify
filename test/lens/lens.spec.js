@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'enzyme';
 import { expect } from 'chai';
-import Lens from '../../src/shaded-lens/Lens';
+import Lens from '../../src/lens/negative-space/Lens';
 
 describe('Image Lens', () => {
     it('applies computed style', () => {

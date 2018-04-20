@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { expect } from 'chai';
-import ImageLensShaded from '../../src/shaded-lens';
+import Lens from '../../src/lens/negative-space';
 
 describe('Shaded Lens', () => {
     const smallImage = {
@@ -26,10 +26,10 @@ describe('Shaded Lens', () => {
 
     const defaultBackgroundStyle = { backgroundColor: 'rgba(0,0,0,.4)' };
 
-    let mountedWrapper = mount(<ImageLensShaded {...props} />);
+    let mountedWrapper = mount(<Lens {...props} />);
 
     beforeEach(() => {
-        mountedWrapper = mount(<ImageLensShaded {...props} />);
+        mountedWrapper = mount(<Lens {...props} />);
     });
 
     it('applies props to lens elements', () => {

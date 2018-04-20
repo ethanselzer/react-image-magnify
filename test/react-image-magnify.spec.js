@@ -6,6 +6,7 @@ import sinon from 'sinon';
 
 import ReactImageMagnify from '../src/ReactImageMagnify';
 import Hint from '../src/hint/DefaultHint';
+import PositiveSpaceLens from '../src/lens/positive-space';
 import UserDefinedHint from './support/UserDefinedHint';
 import { ENLARGED_IMAGE_POSITION } from '../src/constants';
 import * as utils from '../src/utils';
@@ -91,7 +92,8 @@ describe('React Image Magnify', () => {
             shouldHideHintAfterFirstActivation: true,
             isHintEnabled: false,
             hintTextMouse: 'Hover to Zoom',
-            hintTextTouch: 'Long-Touch to Zoom'
+            hintTextTouch: 'Long-Touch to Zoom',
+            "shouldUsePositiveSpaceLens": false
         });
     });
 
@@ -325,39 +327,6 @@ describe('React Image Magnify', () => {
                 expect(style.height).to.equal('auto');
             });
 
-            it('provides fixed width smallImage to lens component', () => {
-                shallowWrapper
-                    .setProps({ fadeDurationInMs: 1 })
-                    .setState({ isTouchDetected: false });
-
-                expect(shallowWrapper.find('ImageLensShaded').prop('smallImage')).to.deep.equal(smallImage);
-            });
-
-            it('provides fluid width smallImage to lens component', () => {
-                shallowWrapper.setProps({
-                    fadeDurationInMs: 1,
-                    smallImage: Object.assign(
-                        {},
-                        smallImage,
-                        {
-                            isFluidWidth: true,
-                        }
-                    )
-                });
-                shallowWrapper.setState({ isTouchDetected: false })
-
-                const expected = Object.assign(
-                    {},
-                    smallImage,
-                    {
-                        isFluidWidth: true,
-                        width: 0,
-                        height: 0
-                    }
-                );
-                expect(shallowWrapper.find('ImageLensShaded').prop('smallImage')).to.deep.equal(expected);
-            });
-
             it('provides fixed width smallImage to EnlargedImage component', () => {
                 expect(mountedWrapper.find('EnlargedImage').prop('smallImage')).to.deep.equal(smallImage);
             });
@@ -587,14 +556,6 @@ describe('React Image Magnify', () => {
                     expect(mountedWrapper.state('smallImageHeight')).to.equal(51);
                 });
             });
-        });
-
-        it('applies fadeDurationInMs to lens component', () => {
-            shallowWrapper
-                .setProps({ fadeDurationInMs: 1 })
-                .setState({ isTouchDetected: false });
-
-            expect(shallowWrapper.find('ImageLensShaded').prop('fadeDurationInMs')).to.deep.equal(1);
         });
 
         it('applies enlargedImageContainerClassName to EnlargedImage component', () => {
@@ -829,6 +790,70 @@ describe('React Image Magnify', () => {
                     hintTextMouse: 'Hover to Zoom',
                     hintTextTouch: 'Long-Touch to Zoom'
                 });
+            });
+        });
+
+        describe('Lens', () => {
+            it('defaults to negative space lens', () => {
+                expect(shallowWrapper.find('NegativeSpaceLens')).to.have.lengthOf(1);
+            });
+
+            it('can be configured to use positive space lens', () => {
+                shallowWrapper.setProps({ shouldUsePositiveSpaceLens: true });
+
+                expect(shallowWrapper.find('PositiveSpaceLens')).to.have.lengthOf(1);
+            });
+
+            it('can be configured to use a custom lens component', () => {
+                shallowWrapper.setProps({ lensComponent: PositiveSpaceLens });
+
+                expect(shallowWrapper.find('PositiveSpaceLens')).to.have.lengthOf(1);
+            });
+
+            it('applies fadeDurationInMs to lens component', () => {
+                shallowWrapper.setProps({ fadeDurationInMs: 1 });
+
+                expect(shallowWrapper.find('NegativeSpaceLens').prop('fadeDurationInMs')).to.deep.equal(1);
+            });
+
+            it('applies lensStyle to lens component', () => {
+                shallowWrapper.setProps({lensStyle: { foo: 'bar' }});
+
+                expect(shallowWrapper.find('NegativeSpaceLens').prop('style')).to.deep.equal({ foo: 'bar' });
+            });
+
+            it('provides cursor offset to lens component', () => {
+                const actual = shallowWrapper.find('NegativeSpaceLens').prop('cursorOffset');
+
+                expect(actual).to.exist;
+            });
+
+            it('provides fixed width smallImage to lens component', () => {
+                expect(shallowWrapper.find('NegativeSpaceLens').prop('smallImage')).to.deep.equal(smallImage);
+            });
+
+            it('provides fluid width smallImage to lens component', () => {
+                shallowWrapper.setProps({
+                    fadeDurationInMs: 1,
+                    smallImage: Object.assign(
+                        {},
+                        smallImage,
+                        {
+                            isFluidWidth: true,
+                        }
+                    )
+                });
+
+                const expected = Object.assign(
+                    {},
+                    smallImage,
+                    {
+                        isFluidWidth: true,
+                        width: 0,
+                        height: 0
+                    }
+                );
+                expect(shallowWrapper.find('NegativeSpaceLens').prop('smallImage')).to.deep.equal(expected);
             });
         });
     });

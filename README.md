@@ -94,6 +94,8 @@ See more usage examples in the [example project](https://github.com/ethanselzer/
 | isHintEnabled               | Boolean| false   | Enable hint feature. |
 | hintTextMouse               | String |Hover to Zoom| Hint text for mouse. |
 | hintTextTouch               | String |Long-Touch to Zoom| Hint text for touch. |
+| shouldUsePositiveSpaceLens  | Boolean| false | Specify a positive space lens in place of the default negative space lens. |
+| lensComponent  | Function | (Provided) | Specify a custom lens component. |
 
 ### Small Image
 ```
@@ -179,6 +181,13 @@ Thanks to the following community members for opening Issues and Pull Requests.
 @spiderbites  
 @Akarshit  
 @eddy20vt  
+@evannoronha  
+@benjaminadk  
+@nilsklimm  
+@m4recek  
+@yaser-ali-vp  
+@carlgunderson  
+@tojvan  
 
 You are awesome! ✨💫
 

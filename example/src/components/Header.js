@@ -39,6 +39,8 @@ class Navigation extends React.Component {
                 return 2.5;
             case '/external' :
                 return 2.6;
+            case '/lens' :
+                return 2.7;
             case '/image-magnify' :
                 return 3.1;
             case '/support' :
@@ -69,6 +71,7 @@ class Navigation extends React.Component {
                             <MenuItem eventKey={2.4} href="#/dimensions">Enlarged Image Container Dimensions</MenuItem>
                             <MenuItem eventKey={2.5} href="#/react-slick">Carousel Integration</MenuItem>
                             <MenuItem eventKey={2.6} href="#/external">External Enlarged Image</MenuItem>
+                            <MenuItem eventKey={2.7} href="#/lens">Alternate Lens</MenuItem>
                         </NavDropdown>
                         <NavItem href="https://github.com/ethanselzer/react-image-magnify#required-props">
                             Docs

@@ -6,9 +6,9 @@ import LensLeft from './LensLeft';
 import LensRight from './LensRight';
 import LensBottom from './LensBottom';
 
-import LensPropTypes from '../prop-types/Lens';
+import LensPropTypes from '../../prop-types/Lens';
 
-export default function ImageLensShaded(inputProps) {
+export default function NegativeSpaceLens(inputProps) {
     const { style: userSpecifiedStyle } = inputProps;
 
     const compositLensStyle = objectAssign(
@@ -32,4 +32,4 @@ export default function ImageLensShaded(inputProps) {
     );
 }
 
-ImageLensShaded.propTypes = LensPropTypes;
+NegativeSpaceLens.propTypes = LensPropTypes;

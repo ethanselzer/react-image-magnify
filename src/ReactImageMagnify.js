@@ -5,7 +5,8 @@ import React from 'react';
 import ReactCursorPosition from 'react-cursor-position';
 
 import RenderEnlargedImage from './RenderEnlargedImage';
-import ShadedLens from './shaded-lens';
+import NegativeSpaceLens from './lens/negative-space';
+import PositiveSpaceLens from './lens/positive-space';
 import DisplayUntilActive from './hint/DisplayUntilActive';
 import Hint from './hint/DefaultHint';
 
@@ -66,6 +67,8 @@ class ReactImageMagnify extends React.Component {
         imageClassName: PropTypes.string,
         imageStyle: PropTypes.object,
         lensStyle: PropTypes.object,
+        lensComponent: PropTypes.func,
+        shouldUsePositiveSpaceLens: PropTypes.bool,
         smallImage: SmallImageShape,
         largeImage: LargeImageShape,
         enlargedImageContainerClassName: PropTypes.string,
@@ -96,7 +99,8 @@ class ReactImageMagnify extends React.Component {
         hintTextMouse: 'Hover to Zoom',
         hintTextTouch: 'Long-Touch to Zoom',
         hoverDelayInMs: 250,
-        hoverOffDelayInMs: 150
+        hoverOffDelayInMs: 150,
+        shouldUsePositiveSpaceLens: false
     };
 
     componentDidMount() {
@@ -249,6 +253,23 @@ class ReactImageMagnify extends React.Component {
         );
     }
 
+    get lensComponent() {
+        const {
+            shouldUsePositiveSpaceLens,
+            lensComponent
+        } = this.props;
+
+        if (lensComponent) {
+            return lensComponent
+        }
+
+        if (shouldUsePositiveSpaceLens) {
+            return PositiveSpaceLens;
+        }
+
+        return NegativeSpaceLens;
+    }
+
     render() {
         const {
             className,
@@ -293,6 +314,8 @@ class ReactImageMagnify extends React.Component {
             this.enlargedImageContainerDimensions
         );
 
+        const Lens = this.lensComponent;
+
         return (
             <ReactCursorPosition { ...{
                 className,
@@ -328,10 +351,9 @@ class ReactImageMagnify extends React.Component {
                     </DisplayUntilActive>
                 }
                 {this.shouldShowLens &&
-                    <ShadedLens {...{
+                    <Lens {...{
                         cursorOffset,
                         fadeDurationInMs,
-                        enlargedImageContainerDimensions: this.enlargedImageContainerDimensions,
                         smallImage,
                         style: lensStyle
                     }} />

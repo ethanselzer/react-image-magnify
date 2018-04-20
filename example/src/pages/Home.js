@@ -39,6 +39,7 @@ export default class extends Component {
                                     <NavItem href="#/dimensions">Enlarged Image Container Dimensions</NavItem>
                                     <NavItem href="#/react-slick">Carousel Integration</NavItem>
                                     <NavItem href="#/external">External Enlarged Image</NavItem>
+                                    <NavItem href="#/lens">Alternate Lens</NavItem>
                                 </Nav>
                             </Panel>
                         </Col>
