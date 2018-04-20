@@ -6,7 +6,7 @@ Designed for shopping site product detail.
 
 Features Include:
 * In-place and side-by-side image enlargement
-* Tinted guide lens
+* Positive or negative space guide lens options
 * Interaction hint
 * Configurable enlarged image dimensions
 * Optional enlarged image external render
