@@ -93,6 +93,7 @@ describe('React Image Magnify', () => {
             isHintEnabled: false,
             hintTextMouse: 'Hover to Zoom',
             hintTextTouch: 'Long-Touch to Zoom',
+            shouldShowLensForTouch: false,
             "shouldUsePositiveSpaceLens": false
         });
     });
@@ -802,6 +803,18 @@ describe('React Image Magnify', () => {
                 shallowWrapper.setProps({ shouldUsePositiveSpaceLens: true });
 
                 expect(shallowWrapper.find('PositiveSpaceLens')).to.have.lengthOf(1);
+            });
+
+            it('by default is hidden on touch devices', () => {
+                throw new Error('fail');
+            });
+
+            it('does not display if the enlarged image is over the original', () => {
+                throw new Error('fail');
+            });
+
+            it('can be configured to display on touch devices', () => {
+                throw new Error('fail');
             });
 
             it('can be configured to use a custom lens component', () => {
