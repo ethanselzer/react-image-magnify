@@ -68,6 +68,7 @@ class ReactImageMagnify extends React.Component {
         imageStyle: PropTypes.object,
         lensStyle: PropTypes.object,
         lensComponent: PropTypes.func,
+        shouldShowLensForTouch: PropTypes.bool,
         shouldUsePositiveSpaceLens: PropTypes.bool,
         smallImage: SmallImageShape,
         largeImage: LargeImageShape,
@@ -100,7 +101,8 @@ class ReactImageMagnify extends React.Component {
         hintTextTouch: 'Long-Touch to Zoom',
         hoverDelayInMs: 250,
         hoverOffDelayInMs: 150,
-        shouldUsePositiveSpaceLens: false
+        shouldUsePositiveSpaceLens: false,
+        shouldShowLensForTouch: false
     };
 
     componentDidMount() {
@@ -247,9 +249,11 @@ class ReactImageMagnify extends React.Component {
     }
 
     get shouldShowLens() {
-        return (
-            !this.isInPlaceMode &&
-            !this.isTouchDetected
+        return !(
+            this.isInPlaceMode || (
+               this.isTouchDetected &&
+               this.shouldShowLensForTouch
+            )
         );
     }
 
