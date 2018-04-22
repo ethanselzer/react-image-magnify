@@ -251,8 +251,8 @@ class ReactImageMagnify extends React.Component {
     get shouldShowLens() {
         return !(
             this.isInPlaceMode || (
-               this.isTouchDetected &&
-               this.shouldShowLensForTouch
+                this.isTouchDetected &&
+                this.shouldShowLensForTouch
             )
         );
     }
