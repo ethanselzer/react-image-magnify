@@ -14,6 +14,11 @@
             "experimentalObjectRestSpread": true
         }
     },
+    "settings": {
+        "react": {
+            "version": "16.0"
+        }
+    },
     "plugins": [
         "import",
         "chai-friendly",
