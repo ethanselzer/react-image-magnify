@@ -30,6 +30,8 @@ import {
     ENLARGED_IMAGE_POSITION
 } from './constants';
 
+export { INTERACTIONS };
+
 class ReactImageMagnify extends React.Component {
 
     constructor(props) {
@@ -63,7 +65,6 @@ class ReactImageMagnify extends React.Component {
         fadeDurationInMs: PropTypes.number,
         pressDuration: PropTypes.number,
         pressMoveThreshold: PropTypes.number,
-        isActivatedOnTouch: PropTypes.bool,
         imageClassName: PropTypes.string,
         imageStyle: PropTypes.object,
         lensStyle: PropTypes.object,
@@ -83,7 +84,16 @@ class ReactImageMagnify extends React.Component {
         hintTextMouse: PropTypes.string,
         hintTextTouch: PropTypes.string,
         isHintEnabled: PropTypes.bool,
-        shouldHideHintAfterFirstActivation: PropTypes.bool
+        shouldHideHintAfterFirstActivation: PropTypes.bool,
+        activationInteractionTouch: PropTypes.oneOf([
+            INTERACTIONS.PRESS,
+            INTERACTIONS.TAP,
+            INTERACTIONS.TOUCH
+        ]),
+        activationInteractionMouse: PropTypes.oneOf([
+            INTERACTIONS.CLICK,
+            INTERACTIONS.HOVER
+        ])
     };
 
     static defaultProps = {
@@ -100,7 +110,9 @@ class ReactImageMagnify extends React.Component {
         hintTextTouch: 'Long-Touch to Zoom',
         hoverDelayInMs: 250,
         hoverOffDelayInMs: 150,
-        shouldUsePositiveSpaceLens: false
+        shouldUsePositiveSpaceLens: false,
+        activationInteractionTouch: INTERACTIONS.PRESS,
+        activationInteractionMOUSE: INTERACTIONS.HOVER
     };
 
     componentDidMount() {
@@ -272,11 +284,12 @@ class ReactImageMagnify extends React.Component {
 
     render() {
         const {
+            activationInteractionTouch,
+            activationInteractionMouse,
             className,
             style,
             hoverDelayInMs,
             hoverOffDelayInMs,
-            isActivatedOnTouch,
             pressDuration,
             pressMoveThreshold,
             smallImage: {
@@ -318,15 +331,14 @@ class ReactImageMagnify extends React.Component {
 
         return (
             <ReactCursorPosition { ...{
+                activationInteractionTouch,
+                activationInteractionMouse,
                 className,
                 hoverDelayInMs,
                 hoverOffDelayInMs,
-                isActivatedOnTouch,
                 onDetectedInputTypeChanged: this.onDetectedInputTypeChanged,
                 pressDuration,
                 pressMoveThreshold,
-                activationInteractionTouch: INTERACTIONS.TAP,
-                activationInteractionMouse: INTERACTIONS.CLICK,
                 shouldStopTouchMovePropagation: true,
                 style: getContainerStyle(smallImage, style)
             }}>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactImageMagnify from '../pkg-lnk/ReactImageMagnify';
+import ReactImageMagnify, { INTERACTIONS } from '../pkg-lnk/ReactImageMagnify';
 import SpacedSpan from '../components/SpacedSpan';
 
 import '../styles/examples.css';
@@ -13,6 +13,8 @@ export default class BasicExample extends Component {
             <div className="fluid">
                 <div className="fluid__image-container">
                     <ReactImageMagnify {...{
+                        activationInteractionTouch: INTERACTIONS.TAP,
+                        activationInteractionMouse: INTERACTIONS.CLICK,
                         smallImage: {
                             alt: 'Wristwatch by Ted Baker London',
                             isFluidWidth: true,
