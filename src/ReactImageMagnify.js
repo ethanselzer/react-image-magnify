@@ -2,7 +2,7 @@ import detectIt from 'detect-it';
 import objectAssign from 'object-assign';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ReactCursorPosition from 'react-cursor-position';
+import ReactCursorPosition, { INTERACTIONS } from 'react-cursor-position';
 
 import RenderEnlargedImage from './RenderEnlargedImage';
 import NegativeSpaceLens from './lens/negative-space';
@@ -325,6 +325,8 @@ class ReactImageMagnify extends React.Component {
                 onDetectedInputTypeChanged: this.onDetectedInputTypeChanged,
                 pressDuration,
                 pressMoveThreshold,
+                activationInteractionTouch: INTERACTIONS.TAP,
+                activationInteractionMouse: INTERACTIONS.CLICK,
                 shouldStopTouchMovePropagation: true,
                 style: getContainerStyle(smallImage, style)
             }}>
