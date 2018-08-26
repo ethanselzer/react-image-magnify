@@ -41,7 +41,7 @@
     "build-es": "babel src --out-dir dist/es",
     "build": "rimraf dist && npm run build-cjs && npm run build-es && npm run build-umd",
     "build-watch": "cross-env BABEL_ENV=cjs babel --watch src --out-dir dist",
-    "prepublishOnly": "npm run lint && npm test && npm run build",
+    "prepublishOnly": "npm run build",
     "lint": "eslint \"@(src|test)/**/*.js\"",
     "stats": "webpack -p --profile --json > stats.json",
     "test": "npm run lint && npm run test-only",
