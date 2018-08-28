@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/react-image-magnify
+    branches:
+        ignore:
+        - gh-pages
+    docker:
+      - image: circleci/node:10.9.0
+    steps:
+      - checkout
+      - run:
+          name: install-npm
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: test
+          command: npm run test-ci
