@@ -4018,9 +4018,9 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-cursor-position@2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/react-cursor-position/-/react-cursor-position-2.4.1.tgz#458a91d97f01b5fcf093ba0f1fc0719e707148b2"
+react-cursor-position@2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/react-cursor-position/-/react-cursor-position-2.5.1.tgz#93f0b6f9d7d739bb2dd692fec759425fddb80b2f"
   dependencies:
     object-assign "^4.1.1"
     object.omit "^3.0.0"
