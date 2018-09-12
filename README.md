@@ -138,8 +138,8 @@ Please [open an issue](https://github.com/ethanselzer/react-image-magnify/issues
 ```ssh
 git clone https://github.com/ethanselzer/react-image-magnify.git
 cd react-image-magnify
-yarn
-yarn run build
+npm install
+npm run build
 cd example
 yarn
 yarn start
@@ -152,7 +152,7 @@ If your default browser does not start automatically, open a new browser window 
 ```ssh
 git clone https://github.com/ethanselzer/react-image-magnify.git
 cd react-image-magnify
-yarn
+npm install
 npm run #See available commands
 ```
 

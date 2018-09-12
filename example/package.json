@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "bootstrap": "3.3.7",
-    "react": "16.3.0",
+    "react": "16.5.0",
     "react-bootstrap": "0.31.3",
-    "react-dom": "16.3.0",
+    "react-dom": "16.5.0",
     "react-helmet": "5.2.0",
     "react-image-magnify": "2.6.0",
     "react-router": "3.0.5",
