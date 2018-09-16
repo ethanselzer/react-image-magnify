@@ -16,7 +16,7 @@ Features Include:
 * Basic react-slick carousel support
 
 ## Status
-[![CircleCI](https://img.shields.io/circleci/project/github/ethanselzer/react-image-magnify/tree/master.svg)](https://circleci.com/gh/ethanselzer/react-image-magnify/tree/master)
+[![CircleCI](https://img.shields.io/circleci/project/github/ethanselzer/react-image-magnify.svg)](https://circleci.com/gh/ethanselzer/react-image-magnify/tree/master)
 [![Coverage Status](https://coveralls.io/repos/github/ethanselzer/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/ethanselzer/react-image-magnify?branch=master)
 [![npm](https://img.shields.io/npm/v/react-image-magnify.svg)](https://www.npmjs.com/package/react-image-magnify)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
