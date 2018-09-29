@@ -189,6 +189,8 @@ Thanks to the following community members for opening Issues and Pull Requests.
 @yaser-ali-vp  
 @carlgunderson  
 @tojvan  
+@kskonecka  
+@Coriou  
 
 You are awesome! ✨💫
 
