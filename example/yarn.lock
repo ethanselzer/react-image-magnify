@@ -5562,9 +5562,9 @@ react-bootstrap@0.31.3:
     uncontrollable "^4.1.0"
     warning "^3.0.0"
 
-react-cursor-position@2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/react-cursor-position/-/react-cursor-position-2.4.1.tgz#458a91d97f01b5fcf093ba0f1fc0719e707148b2"
+react-cursor-position@2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/react-cursor-position/-/react-cursor-position-2.5.3.tgz#683acdeeba0e225d856fa8a26ae3b4333de7b294"
   dependencies:
     object-assign "^4.1.1"
     object.omit "^3.0.0"
@@ -5615,16 +5615,16 @@ react-helmet@5.2.0:
     prop-types "^15.5.4"
     react-side-effect "^1.1.0"
 
-react-image-magnify@2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/react-image-magnify/-/react-image-magnify-2.6.0.tgz#b06aba77c81e7a9aa4f6b5fdaeeb8ecb9be0b91c"
+react-image-magnify@2.7.3:
+  version "2.7.3"
+  resolved "https://registry.yarnpkg.com/react-image-magnify/-/react-image-magnify-2.7.3.tgz#8a4871d560f0377d5c0de340afa62a89293faf05"
   dependencies:
     clamp "1.0.1"
     detect-it "3.0.3"
     fast-deep-equal "1.0.0"
     object-assign "4.1.1"
     prop-types "15.6.0"
-    react-cursor-position "2.4.1"
+    react-cursor-position "2.5.3"
     react-required-if "1.0.1"
 
 react-overlays@^0.7.0:

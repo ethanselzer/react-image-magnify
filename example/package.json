@@ -13,7 +13,7 @@
     "react-bootstrap": "0.31.3",
     "react-dom": "16.5.0",
     "react-helmet": "5.2.0",
-    "react-image-magnify": "2.6.0",
+    "react-image-magnify": "2.7.3",
     "react-router": "3.0.5",
     "react-slick": "0.22.3",
     "slick-carousel": "1.8.1"
