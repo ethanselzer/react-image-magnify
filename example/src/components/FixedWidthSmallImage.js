@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactImageMagnify from '../pkg-lnk/ReactImageMagnify';
+import ReactImageMagnify from 'react-image-magnify';
 
 import '../styles/app.css';
 
