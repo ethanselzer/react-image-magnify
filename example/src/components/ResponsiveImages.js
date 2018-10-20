@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactImageMagnify from '../pkg-lnk/ReactImageMagnify';
+import ReactImageMagnify from 'ReactImageMagnify';
 import SpacedSpan from '../components/SpacedSpan';
 
 import '../styles/app.css';
