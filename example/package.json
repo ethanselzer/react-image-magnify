@@ -5,7 +5,7 @@
   "homepage": "https://ethanselzer.github.io/react-image-magnify",
   "devDependencies": {
     "gh-pages": "1.1.0",
-    "react-scripts": "1.1.2"
+    "react-scripts": "2.0.5"
   },
   "dependencies": {
     "bootstrap": "3.3.7",
@@ -24,5 +24,11 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
