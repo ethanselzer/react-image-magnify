@@ -21,7 +21,7 @@ export default class extends Component {
     render() {
         return (
             <div>
-                <Helmet title="Examples | React Cursor Position" />
+                <Helmet title="React Image Magnify" />
                 <Header {...this.props} />
                 <Jumbotron className="jumbotron--home">
                     <Grid>
