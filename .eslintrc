@@ -16,7 +16,7 @@
     },
     "settings": {
         "react": {
-            "version": "16.0"
+            "version": "16.6"
         }
     },
     "plugins": [
@@ -34,6 +34,7 @@
         "no-unused-expressions": 0,
         "chai-friendly/no-unused-expressions": 2,
         "react/prop-types": 0,
-        "indent": ["error", 4]
+        "indent": ["error", 4],
+        "react/no-deprecated": 1
     }
 }
