@@ -30,7 +30,8 @@ describe('React Image Magnify', () => {
         height: 16
     };
     const {
-        over: OVER
+        over: OVER,
+        beside: BESIDE
     } = ENLARGED_IMAGE_POSITION;
 
     function getCompositProps(props) {
@@ -93,6 +94,7 @@ describe('React Image Magnify', () => {
             isHintEnabled: false,
             hintTextMouse: 'Hover to Zoom',
             hintTextTouch: 'Long-Touch to Zoom',
+            shouldShowLensForTouch: false,
             "shouldUsePositiveSpaceLens": false
         });
     });
@@ -802,6 +804,38 @@ describe('React Image Magnify', () => {
                 shallowWrapper.setProps({ shouldUsePositiveSpaceLens: true });
 
                 expect(shallowWrapper.find('PositiveSpaceLens')).to.have.lengthOf(1);
+            });
+
+            it('by default is hidden on touch devices', () => {
+                const mountedWrapper = getMountedWrapper({});
+               
+                expect(mountedWrapper.find('NegativeSpaceLens')).to.have.lengthOf(1);
+              
+                mountedWrapper.setState({
+                    detectedInputType: {
+                        isMouseDetected: false,
+                        isTouchDetected: true
+                    }
+                });
+
+                expect(mountedWrapper.find('NegativeSpaceLens')).to.have.lengthOf(0);
+            });
+
+            it('can be configured to display on touch devices', () => {
+                const mountedWrapper = getMountedWrapper({
+                    enlargedImagePosition: BESIDE
+                });
+
+                expect(mountedWrapper.find('NegativeSpaceLens')).to.have.lengthOf(1);
+
+                mountedWrapper.setState({
+                    detectedInputType: {
+                        isMouseDetected: false,
+                        isTouchDetected: true
+                    }
+                });
+
+                expect(mountedWrapper.find('NegativeSpaceLens')).to.have.lengthOf(1);
             });
 
             it('can be configured to use a custom lens component', () => {

@@ -96,6 +96,7 @@ See more usage examples in the [example project](https://github.com/ethanselzer/
 | hintTextMouse               | String |Hover to Zoom| Hint text for mouse. |
 | hintTextTouch               | String |Long-Touch to Zoom| Hint text for touch. |
 | shouldUsePositiveSpaceLens  | Boolean| false | Specify a positive space lens in place of the default negative space lens. |
+| shouldShowLensForTouch      | Boolean| false | Display the shaded lens for touch devices. Ignored if enlargedImagePosition is not 'beside'. |
 | lensComponent  | Function | (Provided) | Specify a custom lens component. |
 
 ### Small Image
