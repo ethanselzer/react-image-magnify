@@ -69,8 +69,7 @@ export default class extends React.Component {
             isPositionOutside,
             isLocked
         } = this.props;
-        // eslint-disable-next-line no-console
-        //console.log(isActive);
+        
         const willIsActiveChange = isActive !== nextProps.isActive;
         const willIsPositionOutsideChange = isPositionOutside !== nextProps.isPositionOutside;
 

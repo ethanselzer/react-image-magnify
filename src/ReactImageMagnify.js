@@ -341,10 +341,8 @@ class ReactImageMagnify extends React.Component {
                     onLoad: this.onSmallImageLoad,
                     onError,
                     onClick: () => {
-                        console.log("test")
                         this.setState(
                             (prevState) => {
-                                console.log('onClick')
                                 prevState.isLocked = !prevState.isLocked;
                                 return prevState;
                             })
