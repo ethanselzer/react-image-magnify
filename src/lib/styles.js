@@ -45,13 +45,13 @@ export function getSmallImageStyle(smallImage, style) {
         width: '100%',
         height: 'auto',
         display: 'block',
-        pointerEvents: 'none'
+        pointerEvents: 'all'
     };
 
     const fixedWidthSmallImageStyle = {
         width: `${width}px`,
         height: `${height}px`,
-        pointerEvents: 'none'
+        pointerEvents: 'all'
     };
 
     const prioritySmallImageStyle = isSmallImageFluidWidth
