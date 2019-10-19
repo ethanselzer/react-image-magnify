@@ -47,7 +47,8 @@ class ReactImageMagnify extends React.Component {
             detectedInputType: {
                 isMouseDeteced: (primaryInput === MOUSE),
                 isTouchDetected: (primaryInput === TOUCH)
-            }
+            },
+            isLocked: false
         }
 
         this.onSmallImageLoad = this.onSmallImageLoad.bind(this);
@@ -305,7 +306,8 @@ class ReactImageMagnify extends React.Component {
         const {
             detectedInputType: {
                 isTouchDetected
-            }
+            },
+            isLocked
         } = this.state;
 
         const cursorOffset = getLensCursorOffset(
@@ -337,7 +339,14 @@ class ReactImageMagnify extends React.Component {
                     style: getSmallImageStyle(smallImage, imageStyle),
                     ref: (el) => this.smallImageEl = el,
                     onLoad: this.onSmallImageLoad,
-                    onError
+                    onError,
+                    onClick: () => {
+                        this.setState(
+                            (prevState) => {
+                                prevState.isLocked = !prevState.isLocked;
+                                return prevState;
+                            })
+                    }
                 }} />
                 {isHintEnabled &&
                     <DisplayUntilActive {...{
@@ -371,7 +380,8 @@ class ReactImageMagnify extends React.Component {
                     portalId: enlargedImagePortalId,
                     isPortalEnabledForTouch: isEnlargedImagePortalEnabledForTouch,
                     isTouchDetected: this.isTouchDetected,
-                    isInPlaceMode: this.isInPlaceMode
+                    isInPlaceMode: this.isInPlaceMode,
+                    isLocked
                 }}/>
             </ReactCursorPosition>
         );

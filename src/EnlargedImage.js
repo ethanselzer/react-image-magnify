@@ -22,7 +22,8 @@ export default class extends React.Component {
             isTransitionEntering: false,
             isTransitionActive: false,
             isTransitionLeaving: false,
-            isTransitionDone: false
+            isTransitionDone: false,
+            lockedPosition: null
         };
 
         this.timers = [];
@@ -65,12 +66,14 @@ export default class extends React.Component {
         const {
             fadeDurationInMs,
             isActive,
-            isPositionOutside
+            isPositionOutside,
+            isLocked
         } = this.props;
+        
         const willIsActiveChange = isActive !== nextProps.isActive;
         const willIsPositionOutsideChange = isPositionOutside !== nextProps.isPositionOutside;
 
-        if (!willIsActiveChange && !willIsPositionOutsideChange) {
+        if ((!willIsActiveChange && !willIsPositionOutsideChange) || isLocked) {
             return;
         }
 
@@ -166,11 +169,30 @@ export default class extends React.Component {
     get imageStyle() {
         const {
             imageStyle,
-            largeImage
+            largeImage,
+            isLocked
         } = this.props;
 
+        // The following block controls locking behavior for image coordinates
+        let coords;
+        if (isLocked && this.state.lockedPosition === null) {
+            coords = this.getImageCoordinates();
+            this.setState({
+                lockedPosition: coords
+            });
+        } else if (!isLocked && this.state.lockedPosition !== null) {
+            coords = this.getImageCoordinates();
+            this.setState({
+                lockedPosition: null
+            });
+        } else if (isLocked && this.state.lockedPosition !== null) {
+            coords = this.state.lockedPosition;
+        } else {
+            coords = this.getImageCoordinates();
+        }
+
         return getEnlargedImageStyle({
-            imageCoordinates: this.getImageCoordinates(),
+            imageCoordinates: coords,
             imageStyle,
             largeImage
         });
