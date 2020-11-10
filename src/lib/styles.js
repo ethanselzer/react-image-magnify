@@ -27,8 +27,8 @@ export function getContainerStyle(smallImage, userSpecifiedStyle) {
 
     const compositContainerStyle = objectAssign(
         { cursor: 'crosshair' },
-        userSpecifiedStyle,
-        priorityContainerStyle
+        priorityContainerStyle,
+        userSpecifiedStyle
     );
 
     return compositContainerStyle;
@@ -148,8 +148,8 @@ export function getEnlargedImageContainerStyle(params) {
     cache.compositStyle = objectAssign(
         {},
         primaryStyle,
-        userSpecifiedStyle,
-        priorityStyle
+        priorityStyle,
+        userSpecifiedStyle
     );
     cache.params = params;
 
@@ -176,8 +176,8 @@ export function getEnlargedImageStyle(params) {
 
     const compositeImageStyle = objectAssign(
         {},
-        userSpecifiedStyle,
-        priorityStyle
+        priorityStyle,
+        userSpecifiedStyle
     );
 
     return compositeImageStyle;
