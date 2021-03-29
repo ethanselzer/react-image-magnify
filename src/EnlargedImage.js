@@ -51,7 +51,7 @@ export default class extends React.Component {
         isInPlaceMode: PropTypes.bool
     };
 
-    componentWillReceiveProps(nextProps) {
+    USSAFE_componentWillReceiveProps(nextProps) {
         this.scheduleCssTransition(nextProps);
     }
 
