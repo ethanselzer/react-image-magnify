@@ -73,7 +73,7 @@
     "coveralls": "3.0.0",
     "cross-env": "^5.0.5",
     "enzyme": "3.6.0",
-    "enzyme-adapter-react-16": "1.5.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
     "eslint": "^4.8.0",
     "eslint-plugin-chai-friendly": "^0.4.0",
     "eslint-plugin-import": "^2.7.0",
@@ -82,16 +82,16 @@
     "jsdom": "^12.0.0",
     "mocha": "4.0.0",
     "nyc": "^11.2.1",
-    "react": "^16.5.0",
-    "react-dom": "^16.5.0",
-    "react-test-renderer": "^16.5.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-test-renderer": "^17.0.2",
     "rimraf": "^2.6.2",
     "sinon": "4.1.2",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0"
   },
   "peerDependencies": {
-    "react": "~0.14.9 || ^15.0.0 || ^16.0.0"
+    "react": "~0.14.9 || ^15.0.0 || ^16.0.0 || ^17.0.0"
   },
   "dependencies": {
     "clamp": "1.0.1",
@@ -99,7 +99,7 @@
     "fast-deep-equal": "1.0.0",
     "object-assign": "4.1.1",
     "prop-types": "15.6.0",
-    "react-cursor-position": "2.5.3",
+    "@divyakumarjain/react-cursor-position": "^4.0.0-alpha",
     "react-required-if": "1.0.1"
   }
 }

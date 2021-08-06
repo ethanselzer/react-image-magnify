@@ -51,7 +51,8 @@ export default class extends React.Component {
         isInPlaceMode: PropTypes.bool
     };
 
-    componentWillReceiveProps(nextProps) {
+    //TODO https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.scheduleCssTransition(nextProps);
     }
 
