@@ -2,7 +2,7 @@ import detectIt from 'detect-it';
 import objectAssign from 'object-assign';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ReactCursorPosition from 'react-cursor-position';
+import ReactCursorPosition from '@divyakumarjain/react-cursor-position';
 
 import RenderEnlargedImage from './RenderEnlargedImage';
 import NegativeSpaceLens from './lens/negative-space';
