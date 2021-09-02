@@ -1,0 +1,15 @@
+{
+    "extends": "./tsconfig",
+    "compilerOptions": {
+        "diagnostics": true,
+        "extendedDiagnostics": true,
+        "jsx": "react-jsxdev"
+    },
+    "include": [
+        "@types/**/*",
+        "src/**/*",
+        "jest/**/*",
+        ".eslintrc.js",
+        "**/*.config.js"
+    ]
+}

@@ -1,0 +1,19 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text eol=lf
+
+# Graphics
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.gif      binary
+*.tif      binary
+*.tiff     binary
+*.ico      binary
+
+# SVG treated as an asset (binary) by default.
+*.svg      text
+
+# If you want to treat it as binary,
+# use the following line instead.
+# *.svg    binary
+*.eps      binary

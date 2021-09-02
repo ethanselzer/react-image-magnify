@@ -1,4 +1,5 @@
-# react-image-magnify
+react-image-magnify
+===
 
 A responsive React image zoom component for touch and mouse.
 
@@ -16,27 +17,25 @@ Features Include:
 * Basic react-slick carousel support
 
 ## Status
-[![CircleCI](https://img.shields.io/circleci/project/github/ethanselzer/react-image-magnify.svg)](https://circleci.com/gh/ethanselzer/react-image-magnify/tree/master)
-[![Coverage Status](https://coveralls.io/repos/github/ethanselzer/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/ethanselzer/react-image-magnify?branch=master)
-[![npm](https://img.shields.io/npm/v/react-image-magnify.svg)](https://www.npmjs.com/package/react-image-magnify)
+[![CircleCI](https://circleci.com/gh/gooftroop/react-image-magnify/tree/master.svg?style=svg)](https://circleci.com/gh/gooftroop/react-image-magnify/tree/master)
+[![Coverage Status](https://coveralls.io/repos/github/gooftroop/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/gooftroop/react-image-magnify?branch=master)
+[![npm](https://img.shields.io/npm/v/react-image-magnify.svg)](https://www.npmjs.com/package/@treehouse/react-image-magnify)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-## Demo
-Please visit the [react-image-magnify demo site](https://ethanselzer.github.io/react-image-magnify/#/)
+## Documentation
+Read more in the [documentation](https://gooftroop.github.io/react-image-magnify/#/)
 
-Experiment with react-image-magnify [live on CodePen](https://codepen.io/ethanselzer/full/oePMNY/).
-Use the Change View button to select editing mode or for different layout options.
-Use the Fork button to save your changes.
+## Dependencies
 
+- React 17
 
 ## Installation
 
 ```sh
-npm install react-image-magnify
+npm install @treehouse/react-image-magnify
 ```
 
 ## Usage
-If you are upgrading from v1x to v2x, please see the [release notes](https://github.com/ethanselzer/react-image-magnify/releases/tag/v2.0.0).
 
 ```JavaScript
 import ReactImageMagnify from 'react-image-magnify';
@@ -134,20 +133,12 @@ For more information on responsive images, please try these resources:
 
 Please [open an issue](https://github.com/ethanselzer/react-image-magnify/issues).
 
-## Example Project
-```ssh
-git clone https://github.com/ethanselzer/react-image-magnify.git
-cd react-image-magnify
-npm install
-npm run build
-cd example
-yarn
-yarn start
-```
+## Contributing
 
-If your default browser does not start automatically, open a new browser window and go to localhost:3000
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch,
+add commits, and [open a pull request](https://github.com/ethanselzer/react-image-magnify/compare/).
 
-## Development
+### Development
 
 ```ssh
 git clone https://github.com/ethanselzer/react-image-magnify.git
@@ -156,14 +147,7 @@ npm install
 npm run #See available commands
 ```
 
-The [Example Project](#example-project) may be used in development.
-
-To rebuild the source automatically when changes are made, run `yarn run build-watch`.
-
-## Contributing
-
-Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch,
-add commits, and [open a pull request](https://github.com/ethanselzer/react-image-magnify/compare/).
+### Storybook
 
 ## Attribution
 
@@ -190,7 +174,8 @@ Thanks to the following community members for opening Issues and Pull Requests.
 @carlgunderson  
 @tojvan  
 @kskonecka  
-@Coriou  
+@Coriou 
+@gooftroop 
 
 You are awesome! ✨💫
 

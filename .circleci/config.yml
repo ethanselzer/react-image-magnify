@@ -6,7 +6,7 @@ jobs:
         ignore:
         - gh-pages
     docker:
-      - image: circleci/node:10.9.0
+      - image: circleci/node:15
     steps:
       - checkout
       - run:
@@ -18,4 +18,4 @@ jobs:
             - ./node_modules
       - run:
           name: test
-          command: npm run test-ci
+          command: npm run test:ci

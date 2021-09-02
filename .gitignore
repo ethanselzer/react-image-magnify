@@ -1,7 +1,45 @@
-.DS_Store
-.nyc_output/
-coverage/
-dist/
+ib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
+
+pids
+logs
+results
+tmp
+
 npm-debug.log
-node_modules/
+
+# Build
 stats.json
+
+# Coverage and testing reports
+coverage
+junit.xml
+.nyc_output
+
+# API keys and secrets
+.env
+
+# Dependency directory
+node_modules
+bower_components
+
+# Editors
+.idea
+*.iml
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Ignore built ts files
+dist/**/*
+
+# Local configuration
+.cache
