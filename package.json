@@ -46,8 +46,8 @@
     "test": "jest",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "rimraf coverage && npm test -- --coverage",
-    "test:ci": "npm run lint && npm run test:coverage && npm run coveralls",
-    "coveralls": "npm run test:coverage && cat ./tests/coverage/lcov.info | coveralls",
+    "test:ci": "npm run lint && npm run coveralls",
+    "coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
