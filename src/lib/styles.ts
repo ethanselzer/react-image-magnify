@@ -1,45 +1,20 @@
-import isEqual from 'fast-deep-equal';
 import { CSSProperties } from 'react';
 
 import type {
     ContainerDimensions,
-    FluidSmallImageShape,
+    FluidImageProps,
+    MagnifiedImageProps,
     Point,
-    StaticSmallImageShape,
+    StaticImageProps,
 } from 'src/types';
-
-type PriorityEnlargedImageContainerStyleParams = {
-    containerDimensions: ContainerDimensions,
-    fadeDurationInMs: number,
-    isTransitionActive?: boolean,
-};
-
-type EnlargedImageContainerStyleParams = {
-    containerDimensions: ContainerDimensions,
-    containerStyle: CSSProperties,
-    fadeDurationInMs: number,
-    isTransitionActive?: boolean,
-    isInPlaceMode?: boolean,
-    isPortalRendered?: boolean,
-};
-
-type EnlargedImageStyleParams = {
-    imageCoordinates: Point,
-    imageStyle: CSSProperties,
-    largeImage: ContainerDimensions,
-};
-
-type EnlargedImageContainerStyleCache = {
-    compositStyle: CSSProperties,
-    params: EnlargedImageContainerStyleParams,
-};
+import { isFluid } from 'src/utils';
 
 export function getContainerStyle(
-    smallImage: FluidSmallImageShape | StaticSmallImageShape,
-    userSpecifiedStyle?: CSSProperties,
+    smallImage: FluidImageProps | StaticImageProps,
+    style: CSSProperties | undefined,
+    lockedByHintInteraction: boolean,
 ): CSSProperties {
     const {
-        isFluidWidth: isSmallImageFluidWidth,
         width,
         height,
     } = smallImage;
@@ -57,13 +32,13 @@ export function getContainerStyle(
         position: 'relative',
     };
 
-    const priorityContainerStyle = isSmallImageFluidWidth
+    const priorityContainerStyle = isFluid(smallImage)
         ? fluidWidthContainerStyle
         : fixedWidthContainerStyle;
 
     const compositContainerStyle = {
-        cursor: 'crosshair',
-        ...userSpecifiedStyle,
+        cursor: lockedByHintInteraction ? 'default' : 'crosshair',
+        ...style,
         ...priorityContainerStyle,
     };
 
@@ -71,11 +46,10 @@ export function getContainerStyle(
 }
 
 export function getSmallImageStyle(
-    smallImage: FluidSmallImageShape | StaticSmallImageShape,
-    style?: CSSProperties,
+    smallImage: FluidImageProps | StaticImageProps,
+    style: CSSProperties | undefined,
 ): CSSProperties {
     const {
-        isFluidWidth: isSmallImageFluidWidth,
         width,
         height,
     } = smallImage;
@@ -93,7 +67,7 @@ export function getSmallImageStyle(
         pointerEvents: 'none',
     };
 
-    const prioritySmallImageStyle = isSmallImageFluidWidth
+    const prioritySmallImageStyle = isFluid(smallImage)
         ? fluidWidthSmallImageStyle
         : fixedWidthSmallImageStyle;
 
@@ -105,7 +79,7 @@ export function getSmallImageStyle(
     return compositSmallImageStyle as CSSProperties;
 }
 
-function getPrimaryEnlargedImageContainerStyle(
+function getPrimaryMagnifyContainerStyle(
     isInPlaceMode: boolean | undefined,
     isPortalRendered: boolean,
 ): CSSProperties {
@@ -139,81 +113,55 @@ function getPrimaryEnlargedImageContainerStyle(
     } as CSSProperties;
 }
 
-function getPriorityEnlargedImageContainerStyle(params: PriorityEnlargedImageContainerStyleParams): CSSProperties {
-    const {
-        containerDimensions,
-        fadeDurationInMs,
-        isTransitionActive,
-    } = params;
-
+export function getTransitionActiveStyle(isTransitionActive: boolean): CSSProperties {
     return {
+        opacity: isTransitionActive ? 1 : 0,
+    };
+}
+
+export function getMagnifyContainerStyle(
+    containerDimensions: ContainerDimensions,
+    style: CSSProperties | undefined,
+    fadeDurationInMs: number,
+    isInPlaceMode: boolean | undefined,
+    isPortalRendered?: boolean,
+): CSSProperties {
+    const primaryStyle = getPrimaryMagnifyContainerStyle(isInPlaceMode, !!isPortalRendered);
+    const priorityStyle: CSSProperties = {
         width: containerDimensions.width,
         height: containerDimensions.height,
-        opacity: isTransitionActive ? 1 : 0,
         transition: `opacity ${fadeDurationInMs}ms ease-in`,
         pointerEvents: 'none',
     };
-}
 
-const enlargedImageContainerStyleCache = {} as EnlargedImageContainerStyleCache;
-
-export function getEnlargedImageContainerStyle(params: EnlargedImageContainerStyleParams): CSSProperties {
-    const cache = enlargedImageContainerStyleCache;
-    const {
-        params: memoizedParams = {},
-        compositStyle: memoizedStyle,
-    } = cache;
-
-    if (isEqual(memoizedParams, params)) {
-        return memoizedStyle;
-    }
-
-    const {
-        containerDimensions,
-        containerStyle: userSpecifiedStyle,
-        fadeDurationInMs,
-        isTransitionActive,
-        isInPlaceMode,
-        isPortalRendered,
-    } = params;
-
-    const primaryStyle = getPrimaryEnlargedImageContainerStyle(isInPlaceMode, !!isPortalRendered);
-    const priorityStyle = getPriorityEnlargedImageContainerStyle({
-        containerDimensions,
-        fadeDurationInMs,
-        isTransitionActive,
-    });
-
-    cache.compositStyle = {
+    return {
         ...primaryStyle,
-        ...userSpecifiedStyle,
+        ...style,
         ...priorityStyle,
     };
-    cache.params = params;
-
-    return cache.compositStyle;
 }
 
-export function getEnlargedImageStyle(params: EnlargedImageStyleParams): CSSProperties {
-    const {
-        imageCoordinates,
-        imageStyle: userSpecifiedStyle,
-        largeImage,
-    } = params;
-
+export function getMagnifiedImageTranslationStyle(imageCoordinates: Point): CSSProperties {
     const translate = `translate(${imageCoordinates.x}px, ${imageCoordinates.y}px)`;
 
-    const priorityStyle = {
-        width: largeImage.width,
-        height: largeImage.height,
+    return {
         transform: translate,
         WebkitTransform: translate,
         msTransform: translate,
+    };
+}
+
+export function getMagnifiedImageStyle(
+    magnifiedImage: MagnifiedImageProps,
+): CSSProperties {
+    const priorityStyle = {
+        width: magnifiedImage.width,
+        height: magnifiedImage.height,
         pointerEvents: 'none',
     };
 
     const compositeImageStyle = {
-        ...userSpecifiedStyle,
+        ...magnifiedImage.style,
         ...priorityStyle,
     };
 

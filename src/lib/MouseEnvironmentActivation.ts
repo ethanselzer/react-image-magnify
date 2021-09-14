@@ -4,18 +4,18 @@ export type { ActivationOptions as MouseActivationOptions };
 
 export class MouseEnvironmentActivation extends Activation {
     mouseEntered(): void {
-        throw new Error('NotYetImplemented');
+        // Do nothing
     }
 
     mouseMoved(): void {
-        throw new Error('NotYetImplemented');
+        // Do nothing
     }
 
     mouseLeft(): void {
-        throw new Error('NotYetImplemented');
+        // Do nothing
     }
 
     mouseClicked(): void {
-        throw new Error('NotYetImplemented');
+        // Do nothing
     }
 }

@@ -1,4 +1,4 @@
-import detectIt from 'detect-it';
+import { primaryInput } from 'detect-it';
 import {
     ComponentProps,
     ComponentType,
@@ -13,10 +13,10 @@ import {
     useState,
 } from 'react';
 
-import { RenderEnlargedImage } from 'src/RenderEnlargedImage';
+import { MagnifyContainerPortal } from 'src/MagnifyContainerPortal';
+import { MagnifyContainer } from 'src/MaginfyContainer';
 import { NegativeSpaceLens } from 'src/lens/negative-space';
 import { PositiveSpaceLens } from 'src/lens/positive-space';
-import { DisplayUntilActive } from 'src/hint/DisplayUntilActive';
 import { DefaultHint } from 'src/hint/DefaultHint';
 import { getLensCursorOffset } from 'src/lib/lens';
 import { getEnlargedImageContainerDimension } from 'src/lib/dimensions';
@@ -25,133 +25,133 @@ import {
     getContainerStyle,
     getSmallImageStyle,
 } from 'src/lib/styles';
-import { noop } from 'src/utils';
+import {
+    capitalize, isFluid, isIntristic, noop,
+} from 'src/utils';
 import {
     INPUT_TYPE,
-    ENLARGED_IMAGE_POSITION,
+    MAGNIFIED_IMAGE_POSITION,
     INTERACTIONS,
+    DEFAULT_MAGNIFY_CONTAINER_HEIGHT,
+    DEFAULT_MAGNIFY_CONTAINER_WIDTH,
 } from 'src/constants';
 import type {
-    LargeImageShape,
-    SmallImageShape,
-    EnlargedImagePosition,
-    EnlargedImageContainerDimensions,
+    MagnifiedImageProps,
+    ImageProps,
+    MagnifiedImagePosition,
     Lens as LensPropTypes,
-    StaticSmallImageShape,
+    StaticImageProps,
     DetectedInputType,
     Interactions,
     HintPropTypes,
+    PortalProps,
+    MagnifyContainerProps,
 } from 'src/types';
+import { OutsideClickHandler } from './OutsideClickHandler';
 
-// If hint click is enabled, don't enable other interactions until hint is clicked
-// TODO switch to component-encapsulated props
+// TODO If hint click is enabled, don't enable other interactions until hint is clicked
 // TODO is hint click is enabled, and user clicks away, disable zoom
 // TODO move states to other components?
+// TODO dont render large image or lens until image is loaded
+// TODO allow for left, right, top, bottom
 
 export interface PropTypes extends Omit<
 ComponentProps<typeof CursorPosition>,
 'activationInteractionMouse' | 'activationInteractionTouch' | 'children'
 > {
-    activationInteractionHint?: Interactions['hint'];
+    activationInteractionHint?: Interactions['click'] | Interactions['hover'];
     activationInteractionMouse?: Interactions['click'] | Interactions['hover'];
     activationInteractionTouch?: Interactions['press'] | Interactions['tap'] | Interactions['touch'];
+    fadeDurationInMs?: number;
+    hintComponent?: ComponentType<HintPropTypes>;
+    hintProps?: HintPropTypes;
     hoverDelayInMs?: number;
     hoverOffDelayInMs?: number;
-    fadeDurationInMs?: number;
+    imageComponent?: ComponentType<HTMLProps<HTMLImageElement>>;
+    imageProps: ImageProps;
+    lensComponent?: ComponentType<LensPropTypes>;
+    lensProps?: LensPropTypes;
+    magnifyContainerProps?: MagnifyContainerProps;
+    magnifiedImageComponent?: ComponentType<HTMLProps<HTMLImageElement>>;
+    magnifiedImagePosition?: MagnifiedImagePosition['beside'] | MagnifiedImagePosition['over'];
+    magnifiedImageProps: MagnifiedImageProps;
     pressDuration?: number;
     pressMoveThreshold?: number;
-    imageClassName?: string;
-    imageStyle?: CSSProperties;
-    lensStyle?: CSSProperties;
-    lensComponent?: ComponentType<LensPropTypes>;
-    shouldUsePositiveSpaceLens?: boolean;
-    smallImage: SmallImageShape;
-    largeImage: LargeImageShape;
-    enlargedImageContainerClassName?: string;
-    enlargedImageContainerStyle?: CSSProperties;
-    enlargedImageClassName?: string;
-    enlargedImageStyle?: CSSProperties;
-    enlargedImageContainerDimensions?: EnlargedImageContainerDimensions;
-    enlargedImagePosition?: EnlargedImagePosition['beside'] | EnlargedImagePosition['over'];
-    enlargedImagePortalId?: string;
-    imageComponent?: ComponentType<HTMLProps<HTMLImageElement>>;
-    isEnlargedImagePortalEnabledForTouch?: boolean;
-    hintComponent?: ComponentType<HintPropTypes>;
-    hintTextMouse?: string;
-    hintTextTouch?: string;
-    isHintEnabled?: boolean;
+    portalProps?: PortalProps;
     shouldHideHintAfterFirstActivation?: boolean;
+    shouldUsePositiveSpaceLens?: boolean;
+}
+
+function shouldRenderPortal(portalProps: PortalProps | undefined, isTouchDetected: boolean): boolean {
+    if (!portalProps?.id) {
+        return false;
+    }
+
+    if (!isTouchDetected) {
+        return true;
+    }
+
+    if (portalProps?.enableForTouch) {
+        return true;
+    }
+
+    return false;
 }
 
 function resolveSmallImage(
-    smallImageProp: SmallImageShape,
+    smallImageProp: ImageProps,
     smallImageHeight?: number,
     smallImageWidth?: number,
-): StaticSmallImageShape {
-    const smallImage = !smallImageProp.isFluidWidth
-        ? smallImageProp
-        : {
-            ...smallImageProp,
-            isFluidWidth: true,
-            width: smallImageWidth || smallImageProp.width || 0,
-            height: smallImageHeight || smallImageHeight || 0,
-        };
+): StaticImageProps {
+    const smallImage = {
+        ...smallImageProp,
+        height: smallImageHeight || (smallImageProp as StaticImageProps).height || 0,
+        width: smallImageWidth || (smallImageProp as StaticImageProps).width || 0,
+    };
 
     if (!smallImage.onLoad) {
         smallImage.onLoad = noop;
     }
 
-    return smallImage as StaticSmallImageShape;
+    return smallImage;
 }
 
 function setSmallImageDimensionState(
     img: HTMLImageElement | null,
-    setSmallImage: Dispatch<SetStateAction<StaticSmallImageShape>>,
-    smallImageProp: SmallImageShape,
+    setSmallImage: Dispatch<SetStateAction<StaticImageProps>>,
+    smallImageProp: ImageProps,
 ): void {
-    if (img) {
-        const { offsetHeight, offsetWidth } = img;
+    if (img && isIntristic(smallImageProp)) {
+        const { naturalHeight, naturalWidth } = img;
+        const newSmallImage = resolveSmallImage(smallImageProp, naturalHeight, naturalWidth);
 
-        setSmallImage(resolveSmallImage(smallImageProp, offsetHeight, offsetWidth));
+        setSmallImage(newSmallImage);
     }
 }
 
 export const ReactImageMagnify = (props: PropTypes): JSX.Element => {
-    // TODO convert a lot of these into per-compoonent rest props
     const {
         activationInteractionHint,
         activationInteractionMouse = INTERACTIONS.hover,
         activationInteractionTouch = INTERACTIONS.press,
-        enlargedImageClassName,
-        enlargedImageContainerClassName,
-        enlargedImageContainerDimensions = {
-            width: '100%',
-            height: '100%',
-        },
-        enlargedImageContainerStyle,
-        enlargedImagePosition,
-        enlargedImagePortalId,
-        enlargedImageStyle,
         fadeDurationInMs = 300,
         hintComponent: HintComponent = DefaultHint,
-        hintTextMouse = 'Hover to Zoom',
-        hintTextTouch = 'Long-Touch to Zoom',
-        imageClassName,
-        imageStyle,
+        hintProps,
         isEnabled = true,
-        isEnlargedImagePortalEnabledForTouch = false,
-        isHintEnabled = false,
         imageComponent: ImageComponent = 'img',
-        largeImage,
+        imageProps,
         lensComponent: LensComponentProp,
-        lensStyle,
-        shouldHideHintAfterFirstActivation = true,
+        lensProps,
+        magnifyContainerProps,
+        magnifiedImageComponent,
+        magnifiedImagePosition,
+        magnifiedImageProps,
+        portalProps,
         shouldUsePositiveSpaceLens = false,
-        smallImage: smallImageProp,
         style,
         ...rest
     } = props;
-    const { primaryInput } = detectIt;
+    const isZoomClickable = activationInteractionHint === INTERACTIONS.click;
 
     if (
         activationInteractionHint
@@ -170,64 +170,68 @@ export const ReactImageMagnify = (props: PropTypes): JSX.Element => {
     ///
 
     const imageRef = useRef<HTMLImageElement>(null);
-    const [smallImage, setSmallImage] = useState<StaticSmallImageShape>(resolveSmallImage(smallImageProp));
+    const [smallImage, setSmallImage] = useState<StaticImageProps>(resolveSmallImage(imageProps));
     const [isMouseDetected, setIsMouseDetected] = useState(primaryInput === INPUT_TYPE.mouse);
     const [isTouchDetected, setIsTouchDetected] = useState(primaryInput === INPUT_TYPE.touch);
-    const [lockedByHintInteraction, setLockedByHintInteraction] = useState(
-        isHintEnabled && activationInteractionHint === INTERACTIONS.hint,
-    );
-
-    const resizeHandler = useMemo(() => (): void => setSmallImageDimensionState(
-        imageRef.current,
-        setSmallImage,
-        smallImageProp,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    ), []);
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const [lockedByHintInteraction, setLockedByHintInteraction] = useState(isZoomClickable);
 
     ///
     /// Derived data from state
     ///
 
-    const { isFluidWidth } = smallImage;
-    const enlargedImagePlacement = (enlargedImagePosition || isTouchDetected)
-        ? ENLARGED_IMAGE_POSITION.over
-        : ENLARGED_IMAGE_POSITION.beside;
-    const isInPlaceMode = enlargedImagePlacement === ENLARGED_IMAGE_POSITION.over;
+    const usePortal = shouldRenderPortal(portalProps, isTouchDetected);
+    const enlargedImagePlacement = magnifiedImagePosition || (isTouchDetected
+        ? MAGNIFIED_IMAGE_POSITION.over
+        : MAGNIFIED_IMAGE_POSITION.beside);
+    const isInPlaceMode = enlargedImagePlacement === MAGNIFIED_IMAGE_POSITION.over;
     const shouldShowLens = !isInPlaceMode && !isTouchDetected;
-    const computedEnlargedImageContainerDimensions = {
+
+    ///
+    /// Memos
+    ///
+
+    const resizeHandler = useMemo(() => (): void => setSmallImageDimensionState(
+        imageRef.current,
+        setSmallImage,
+        imageProps,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    ), []);
+
+    const computedEnlargedImageContainerDimensions = useMemo(() => ({
         width: getEnlargedImageContainerDimension({
-            containerDimension: enlargedImageContainerDimensions.width,
+            containerDimension: magnifyContainerProps?.width || DEFAULT_MAGNIFY_CONTAINER_WIDTH,
             smallImageDimension: smallImage.width,
             isInPlaceMode,
         }),
         height: getEnlargedImageContainerDimension({
-            containerDimension: enlargedImageContainerDimensions.height,
+            containerDimension: magnifyContainerProps?.height || DEFAULT_MAGNIFY_CONTAINER_HEIGHT,
             smallImageDimension: smallImage.height,
             isInPlaceMode,
         }),
-    };
-    const cursorOffset = getLensCursorOffset(
+    }), [magnifyContainerProps, smallImage, isInPlaceMode]);
+
+    const cursorOffset = useMemo(() => getLensCursorOffset(
         smallImage,
-        largeImage,
+        magnifiedImageProps,
         computedEnlargedImageContainerDimensions,
-    );
-    const isZoomEnabled = isEnabled && !lockedByHintInteraction;
+    ), [computedEnlargedImageContainerDimensions, magnifiedImageProps, smallImage]);
 
     ///
     /// Effects
     ///
 
     useEffect(() => {
-        setSmallImage(resolveSmallImage(smallImageProp));
-    }, [smallImageProp]);
+        setSmallImage(resolveSmallImage(imageProps));
+    }, [imageProps]);
 
     useEffect(() => {
-        setLockedByHintInteraction(isHintEnabled && activationInteractionHint === INTERACTIONS.hint);
-    }, [activationInteractionHint, isHintEnabled]);
+        setLockedByHintInteraction(activationInteractionHint === INTERACTIONS.click);
+    }, [activationInteractionHint]);
 
     useEffect(() => {
-        if (isFluidWidth) {
-            setSmallImageDimensionState(imageRef.current, setSmallImage, smallImageProp);
+        if (isFluid(imageProps) || isIntristic(imageProps)) {
+            setSmallImageDimensionState(imageRef.current, setSmallImage, imageProps);
 
             window.addEventListener('resize', resizeHandler);
         } else {
@@ -236,20 +240,34 @@ export const ReactImageMagnify = (props: PropTypes): JSX.Element => {
 
         return (): void => window.removeEventListener('resize', resizeHandler);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isFluidWidth]);
+    }, [imageProps, imageRef]);
 
     ///
     /// Handlers
     ///
+
+    const generateHintStyle = (hintPropsStyle: CSSProperties | undefined): CSSProperties => {
+        const hintStyle = { ...hintPropsStyle };
+
+        // Check and set via if-statements to prevent accidentally overriding existing
+        // styles or styles that are set later
+        if (lockedByHintInteraction) {
+            hintStyle.cursor = 'pointer';
+        }
+
+        return hintStyle;
+    };
 
     const handleSmallImageLoad = (e: SyntheticEvent<HTMLImageElement, Event>): void => {
         if (smallImage.onLoad) {
             smallImage.onLoad(e);
         }
 
-        if (isFluidWidth) {
-            setSmallImageDimensionState(imageRef.current, setSmallImage, smallImageProp);
+        if (isFluid(imageProps) || isIntristic(imageProps)) {
+            setSmallImageDimensionState(imageRef.current, setSmallImage, imageProps);
         }
+
+        setImageLoaded(true);
     };
 
     const handleDetectedEnvironmentChanged = (detectedInputType: DetectedInputType): void => {
@@ -265,67 +283,95 @@ export const ReactImageMagnify = (props: PropTypes): JSX.Element => {
         setLockedByHintInteraction(false);
     };
 
+    const handleOutsideClick = (): void => {
+        if (isZoomClickable) {
+            setLockedByHintInteraction(true);
+        }
+    };
+
     const LensComponent = LensComponentProp || shouldUsePositiveSpaceLens ? PositiveSpaceLens : NegativeSpaceLens;
 
     return (
-        <CursorPosition
-            shouldStopTouchMovePropagation
-            activationInteractionMouse={activationInteractionMouse}
-            activationInteractionTouch={activationInteractionTouch}
-            isEnabled={isZoomEnabled}
-            style={getContainerStyle(smallImage, style)}
-            onDetectedEnvironmentChanged={handleDetectedEnvironmentChanged}
-            {...rest}
-        >
-            {({ position }): JSX.Element => (
-                <>
-                    <ImageComponent
-                        {...smallImage}
-                        alt={smallImage.alt}
-                        className={imageClassName}
-                        style={getSmallImageStyle(smallImage, imageStyle)}
-                        ref={imageRef}
-                        onLoad={handleSmallImageLoad}
-                    />
-                    {isHintEnabled && (
-                        <DisplayUntilActive shouldHideAfterFirstActivation={shouldHideHintAfterFirstActivation}>
-                            <HintComponent
-                                isMouseDetected={isMouseDetected}
-                                isTouchDetected={isTouchDetected}
-                                hintTextMouse={hintTextMouse}
-                                hintTextTouch={hintTextTouch}
-                                onClick={lockedByHintInteraction ? handleHintClick : undefined}
-                                onTouchEnd={lockedByHintInteraction ? handleHintTouchEnd : undefined}
-                            />
-                        </DisplayUntilActive>
-                    )}
-                    {shouldShowLens && (
-                        <LensComponent
-                            cursorOffset={cursorOffset}
-                            fadeDurationInMs={fadeDurationInMs}
-                            position={position}
-                            smallImage={smallImage}
-                            style={lensStyle}
+        <OutsideClickHandler onOutsideClick={handleOutsideClick}>
+            <CursorPosition
+                shouldStopTouchMovePropagation
+                activationInteractionMouse={activationInteractionMouse}
+                activationInteractionTouch={activationInteractionTouch}
+                isEnabled={isEnabled}
+                style={getContainerStyle(smallImage, style, lockedByHintInteraction)}
+                onDetectedEnvironmentChanged={handleDetectedEnvironmentChanged}
+                {...rest}
+            >
+                {({ position, isActive, isPositionOutside }): JSX.Element => (
+                    <>
+                        <ImageComponent
+                            {...imageProps}
+                            alt={smallImage.alt}
+                            style={getSmallImageStyle(smallImage, imageProps.style)}
+                            ref={imageRef}
+                            onLoad={handleSmallImageLoad}
                         />
-                    )}
-                    <RenderEnlargedImage
-                        containerClassName={enlargedImageContainerClassName}
-                        containerDimensions={computedEnlargedImageContainerDimensions}
-                        containerStyle={enlargedImageContainerStyle}
-                        cursorOffset={cursorOffset}
-                        fadeDurationInMs={fadeDurationInMs}
-                        imageClassName={enlargedImageClassName}
-                        imageStyle={enlargedImageStyle}
-                        largeImage={largeImage}
-                        smallImage={smallImage}
-                        position={position}
-                        portalId={enlargedImagePortalId}
-                        isPortalEnabledForTouch={isEnlargedImagePortalEnabledForTouch}
-                        isTouchDetected={isTouchDetected}
-                        isInPlaceMode={isInPlaceMode}
-                    />
-                </>
-            )}
-        </CursorPosition>
+                        {imageLoaded && (
+                            <>
+                                {!!activationInteractionHint && (
+                                    <HintComponent
+                                        hintTextMouse={hintProps?.hintTextMouse || `${capitalize(activationInteractionHint)} to Zoom`}
+                                        hintTextTouch={hintProps?.hintTextTouch || 'Long-Touch to Zoom'}
+                                        isMouseDetected={isMouseDetected}
+                                        isTouchDetected={isTouchDetected}
+                                        style={generateHintStyle(hintProps?.style)}
+                                        {...hintProps}
+                                        onClick={lockedByHintInteraction ? handleHintClick : undefined}
+                                        onTouchEnd={lockedByHintInteraction ? handleHintTouchEnd : undefined}
+                                    />
+                                )}
+                                {shouldShowLens && !lockedByHintInteraction && (
+                                    <LensComponent
+                                        cursorOffset={cursorOffset}
+                                        fadeDurationInMs={fadeDurationInMs}
+                                        isActive={isActive}
+                                        isPositionOutside={isPositionOutside}
+                                        position={position}
+                                        smallImage={smallImage}
+                                        {...lensProps}
+                                    />
+                                )}
+                                {!usePortal && !lockedByHintInteraction && (
+                                    <MagnifyContainer
+                                        containerDimensions={computedEnlargedImageContainerDimensions}
+                                        cursorOffset={cursorOffset}
+                                        fadeDurationInMs={fadeDurationInMs}
+                                        isActive={isActive}
+                                        isPositionOutside={isPositionOutside}
+                                        isInPlaceMode={isInPlaceMode}
+                                        imageComponent={magnifiedImageComponent}
+                                        imageProps={magnifiedImageProps}
+                                        position={position}
+                                        sourceImage={smallImage}
+                                        {...magnifyContainerProps}
+                                    />
+                                )}
+                                {usePortal && portalProps && !lockedByHintInteraction && (
+                                    <MagnifyContainerPortal
+                                        containerDimensions={computedEnlargedImageContainerDimensions}
+                                        cursorOffset={cursorOffset}
+                                        fadeDurationInMs={fadeDurationInMs}
+                                        isActive={isActive}
+                                        isPositionOutside={isPositionOutside}
+                                        isInPlaceMode={isInPlaceMode}
+                                        imageComponent={magnifiedImageComponent}
+                                        imageProps={magnifiedImageProps}
+                                        portalProps={portalProps}
+                                        position={position}
+                                        sourceImage={smallImage}
+                                        {...magnifyContainerProps}
+                                    />
+                                )}
+                            </>
+                        )}
+                    </>
+                )}
+            </CursorPosition>
+        </OutsideClickHandler>
     );
 };

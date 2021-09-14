@@ -1,10 +1,11 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const ReactRefreshTypeScript = require('react-refresh-typescript');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const webpack = require('webpack');
-const WebpackCleanPlugin = require('webpack-clean-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const DIST = path.resolve('./dist');
@@ -59,7 +60,7 @@ module.exports = {
         library: 'ReactImageMagnify',
     },
     plugins: [
-        new WebpackCleanPlugin(),
+        new CleanWebpackPlugin(),
         new BundleAnalyzerPlugin({
             /**
              * Can be `server`, `static` or `disabled`.
@@ -70,7 +71,7 @@ module.exports = {
              */
             analyzerMode: 'disabled',
         }),
-        !IS_PRODUCTION ? new webpack.HtmlWebpackPlugin({
+        !IS_PRODUCTION ? new HtmlWebpackPlugin({
             template: 'example/index.html',
         }) : null,
         !IS_PRODUCTION ? new webpack.HotModuleReplacementPlugin() : null,

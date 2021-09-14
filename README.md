@@ -21,9 +21,10 @@ Features Include:
 [![Coverage Status](https://coveralls.io/repos/github/gooftroop/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/gooftroop/react-image-magnify?branch=master)
 [![npm](https://img.shields.io/npm/v/react-image-magnify.svg)](https://www.npmjs.com/package/@treehouse/react-image-magnify)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@main/badge/badge-storybook.svg)](https://gooftroop.github.io/react-image-magnify)
 
 ## Documentation
-Read more in the [documentation](https://gooftroop.github.io/react-image-magnify/#/)
+Read more in the [documentation](https://gooftroop.github.io/react-image-magnify)
 
 ## Dependencies
 

@@ -1,4 +1,5 @@
 import type {
+    CSSProperties,
     DetailedHTMLProps,
     HTMLProps,
     ImgHTMLAttributes,
@@ -6,13 +7,12 @@ import type {
 } from 'react';
 
 export type Interactions = {
-    touch: 'touch',
-    tap: 'tap',
-    doubleTap: 'double_tap',
-    press: 'press',
-    click: 'click',
-    hint: 'hint',
-    hover: 'hover',
+    touch: 'touch';
+    tap: 'tap';
+    doubleTap: 'double_tap';
+    press: 'press';
+    click: 'click';
+    hover: 'hover';
 }
 
 export type OnIsActiveChangedHandler = (event: ActivationChangeEvent) => void;
@@ -41,19 +41,19 @@ export type TouchEvent = {
     position: Point;
 };
 
-export type EnlargedImagePosition = {
-    over: 'over',
-    beside: 'beside',
+export type MagnifiedImagePosition = {
+    over: 'over';
+    beside: 'beside';
 };
 
 export type InputType = {
-    mouse: 'mouse',
-    touch: 'touch',
+    mouse: 'mouse';
+    touch: 'touch';
 };
 
 export type Point = {
-    x: number,
-    y: number,
+    x: number;
+    y: number;
 };
 
 export type ContainerDimensions = {
@@ -61,37 +61,37 @@ export type ContainerDimensions = {
     width: number;
 };
 
-export type EnlargedImageContainerDimensions = {
+export type MagnifyContainerDimensions = {
     height: number | string;
     width: number | string;
 };
 
-export interface FluidSmallImageShape extends Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, 'height' | 'width'> {
-    height: undefined;
-    isFluidWidth: true,
-    width: undefined;
+export type BaseImageProps = Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement >, 'height' | 'width'>;
+
+export type FluidImageProps = BaseImageProps & {
+    height?: string;
+    width?: string;
 }
 
-export interface StaticSmallImageShape extends Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, 'height' | 'width'> {
+export type StaticImageProps = BaseImageProps & {
     height: number;
-    isFluidWidth: false,
     width: number;
 }
 
-export type LargeImageShape = DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & {
+export type MagnifiedImageProps = DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & {
     height: number;
     width: number;
 };
 
-export type SmallImageShape = FluidSmallImageShape | StaticSmallImageShape;
+export type ImageProps = FluidImageProps | StaticImageProps;
 
 export interface Lens extends HTMLProps<HTMLDivElement> {
-    cursorOffset: Point,
-    fadeDurationInMs?: number,
-    isActive?: boolean
-    isPositionOutside?: boolean,
-    position: Point,
-    smallImage: StaticSmallImageShape,
+    cursorOffset: Point;
+    fadeDurationInMs?: number;
+    isActive?: boolean;
+    isPositionOutside?: boolean;
+    position: Point;
+    smallImage: StaticImageProps;
 }
 
 export interface HintPropTypes extends HTMLProps<HTMLDivElement> {
@@ -99,4 +99,15 @@ export interface HintPropTypes extends HTMLProps<HTMLDivElement> {
     isTouchDetected?: boolean;
     hintTextMouse: string;
     hintTextTouch: string;
+}
+
+export type PortalProps = {
+    className?: string;
+    id: string;
+    style?: CSSProperties;
+    enableForTouch?: boolean;
+};
+
+export interface MagnifyContainerProps extends Omit<HTMLProps<HTMLDivElement>, 'height' | 'width'>, MagnifyContainerDimensions {
+
 }

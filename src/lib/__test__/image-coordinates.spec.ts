@@ -1,12 +1,12 @@
 import {
-    getLensModeEnlargedImageCoordinates,
-    getInPlaceEnlargedImageCoordinates,
+    getLensModeMagnifiedImageCoordinates,
+    getInPlaceMagnifiedImageCoordinates,
 } from 'src/lib/imageCoordinates';
 
 describe('Image Coordinates Library', () => {
-    describe('getLensModeEnlargedImageCoordinates', () => {
+    describe('getLensModeMagnifiedImageCoordinates', () => {
         it('returns image coordinates relative to its container', () => {
-            const enlargedImageContainerDimensions = {
+            const magnifiedImageContainerDimensions = {
                 width: 4,
                 height: 4,
             };
@@ -24,19 +24,19 @@ describe('Image Coordinates Library', () => {
             };
             const lensCursorOffset = { x: 1, y: 1 };
 
-            const actual = getLensModeEnlargedImageCoordinates({
+            const actual = getLensModeMagnifiedImageCoordinates({
                 smallImage,
                 largeImage,
                 position,
                 cursorOffset: lensCursorOffset,
-                containerDimensions: enlargedImageContainerDimensions,
+                containerDimensions: magnifiedImageContainerDimensions,
             });
 
             expect(actual).toEqual({ x: -2, y: -2 });
         });
 
         it('clamps position according to lens', () => {
-            const enlargedImageContainerDimensions = {
+            const magnifiedImageContainerDimensions = {
                 width: 4,
                 height: 4,
             };
@@ -54,19 +54,19 @@ describe('Image Coordinates Library', () => {
             };
             const lensCursorOffset = { x: 1, y: 1 };
 
-            const actual = getLensModeEnlargedImageCoordinates({
+            const actual = getLensModeMagnifiedImageCoordinates({
                 smallImage,
                 largeImage,
                 position,
                 cursorOffset: lensCursorOffset,
-                containerDimensions: enlargedImageContainerDimensions,
+                containerDimensions: magnifiedImageContainerDimensions,
             });
 
             expect(actual).toEqual({ x: -0, y: -4 });
         });
     });
 
-    describe('getInPlaceEnlargedImageCoordinates', () => {
+    describe('getInPlaceMagnifiedImageCoordinates', () => {
         it('returns image coordinates relative to its container', () => {
             const containerDimensions = {
                 width: 4,
@@ -81,7 +81,7 @@ describe('Image Coordinates Library', () => {
                 y: 2,
             };
 
-            const actual = getInPlaceEnlargedImageCoordinates({ containerDimensions, largeImage, position });
+            const actual = getInPlaceMagnifiedImageCoordinates({ containerDimensions, largeImage, position });
 
             expect(actual).toEqual({ x: -2, y: -2 });
         });
@@ -100,7 +100,7 @@ describe('Image Coordinates Library', () => {
                 y: -1,
             };
 
-            const actual = getInPlaceEnlargedImageCoordinates({ containerDimensions, largeImage, position });
+            const actual = getInPlaceMagnifiedImageCoordinates({ containerDimensions, largeImage, position });
 
             expect(actual).toEqual({ x: -4, y: 0 });
         });

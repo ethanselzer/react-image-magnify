@@ -1,11 +1,11 @@
-import type { EnlargedImagePosition, InputType, Interactions } from 'src/types';
+import type { MagnifiedImagePosition, InputType, Interactions } from 'src/types';
 
 export const INPUT_TYPE: InputType = {
     mouse: 'mouse',
     touch: 'touch',
 };
 
-export const ENLARGED_IMAGE_POSITION: EnlargedImagePosition = {
+export const MAGNIFIED_IMAGE_POSITION: MagnifiedImagePosition = {
     over: 'over',
     beside: 'beside',
 };
@@ -21,7 +21,9 @@ export const INTERACTIONS: Interactions = {
     tap: 'tap',
     press: 'press',
     click: 'click',
-    hint: 'hint',
     hover: 'hover',
     doubleTap: 'double_tap',
 };
+
+export const DEFAULT_MAGNIFY_CONTAINER_HEIGHT = '100%';
+export const DEFAULT_MAGNIFY_CONTAINER_WIDTH = '100%';

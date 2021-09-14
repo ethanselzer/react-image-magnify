@@ -2,9 +2,11 @@ import type { HintPropTypes } from 'src/types';
 
 export function DefaultHint(props: HintPropTypes): JSX.Element {
     const {
+        isMouseDetected,
         isTouchDetected,
         hintTextMouse,
         hintTextTouch,
+        style,
         ...rest
     } = props;
 
@@ -16,6 +18,8 @@ export function DefaultHint(props: HintPropTypes): JSX.Element {
                 justifyContent: 'center',
                 position: 'absolute',
                 bottom: '25px',
+                zIndex: 99,
+                ...style,
             }}
             {...rest}
         >

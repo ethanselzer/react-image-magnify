@@ -7,6 +7,7 @@ import {
     useRef,
     useState,
 } from 'react';
+import useResizeObserver from '@react-hook/resize-observer';
 
 import {
     INTERACTIONS,
@@ -58,6 +59,7 @@ export interface PropTypes extends HTMLProps<HTMLDivElement> {
     tapMoveThreshold?: number;
 }
 
+// TODO move to utils
 const getTouchActivationStrategy = (
     interaction: string,
     onIsActiveChanged: OnIsActiveChangedHandler,
@@ -121,6 +123,35 @@ const getMouseActivationStrategy = (
     }
 };
 
+const getElementDimensions = (rect: DOMRectReadOnly): ContainerDimensions => {
+    const {
+        width,
+        height,
+    } = rect;
+
+    return {
+        width,
+        height,
+    };
+};
+
+const getIsPositionOutside = (pos: Point, elementDimensions: ContainerDimensions): boolean => {
+    const { x, y } = pos;
+    const {
+        width,
+        height,
+    } = elementDimensions;
+
+    return (
+        x < 0
+        || y < 0
+        || x > width
+        || y > height
+    );
+};
+
+const getTouchEvent = (e: TouchEvent): Touch => e.touches[0] as Touch;
+
 export const CursorPosition = (props: PropTypes): JSX.Element => {
     const {
         activationInteractionMouse,
@@ -169,6 +200,11 @@ export const CursorPosition = (props: PropTypes): JSX.Element => {
         y: 0,
     });
 
+    ///
+    /// Hooks
+    ///
+    useResizeObserver(divRef, (entry) => setElementDimensions(getElementDimensions(entry.contentRect)));
+
     // TODO remove / replace
     const handleIsActiveChanged = (event: ActivationChangeEvent): void => {
         setIsActive(event.isActive);
@@ -197,10 +233,6 @@ export const CursorPosition = (props: PropTypes): JSX.Element => {
     /// Helpers
     ///
 
-    const setElementDimensionsState = (dimensions: ContainerDimensions): void => {
-        setElementDimensions(dimensions);
-    };
-
     const unsetShouldGuardAgainstMouseEmulationByDevices = (): void => {
         timersRef.current.push({
             name: MOUSE_EMULATION_GUARD_TIMER_NAME,
@@ -210,39 +242,10 @@ export const CursorPosition = (props: PropTypes): JSX.Element => {
         });
     };
 
-    const getElementDimensions = (el: HTMLElement): ContainerDimensions => {
-        const {
-            width,
-            height,
-        } = el.getBoundingClientRect();
-
-        return {
-            width,
-            height,
-        };
-    };
-
-    const getIsPositionOutside = (pos: Point): boolean => {
-        const { x, y } = pos;
-        const {
-            width,
-            height,
-        } = elementDimensions;
-
-        return (
-            x < 0
-            || y < 0
-            || x > width
-            || y > height
-        );
-    };
-
     const setPositionState = (newPosition: Point): void => {
-        setIsPositionOutside(getIsPositionOutside(newPosition));
+        setIsPositionOutside(getIsPositionOutside(newPosition, elementDimensions));
         setPosition(newPosition);
     };
-
-    const getTouchEvent = (e: TouchEvent): Touch => e.touches[0] as Touch;
 
     const onMouseDetected = (): void => {
         onDetectedEnvironmentChanged({
@@ -346,7 +349,7 @@ export const CursorPosition = (props: PropTypes): JSX.Element => {
         if (divRef.current) {
             observer.current.subject = divRef.current;
 
-            setElementDimensionsState(getElementDimensions(divRef.current));
+            // setElementDimensions(getElementDimensions(divRef.current));
         }
     }, [divRef]);
 

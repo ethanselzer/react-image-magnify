@@ -1,10 +1,10 @@
 import type {
-    ContainerDimensions, LargeImageShape, Point, SmallImageShape,
+    ContainerDimensions, MagnifiedImageProps, Point, StaticImageProps,
 } from 'src/types';
 
 function getSmallToLargeElementRatio(
-    smallElement: ContainerDimensions | SmallImageShape,
-    largeElement: ContainerDimensions | LargeImageShape,
+    smallElement: ContainerDimensions | StaticImageProps,
+    largeElement: ContainerDimensions | MagnifiedImageProps,
 ): Point {
     return {
         x: smallElement.width ? (largeElement.width / smallElement.width) : 1,
@@ -13,15 +13,15 @@ function getSmallToLargeElementRatio(
 }
 
 export function getSmallToLargeImageRatio(
-    smallImage: ContainerDimensions | SmallImageShape,
-    largeImage: ContainerDimensions | LargeImageShape,
+    smallImage: ContainerDimensions | StaticImageProps,
+    largeImage: ContainerDimensions | MagnifiedImageProps,
 ): Point {
     return getSmallToLargeElementRatio(smallImage, largeImage);
 }
 
 export function getLargeToSmallImageRatio(
-    smallImage: ContainerDimensions | SmallImageShape,
-    largeImage: ContainerDimensions | LargeImageShape,
+    smallImage: ContainerDimensions | StaticImageProps,
+    largeImage: ContainerDimensions | MagnifiedImageProps,
 ): Point {
     return {
         x: smallImage.width ? (smallImage.width / largeImage.width) : 1,

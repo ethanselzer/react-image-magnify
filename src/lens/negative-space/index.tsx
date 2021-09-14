@@ -6,6 +6,12 @@ import type { Lens as LensPropTypes } from 'src/types';
 
 export function NegativeSpaceLens(props: LensPropTypes): JSX.Element {
     const {
+        cursorOffset,
+        fadeDurationInMs,
+        isActive,
+        isPositionOutside,
+        position,
+        smallImage,
         style: userSpecifiedStyle,
         ...rest
     } = props;
