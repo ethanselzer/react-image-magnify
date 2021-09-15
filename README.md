@@ -56,78 +56,7 @@ import ReactImageMagnify from 'react-image-magnify';
 ...
 ```
 
-## Required Props
-| Prop                        | Type   | Default | Description                                                |
-|-----------------------------|--------|---------|--------------------------------|
-| imageProps                  | Object | N/A     | Small image information. See [Small Image](#small-image) below.|
-| magnifiedImageProps                  | Object | N/A     | Large image information. See [Large Image](#large-image) below.|
-## Optional Styling Props
-| Prop                        | Type   | Default | Description                                                |
-|-----------------------------|--------|---------|---------------------------------|
-| className                   | String | N/A     | CSS class applied to root container element.               |
-| style                       | Object | N/A     | Style applied to root container element.                   |
-| imageClassName              | String | N/A     | CSS class applied to small image element.                  |
-| imageStyle                  | Object | N/A     | Style applied to small image element.                      |
-| lensStyle                   | Object | N/A   | Style applied to tinted lens.                              |
-| enlargedImageContainerClassName| String |  N/A       | CSS class applied to enlarged image container element.     |
-| enlargedImageContainerStyle | Object | N/A     | Style applied to enlarged image container element.         |
-| enlargedImageClassName      | String | N/A     | CSS class applied to enlarged image element.               |
-| enlargedImageStyle          | Object | N/A     | Style applied to enlarged image element.|
-## Optional Interaction Props
-| Prop                        | Type | Default | Description                                                |
-|-----------------------------|--------|-------|---------------------------------|
-| fadeDurationInMs            | Number | 300     | Milliseconds duration of magnified image fade in/fade out. |
-| hoverDelayInMs              | Number | 250   | Milliseconds to delay hover trigger.                       |
-| hoverOffDelayInMs           | Number | 150   | Milliseconds to delay hover-off trigger.                   |
-| isActivatedOnTouch          | Boolean| false   | Activate magnification immediately on touch. May impact scrolling.|
-| pressDuration               | Number | 500     | Milliseconds to delay long-press activation (long touch).  |
-| pressMoveThreshold          | Number | 5       | Pixels of movement allowed during long-press activation.   |
-## Optional Behavioral Props
-| Prop                        | Type | Default | Description                                                |
-|-----------------------------|--------|-------|---------------------------------|
-| enlargedImagePosition       | String |beside (over for touch)| Enlarged image placement. Can be 'beside' or 'over'.|
-| enlargedImageContainerDimensions | Object | {width: '100%', height: '100%'} | Specify enlarged image container dimensions as an object with width and height properties. Values may be expressed as a percentage (e.g. '150%') or a number (e.g. 200). Percentage is based on small image dimension. Number is pixels. Not applied when enlargedImagePosition is set to 'over', the default for touch input. |
-| enlargedImagePortalId | String | N/A | Render enlarged image into an HTML element of your choosing by specifying the target element id. Requires React v16. Ignored for touch input by default - see isEnlargedImagePortalEnabledForTouch.|
-| isEnlargedImagePortalEnabledForTouch | Boolean | false | Specify portal rendering should be honored for touch input. |
-| hintComponent               |Function|(Provided)| Reference to a component class or functional component. A Default is provided.|
-| shouldHideHintAfterFirstActivation| Boolean | true   | Only show hint until the first interaction begins.         |
-| isHintEnabled               | Boolean| false   | Enable hint feature. |
-| hintTextMouse               | String |Hover to Zoom| Hint text for mouse. |
-| hintTextTouch               | String |Long-Touch to Zoom| Hint text for touch. |
-| shouldUsePositiveSpaceLens  | Boolean| false | Specify a positive space lens in place of the default negative space lens. |
-| lensComponent  | Function | (Provided) | Specify a custom lens component. |
-
-### Small Image
-```
-{
-    src: String, (required)
-    srcSet: String,
-    sizes: String,
-    width: Number, (required if isFluidWidth is not set)
-    height: Number, (required if isFluidWidth is not set)
-    isFluidWidth: Boolean, (default false)
-    alt: String,
-    onLoad: Function,
-    onError: Function
-}
-```
-For more information on responsive images, please try these resources:  
-[Responsive Images 101](https://cloudfour.com/thinks/responsive-images-101-definitions/)  
-[Responsive Images - The srcset and sizes Attributes](https://bitsofco.de/the-srcset-and-sizes-attributes/)
-
-### Large Image
-```
-{
-    src: String, (required)
-    srcSet: String,
-    sizes: String,
-    width: Number, (required)
-    height: Number, (required)
-    alt: String, (defaults to empty string)
-    onLoad: Function,
-    onError: Function
-}
-```
+For more usage, see the [Storybook](https://gooftroop.github.io/react-image-magnify)
 
 ## Support
 
@@ -140,14 +69,12 @@ add commits, and [open a pull request](https://github.com/ethanselzer/react-imag
 
 ### Development
 
-```ssh
-git clone https://github.com/ethanselzer/react-image-magnify.git
+```sh
+git clone https://github.com/gooftroop/react-image-magnify.git
 cd react-image-magnify
 npm install
-npm run #See available commands
+npm run storybook
 ```
-
-### Storybook
 
 ## Attribution
 

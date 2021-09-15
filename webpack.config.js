@@ -4,14 +4,14 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 const TerserJSPlugin = require('terser-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const webpack = require('webpack');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const NAME = 'ReactImageMagnify';
 const DIST = path.resolve('./dist');
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
-const core = {
+module.exports = [{
     devtool: 'source-map',
     devServer: {
         contentBase: DIST,
@@ -30,9 +30,13 @@ const core = {
             {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
-                exclude: [/node_modules/, /__tests__/, /__mocks__/],
+                exclude: [/node_modules/, /__tests__/, /__mocks__/, /stories/],
                 options: {
-                    configFile: IS_PRODUCTION ? 'tsconfig.json' : 'tsconfig.dev.json',
+                    configFile: IS_PRODUCTION ? 'tsconfig.prod.json' : 'tsconfig.dev.json',
+                    compilerOptions: {
+                        module: 'commonjs',
+                        target: 'es6',
+                    },
                     getCustomTransformers: () => ({
                         before: IS_PRODUCTION ? [] : [ReactRefreshTypeScript()],
                     }),
@@ -51,6 +55,13 @@ const core = {
         sideEffects: true,
         usedExports: true,
     },
+    output: {
+        path: DIST,
+        filename: `${NAME}.js`,
+        library: {
+            type: 'commonjs2',
+        },
+    },
     plugins: [
         new CleanWebpackPlugin(),
         new BundleAnalyzerPlugin({
@@ -68,36 +79,8 @@ const core = {
     ].filter(Boolean),
     resolve: {
         extensions: ['.tsx', '.ts', '.js'],
-        plugins: [new TsconfigPathsPlugin()],
-    },
-};
-
-module.exports = [{
-    ...core,
-    module: {
-        rules: [
-            {
-                test: /\.tsx?$/,
-                loader: 'ts-loader',
-                exclude: [/node_modules/, /__tests__/, /__test__/, /__mocks__/, /__mock__/, /stories/],
-                options: {
-                    configFile: IS_PRODUCTION ? 'tsconfig.json' : 'tsconfig.dev.json',
-                    compilerOptions: {
-                        module: 'commonjs',
-                        target: 'es6',
-                    },
-                    getCustomTransformers: () => ({
-                        before: IS_PRODUCTION ? [] : [ReactRefreshTypeScript()],
-                    }),
-                },
-            },
-        ],
-    },
-    output: {
-        path: DIST,
-        filename: `${NAME}.js`,
-        library: {
-            type: 'commonjs2',
-        },
+        plugins: [new TsconfigPathsPlugin({
+            configFile: IS_PRODUCTION ? 'tsconfig.prod.json' : 'tsconfig.dev.json',
+        })],
     },
 }];

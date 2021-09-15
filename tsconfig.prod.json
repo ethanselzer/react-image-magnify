@@ -3,6 +3,8 @@
         "allowJs": true,
         "baseUrl": ".",
         "checkJs": false,
+        "declaration": true,
+        "declarationDir": "./dist/types",
         "downlevelIteration": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,
@@ -34,6 +36,9 @@
         "dist/**/*",
         "node_modules/**/*",
         ".vscode/**/*",
-        "docs/**"
+        "docs/**",
+        "**/stories/**",
+        "**/__tests__/**",
+        "**/__mocks__/**"
     ]
 }

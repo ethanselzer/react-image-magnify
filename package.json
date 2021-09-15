@@ -39,6 +39,7 @@
     "analyze": "npm run stats && webpack-bundle-analyzer stats.json",
     "build": "cross-env NODE_ENV=production webpack",
     "build:dev": "cross-env NODE_ENV=development webpack",
+    "build:docs": "typedoc",
     "build:storybook": "build-storybook",
     "coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls",
     "deploy:storybook": "storybook-to-ghpages",

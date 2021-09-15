@@ -2,7 +2,7 @@
 .vscode/
 coverage/
 dist/
-example/
+docs/
 stats.json
 node_modules/
 jest.config.js

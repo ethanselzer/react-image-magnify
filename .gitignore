@@ -45,5 +45,5 @@ dist/**/*
 # Local configuration
 .cache
 
-# Styleguide
-styleguide
+# Documentation
+docs
