@@ -1,11 +1,15 @@
 version: 2.1
 orbs:
   node: circleci/node@4.7
-jobs:
 
-  build:
+executors:
+  default:
     docker: 
       - image: node:current-buster-slim
+
+jobs:
+  build:
+    executor: default
     environment:
       NODE_ENV: development
     steps:
@@ -18,8 +22,7 @@ jobs:
             - dist
 
   release:
-    docker:
-    - image: node:current-buster-slim
+    executor: default
     environment:
       NODE_ENV: development
     steps:
@@ -30,22 +33,24 @@ jobs:
       - run: npx semantic-release
       - run: npm run deploy-storybook -- --ci
 
+  test:
+    executor: default
+    environment:
+      NODE_ENV: development
+    steps:
+      - checkout
+      - node/install-packages
+      - run: npm run test:ci
+
 workflows:
   version: 2
   default:
     jobs:
-      - node/test:
-          run-command: test:ci
-          docker:
-            - image: node:current-buster-slim
-          environment:
-            NODE_ENV: development
+      - test
       - build:
           requires:
             - test
       - release:
-          context:
-            - Access Tokens
           requires:
             - build
           filters:
