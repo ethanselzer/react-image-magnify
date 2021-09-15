@@ -11,9 +11,12 @@ module.exports = {
         ["@semantic-release/npm", {
             "tarballDir": "release",
         }],
-        // ["@semantic-release/gitlab", {
-        //     "gitlabUrl": "https://gitlab.com/vistaprint-org/design-technology/themes",
-        //     "assets": "release/*.tgz",
-        // }],
+        ["@semantic-release/github", {
+            "assets": [
+                { "path": "dist/types/**/*.d.ts", "label": "Typings" },
+                { "path": "dist/ReactImageMagnify.js", "label": "ReactImageMagnify" },
+                { "path": "dist/ReactImageMagnify.js.map", "label": "Sourcemap" }
+            ]
+        }],
     ],
 };
