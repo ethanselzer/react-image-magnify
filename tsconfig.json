@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "allowJs": false,
+        "allowJs": true,
         "baseUrl": ".",
         "checkJs": false,
         "declaration": true,

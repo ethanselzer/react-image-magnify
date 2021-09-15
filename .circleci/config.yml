@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/react-image-magnify
     branches:
         ignore:
-        - gh-pages
+          - gh-pages
     docker:
       - image: circleci/node:15
     steps:

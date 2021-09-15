@@ -5,6 +5,11 @@
         "extendedDiagnostics": true,
         "jsx": "react-jsxdev"
     },
+    "exclude": [
+        "dist/**/*",
+        "node_modules/**/*",
+        ".vscode/**/*"
+    ],
     "include": [
         "@types/**/*",
         "src/**/*",
