@@ -1,19 +1,12 @@
 <br />
-<table align="center">
-    <tr>
-        <td>
-            <image
-                alt="Magnifying glass"
-                height="50"
-                src="./assets/search-magnifier-tool.svg"
-            />
-            &nbsp;&nbsp;
-        </td>
-        <td vlign="center">
-            <h2 align="center">React Image Magnify</h2>
-        </td>
-    </tr>
-</table>
+<p align="center">
+    <image
+        alt="Magnifying glass"
+        height="50"
+        src="./assets/search-magnifier-tool.svg"
+    />
+</p>
+<h2 align="center">React Image Magnify</h2>
 <br />
 
 <p align="center">
