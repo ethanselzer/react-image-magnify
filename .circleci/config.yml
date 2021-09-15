@@ -48,10 +48,18 @@ workflows:
   version: 2
   default:
     jobs:
-      - test
+      - test:
+          filters:
+            branches:
+              ignore:
+                - gh_pages
       - build:
           requires:
             - test
+          filters:
+            branches:
+              ignore:
+                - gh_pages
       - release:
           requires:
             - build
