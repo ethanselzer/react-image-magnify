@@ -1,11 +1,49 @@
-react-image-magnify
-===
+<h2 align="center">React Image Magnify</h2>
+<br />
 
-A responsive React image zoom component for touch and mouse.
+<p align="center">
+    <b>A responsive React image zoom component for touch and mouse.</b>
+</p>
 
-Designed for shopping site product detail.
+<p align="center">
+    <a href="https://circleci.com/gh/gooftroop/react-image-magnify/tree/master">
+        <img src="https://circleci.com/gh/gooftroop/react-image-magnify/tree/master.svg?style=svg" alt="CircleCI" />
+    </a>
+    <a href="https://codeclimate.com/github/gooftroop/react-image-magnify/maintainability">
+        <img src="https://api.codeclimate.com/v1/badges/4e91d32af87836dce581/maintainability" />
+    </a>
+    <a href="https://coveralls.io/github/gooftroop/react-image-magnify?branch=master">
+        <img src="https://coveralls.io/repos/github/gooftroop/react-image-magnify/badge.svg?branch=master" />
+    </a>
+    <a href="https://www.npmjs.com/package/@blacklab/react-image-magnify">
+        <img src="https://img.shields.io/npm/v/@blacklab/react-image-magnify.svg" />
+    </a>
+    <a href="https://opensource.org/licenses/MIT">
+        <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
+    </a>
+    <a href="https://gooftroop.github.io/react-image-magnify">
+        <img src="https://cdn.jsdelivr.net/gh/storybookjs/brand@main/badge/badge-storybook.svg" />
+    </a>
+</p>
+<br />
+<br />
 
-Features Include:
+## Installation
+<hr />
+
+```sh
+npm install @blacklab/react-image-magnify
+```
+<br />
+
+## Documentation
+<hr />
+
+**[View the docs here](https://gooftroop.github.io/react-image-magnify)**
+
+[Storybook](https://gooftroop.github.io/react-image-magnify)
+
+React Image Magnify is a React Component library that provides
 * In-place and side-by-side image enlargement
 * Positive or negative space guide lens options
 * Interaction hint
@@ -14,60 +52,54 @@ Features Include:
 * Hover and click intent
 * Long-press gesture
 * Fade transitions
+<br />
+<br />
 
-## Status
-[![CircleCI](https://circleci.com/gh/gooftroop/react-image-magnify/tree/master.svg?style=svg)](https://circleci.com/gh/gooftroop/react-image-magnify/tree/master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/4e91d32af87836dce581/maintainability)](https://codeclimate.com/github/gooftroop/react-image-magnify/maintainability)
-[![Coverage Status](https://coveralls.io/repos/github/gooftroop/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/gooftroop/react-image-magnify?branch=master)
-[![npm](https://img.shields.io/npm/v/@blacklab/react-image-magnify.svg)](https://www.npmjs.com/package/@blacklab/react-image-magnify)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@main/badge/badge-storybook.svg)](https://gooftroop.github.io/react-image-magnify)
+## Example usage
+<hr />
 
-## Documentation
-Read more in the [documentation](https://gooftroop.github.io/react-image-magnify)
-
-## Peer Dependencies
-
-- React 17
-
-## Installation
-
-```sh
-npm install @blacklab/react-image-magnify
-```
-
-## Usage
-
-```JavaScript
+```typescript
 import ReactImageMagnify from 'react-image-magnify';
-...
-<ReactImageMagnify {...{
-    imageProps: {
+
+<ReactImageMagnify
+    imageProps={{
         alt: 'Wristwatch by Ted Baker London',
         isFluidWidth: true,
         src: watchImg300
-    },
-    magnifiedImageProps: {
+    }}
+    magnifiedImageProps={{
         src: watchImg1200,
         width: 1200,
         height: 1800
-    }
-}} />
-...
+    }}
+/>
 ```
+<br />
 
-For more usage, see the [Storybook](https://gooftroop.github.io/react-image-magnify)
+## Changes
+<hr />
+
+Detailed release notes for a given version can be found [on our releases page](https://github.com/gooftroop/react-image-magnify/releases).
+<br />
+<br />
 
 ## Support
+<hr />
 
-Please [open an issue](https://github.com/ethanselzer/react-image-magnify/issues).
+Please [open an issue](https://github.com/gooftroop/react-image-magnify/issues).
+<br />
+<br />
 
 ## Contributing
+<hr />
 
 Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch,
-add commits, and [open a pull request](https://github.com/ethanselzer/react-image-magnify/compare/).
+add commits, and [open a pull request](https://github.com/gooftroop/react-image-magnify/compare/).
+<br />
+<br />
 
-### Development
+#### Getting Started
+
 
 ```sh
 git clone https://github.com/gooftroop/react-image-magnify.git
@@ -75,8 +107,10 @@ cd react-image-magnify
 npm install
 npm run storybook
 ```
+<br />
 
-## Attribution
+## Contributors
+<hr />
 
 Thanks to the following community members for opening Issues and Pull Requests.
 
@@ -105,7 +139,10 @@ Thanks to the following community members for opening Issues and Pull Requests.
 @gooftroop 
 
 You are awesome! ✨💫
+<br />
+<br />
 
 ## License
+<hr />
 
 MIT

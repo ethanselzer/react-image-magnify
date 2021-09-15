@@ -31,7 +31,7 @@ jobs:
       - node/install-packages
       - attach_workspace:
           at: .
-      - run: ls -al
+      - run: npm run build:docs
       - run: npx semantic-release
       - run: npm run deploy:storybook -- --ci
 
