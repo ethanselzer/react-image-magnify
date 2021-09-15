@@ -26,10 +26,10 @@ jobs:
     environment:
       NODE_ENV: development
     steps:
-      - attach_workspace:
-          at: .
       - checkout
       - node/install-packages
+      - attach_workspace:
+          at: .
       - run: npx semantic-release
       - run: npm run deploy-storybook -- --ci
 

@@ -11,30 +11,29 @@ Features Include:
 * Interaction hint
 * Configurable enlarged image dimensions
 * Optional enlarged image external render
-* Hover intent
+* Hover and click intent
 * Long-press gesture
 * Fade transitions
-* Basic react-slick carousel support
 
 ## Status
 [![CircleCI](https://circleci.com/gh/gooftroop/react-image-magnify/tree/master.svg?style=svg)](https://circleci.com/gh/gooftroop/react-image-magnify/tree/master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/4e91d32af87836dce581/maintainability)](https://codeclimate.com/github/gooftroop/react-image-magnify/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/gooftroop/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/gooftroop/react-image-magnify?branch=master)
-[![npm](https://img.shields.io/npm/v/react-image-magnify.svg)](https://www.npmjs.com/package/@treehouse/react-image-magnify)
+[![npm](https://img.shields.io/npm/v/react-image-magnify.svg)](https://www.npmjs.com/package/@gooftroop/react-image-magnify)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@main/badge/badge-storybook.svg)](https://gooftroop.github.io/react-image-magnify)
 
 ## Documentation
 Read more in the [documentation](https://gooftroop.github.io/react-image-magnify)
 
-## Dependencies
+## Peer Dependencies
 
 - React 17
 
 ## Installation
 
 ```sh
-npm install @treehouse/react-image-magnify
+npm install @gooftroop/react-image-magnify
 ```
 
 ## Usage
@@ -43,12 +42,12 @@ npm install @treehouse/react-image-magnify
 import ReactImageMagnify from 'react-image-magnify';
 ...
 <ReactImageMagnify {...{
-    smallImage: {
+    imageProps: {
         alt: 'Wristwatch by Ted Baker London',
         isFluidWidth: true,
         src: watchImg300
     },
-    largeImage: {
+    magnifiedImageProps: {
         src: watchImg1200,
         width: 1200,
         height: 1800
@@ -56,13 +55,12 @@ import ReactImageMagnify from 'react-image-magnify';
 }} />
 ...
 ```
-See more usage examples in the [example project](https://github.com/ethanselzer/react-image-magnify/tree/master/example).
 
 ## Required Props
 | Prop                        | Type   | Default | Description                                                |
 |-----------------------------|--------|---------|--------------------------------|
-| smallImage                  | Object | N/A     | Small image information. See [Small Image](#small-image) below.|
-| largeImage                  | Object | N/A     | Large image information. See [Large Image](#large-image) below.|
+| imageProps                  | Object | N/A     | Small image information. See [Small Image](#small-image) below.|
+| magnifiedImageProps                  | Object | N/A     | Large image information. See [Large Image](#large-image) below.|
 ## Optional Styling Props
 | Prop                        | Type   | Default | Description                                                |
 |-----------------------------|--------|---------|---------------------------------|
