@@ -26,7 +26,7 @@ jobs:
     environment:
       NODE_ENV: development
     steps:
-      - apt update && apt install -y git
+      - run: apt update && apt install -y git
       - checkout
       - node/install-packages
       - attach_workspace:
