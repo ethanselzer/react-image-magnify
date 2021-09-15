@@ -7,7 +7,7 @@
     "url": "https://github.com/gooftroop/react-image-magnify.git"
   },
   "publishConfig": {
-    "registry": "https://npmjs.com/package/@gooftroop/react-image-magnify",
+    "registry": "https://npmjs.com/package",
     "tag": "latest"
   },
   "author": "Ethan Selzer <ethanselzer@gmail.com>, Brandon Webb <webb.c.brandon@gmail.com>",
