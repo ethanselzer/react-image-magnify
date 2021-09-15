@@ -4,7 +4,7 @@
         "baseUrl": ".",
         "checkJs": false,
         "declaration": true,
-        "declarationDir": "types",
+        "declarationDir": "./dist/types",
         "downlevelIteration": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,
@@ -16,7 +16,7 @@
             "ESNext",
             "DOM"
         ],
-        "module": "CommonJS",
+        "module": "ESNext",
         "moduleResolution": "node",
         "newLine": "lf",
         "noFallthroughCasesInSwitch": true,
@@ -30,10 +30,12 @@
         "resolveJsonModule": true,
         "sourceMap": true,
         "strict": true,
-        "target": "es6"
+        "target": "ESNext"
     },
     "exclude": [
+        "dist/**/*",
         "node_modules/**/*",
-        ".vscode/**/*"
+        ".vscode/**/*",
+        "src/stories/**/*"
     ]
 }

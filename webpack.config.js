@@ -1,4 +1,3 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const ReactRefreshTypeScript = require('react-refresh-typescript');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
@@ -8,10 +7,11 @@ const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
+const NAME = 'ReactImageMagnify';
 const DIST = path.resolve('./dist');
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
-module.exports = {
+const core = {
     devtool: 'source-map',
     devServer: {
         contentBase: DIST,
@@ -19,18 +19,15 @@ module.exports = {
         port: 3000,
         historyApiFallback: true,
     },
-    entry: './src/ReactImageMagnify.js',
+    entry: ['./src/index.ts'],
     externals: {
         react: 'react',
+        'react-dom': 'reactDOM',
     },
     mode: IS_PRODUCTION ? 'production' : 'development',
     module: {
         rules: [
             {
-                test: /\.html$/,
-                exclude: /node_modules/,
-                use: 'html-loader',
-            }, {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
                 exclude: [/node_modules/, /__tests__/, /__mocks__/],
@@ -54,11 +51,6 @@ module.exports = {
         sideEffects: true,
         usedExports: true,
     },
-    output: {
-        path: DIST,
-        filename: 'ReactImageMagnify.js',
-        library: 'ReactImageMagnify',
-    },
     plugins: [
         new CleanWebpackPlugin(),
         new BundleAnalyzerPlugin({
@@ -71,9 +63,6 @@ module.exports = {
              */
             analyzerMode: 'disabled',
         }),
-        !IS_PRODUCTION ? new HtmlWebpackPlugin({
-            template: 'example/index.html',
-        }) : null,
         !IS_PRODUCTION ? new webpack.HotModuleReplacementPlugin() : null,
         !IS_PRODUCTION ? new ReactRefreshWebpackPlugin() : null,
     ].filter(Boolean),
@@ -82,3 +71,33 @@ module.exports = {
         plugins: [new TsconfigPathsPlugin()],
     },
 };
+
+module.exports = [{
+    ...core,
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                loader: 'ts-loader',
+                exclude: [/node_modules/, /__tests__/, /__mocks__/],
+                options: {
+                    configFile: IS_PRODUCTION ? 'tsconfig.json' : 'tsconfig.dev.json',
+                    compilerOptions: {
+                        module: 'commonjs',
+                        target: 'es6',
+                    },
+                    getCustomTransformers: () => ({
+                        before: IS_PRODUCTION ? [] : [ReactRefreshTypeScript()],
+                    }),
+                },
+            },
+        ],
+    },
+    output: {
+        path: DIST,
+        filename: `${NAME}.js`,
+        library: {
+            type: 'commonjs2',
+        },
+    },
+}];

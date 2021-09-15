@@ -108,6 +108,4 @@ export type PortalProps = {
     enableForTouch?: boolean;
 };
 
-export interface MagnifyContainerProps extends Omit<HTMLProps<HTMLDivElement>, 'height' | 'width'>, MagnifyContainerDimensions {
-
-}
+export interface MagnifyContainerProps extends Omit<HTMLProps<HTMLDivElement>, 'height' | 'width'>, MagnifyContainerDimensions {}

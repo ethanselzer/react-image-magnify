@@ -24,13 +24,13 @@ describe('Image Coordinates Library', () => {
             };
             const lensCursorOffset = { x: 1, y: 1 };
 
-            const actual = getLensModeMagnifiedImageCoordinates({
-                smallImage,
+            const actual = getLensModeMagnifiedImageCoordinates(
+                magnifiedImageContainerDimensions,
+                lensCursorOffset,
                 largeImage,
                 position,
-                cursorOffset: lensCursorOffset,
-                containerDimensions: magnifiedImageContainerDimensions,
-            });
+                smallImage,
+            );
 
             expect(actual).toEqual({ x: -2, y: -2 });
         });
@@ -54,13 +54,13 @@ describe('Image Coordinates Library', () => {
             };
             const lensCursorOffset = { x: 1, y: 1 };
 
-            const actual = getLensModeMagnifiedImageCoordinates({
-                smallImage,
+            const actual = getLensModeMagnifiedImageCoordinates(
+                magnifiedImageContainerDimensions,
+                lensCursorOffset,
                 largeImage,
                 position,
-                cursorOffset: lensCursorOffset,
-                containerDimensions: magnifiedImageContainerDimensions,
-            });
+                smallImage,
+            );
 
             expect(actual).toEqual({ x: -0, y: -4 });
         });
@@ -81,7 +81,7 @@ describe('Image Coordinates Library', () => {
                 y: 2,
             };
 
-            const actual = getInPlaceMagnifiedImageCoordinates({ containerDimensions, largeImage, position });
+            const actual = getInPlaceMagnifiedImageCoordinates(containerDimensions, largeImage, position);
 
             expect(actual).toEqual({ x: -2, y: -2 });
         });
@@ -100,7 +100,7 @@ describe('Image Coordinates Library', () => {
                 y: -1,
             };
 
-            const actual = getInPlaceMagnifiedImageCoordinates({ containerDimensions, largeImage, position });
+            const actual = getInPlaceMagnifiedImageCoordinates(containerDimensions, largeImage, position);
 
             expect(actual).toEqual({ x: -4, y: 0 });
         });
