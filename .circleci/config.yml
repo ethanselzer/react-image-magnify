@@ -1,21 +1,76 @@
-version: 2
+version: 2.1
+orbs:
+  node: circleci/node@4.7
 jobs:
+
   build:
-    working_directory: ~/react-image-magnify
-    branches:
-        ignore:
-          - gh-pages
-    docker:
-      - image: circleci/node:15
+    docker: 
+      - image: node:current-buster-slim
+    environment:
+      NODE_ENV: development
     steps:
       - checkout
-      - run:
-          name: install-npm
-          command: npm install
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+      - node/install-packages
+      - run: npm run build
+      - persist_to_workspace:
+          root: .
           paths:
-            - ./node_modules
-      - run:
-          name: test
-          command: npm run test:ci
+            - dist
+
+  release:
+    docker:
+    - image: node:current-buster-slim
+    environment:
+      NODE_ENV: development
+    steps:
+      - attach_workspace:
+          at: .
+      - checkout
+      - node/install-packages
+      - run: npx semantic-release
+      - run: npm run deploy-storybook -- --ci
+
+  test:
+    docker:
+      - image: node:current-buster-slim
+    environment:
+      NODE_ENV: development
+    steps:
+      - checkout
+      - node/install-packages
+      - node/test:
+          run-command: test:ci
+
+workflows:
+  version: 2
+  test and release:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only:
+                - master
+      - build:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
+
+      - release:
+          context:
+            - Access Tokens
+          requires:
+            - build
+          filters:
+            branches:
+              only:
+                - master
+
+  test and build:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
