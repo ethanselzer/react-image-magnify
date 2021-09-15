@@ -26,10 +26,12 @@ jobs:
     environment:
       NODE_ENV: development
     steps:
+      - apt update && apt install -y git
       - checkout
       - node/install-packages
       - attach_workspace:
           at: .
+      - run: ls -al
       - run: npx semantic-release
       - run: npm run deploy-storybook -- --ci
 
