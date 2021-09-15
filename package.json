@@ -4,14 +4,14 @@
   "description": "A responsive react image zoom component",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blacklab/react-image-magnify.git"
+    "url": "git+https://github.com/gooftroop/react-image-magnify.git"
   },
   "author": "Brandon Webb <webb.c.brandon@gmail.com>, Ethan Selzer <ethanselzer@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/blacklab/react-image-magnify/issues"
+    "url": "https://github.com/gooftroop/react-image-magnify/issues"
   },
-  "homepage": "https://github.com/blacklab/react-image-magnify",
+  "homepage": "https://github.com/gooftroop/react-image-magnify",
   "keywords": [
     "react",
     "image",
