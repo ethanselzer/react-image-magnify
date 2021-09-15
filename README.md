@@ -106,29 +106,9 @@ npm run storybook
 
 Thanks to the following community members for opening Issues and Pull Requests.
 
-@damien916  
-@colepatrickturner  
-@andreatosatto90  
-@nathanziarek  
-@hombrew  
-@smashercosmo  
-@sk1e  
-@vidries  
-@ionutzp  
-@sbloedel  
-@spiderbites  
-@Akarshit  
-@eddy20vt  
-@evannoronha  
-@benjaminadk  
-@nilsklimm  
-@m4recek  
-@yaser-ali-vp  
-@carlgunderson  
-@tojvan  
-@kskonecka  
-@Coriou  
-@gooftroop  
+<a href="https://github.com/gooftroop/react-image-magnify/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=gooftroop/react-image-magnify" />
+</a>
 
 You are awesome! ✨💫
 
