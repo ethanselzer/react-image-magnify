@@ -41,22 +41,5 @@
         "**/__mocks__/**/*",
         "**/__test__/**/*",
         "**/__mock__/**/*"
-    ],
-    "typedocOptions": {
-        "entryPoints": [
-            "src/index.ts"
-        ],
-        "out": "docs",
-        "exclude": [
-            "dist/**/*",
-            "node_modules/**/*",
-            ".vscode/**/*",
-            "**/stories/**/*",
-            "**/__tests__/**/*",
-            "**/__mocks__/**/*",
-            "**/__test__/**/*",
-            "**/__mock__/**/*"
-        ],
-        "readme": "./README.dm"
-    }
+    ]
 }

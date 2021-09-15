@@ -1,10 +1,12 @@
 coverage
+docs
 jest
 src
 node_modules
 jest.config*
 junit.xml
 tsconfig.*
+typedoc.*
 webpack.config.*
 coveralls.*
 stats.*

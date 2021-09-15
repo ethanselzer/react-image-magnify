@@ -1,0 +1,21 @@
+{
+    "entryPoints": [
+        "src/index.ts"
+    ],
+    "out": "docs",
+    "exclude": [
+        "dist/**/*",
+        "node_modules/**/*",
+        ".vscode/**/*",
+        "**/stories/**/*",
+        "**/__tests__/**/*",
+        "**/__mocks__/**/*",
+        "**/__test__/**/*",
+        "**/__mock__/**/*"
+    ],
+    "excludeExternals": true,
+    "excludeInternal": true,
+    "excludePrivate": true,
+    "name": "React Image Magnify",
+    "readme": "./README.dm"
+}

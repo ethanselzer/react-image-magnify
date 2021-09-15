@@ -12,9 +12,7 @@ module.exports = {
             "tarballDir": "release",
         }],
         ["@semantic-release/github", {
-            "assets": [
-                { "path": "dist", "label": "distribution" },
-            ]
+            "assets": []
         }],
     ],
 };
