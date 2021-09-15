@@ -127,8 +127,8 @@ Thanks to the following community members for opening Issues and Pull Requests.
 @carlgunderson  
 @tojvan  
 @kskonecka  
-@Coriou 
-@gooftroop 
+@Coriou  
+@gooftroop  
 
 You are awesome! ✨💫
 
