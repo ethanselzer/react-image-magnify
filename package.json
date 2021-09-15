@@ -6,6 +6,11 @@
     "type": "git",
     "url": "git+https://github.com/gooftroop/react-image-magnify.git"
   },
+  "storybook-deployer": {
+    "gitUsername": "Brandon Webb",
+    "gitEmail": "webb.c.brandon@gmail.com",
+    "commitMessage": "Deploy Storybook [skip ci]"
+  },
   "author": "Brandon Webb <webb.c.brandon@gmail.com>, Ethan Selzer <ethanselzer@gmail.com>",
   "license": "MIT",
   "bugs": {
