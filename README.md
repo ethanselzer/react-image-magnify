@@ -6,7 +6,7 @@
         src="./assets/search-magnifier-tool.svg"
     />
 </p>
-<h2 align="center">React Image Magnify</h2>
+<h3 align="center">React Image Magnify</h3>
 <br />
 
 <p align="center">
