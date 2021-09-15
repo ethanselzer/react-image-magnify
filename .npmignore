@@ -8,6 +8,7 @@ tsconfig.*
 webpack.config.*
 coveralls.*
 stats.*
+styleguide.config.*
 .commitlintrc*
 .codeclimate.yml
 .eslintignore

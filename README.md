@@ -16,15 +16,15 @@ Features Include:
 * Fade transitions
 
 ## Status
-[![CircleCI](https://circleci.com/gh/gooftroop/react-image-magnify/tree/master.svg?style=svg)](https://circleci.com/gh/gooftroop/react-image-magnify/tree/master)
-[![Maintainability](https://api.codeclimate.com/v1/badges/4e91d32af87836dce581/maintainability)](https://codeclimate.com/github/gooftroop/react-image-magnify/maintainability)
-[![Coverage Status](https://coveralls.io/repos/github/gooftroop/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/gooftroop/react-image-magnify?branch=master)
-[![npm](https://img.shields.io/npm/v/react-image-magnify.svg)](https://www.npmjs.com/package/@gooftroop/react-image-magnify)
+[![CircleCI](https://circleci.com/gh/blacklab/react-image-magnify/tree/master.svg?style=svg)](https://circleci.com/gh/blacklab/react-image-magnify/tree/master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/4e91d32af87836dce581/maintainability)](https://codeclimate.com/github/blacklab/react-image-magnify/maintainability)
+[![Coverage Status](https://coveralls.io/repos/github/blacklab/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/blacklab/react-image-magnify?branch=master)
+[![npm](https://img.shields.io/npm/v/react-image-magnify.svg)](https://www.npmjs.com/package/@blacklab/react-image-magnify)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@main/badge/badge-storybook.svg)](https://gooftroop.github.io/react-image-magnify)
+[![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@main/badge/badge-storybook.svg)](https://blacklab.github.io/react-image-magnify)
 
 ## Documentation
-Read more in the [documentation](https://gooftroop.github.io/react-image-magnify)
+Read more in the [documentation](https://blacklab.github.io/react-image-magnify)
 
 ## Peer Dependencies
 
@@ -33,7 +33,7 @@ Read more in the [documentation](https://gooftroop.github.io/react-image-magnify
 ## Installation
 
 ```sh
-npm install @gooftroop/react-image-magnify
+npm install @blacklab/react-image-magnify
 ```
 
 ## Usage
@@ -175,7 +175,7 @@ Thanks to the following community members for opening Issues and Pull Requests.
 @tojvan  
 @kskonecka  
 @Coriou 
-@gooftroop 
+@blacklab 
 
 You are awesome! ✨💫
 

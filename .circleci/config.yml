@@ -33,7 +33,7 @@ jobs:
           at: .
       - run: ls -al
       - run: npx semantic-release
-      - run: npm run deploy-storybook -- --ci
+      - run: npm run deploy:storybook -- --ci
 
   test:
     executor: default

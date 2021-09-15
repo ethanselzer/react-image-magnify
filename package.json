@@ -1,21 +1,17 @@
 {
-  "name": "@gooftroop/react-image-magnify",
+  "name": "@blacklab/react-image-magnify",
   "version": "0.0.0-development",
-  "description": "A responsive image zoom component designed for retail sites.",
+  "description": "A responsive react image zoom component",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gooftroop/react-image-magnify.git"
+    "url": "git+https://github.com/blacklab/react-image-magnify.git"
   },
-  "publishConfig": {
-    "registry": "https://npmjs.com/package",
-    "tag": "latest"
-  },
-  "author": "Ethan Selzer <ethanselzer@gmail.com>, Brandon Webb <webb.c.brandon@gmail.com>",
+  "author": "Brandon Webb <webb.c.brandon@gmail.com>, Ethan Selzer <ethanselzer@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gooftroop/react-image-magnify/issues"
+    "url": "https://github.com/blacklab/react-image-magnify/issues"
   },
-  "homepage": "https://github.com/gooftroop/react-image-magnify",
+  "homepage": "https://github.com/blacklab/react-image-magnify",
   "keywords": [
     "react",
     "image",
@@ -43,20 +39,20 @@
     "analyze": "npm run stats && webpack-bundle-analyzer stats.json",
     "build": "cross-env NODE_ENV=production webpack",
     "build:dev": "cross-env NODE_ENV=development webpack",
-    "prepublish": "pinst --disable",
-    "postpublish": "pinst --enable",
+    "build:storybook": "build-storybook",
+    "coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls",
+    "deploy:storybook": "storybook-to-ghpages",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "lint:fix": "npm run lint -- --fix",
+    "prepublish": "pinst --disable",
+    "postpublish": "pinst --enable",
+    "semantic-release": "semantic-release",
     "stats": "cross-env NODE_ENV=production webpack --profile --json > stats.json",
+    "storybook": "start-storybook -p 6006",
     "test": "jest",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "rimraf coverage && npm test -- --coverage",
-    "test:ci": "npm run lint && npm run coveralls",
-    "coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "deploy-storybook": "storybook-to-ghpages",
-    "semantic-release": "semantic-release"
+    "test:ci": "npm run lint && npm run coveralls"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
