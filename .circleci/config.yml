@@ -30,34 +30,19 @@ jobs:
       - run: npx semantic-release
       - run: npm run deploy-storybook -- --ci
 
-  test:
-    docker:
-      - image: node:current-buster-slim
-    environment:
-      NODE_ENV: development
-    steps:
-      - checkout
-      - node/install-packages
-      - node/test:
-          run-command: test:ci
-
 workflows:
   version: 2
-  test and release:
+  default:
     jobs:
-      - test:
-          filters:
-            branches:
-              only:
-                - master
+      - node/test:
+          run-command: test:ci
+          docker:
+            - image: node:current-buster-slim
+          environment:
+            NODE_ENV: development
       - build:
           requires:
             - test
-          filters:
-            branches:
-              only:
-                - master
-
       - release:
           context:
             - Access Tokens
@@ -67,10 +52,3 @@ workflows:
             branches:
               only:
                 - master
-
-  test and build:
-    jobs:
-      - test
-      - build:
-          requires:
-            - test
