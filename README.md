@@ -1,4 +1,19 @@
-<h2 align="center">React Image Magnify</h2>
+<br />
+<table align="center">
+    <tr>
+        <td>
+            <image
+                alt="Magnifying glass"
+                height="50"
+                src="./assets/search-magnifier-tool.svg"
+            />
+            &nbsp;&nbsp;
+        </td>
+        <td vlign="center">
+            <h2 align="center">React Image Magnify</h2>
+        </td>
+    </tr>
+</table>
 <br />
 
 <p align="center">
@@ -29,15 +44,12 @@
 <br />
 
 ## Installation
-<hr />
 
 ```sh
 npm install @blacklab/react-image-magnify
 ```
-<br />
 
 ## Documentation
-<hr />
 
 **[View the docs here](https://gooftroop.github.io/react-image-magnify)**
 
@@ -52,11 +64,8 @@ React Image Magnify is a React Component library that provides
 * Hover and click intent
 * Long-press gesture
 * Fade transitions
-<br />
-<br />
 
 ## Example usage
-<hr />
 
 ```typescript
 import ReactImageMagnify from 'react-image-magnify';
@@ -74,29 +83,19 @@ import ReactImageMagnify from 'react-image-magnify';
     }}
 />
 ```
-<br />
 
 ## Changes
-<hr />
 
 Detailed release notes for a given version can be found [on our releases page](https://github.com/gooftroop/react-image-magnify/releases).
-<br />
-<br />
 
 ## Support
-<hr />
 
 Please [open an issue](https://github.com/gooftroop/react-image-magnify/issues).
-<br />
-<br />
 
 ## Contributing
-<hr />
 
 Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch,
 add commits, and [open a pull request](https://github.com/gooftroop/react-image-magnify/compare/).
-<br />
-<br />
 
 #### Getting Started
 
@@ -107,10 +106,8 @@ cd react-image-magnify
 npm install
 npm run storybook
 ```
-<br />
 
 ## Contributors
-<hr />
 
 Thanks to the following community members for opening Issues and Pull Requests.
 
@@ -139,10 +136,9 @@ Thanks to the following community members for opening Issues and Pull Requests.
 @gooftroop 
 
 You are awesome! ✨💫
-<br />
-<br />
 
 ## License
-<hr />
 
 MIT
+
+Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
