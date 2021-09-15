@@ -55,6 +55,8 @@ npm install @blacklab/react-image-magnify
 
 [Storybook](https://gooftroop.github.io/react-image-magnify)
 
+[V2](https://github.com/ethanselzer/react-image-magnify)
+
 React Image Magnify is a React Component library that provides
 * In-place and side-by-side image enlargement
 * Positive or negative space guide lens options
