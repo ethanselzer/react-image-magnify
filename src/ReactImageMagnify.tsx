@@ -313,7 +313,10 @@ export const ReactImageMagnify = (props: PropTypes): JSX.Element => {
                         />
                         {imageLoaded && (
                             <>
-                                {!!activationInteractionHint && (
+                                {(
+                                    activationInteractionHint === INTERACTIONS.click
+                                    || activationInteractionHint === INTERACTIONS.hover
+                                ) && (
                                     <HintComponent
                                         hintTextMouse={hintProps?.hintTextMouse || `${capitalize(activationInteractionHint)} to Zoom`}
                                         hintTextTouch={hintProps?.hintTextTouch || 'Long-Touch to Zoom'}

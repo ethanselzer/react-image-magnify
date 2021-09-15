@@ -69,6 +69,7 @@ module.exports = {
             devDependencies: [
                 'jest/**',
                 'src/**/__tests__/**',
+                'src/**/__test__/**',
                 'webpack.config.js',
             ],
         }],

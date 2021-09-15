@@ -36,6 +36,10 @@
         "dist/**/*",
         "node_modules/**/*",
         ".vscode/**/*",
-        "src/stories/**/*"
+        "**/stories/**/*",
+        "**/__tests__/**/*",
+        "**/__mocks__/**/*",
+        "**/__test__/**/*",
+        "**/__mock__/**/*",
     ]
 }

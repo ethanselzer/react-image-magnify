@@ -79,7 +79,7 @@ module.exports = [{
             {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
-                exclude: [/node_modules/, /__tests__/, /__mocks__/],
+                exclude: [/node_modules/, /__tests__/, /__test__/, /__mocks__/, /__mock__/, /stories/],
                 options: {
                     configFile: IS_PRODUCTION ? 'tsconfig.json' : 'tsconfig.dev.json',
                     compilerOptions: {

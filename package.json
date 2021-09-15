@@ -30,7 +30,8 @@
     "ecommerce",
     "store",
     "shopping",
-    "product"
+    "product",
+    "typescript"
   ],
   "main": "dist/ReactImageMagnify.js",
   "types": "dist/types",
@@ -40,9 +41,8 @@
   ],
   "scripts": {
     "analyze": "npm run stats && webpack-bundle-analyzer stats.json",
-    "build": "cross-env NODE_ENV=production && webpack",
-    "build:dev": "cross-env NODE_ENV=development && webpack",
-    "prepublishOnly": "npm run lint && npm test && npm run build",
+    "build": "cross-env NODE_ENV=production webpack",
+    "build:dev": "cross-env NODE_ENV=development webpack",
     "prepublish": "pinst --disable",
     "postpublish": "pinst --enable",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
