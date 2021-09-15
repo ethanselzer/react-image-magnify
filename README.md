@@ -18,6 +18,7 @@ Features Include:
 
 ## Status
 [![CircleCI](https://circleci.com/gh/gooftroop/react-image-magnify/tree/master.svg?style=svg)](https://circleci.com/gh/gooftroop/react-image-magnify/tree/master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/4e91d32af87836dce581/maintainability)](https://codeclimate.com/github/gooftroop/react-image-magnify/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/gooftroop/react-image-magnify/badge.svg?branch=master)](https://coveralls.io/github/gooftroop/react-image-magnify?branch=master)
 [![npm](https://img.shields.io/npm/v/react-image-magnify.svg)](https://www.npmjs.com/package/@treehouse/react-image-magnify)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
