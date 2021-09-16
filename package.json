@@ -35,10 +35,10 @@
     "typescript"
   ],
   "main": "dist/ReactImageMagnify.js",
-  "types": "dist/types",
+  "types": "dist/types/index.d.ts",
   "files": [
     "dist",
-    "LICENCE"
+    "LICENSE"
   ],
   "scripts": {
     "analyze": "npm run stats && webpack-bundle-analyzer stats.json",
