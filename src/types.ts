@@ -2,8 +2,10 @@ import type {
     ComponentType,
     CSSProperties,
     DetailedHTMLProps,
+    ForwardRefExoticComponent,
     HTMLProps,
     ImgHTMLAttributes,
+    MemoExoticComponent,
     TouchEvent as ReactTouchEvent,
 } from 'react';
 
@@ -143,7 +145,10 @@ CursorPositionProps,
     activationInteractionMouse?: Interactions['click'] | Interactions['hover'];
     activationInteractionTouch?: Interactions['press'] | Interactions['tap'] | Interactions['touch'];
     fadeDurationInMs?: number;
-    hintComponent?: ComponentType<HintProps>;
+    hintComponent?: ComponentType<HintProps>
+    | ForwardRefExoticComponent<HintProps>
+    | MemoExoticComponent<ComponentType<HintProps>
+    | ForwardRefExoticComponent<HintProps>>;
     hintProps?: HintProps;
     hoverDelayInMs?: number;
     hoverOffDelayInMs?: number;

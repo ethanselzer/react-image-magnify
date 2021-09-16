@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
+import { forwardRef, memo } from 'react';
 import type { HintProps } from 'src/types';
 
-export function DefaultHint(props: HintProps): JSX.Element {
+export const DefaultHint = memo(forwardRef<HTMLDivElement, HintProps>((props, ref): JSX.Element => {
     const {
         isMouseDetected,
         isTouchDetected,
@@ -21,6 +23,7 @@ export function DefaultHint(props: HintProps): JSX.Element {
                 zIndex: 99,
                 ...style,
             }}
+            ref={ref}
             {...rest}
         >
             <div
@@ -53,4 +56,4 @@ export function DefaultHint(props: HintProps): JSX.Element {
             </div>
         </div>
     );
-}
+}));
