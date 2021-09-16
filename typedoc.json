@@ -1,6 +1,6 @@
 {
     "entryPoints": [
-        "src/index.ts"
+        "./index.ts"
     ],
     "out": "docs",
     "exclude": [

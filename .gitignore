@@ -44,6 +44,3 @@ dist/**/*
 
 # Local configuration
 .cache
-
-# Documentation
-docs
