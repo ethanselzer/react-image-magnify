@@ -1,4 +1,5 @@
 import type {
+    ComponentType,
     CSSProperties,
     DetailedHTMLProps,
     HTMLProps,
@@ -85,7 +86,7 @@ export type MagnifiedImageProps = DetailedHTMLProps<ImgHTMLAttributes<HTMLImageE
 
 export type ImageProps = FluidImageProps | StaticImageProps;
 
-export interface Lens extends HTMLProps<HTMLDivElement> {
+export interface LensProps extends HTMLProps<HTMLDivElement> {
     cursorOffset: Point;
     fadeDurationInMs?: number;
     isActive?: boolean;
@@ -94,7 +95,7 @@ export interface Lens extends HTMLProps<HTMLDivElement> {
     smallImage: StaticImageProps;
 }
 
-export interface HintPropTypes extends HTMLProps<HTMLDivElement> {
+export interface HintProps extends HTMLProps<HTMLDivElement> {
     isMouseDetected?: boolean;
     isTouchDetected?: boolean;
     hintTextMouse: string;
@@ -109,3 +110,54 @@ export type PortalProps = {
 };
 
 export interface MagnifyContainerProps extends Omit<HTMLProps<HTMLDivElement>, 'height' | 'width'>, MagnifyContainerDimensions {}
+
+export type ChildProps = {
+    isActive: boolean;
+    isPositionOutside: boolean;
+    elementDimensions: ContainerDimensions;
+    position: Point;
+};
+
+export interface CursorPositionProps extends HTMLProps<HTMLDivElement> {
+    activationInteractionMouse: Interactions['click'] | Interactions['hover'];
+    activationInteractionTouch: Interactions['press'] | Interactions['tap'] | Interactions['touch'];
+    children: (props: ChildProps) => JSX.Element;
+    hoverDelayInMs?: number;
+    hoverOffDelayInMs?: number;
+    isEnabled?: boolean;
+    onActivationChanged?: (event: ActivationChangeEvent) => void;
+    onDetectedEnvironmentChanged?: (detectedInputType: DetectedInputType) => void;
+    onPositionChanged?: (event: PositionChangeEvent) => void;
+    pressDurationInMs?: number;
+    pressMoveThreshold?: number;
+    shouldStopTouchMovePropagation?: boolean;
+    tabIndex?: number;
+    tapDurationInMs?: number;
+    tapMoveThreshold?: number;
+}
+export interface ReactImageMagnifyProps extends Omit<
+CursorPositionProps,
+'activationInteractionMouse' | 'activationInteractionTouch' | 'children'
+> {
+    activationInteractionHint?: Interactions['click'] | Interactions['hover'];
+    activationInteractionMouse?: Interactions['click'] | Interactions['hover'];
+    activationInteractionTouch?: Interactions['press'] | Interactions['tap'] | Interactions['touch'];
+    fadeDurationInMs?: number;
+    hintComponent?: ComponentType<HintProps>;
+    hintProps?: HintProps;
+    hoverDelayInMs?: number;
+    hoverOffDelayInMs?: number;
+    imageComponent?: ComponentType<HTMLProps<HTMLImageElement>>;
+    imageProps: ImageProps;
+    lensComponent?: ComponentType<LensProps>;
+    lensProps?: LensProps;
+    magnifyContainerProps?: MagnifyContainerProps;
+    magnifiedImageComponent?: ComponentType<HTMLProps<HTMLImageElement>>;
+    magnifiedImagePosition?: MagnifiedImagePosition['beside'] | MagnifiedImagePosition['over'];
+    magnifiedImageProps: MagnifiedImageProps;
+    pressDuration?: number;
+    pressMoveThreshold?: number;
+    portalProps?: PortalProps;
+    shouldHideHintAfterFirstActivation?: boolean;
+    shouldUsePositiveSpaceLens?: boolean;
+}

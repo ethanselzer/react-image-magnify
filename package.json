@@ -34,15 +34,17 @@
     "product",
     "typescript"
   ],
-  "main": "dist/ReactImageMagnify.js",
-  "types": "dist/types/index.d.ts",
+  "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
+    "@types",
     "dist",
     "LICENSE"
   ],
   "scripts": {
     "analyze": "npm run stats && webpack-bundle-analyzer stats.json",
-    "build": "cross-env NODE_ENV=production webpack",
+    "build": "del-cli dist && npx tsc --project tsconfig.prod.json",
     "build:dev": "cross-env NODE_ENV=development webpack",
     "build:docs": "typedoc",
     "build:storybook": "build-storybook",
@@ -50,6 +52,7 @@
     "deploy:storybook": "storybook-to-ghpages",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "lint:fix": "npm run lint -- --fix",
+    "prepare": "ts-patch install -s",
     "prepublish": "pinst --disable",
     "postpublish": "pinst --enable",
     "semantic-release": "semantic-release",
@@ -90,6 +93,7 @@
     "conventional-changelog-conventionalcommits": "^4.6.1",
     "coveralls": "3.1.1",
     "cross-env": "^7.0.3",
+    "del-cli": "^4.0.1",
     "enzyme": "3.11.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -116,16 +120,19 @@
     "terser-webpack-plugin": "^5.2.0",
     "ts-jest": "^27.0.5",
     "ts-loader": "^9.2.5",
+    "ts-patch": "^1.4.4",
     "tsconfig-paths-webpack-plugin": "^3.5.1",
     "typedoc": "^0.22.3",
-    "typescript": "^4.3.5",
+    "typescript": "^4.4.3",
+    "typescript-transform-paths": "^3.3.1",
     "webpack": "^5.51.1",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^3.11.2"
   },
   "peerDependencies": {
-    "react": "^17.0.0"
+    "react": "^17.0.0 || ^16.8",
+    "react-dom": "^17.0.0 || ^16.8"
   },
   "dependencies": {
     "@react-hook/resize-observer": "^1.2.4",

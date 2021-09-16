@@ -1,6 +1,6 @@
-import type { HintPropTypes } from 'src/types';
+import type { HintProps } from 'src/types';
 
-export function DefaultHint(props: HintPropTypes): JSX.Element {
+export function DefaultHint(props: HintProps): JSX.Element {
     const {
         isMouseDetected,
         isTouchDetected,

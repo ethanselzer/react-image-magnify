@@ -1,8 +1,8 @@
 import { clamp } from 'src/lib/clamp';
 import { dataUri } from 'src/lens/positive-space/assets/textured-lens-data-uri';
-import type { Lens as LensPropTypes } from 'src/types';
+import type { LensProps } from 'src/types';
 
-export function PositiveSpaceLens(props: LensPropTypes): JSX.Element {
+export function PositiveSpaceLens(props: LensProps): JSX.Element {
     const {
         isActive,
         isPositionOutside,
@@ -44,7 +44,7 @@ export function PositiveSpaceLens(props: LensPropTypes): JSX.Element {
         width: `${width}px`,
         height: `${height}px`,
         opacity: isVisible ? 1 : 0,
-    } as LensPropTypes['style'];
+    } as LensProps['style'];
 
     return (
         <div

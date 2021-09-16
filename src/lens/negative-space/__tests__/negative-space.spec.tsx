@@ -4,7 +4,7 @@
 
 import { mount } from 'enzyme';
 import { NegativeSpaceLens } from 'src/lens/negative-space';
-import { Lens } from 'src/types';
+import { LensProps } from 'src/types';
 
 describe('Shaded Lens', () => {
     const smallImage = {
@@ -25,7 +25,7 @@ describe('Shaded Lens', () => {
         position: { x: 1, y: 2 },
         smallImage,
         style: {},
-    } as Lens;
+    } as LensProps;
 
     const defaultBackgroundStyle = { backgroundColor: 'rgba(0,0,0,.4)' };
 

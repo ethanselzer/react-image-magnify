@@ -1,8 +1,8 @@
 import { clamp } from 'src/lib/clamp';
 import { Lens } from 'src/lens/negative-space/Lens';
-import type { Lens as LensPropTypes } from 'src/types';
+import type { LensProps } from 'src/types';
 
-export const LensBottom = (props: LensPropTypes): JSX.Element => {
+export const LensBottom = (props: LensProps): JSX.Element => {
     const {
         cursorOffset,
         position,

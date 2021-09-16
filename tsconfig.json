@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "allowJs": true,
-        "baseUrl": ".",
+        "baseUrl": "./",
         "checkJs": false,
         "downlevelIteration": true,
         "esModuleInterop": true,
@@ -22,13 +22,24 @@
         "noUnusedLocals": true,
         "outDir": "./dist",
         "paths": {
-            "src/*": ["src/*"]
+            "src/*": ["src/*"],
+            "src": ["src"]
         },
         "preserveConstEnums": true,
         "resolveJsonModule": true,
         "sourceMap": true,
         "strict": true,
-        "target": "ESNext"
+        "stripInternal": true,
+        "target": "ESNext",
+        "plugins": [
+            {
+                "transform": "typescript-transform-paths"
+            },
+            {
+                "transform": "typescript-transform-paths",
+                "afterDeclarations": true
+            }
+        ]
     },
     "exclude": [
         "dist/**/*",

@@ -2,9 +2,9 @@ import { LensTop } from 'src/lens/negative-space/LensTop';
 import { LensLeft } from 'src/lens/negative-space/LensLeft';
 import { LensRight } from 'src/lens/negative-space/LensRight';
 import { LensBottom } from 'src/lens/negative-space/LensBottom';
-import type { Lens as LensPropTypes } from 'src/types';
+import type { LensProps } from 'src/types';
 
-export function NegativeSpaceLens(props: LensPropTypes): JSX.Element {
+export function NegativeSpaceLens(props: LensProps): JSX.Element {
     const {
         cursorOffset,
         fadeDurationInMs,

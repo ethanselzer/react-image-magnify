@@ -1,7 +1,7 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import { CSSProperties } from 'react';
 import { PositiveSpaceLens } from 'src/lens/positive-space';
-import { Lens } from 'src/types';
+import { LensProps } from 'src/types';
 
 describe('Positive Space Lens', () => {
     const smallImage = {
@@ -24,11 +24,11 @@ describe('Positive Space Lens', () => {
         style: {},
     };
 
-    function getComponent(props?: Partial<Lens>): ShallowWrapper<Lens> {
+    function getComponent(props?: Partial<LensProps>): ShallowWrapper<LensProps> {
         const compositProps = {
             ...defaultProps,
             ...props,
-        } as Lens;
+        } as LensProps;
 
         return shallow(
             <PositiveSpaceLens {...compositProps} />,

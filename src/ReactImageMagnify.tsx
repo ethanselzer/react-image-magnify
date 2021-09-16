@@ -1,10 +1,7 @@
 import { primaryInput } from 'detect-it';
 import {
-    ComponentProps,
-    ComponentType,
     CSSProperties,
     Dispatch,
-    HTMLProps,
     SetStateAction,
     SyntheticEvent,
     useEffect,
@@ -36,51 +33,19 @@ import {
     DEFAULT_MAGNIFY_CONTAINER_WIDTH,
 } from 'src/constants';
 import type {
-    MagnifiedImageProps,
     ImageProps,
-    MagnifiedImagePosition,
-    Lens as LensPropTypes,
     StaticImageProps,
     DetectedInputType,
-    Interactions,
-    HintPropTypes,
     PortalProps,
-    MagnifyContainerProps,
+    ReactImageMagnifyProps,
 } from 'src/types';
-import { OutsideClickHandler } from './OutsideClickHandler';
+import { OutsideClickHandler } from 'src/OutsideClickHandler';
 
 // TODO If hint click is enabled, don't enable other interactions until hint is clicked
 // TODO is hint click is enabled, and user clicks away, disable zoom
 // TODO move states to other components?
 // TODO dont render large image or lens until image is loaded
 // TODO allow for left, right, top, bottom
-
-export interface PropTypes extends Omit<
-ComponentProps<typeof CursorPosition>,
-'activationInteractionMouse' | 'activationInteractionTouch' | 'children'
-> {
-    activationInteractionHint?: Interactions['click'] | Interactions['hover'];
-    activationInteractionMouse?: Interactions['click'] | Interactions['hover'];
-    activationInteractionTouch?: Interactions['press'] | Interactions['tap'] | Interactions['touch'];
-    fadeDurationInMs?: number;
-    hintComponent?: ComponentType<HintPropTypes>;
-    hintProps?: HintPropTypes;
-    hoverDelayInMs?: number;
-    hoverOffDelayInMs?: number;
-    imageComponent?: ComponentType<HTMLProps<HTMLImageElement>>;
-    imageProps: ImageProps;
-    lensComponent?: ComponentType<LensPropTypes>;
-    lensProps?: LensPropTypes;
-    magnifyContainerProps?: MagnifyContainerProps;
-    magnifiedImageComponent?: ComponentType<HTMLProps<HTMLImageElement>>;
-    magnifiedImagePosition?: MagnifiedImagePosition['beside'] | MagnifiedImagePosition['over'];
-    magnifiedImageProps: MagnifiedImageProps;
-    pressDuration?: number;
-    pressMoveThreshold?: number;
-    portalProps?: PortalProps;
-    shouldHideHintAfterFirstActivation?: boolean;
-    shouldUsePositiveSpaceLens?: boolean;
-}
 
 function shouldRenderPortal(portalProps: PortalProps | undefined, isTouchDetected: boolean): boolean {
     if (!portalProps?.id) {
@@ -129,7 +94,7 @@ function setSmallImageDimensionState(
     }
 }
 
-export const ReactImageMagnify = (props: PropTypes): JSX.Element => {
+export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element => {
     const {
         activationInteractionHint,
         activationInteractionMouse = INTERACTIONS.hover,

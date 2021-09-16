@@ -9,6 +9,7 @@
         "@types/**/*",
         "src/**/*",
         "jest/**/*",
+        "index.ts",
         ".eslintrc.js",
         "**/*.config.js"
     ]

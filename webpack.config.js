@@ -7,7 +7,6 @@ const webpack = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const NAME = 'ReactImageMagnify';
 const DIST = path.resolve('./dist');
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
@@ -19,7 +18,7 @@ module.exports = [{
         port: 3000,
         historyApiFallback: true,
     },
-    entry: ['./src/index.ts'],
+    entry: ['./index.ts'],
     externals: {
         react: 'react',
         'react-dom': 'reactDOM',
@@ -57,7 +56,7 @@ module.exports = [{
     },
     output: {
         path: DIST,
-        filename: `${NAME}.js`,
+        filename: 'index.js',
         library: {
             type: 'commonjs2',
         },
