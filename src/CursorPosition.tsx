@@ -1,7 +1,7 @@
 import {
     HTMLProps,
     KeyboardEvent,
-    MouseEvent,
+    MouseEvent as ReactMouseEvent,
     TouchEvent,
     useEffect,
     useRef,
@@ -50,6 +50,7 @@ export interface PropTypes extends HTMLProps<HTMLDivElement> {
     isEnabled?: boolean;
     onActivationChanged?: (event: ActivationChangeEvent) => void;
     onDetectedEnvironmentChanged?: (detectedInputType: DetectedInputType) => void;
+    onOutsideClick: (e: MouseEvent) => void;
     onPositionChanged?: (event: PositionChangeEvent) => void;
     pressDurationInMs?: number;
     pressMoveThreshold?: number;
@@ -57,6 +58,7 @@ export interface PropTypes extends HTMLProps<HTMLDivElement> {
     tabIndex?: number;
     tapDurationInMs?: number;
     tapMoveThreshold?: number;
+    useCapture?: boolean;
 }
 
 // TODO move to utils
@@ -162,14 +164,16 @@ export const CursorPosition = (props: PropTypes): JSX.Element => {
         isEnabled = true,
         onActivationChanged = noop,
         onDetectedEnvironmentChanged = noop,
+        onOutsideClick,
         onPositionChanged: onPositionChangedProp = noop,
         pressDurationInMs = 500,
         pressMoveThreshold = 5,
         shouldStopTouchMovePropagation = false,
+        style,
         tabIndex = -1,
         tapDurationInMs = 180,
         tapMoveThreshold = 5,
-        style,
+        useCapture,
         ...rest
     } = props;
 
@@ -230,7 +234,7 @@ export const CursorPosition = (props: PropTypes): JSX.Element => {
     );
 
     ///
-    /// Helpers
+    /// Functions
     ///
 
     const unsetShouldGuardAgainstMouseEmulationByDevices = (): void => {
@@ -254,10 +258,6 @@ export const CursorPosition = (props: PropTypes): JSX.Element => {
         });
     };
 
-    ///
-    /// Enter / Leave control
-    ///
-
     const handleTouchStart = (e: TouchEvent): void => {
         onDetectedEnvironmentChanged({
             isTouchDetected: true,
@@ -272,7 +272,7 @@ export const CursorPosition = (props: PropTypes): JSX.Element => {
         touchActivation.touchStarted({ e, position: newPosition });
     };
 
-    const handleMouseEnter = (e: MouseEvent): void => {
+    const handleMouseEnter = (e: ReactMouseEvent): void => {
         if (shouldGuardAgainstMouseEmulationByDevices) {
             return;
         }
@@ -300,10 +300,6 @@ export const CursorPosition = (props: PropTypes): JSX.Element => {
         // TODO destroy?
     };
 
-    ///
-    /// Handlers
-    ///
-
     const handleTouchMove = (e: TouchEvent): void => {
         const newPosition = observer.current.getCursorPosition(getTouchEvent(e));
 
@@ -319,13 +315,13 @@ export const CursorPosition = (props: PropTypes): JSX.Element => {
         }
     };
 
-    const handleMouseMove = (e: MouseEvent): void => {
+    const handleMouseMove = (e: ReactMouseEvent): void => {
         const newPosition = observer.current.getCursorPosition(e);
 
         setPositionState(newPosition);
     };
 
-    const handleClick = (e: MouseEvent): void => {
+    const handleClick = (e: ReactMouseEvent): void => {
         setPositionState(observer.current.getCursorPosition(e));
         mouseActivation.mouseClicked();
         onMouseDetected();
@@ -341,9 +337,33 @@ export const CursorPosition = (props: PropTypes): JSX.Element => {
         setIsActive(false);
     };
 
+    const onDocumentMouseClick = (e: MouseEvent): void => {
+        const el = e.target;
+        const isDescendantOfRoot = divRef.current && el instanceof Node && divRef.current.contains(el);
+
+        if (!isDescendantOfRoot) {
+            onOutsideClick(e);
+        }
+    };
+
+    const removeEventListeners = (): void => {
+        document.removeEventListener('click', onDocumentMouseClick);
+    };
+
     ///
     /// Effects
     ///
+
+    useEffect(() => {
+        removeEventListeners();
+
+        if (isEnabled) {
+            document.addEventListener('click', onDocumentMouseClick, { capture: useCapture });
+        }
+
+        return (): void => removeEventListeners();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isEnabled]);
 
     useEffect(() => {
         if (divRef.current) {

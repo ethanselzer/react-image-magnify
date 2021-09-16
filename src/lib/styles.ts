@@ -19,27 +19,23 @@ export function getContainerStyle(
         height,
     } = smallImage;
 
-    const fluidWidthContainerStyle = {
-        width: 'auto',
-        height: 'auto',
-        fontSize: '0px',
-        position: 'relative',
-    };
-
-    const fixedWidthContainerStyle = {
-        width: `${width}px`,
-        height: `${height}px`,
-        position: 'relative',
-    };
-
     const priorityContainerStyle = isFluid(smallImage)
-        ? fluidWidthContainerStyle
-        : fixedWidthContainerStyle;
+        ? {
+            width: 'auto',
+            height: 'auto',
+            fontSize: '0px',
+            position: 'relative',
+        }
+        : {
+            width: `${width}px`,
+            height: `${height}px`,
+            position: 'relative',
+        };
 
     const compositContainerStyle = {
         cursor: lockedByHintInteraction ? 'default' : 'crosshair',
-        ...style,
         ...priorityContainerStyle,
+        ...style,
     };
 
     return compositContainerStyle as CSSProperties;
@@ -54,26 +50,22 @@ export function getSmallImageStyle(
         height,
     } = smallImage;
 
-    const fluidWidthSmallImageStyle = {
-        width: '100%',
-        height: 'auto',
-        display: 'block',
-        pointerEvents: 'none',
-    };
-
-    const fixedWidthSmallImageStyle = {
-        width: `${width}px`,
-        height: `${height}px`,
-        pointerEvents: 'none',
-    };
-
     const prioritySmallImageStyle = isFluid(smallImage)
-        ? fluidWidthSmallImageStyle
-        : fixedWidthSmallImageStyle;
+        ? {
+            width: '100%',
+            height: 'auto',
+            display: 'block',
+            pointerEvents: 'none',
+        }
+        : {
+            width: `${width}px`,
+            height: `${height}px`,
+            pointerEvents: 'none',
+        };
 
     const compositSmallImageStyle = {
-        ...style,
         ...prioritySmallImageStyle,
+        ...style,
     };
 
     return compositSmallImageStyle as CSSProperties;
@@ -96,20 +88,16 @@ function getPrimaryMagnifyContainerStyle(
         top: '0px',
     };
 
-    if (isInPlaceMode) {
-        return {
-            ...baseContainerStyle,
-            ...sharedPositionStyle,
-            left: '0px',
-        } as CSSProperties;
-    }
-
     return {
         ...baseContainerStyle,
         ...sharedPositionStyle,
-        left: '100%',
-        marginLeft: '10px',
-        border: '1px solid #d6d6d6',
+        ...(isInPlaceMode
+            ? ({ left: '0px' })
+            : ({
+                left: '100%',
+                marginLeft: '10px',
+                border: '1px solid #d6d6d6',
+            })),
     } as CSSProperties;
 }
 
@@ -127,17 +115,14 @@ export function getMagnifyContainerStyle(
     isPortalRendered?: boolean,
 ): CSSProperties {
     const primaryStyle = getPrimaryMagnifyContainerStyle(isInPlaceMode, !!isPortalRendered);
-    const priorityStyle: CSSProperties = {
+
+    return {
+        ...primaryStyle,
         width: containerDimensions.width,
         height: containerDimensions.height,
         transition: `opacity ${fadeDurationInMs}ms ease-in`,
         pointerEvents: 'none',
-    };
-
-    return {
-        ...primaryStyle,
         ...style,
-        ...priorityStyle,
     };
 }
 
@@ -154,16 +139,10 @@ export function getMagnifiedImageTranslationStyle(imageCoordinates: Point): CSSP
 export function getMagnifiedImageStyle(
     magnifiedImage: MagnifiedImageProps,
 ): CSSProperties {
-    const priorityStyle = {
+    return {
         width: magnifiedImage.width,
         height: magnifiedImage.height,
         pointerEvents: 'none',
-    };
-
-    const compositeImageStyle = {
         ...magnifiedImage.style,
-        ...priorityStyle,
-    };
-
-    return compositeImageStyle as CSSProperties;
+    } as CSSProperties;
 }
