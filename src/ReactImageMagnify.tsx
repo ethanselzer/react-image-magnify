@@ -219,18 +219,6 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
         return hintStyle;
     };
 
-    const handleSmallImageLoad = (e: SyntheticEvent<HTMLImageElement, Event>): void => {
-        if (smallImage.onLoad) {
-            smallImage.onLoad(e);
-        }
-
-        if (isFluid(imageProps) || isIntristic(imageProps)) {
-            setSmallImageDimensionState(imageRef.current, setSmallImage, imageProps);
-        }
-
-        setImageLoaded(true);
-    };
-
     const handleDetectedEnvironmentChanged = (detectedInputType: DetectedInputType): void => {
         setIsMouseDetected(detectedInputType.isMouseDetected);
         setIsTouchDetected(detectedInputType.isTouchDetected);
@@ -250,6 +238,46 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
         }
     };
 
+    const shouldShowAbsoluteMagnify = !usePortal && !lockedByHintInteraction;
+    const shouldShowPortalMagnify = usePortal && portalProps && !lockedByHintInteraction;
+
+    const MemodImageComponent = useMemo(() => (
+        <ImageComponent
+            {...imageProps}
+            alt={smallImage.alt}
+            style={getSmallImageStyle(smallImage, imageProps.style)}
+            ref={imageRef}
+            onLoad={(e: SyntheticEvent<HTMLImageElement, Event>): void => {
+                if (smallImage.onLoad) {
+                    smallImage.onLoad(e);
+                }
+
+                if (isFluid(imageProps) || isIntristic(imageProps)) {
+                    setSmallImageDimensionState(imageRef.current, setSmallImage, imageProps);
+                }
+
+                setImageLoaded(true);
+            }}
+        />
+    ), [ImageComponent, imageProps, smallImage]);
+
+    const HintComponentOrNull = (
+        activationInteractionHint === INTERACTIONS.click
+        || activationInteractionHint === INTERACTIONS.hover
+    ) ? (
+        // @ts-expect-error
+        <HintComponent
+            hintTextMouse={hintProps?.hintTextMouse || `${capitalize(activationInteractionHint)} to Zoom`}
+            hintTextTouch={hintProps?.hintTextTouch || 'Long-Touch to Zoom'}
+            isMouseDetected={isMouseDetected}
+            isTouchDetected={isTouchDetected}
+            style={generateHintStyle(hintProps?.style)}
+            {...hintProps}
+            onClick={lockedByHintInteraction ? handleHintClick : undefined}
+            onTouchEnd={lockedByHintInteraction ? handleHintTouchEnd : undefined}
+        />
+        ) : null;
+
     const LensComponent = LensComponentProp || shouldUsePositiveSpaceLens ? PositiveSpaceLens : NegativeSpaceLens;
 
     return (
@@ -265,31 +293,10 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
         >
             {({ position, isActive, isPositionOutside }): JSX.Element => (
                 <>
-                    <ImageComponent
-                        {...imageProps}
-                        alt={smallImage.alt}
-                        style={getSmallImageStyle(smallImage, imageProps.style)}
-                        ref={imageRef}
-                        onLoad={handleSmallImageLoad}
-                    />
+                    {MemodImageComponent}
                     {imageLoaded && (
                         <>
-                            {(
-                                activationInteractionHint === INTERACTIONS.click
-                                || activationInteractionHint === INTERACTIONS.hover
-                            ) && (
-                                // @ts-expect-error
-                                <HintComponent
-                                    hintTextMouse={hintProps?.hintTextMouse || `${capitalize(activationInteractionHint)} to Zoom`}
-                                    hintTextTouch={hintProps?.hintTextTouch || 'Long-Touch to Zoom'}
-                                    isMouseDetected={isMouseDetected}
-                                    isTouchDetected={isTouchDetected}
-                                    style={generateHintStyle(hintProps?.style)}
-                                    {...hintProps}
-                                    onClick={lockedByHintInteraction ? handleHintClick : undefined}
-                                    onTouchEnd={lockedByHintInteraction ? handleHintTouchEnd : undefined}
-                                />
-                            )}
+                            {HintComponentOrNull}
                             {shouldShowLens && !lockedByHintInteraction && (
                                 <LensComponent
                                     cursorOffset={cursorOffset}
@@ -301,7 +308,7 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
                                     {...lensProps}
                                 />
                             )}
-                            {!usePortal && !lockedByHintInteraction && (
+                            {shouldShowAbsoluteMagnify && (
                                 <MagnifyContainer
                                     containerDimensions={computedEnlargedImageContainerDimensions}
                                     cursorOffset={cursorOffset}
@@ -316,7 +323,7 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
                                     {...magnifyContainerProps}
                                 />
                             )}
-                            {usePortal && portalProps && !lockedByHintInteraction && (
+                            {shouldShowPortalMagnify && (
                                 <MagnifyContainerPortal
                                     containerDimensions={computedEnlargedImageContainerDimensions}
                                     cursorOffset={cursorOffset}
@@ -326,7 +333,7 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
                                     isInPlaceMode={isInPlaceMode}
                                     imageComponent={magnifiedImageComponent}
                                     imageProps={magnifiedImageProps}
-                                    portalProps={portalProps}
+                                    portalProps={portalProps!}
                                     position={position}
                                     sourceImage={smallImage}
                                     {...magnifyContainerProps}
