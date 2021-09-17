@@ -1,22 +1,28 @@
+import { forwardRef, MutableRefObject } from 'react';
+
 import { clamp } from 'src/lib/clamp';
 import { Lens } from 'src/lens/negative-space/Lens';
 import type { LensProps } from 'src/types';
 
-export const LensBottom = (props: LensProps): JSX.Element => {
+export const LensBottom = forwardRef<HTMLImageElement, LensProps>((props: LensProps, ref): JSX.Element | null => {
     const {
         cursorOffset,
         position,
         fadeDurationInMs,
         isActive,
         isPositionOutside,
-        smallImage,
         style: parentSpecifiedStyle,
         ...rest
     } = props;
+    const typedRef = (ref as MutableRefObject<HTMLImageElement>);
+
+    if (!typedRef?.current) {
+        return null;
+    }
 
     const clearLensHeight = cursorOffset.y * 2;
-    const computedHeight = smallImage.height - position.y - cursorOffset.y;
-    const maxHeight = smallImage.height - clearLensHeight;
+    const computedHeight = typedRef.current.offsetHeight - position.y - cursorOffset.y;
+    const maxHeight = typedRef.current.offsetHeight - clearLensHeight;
     const height = clamp(computedHeight, 0, maxHeight);
     const clearLensBottom = position.y + cursorOffset.y;
     const top = Math.max(clearLensBottom, clearLensHeight);
@@ -38,4 +44,6 @@ export const LensBottom = (props: LensProps): JSX.Element => {
             {...rest}
         />
     );
-};
+});
+
+LensBottom.displayName = 'LensBottom';

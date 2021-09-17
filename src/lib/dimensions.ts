@@ -1,9 +1,3 @@
-type EnlargedImageContainerDimensionPorps = {
-    containerDimension: string | number,
-    smallImageDimension: number,
-    isInPlaceMode?: boolean,
-};
-
 export function isPercentageFormat(val: string | number): boolean {
     return (
         typeof val === 'string'
@@ -11,19 +5,25 @@ export function isPercentageFormat(val: string | number): boolean {
     );
 }
 
-export function convertPercentageToDecimal(percentage: string | number): number {
-    return (typeof percentage === 'string' ? parseInt(percentage, 10) : percentage) / 100;
+export function convertPercentageToDecimal(percentage: string | number, denominator: string | number = 100): number {
+    const denom = typeof denominator === 'string' ? parseInt(denominator, 10) : denominator;
+
+    return (typeof percentage === 'string' ? parseInt(percentage, 10) : percentage) / denom;
 }
 
-export function getEnlargedImageContainerDimension(params: EnlargedImageContainerDimensionPorps): number {
-    const { containerDimension, smallImageDimension, isInPlaceMode } = params;
-
+export function getEnlargedImageContainerDimension(
+    containerDimension: string | number,
+    smallImageDimension: string | number,
+    isInPlaceMode?: boolean,
+): string | number {
     if (isInPlaceMode) {
         return smallImageDimension;
     }
 
     if (isPercentageFormat(containerDimension)) {
-        return smallImageDimension * convertPercentageToDecimal(containerDimension);
+        return isPercentageFormat(smallImageDimension)
+            ? convertPercentageToDecimal(smallImageDimension, containerDimension)
+            : smallImageDimension as number * convertPercentageToDecimal(containerDimension);
     }
 
     return containerDimension as number;

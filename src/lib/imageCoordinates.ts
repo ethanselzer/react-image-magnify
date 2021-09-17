@@ -4,12 +4,12 @@ import {
     getSmallToLargeImageRatio,
 } from 'src/lib/imageRatio';
 import type {
-    ContainerDimensions, MagnifiedImageProps, Point, ImageProps, StaticImageProps,
+    ContainerDimensions, Point,
 } from 'src/types';
 
 function getMinCoordinates(
     container: ContainerDimensions,
-    largeImage: ContainerDimensions | MagnifiedImageProps,
+    largeImage: ContainerDimensions,
 ): Point {
     return {
         x: ((largeImage.width - container.width) * -1),
@@ -48,12 +48,12 @@ function getCursorPositionAdjustedForLens(
 export function getLensModeMagnifiedImageCoordinates(
     containerDimensions: ContainerDimensions,
     cursorOffset: Point,
-    magnifiedImage: ContainerDimensions | MagnifiedImageProps,
+    magnifiedImage: ContainerDimensions,
     position: Point,
-    image: ContainerDimensions | ImageProps,
+    image: ContainerDimensions,
 ): Point {
     const adjustedPosition = getCursorPositionAdjustedForLens(position, cursorOffset);
-    const ratio = getSmallToLargeImageRatio(image as StaticImageProps, magnifiedImage);
+    const ratio = getSmallToLargeImageRatio(image, magnifiedImage);
     const coordinates = {
         x: (Math.round(adjustedPosition.x * ratio.x) * -1),
         y: (Math.round(adjustedPosition.y * ratio.y) * -1),
@@ -66,7 +66,7 @@ export function getLensModeMagnifiedImageCoordinates(
 
 export function getInPlaceMagnifiedImageCoordinates(
     containerDimensions: ContainerDimensions,
-    magnifiedImage: ContainerDimensions | MagnifiedImageProps,
+    magnifiedImage: ContainerDimensions,
     position: Point,
 ): Point {
     const minCoordinates = getMinCoordinates(containerDimensions, magnifiedImage);

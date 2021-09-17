@@ -2,15 +2,14 @@ import { CSSProperties } from 'react';
 
 import type {
     ContainerDimensions,
-    FluidImageProps,
     MagnifiedImageProps,
     Point,
-    StaticImageProps,
+    ImageProps,
 } from 'src/types';
 import { isFluid } from 'src/utils';
 
 export function getContainerStyle(
-    smallImage: FluidImageProps | StaticImageProps,
+    smallImage: ImageProps,
     style: CSSProperties | undefined,
     lockedByHintInteraction: boolean,
 ): CSSProperties {
@@ -42,7 +41,7 @@ export function getContainerStyle(
 }
 
 export function getSmallImageStyle(
-    smallImage: FluidImageProps | StaticImageProps,
+    smallImage: ImageProps,
     style: CSSProperties | undefined,
 ): CSSProperties {
     const {

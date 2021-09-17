@@ -1,8 +1,9 @@
 import { clamp } from 'src/lib/clamp';
 import { dataUri } from 'src/lens/positive-space/assets/textured-lens-data-uri';
 import type { LensProps } from 'src/types';
+import { forwardRef, MutableRefObject } from 'react';
 
-export function PositiveSpaceLens(props: LensProps): JSX.Element {
+export const PositiveSpaceLens = forwardRef<HTMLImageElement, LensProps>((props, ref): JSX.Element | null => {
     const {
         isActive,
         isPositionOutside,
@@ -15,13 +16,14 @@ export function PositiveSpaceLens(props: LensProps): JSX.Element {
             x: positionX,
             y: positionY,
         },
-        smallImage: {
-            height: imageHeight,
-            width: imageWidth,
-        },
         style: userSpecifiedStyle,
         ...rest
     } = props;
+    const typedRef = (ref as MutableRefObject<HTMLImageElement>);
+
+    if (!typedRef?.current) {
+        return null;
+    }
 
     const defaultStyle = {
         transition: `opacity ${fadeDurationInMs}ms ease-in`,
@@ -33,8 +35,8 @@ export function PositiveSpaceLens(props: LensProps): JSX.Element {
     const isVisible = isActive && !isPositionOutside;
     const top = positionY - cursorOffsetY;
     const left = positionX - cursorOffsetX;
-    const maxTop = imageHeight - height;
-    const maxLeft = imageWidth - width;
+    const maxTop = typedRef.current.offsetHeight - height;
+    const maxLeft = typedRef.current.offsetWidth - width;
     const minOffset = 0;
 
     const priorityStyle = {
@@ -56,4 +58,6 @@ export function PositiveSpaceLens(props: LensProps): JSX.Element {
             {...rest}
         />
     );
-}
+});
+
+PositiveSpaceLens.displayName = 'PositiveSpaceLens';

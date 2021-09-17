@@ -7,32 +7,31 @@ import { NegativeSpaceLens } from 'src/lens/negative-space';
 import { LensProps } from 'src/types';
 
 describe('Shaded Lens', () => {
-    const smallImage = {
-        alt: 'baz',
-        isFluidWidth: false,
-        src: 'qux',
-        srcSet: 'quux',
-        sizes: 'grault',
-        width: 3,
-        height: 4,
-    };
-
-    const props = {
+    const props: LensProps = {
         cursorOffset: { x: 0, y: 0 },
         fadeDurationInMs: 100,
         isActive: true,
         isPositionOutside: false,
         position: { x: 1, y: 2 },
-        smallImage,
         style: {},
-    } as LensProps;
+    };
 
     const defaultBackgroundStyle = { backgroundColor: 'rgba(0,0,0,.4)' };
 
-    let mountedWrapper = mount(<NegativeSpaceLens {...props} />);
+    let mountedWrapper = mount(
+        <NegativeSpaceLens
+            {...props}
+            ref={{ current: { offsetHeight: 4, offsetWidth: 3 } as HTMLImageElement }}
+        />,
+    );
 
     beforeEach(() => {
-        mountedWrapper = mount(<NegativeSpaceLens {...props} />);
+        mountedWrapper = mount(
+            <NegativeSpaceLens
+                {...props}
+                ref={{ current: { offsetHeight: 4, offsetWidth: 3 } as HTMLImageElement }}
+            />,
+        );
     });
 
     it('applies props to lens elements', () => {
@@ -47,7 +46,7 @@ describe('Shaded Lens', () => {
         expect(mountedWrapper.find('LensBottom').props()).toEqual(expected);
     });
 
-    it('applies default sytle to lens elements', () => {
+    it('applies default style to lens elements', () => {
         const expected = defaultBackgroundStyle;
 
         expect(mountedWrapper.find('LensTop').props().style).toEqual(expected);

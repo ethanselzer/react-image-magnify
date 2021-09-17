@@ -1,17 +1,18 @@
+import { forwardRef } from 'react';
+
 import { LensTop } from 'src/lens/negative-space/LensTop';
 import { LensLeft } from 'src/lens/negative-space/LensLeft';
 import { LensRight } from 'src/lens/negative-space/LensRight';
 import { LensBottom } from 'src/lens/negative-space/LensBottom';
 import type { LensProps } from 'src/types';
 
-export function NegativeSpaceLens(props: LensProps): JSX.Element {
+export const NegativeSpaceLens = forwardRef<HTMLImageElement, LensProps>((props: LensProps, ref): JSX.Element => {
     const {
         cursorOffset,
         fadeDurationInMs,
         isActive,
         isPositionOutside,
         position,
-        smallImage,
         style: userSpecifiedStyle,
         ...rest
     } = props;
@@ -23,10 +24,12 @@ export function NegativeSpaceLens(props: LensProps): JSX.Element {
 
     return (
         <div {...rest}>
-            <LensTop {...props} style={compositLensStyle} />
-            <LensLeft {...props} style={compositLensStyle} />
-            <LensRight {...props} style={compositLensStyle} />
-            <LensBottom {...props} style={compositLensStyle} />
+            <LensTop {...props} ref={ref} style={compositLensStyle} />
+            <LensLeft {...props} ref={ref} style={compositLensStyle} />
+            <LensRight {...props} ref={ref} style={compositLensStyle} />
+            <LensBottom {...props} ref={ref} style={compositLensStyle} />
         </div>
     );
-}
+});
+
+NegativeSpaceLens.displayName = 'NegativeSpaceLens';

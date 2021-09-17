@@ -66,29 +66,15 @@ export type ContainerDimensions = {
     width: number;
 };
 
-export type MagnifyContainerDimensions = {
-    height: number | string;
-    width: number | string;
-};
-
-export type BaseImageProps = Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement >, 'height' | 'width'>;
-
-export type FluidImageProps = BaseImageProps & {
-    height?: string;
-    width?: string;
-}
-
-export type StaticImageProps = BaseImageProps & {
-    height: number;
-    width: number;
-}
-
 export type MagnifiedImageProps = DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & {
     height: number;
     width: number;
 };
 
-export type ImageProps = FluidImageProps | StaticImageProps;
+export type ImageProps = Omit<DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>, 'height' | 'width'> & {
+    height?: string | number;
+    width?: string | number;
+}
 
 export interface LensProps extends HTMLProps<HTMLDivElement> {
     cursorOffset: Point;
@@ -96,7 +82,6 @@ export interface LensProps extends HTMLProps<HTMLDivElement> {
     isActive?: boolean;
     isPositionOutside?: boolean;
     position: Point;
-    smallImage: StaticImageProps;
 }
 
 export interface HintProps extends HTMLProps<HTMLDivElement> {
@@ -117,7 +102,7 @@ export type PortalProps = Omit<Partial<Options>, 'modifiers' | 'placement'> & {
     verticalOffset?: number;
 };
 
-export interface MagnifyContainerProps extends Omit<HTMLProps<HTMLDivElement>, 'height' | 'width'>, MagnifyContainerDimensions {}
+export interface MagnifyContainerProps extends Omit<HTMLProps<HTMLDivElement>, 'height' | 'width'>, ContainerDimensions {}
 
 export type ChildProps = {
     isActive: boolean;
@@ -160,11 +145,10 @@ CursorPositionProps,
     hoverOffDelayInMs?: number;
     imageComponent?: ComponentType<HTMLProps<HTMLImageElement>>;
     imageProps: ImageProps;
-    lensComponent?: ComponentType<LensProps>;
+    lensComponent?: ForwardRefExoticComponent<LensProps>;
     lensProps?: LensProps;
     magnifyContainerProps?: MagnifyContainerProps;
     magnifiedImageComponent?: ComponentType<HTMLProps<HTMLImageElement>>;
-    magnifiedImagePosition?: Placement;
     magnifiedImageProps: MagnifiedImageProps;
     pressDuration?: number;
     pressMoveThreshold?: number;

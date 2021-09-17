@@ -1,24 +1,35 @@
+import { forwardRef, MutableRefObject } from 'react';
+
 import { clamp } from 'src/lib/clamp';
 import { Lens } from 'src/lens/negative-space/Lens';
 import type { LensProps } from 'src/types';
 
-export const LensRight = (props: LensProps): JSX.Element => {
+export const LensRight = forwardRef<HTMLImageElement, LensProps>((props: LensProps, ref): JSX.Element | null => {
     const {
         cursorOffset,
         position,
         fadeDurationInMs,
         isActive,
         isPositionOutside,
-        smallImage,
         style: parentSpecifiedStyle,
         ...rest
     } = props;
+    const typedRef = (ref as MutableRefObject<HTMLImageElement>);
+
+    if (!typedRef?.current) {
+        return null;
+    }
+
     const clearLensHeight = cursorOffset.y * 2;
     const clearLensWidth = cursorOffset.x * 2;
-    const maxHeight = smallImage.height - clearLensHeight;
-    const maxWidth = smallImage.width - clearLensWidth;
+    const maxHeight = typedRef.current.offsetHeight - clearLensHeight;
+    const maxWidth = typedRef.current.offsetWidth - clearLensWidth;
     const height = clearLensHeight;
-    const width = clamp(smallImage.width - position.x - cursorOffset.x, 0, maxWidth);
+    const width = clamp(
+        typedRef.current.offsetWidth - position.x - cursorOffset.x,
+        0,
+        maxWidth,
+    );
     const top = clamp(position.y - cursorOffset.y, 0, maxHeight);
     const computedStyle = {
         height: `${height}px`,
@@ -39,4 +50,6 @@ export const LensRight = (props: LensProps): JSX.Element => {
             {...rest}
         />
     );
-};
+});
+
+LensRight.displayName = 'LensRight';

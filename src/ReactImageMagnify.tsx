@@ -1,9 +1,7 @@
 import { primaryInput } from 'detect-it';
 import {
     CSSProperties,
-    Dispatch,
     MouseEvent,
-    SetStateAction,
     SyntheticEvent,
     TouchEvent,
     useEffect,
@@ -25,7 +23,7 @@ import {
     getSmallImageStyle,
 } from 'src/lib/styles';
 import {
-    capitalize, isFluid, isIntristic, noop,
+    capitalize, imageToStrictDimensions, isFluid, isIntristic, resolveSmallImage, setSmallImageDimensionState,
 } from 'src/utils';
 import {
     INPUT_TYPE,
@@ -36,41 +34,10 @@ import {
 } from 'src/constants';
 import type {
     ImageProps,
-    StaticImageProps,
     DetectedInputType,
     ReactImageMagnifyProps,
+    ContainerDimensions,
 } from 'src/types';
-
-function resolveSmallImage(
-    smallImageProp: ImageProps,
-    smallImageHeight?: number,
-    smallImageWidth?: number,
-): StaticImageProps {
-    const smallImage = {
-        ...smallImageProp,
-        height: smallImageHeight || (smallImageProp as StaticImageProps).height || 0,
-        width: smallImageWidth || (smallImageProp as StaticImageProps).width || 0,
-    };
-
-    if (!smallImage.onLoad) {
-        smallImage.onLoad = noop;
-    }
-
-    return smallImage;
-}
-
-function setSmallImageDimensionState(
-    img: HTMLImageElement | null,
-    setSmallImage: Dispatch<SetStateAction<StaticImageProps>>,
-    smallImageProp: ImageProps,
-): void {
-    if (img && isIntristic(smallImageProp)) {
-        const { naturalHeight, naturalWidth } = img;
-        const newSmallImage = resolveSmallImage(smallImageProp, naturalHeight, naturalWidth);
-
-        setSmallImage(newSmallImage);
-    }
-}
 
 export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element => {
     const {
@@ -112,7 +79,7 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
     ///
 
     const imageRef = useRef<HTMLImageElement>(null);
-    const [smallImage, setSmallImage] = useState<StaticImageProps>(resolveSmallImage(imageProps));
+    const [smallImage, setSmallImage] = useState<ImageProps>(resolveSmallImage(imageProps));
     const [isMouseDetected, setIsMouseDetected] = useState(primaryInput === INPUT_TYPE.mouse);
     const [isTouchDetected, setIsTouchDetected] = useState(primaryInput === INPUT_TYPE.touch);
     const [imageLoaded, setImageLoaded] = useState(false);
@@ -143,20 +110,20 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
     ), []);
 
     const computedEnlargedImageContainerDimensions = useMemo(() => ({
-        width: getEnlargedImageContainerDimension({
-            containerDimension: magnifyContainerProps?.width || DEFAULT_MAGNIFY_CONTAINER_WIDTH,
-            smallImageDimension: smallImage.width,
+        width: getEnlargedImageContainerDimension(
+            magnifyContainerProps?.width || DEFAULT_MAGNIFY_CONTAINER_WIDTH,
+            imageRef?.current?.offsetWidth || smallImage.width || DEFAULT_MAGNIFY_CONTAINER_WIDTH,
             isInPlaceMode,
-        }),
-        height: getEnlargedImageContainerDimension({
-            containerDimension: magnifyContainerProps?.height || DEFAULT_MAGNIFY_CONTAINER_HEIGHT,
-            smallImageDimension: smallImage.height,
+        ),
+        height: getEnlargedImageContainerDimension(
+            magnifyContainerProps?.height || DEFAULT_MAGNIFY_CONTAINER_HEIGHT,
+            imageRef?.current?.offsetHeight || smallImage.height || DEFAULT_MAGNIFY_CONTAINER_HEIGHT,
             isInPlaceMode,
-        }),
-    }), [magnifyContainerProps, smallImage, isInPlaceMode]);
+        ),
+    } as ContainerDimensions), [magnifyContainerProps, smallImage, isInPlaceMode]);
 
     const cursorOffset = useMemo(() => getLensCursorOffset(
-        smallImage,
+        imageToStrictDimensions(smallImage, imageRef),
         magnifiedImageProps,
         computedEnlargedImageContainerDimensions,
     ), [computedEnlargedImageContainerDimensions, magnifiedImageProps, smallImage]);
@@ -288,8 +255,8 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
                                     isActive={isActive}
                                     isPositionOutside={isPositionOutside}
                                     position={position}
-                                    smallImage={smallImage}
                                     {...lensProps}
+                                    ref={imageRef}
                                 />
                             )}
                             {isInPlaceMode && !lockedByHintInteraction && (
@@ -302,7 +269,7 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
                                     imageComponent={magnifiedImageComponent}
                                     imageProps={magnifiedImageProps}
                                     position={position}
-                                    sourceImage={smallImage}
+                                    sourceImageDimensions={imageToStrictDimensions(smallImage, imageRef)}
                                     {...magnifyContainerProps}
                                 />
                             )}
@@ -317,7 +284,7 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
                                     imageProps={magnifiedImageProps}
                                     portalProps={portalProps}
                                     position={position}
-                                    sourceImage={smallImage}
+                                    sourceImageDimensions={imageToStrictDimensions(smallImage, imageRef)}
                                     {...magnifyContainerProps}
                                     ref={imageRef}
                                 />

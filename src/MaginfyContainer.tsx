@@ -19,7 +19,7 @@ import {
     getTransitionActiveStyle,
 } from 'src/lib/styles';
 import {
-    ContainerDimensions, MagnifiedImageProps, Point, ImageProps,
+    MagnifiedImageProps, Point, ContainerDimensions,
 } from 'src/types';
 
 export interface PropTypes extends Omit<HTMLProps<HTMLDivElement>, 'ref'> {
@@ -34,7 +34,7 @@ export interface PropTypes extends Omit<HTMLProps<HTMLDivElement>, 'ref'> {
     inPlaceMode?: boolean;
     isPositionOutside?: boolean;
     position: Point;
-    sourceImage: ContainerDimensions | ImageProps;
+    sourceImageDimensions: ContainerDimensions;
 }
 
 export const MagnifyContainer = (props: PropTypes): JSX.Element => {
@@ -50,7 +50,7 @@ export const MagnifyContainer = (props: PropTypes): JSX.Element => {
         isPortalRendered,
         isPositionOutside,
         position,
-        sourceImage,
+        sourceImageDimensions,
         style,
         ...rest
     } = props;
@@ -75,7 +75,7 @@ export const MagnifyContainer = (props: PropTypes): JSX.Element => {
             cursorOffset,
             imageProps,
             position,
-            sourceImage,
+            sourceImageDimensions,
         );
 
     useEffect(() => (): void => timersRef.current?.forEach((timerId) => {

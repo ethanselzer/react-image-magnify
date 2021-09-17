@@ -59,3 +59,62 @@ MagnifyOnHintClick.args = {
         horizontalOffset: 10,
     },
 };
+
+export const MixedImageDimensions = Template.bind({});
+MixedImageDimensions.args = {
+    imageProps: {
+        alt: 'example small image',
+        src: 'https://picsum.photos/id/1018/200',
+        height: '100%',
+        width: 200,
+    },
+    magnifiedImageProps: {
+        src: 'https://picsum.photos/id/1018/800',
+        height: 600,
+        width: 600,
+    },
+    portalProps: {
+        id: 'portal-test-id',
+        horizontalOffset: 10,
+    },
+};
+
+export const FluidImageDimensions = Template.bind({});
+FluidImageDimensions.args = {
+    imageProps: {
+        alt: 'example small image',
+        src: 'https://picsum.photos/id/1018/200',
+        height: '25%',
+        width: '25%',
+    },
+    magnifiedImageProps: {
+        src: 'https://picsum.photos/id/1018/800',
+        height: 600,
+        width: 600,
+    },
+    portalProps: {
+        id: 'portal-test-id',
+        horizontalOffset: 10,
+    },
+};
+
+export const MagnifiedImageContainerDimensions = Template.bind({});
+MagnifiedImageContainerDimensions.args = {
+    imageProps: {
+        alt: 'example small image',
+        src: 'https://picsum.photos/id/1018/200',
+    },
+    magnifiedImageProps: {
+        src: 'https://picsum.photos/id/1018/800',
+        height: 600,
+        width: 600,
+    },
+    magnifyContainerProps: {
+        height: 300,
+        width: 300,
+    },
+    portalProps: {
+        id: 'portal-test-id',
+        horizontalOffset: 10,
+    },
+};

@@ -113,6 +113,7 @@ module.exports = {
             shorthandFirst: true,
         }],
         'react/jsx-uses-react': 'off',
+        'react/prop-types': 'off',
         'react/react-in-jsx-scope': 'off',
         'react/require-default-props': 'off',
         'react/state-in-constructor': 'off',

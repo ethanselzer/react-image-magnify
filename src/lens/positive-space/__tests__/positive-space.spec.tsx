@@ -4,34 +4,26 @@ import { PositiveSpaceLens } from 'src/lens/positive-space';
 import { LensProps } from 'src/types';
 
 describe('Positive Space Lens', () => {
-    const smallImage = {
-        alt: 'baz',
-        isFluidWidth: false,
-        src: 'qux',
-        srcSet: 'quux',
-        sizes: 'grault',
-        width: 6,
-        height: 8,
-    };
-
     const defaultProps = {
         cursorOffset: { x: 1, y: 2 },
         fadeDurationInMs: 100,
         isActive: true,
         isPositionOutside: false,
         position: { x: 3, y: 4 },
-        smallImage,
         style: {},
     };
 
     function getComponent(props?: Partial<LensProps>): ShallowWrapper<LensProps> {
-        const compositProps = {
+        const compositProps: LensProps = {
             ...defaultProps,
             ...props,
-        } as LensProps;
+        };
 
         return shallow(
-            <PositiveSpaceLens {...compositProps} />,
+            <PositiveSpaceLens
+                {...compositProps}
+                ref={{ current: { offsetHeight: 8, offsetWidth: 6 } as HTMLImageElement }}
+            />,
         );
     }
 
