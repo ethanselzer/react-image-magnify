@@ -8,8 +8,6 @@ export type {
     MagnifiedImagePosition,
     InputType,
     Point,
-    FluidImageProps,
-    StaticImageProps,
     MagnifiedImageProps,
     ImageProps,
     LensProps,
