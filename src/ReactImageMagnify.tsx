@@ -2,8 +2,10 @@ import { primaryInput } from 'detect-it';
 import {
     CSSProperties,
     Dispatch,
+    MouseEvent,
     SetStateAction,
     SyntheticEvent,
+    TouchEvent,
     useEffect,
     useMemo,
     useRef,
@@ -11,13 +13,13 @@ import {
 } from 'react';
 
 import { MagnifyContainerPortal } from 'src/MagnifyContainerPortal';
-import { MagnifyContainer } from 'src/MaginfyContainer';
 import { NegativeSpaceLens } from 'src/lens/negative-space';
 import { PositiveSpaceLens } from 'src/lens/positive-space';
 import { DefaultHint } from 'src/hint/DefaultHint';
 import { getLensCursorOffset } from 'src/lib/lens';
 import { getEnlargedImageContainerDimension } from 'src/lib/dimensions';
 import { CursorPosition } from 'src/CursorPosition';
+import { InPlaceMagnifyContainer } from 'src/InPlaceMagnifyContainer';
 import {
     getContainerStyle,
     getSmallImageStyle,
@@ -27,37 +29,17 @@ import {
 } from 'src/utils';
 import {
     INPUT_TYPE,
-    MAGNIFIED_IMAGE_POSITION,
     INTERACTIONS,
     DEFAULT_MAGNIFY_CONTAINER_HEIGHT,
     DEFAULT_MAGNIFY_CONTAINER_WIDTH,
+    MagnifiedImagePosition,
 } from 'src/constants';
 import type {
     ImageProps,
     StaticImageProps,
     DetectedInputType,
-    PortalProps,
     ReactImageMagnifyProps,
 } from 'src/types';
-
-// TODO move states to other components?
-// TODO allow for left, right, top, bottom
-
-function shouldRenderPortal(portalProps: PortalProps | undefined, isTouchDetected: boolean): boolean {
-    if (!portalProps?.id) {
-        return false;
-    }
-
-    if (!isTouchDetected) {
-        return true;
-    }
-
-    if (portalProps?.enableForTouch) {
-        return true;
-    }
-
-    return false;
-}
 
 function resolveSmallImage(
     smallImageProp: ImageProps,
@@ -105,9 +87,8 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
         lensProps,
         magnifyContainerProps,
         magnifiedImageComponent,
-        magnifiedImagePosition,
         magnifiedImageProps,
-        portalProps,
+        portalProps: portalPropsProp,
         shouldUsePositiveSpaceLens = false,
         style,
         ...rest
@@ -141,11 +122,13 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
     /// Derived data from state
     ///
 
-    const usePortal = shouldRenderPortal(portalProps, isTouchDetected);
-    const enlargedImagePlacement = magnifiedImagePosition || (isTouchDetected
-        ? MAGNIFIED_IMAGE_POSITION.over
-        : MAGNIFIED_IMAGE_POSITION.beside);
-    const isInPlaceMode = enlargedImagePlacement === MAGNIFIED_IMAGE_POSITION.over;
+    const portalProps = {
+        ...portalPropsProp,
+        placement: portalPropsProp?.placement || (isTouchDetected
+            ? MagnifiedImagePosition.OVER
+            : MagnifiedImagePosition.LEFT),
+    };
+    const isInPlaceMode = portalProps.placement === MagnifiedImagePosition.OVER;
     const shouldShowLens = !isInPlaceMode && !isTouchDetected;
 
     ///
@@ -224,11 +207,15 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
         setIsTouchDetected(detectedInputType.isTouchDetected);
     };
 
-    const handleHintClick = (): void => {
+    const handleHintClick = (e: MouseEvent<unknown>): void => {
+        e.preventDefault();
+        e.stopPropagation();
         setLockedByHintInteraction(false);
     };
 
-    const handleHintTouchEnd = (): void => {
+    const handleHintTouchEnd = (e: TouchEvent<unknown>): void => {
+        e.preventDefault();
+        e.stopPropagation();
         setLockedByHintInteraction(false);
     };
 
@@ -237,9 +224,6 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
             setLockedByHintInteraction(true);
         }
     };
-
-    const shouldShowAbsoluteMagnify = !usePortal && !lockedByHintInteraction;
-    const shouldShowPortalMagnify = usePortal && portalProps && !lockedByHintInteraction;
 
     const MemodImageComponent = useMemo(() => (
         <ImageComponent
@@ -308,14 +292,13 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
                                     {...lensProps}
                                 />
                             )}
-                            {shouldShowAbsoluteMagnify && (
-                                <MagnifyContainer
+                            {isInPlaceMode && !lockedByHintInteraction && (
+                                <InPlaceMagnifyContainer
                                     containerDimensions={computedEnlargedImageContainerDimensions}
                                     cursorOffset={cursorOffset}
                                     fadeDurationInMs={fadeDurationInMs}
                                     isActive={isActive}
                                     isPositionOutside={isPositionOutside}
-                                    isInPlaceMode={isInPlaceMode}
                                     imageComponent={magnifiedImageComponent}
                                     imageProps={magnifiedImageProps}
                                     position={position}
@@ -323,20 +306,20 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
                                     {...magnifyContainerProps}
                                 />
                             )}
-                            {shouldShowPortalMagnify && (
+                            {!isInPlaceMode && !lockedByHintInteraction && (
                                 <MagnifyContainerPortal
                                     containerDimensions={computedEnlargedImageContainerDimensions}
                                     cursorOffset={cursorOffset}
                                     fadeDurationInMs={fadeDurationInMs}
                                     isActive={isActive}
                                     isPositionOutside={isPositionOutside}
-                                    isInPlaceMode={isInPlaceMode}
                                     imageComponent={magnifiedImageComponent}
                                     imageProps={magnifiedImageProps}
-                                    portalProps={portalProps!}
+                                    portalProps={portalProps}
                                     position={position}
                                     sourceImage={smallImage}
                                     {...magnifyContainerProps}
+                                    ref={imageRef}
                                 />
                             )}
                         </>

@@ -135,7 +135,9 @@
     "react-dom": "^17.0.0 || ^16.8"
   },
   "dependencies": {
+    "@popperjs/core": "^2.10.1",
     "@react-hook/resize-observer": "^1.2.4",
-    "detect-it": "4.0.1"
+    "detect-it": "4.0.1",
+    "react-popper": "^2.2.5"
   }
 }

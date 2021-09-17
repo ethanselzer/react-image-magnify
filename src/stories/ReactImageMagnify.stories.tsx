@@ -21,12 +21,7 @@ MagnifyOnHoverWithNoHint.args = {
         width: 600,
     },
     portalProps: {
-        id: 'portal',
-        style: {
-            position: 'absolute',
-            top: '1rem',
-            left: `${200 + 16 + 8}px`,
-        },
+        horizontalOffset: 10,
     },
 };
 
@@ -43,12 +38,7 @@ MagnifyOnHoverWithHint.args = {
         width: 600,
     },
     portalProps: {
-        id: 'portal',
-        style: {
-            position: 'absolute',
-            top: '1rem',
-            left: `${200 + 16 + 8}px`,
-        },
+        horizontalOffset: 10,
     },
 };
 
@@ -65,11 +55,7 @@ MagnifyOnHintClick.args = {
         width: 600,
     },
     portalProps: {
-        id: 'portal',
-        style: {
-            position: 'absolute',
-            top: '1rem',
-            left: `${200 + 16 + 8}px`,
-        },
+        id: 'portal-test-id',
+        horizontalOffset: 10,
     },
 };

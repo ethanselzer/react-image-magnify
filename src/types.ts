@@ -8,6 +8,11 @@ import type {
     MemoExoticComponent,
     TouchEvent as ReactTouchEvent,
 } from 'react';
+import type {
+    Modifier,
+    Options,
+    Placement,
+} from '@popperjs/core';
 
 export type Interactions = {
     touch: 'touch';
@@ -17,6 +22,8 @@ export type Interactions = {
     click: 'click';
     hover: 'hover';
 }
+
+export type MagnifiedImagePosition = Placement | 'over';
 
 export type OnIsActiveChangedHandler = (event: ActivationChangeEvent) => void;
 
@@ -42,11 +49,6 @@ export type PositionChangeEvent = {
 export type TouchEvent = {
     e: ReactTouchEvent;
     position: Point;
-};
-
-export type MagnifiedImagePosition = {
-    over: 'over';
-    beside: 'beside';
 };
 
 export type InputType = {
@@ -104,11 +106,15 @@ export interface HintProps extends HTMLProps<HTMLDivElement> {
     hintTextTouch: string;
 }
 
-export type PortalProps = {
+export type PortalProps = Omit<Partial<Options>, 'modifiers' | 'placement'> & {
     className?: string;
-    id: string;
+    id?: string;
     style?: CSSProperties;
-    enableForTouch?: boolean;
+    placement?: MagnifiedImagePosition;
+    dataTestId?: string;
+    modifiers?: Modifier<any, any>[];
+    horizontalOffset?: number;
+    verticalOffset?: number;
 };
 
 export interface MagnifyContainerProps extends Omit<HTMLProps<HTMLDivElement>, 'height' | 'width'>, MagnifyContainerDimensions {}
@@ -158,7 +164,7 @@ CursorPositionProps,
     lensProps?: LensProps;
     magnifyContainerProps?: MagnifyContainerProps;
     magnifiedImageComponent?: ComponentType<HTMLProps<HTMLImageElement>>;
-    magnifiedImagePosition?: MagnifiedImagePosition['beside'] | MagnifiedImagePosition['over'];
+    magnifiedImagePosition?: Placement;
     magnifiedImageProps: MagnifiedImageProps;
     pressDuration?: number;
     pressMoveThreshold?: number;

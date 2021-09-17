@@ -1,6 +1,10 @@
 import {
     ComponentType,
-    HTMLProps, useEffect, useMemo, useRef, useState,
+    HTMLProps,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
 } from 'react';
 
 import {
@@ -18,7 +22,7 @@ import {
     ContainerDimensions, MagnifiedImageProps, Point, ImageProps,
 } from 'src/types';
 
-export interface PropTypes extends HTMLProps<HTMLDivElement> {
+export interface PropTypes extends Omit<HTMLProps<HTMLDivElement>, 'ref'> {
     containerDimensions: ContainerDimensions;
     cursorOffset: Point;
     fadeDurationInMs?: number;
@@ -27,13 +31,13 @@ export interface PropTypes extends HTMLProps<HTMLDivElement> {
     isActive?: boolean;
     isLazyLoaded?: boolean;
     isPortalRendered?: boolean;
-    isInPlaceMode?: boolean;
+    inPlaceMode?: boolean;
     isPositionOutside?: boolean;
     position: Point;
     sourceImage: ContainerDimensions | ImageProps;
 }
 
-export function MagnifyContainer(props: PropTypes): JSX.Element {
+export const MagnifyContainer = (props: PropTypes): JSX.Element => {
     const {
         containerDimensions,
         cursorOffset,
@@ -42,7 +46,7 @@ export function MagnifyContainer(props: PropTypes): JSX.Element {
         imageProps,
         isActive,
         isLazyLoaded = true,
-        isInPlaceMode,
+        inPlaceMode,
         isPortalRendered,
         isPositionOutside,
         position,
@@ -60,7 +64,7 @@ export function MagnifyContainer(props: PropTypes): JSX.Element {
         isLazyLoaded && (isTransitionEntering || isTransitionActive || isTransitionLeaving)
     );
 
-    const imageCoordinates = isInPlaceMode
+    const imageCoordinates = inPlaceMode
         ? getInPlaceMagnifiedImageCoordinates(
             containerDimensions,
             imageProps,
@@ -98,18 +102,15 @@ export function MagnifyContainer(props: PropTypes): JSX.Element {
         }
     }, [fadeDurationInMs, isActive, isPositionOutside]);
 
-    const enlargedImageContainerStyle = useMemo(() => getMagnifyContainerStyle(
-        containerDimensions,
-        style,
-        fadeDurationInMs,
-        isInPlaceMode,
-        isPortalRendered,
-    ), [containerDimensions, style, fadeDurationInMs, isInPlaceMode, isPortalRendered]);
-
     const enlargedImageStyle = useMemo(() => getMagnifiedImageStyle(imageProps), [imageProps]);
 
     const computedContainerStyle = {
-        ...enlargedImageContainerStyle,
+        overflow: 'hidden',
+        ...getMagnifyContainerStyle(
+            containerDimensions,
+            style,
+            fadeDurationInMs,
+        ),
         ...getTransitionActiveStyle(isTransitionActive),
     };
 
@@ -136,4 +137,4 @@ export function MagnifyContainer(props: PropTypes): JSX.Element {
             )}
         </>
     );
-}
+};

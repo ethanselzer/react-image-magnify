@@ -71,36 +71,6 @@ export function getSmallImageStyle(
     return compositSmallImageStyle as CSSProperties;
 }
 
-function getPrimaryMagnifyContainerStyle(
-    isInPlaceMode: boolean | undefined,
-    isPortalRendered: boolean,
-): CSSProperties {
-    const baseContainerStyle = {
-        overflow: 'hidden',
-    };
-
-    if (isPortalRendered) {
-        return baseContainerStyle;
-    }
-
-    const sharedPositionStyle = {
-        position: 'absolute',
-        top: '0px',
-    };
-
-    return {
-        ...baseContainerStyle,
-        ...sharedPositionStyle,
-        ...(isInPlaceMode
-            ? ({ left: '0px' })
-            : ({
-                left: '100%',
-                marginLeft: '10px',
-                border: '1px solid #d6d6d6',
-            })),
-    } as CSSProperties;
-}
-
 export function getTransitionActiveStyle(isTransitionActive: boolean): CSSProperties {
     return {
         opacity: isTransitionActive ? 1 : 0,
@@ -111,13 +81,8 @@ export function getMagnifyContainerStyle(
     containerDimensions: ContainerDimensions,
     style: CSSProperties | undefined,
     fadeDurationInMs: number,
-    isInPlaceMode: boolean | undefined,
-    isPortalRendered?: boolean,
 ): CSSProperties {
-    const primaryStyle = getPrimaryMagnifyContainerStyle(isInPlaceMode, !!isPortalRendered);
-
     return {
-        ...primaryStyle,
         width: containerDimensions.width,
         height: containerDimensions.height,
         transition: `opacity ${fadeDurationInMs}ms ease-in`,
