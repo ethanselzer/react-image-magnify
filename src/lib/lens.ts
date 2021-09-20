@@ -1,11 +1,8 @@
 import { getLargeToSmallImageRatio } from 'src/lib/imageRatio';
 import type { ContainerDimensions, Point } from 'src/types';
 
-function getLensCursorOffsetDimension(
-    enlargedImageContainerDimension: number,
-    ratio: number,
-): number {
-    return Math.round((enlargedImageContainerDimension * ratio) / 2);
+function getLensCursorOffsetDimension(value: number, ratio: number): number {
+    return Math.round((value * ratio) / 2);
 }
 
 export function getLensCursorOffset(

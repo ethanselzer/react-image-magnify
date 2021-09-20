@@ -59,7 +59,7 @@ export const MagnifyContainerPortal = forwardRef<HTMLImageElement, PropTypes>((p
     const el = portalRef.current;
 
     el.id = id || `${DEFAULT_PORTAL_ID}-${randId.current}`;
-    el.style.cssText = styleToCssText({ ...style, zIndex: 101 });
+    el.style.cssText = styleToCssText({ zIndex: 101, ...style });
 
     if (className) {
         el.className = className;
