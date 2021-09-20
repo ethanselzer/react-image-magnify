@@ -11,7 +11,7 @@ export type {
     MagnifiedImageProps,
     ImageProps,
     LensProps,
-    HintProps as HintPropTypes,
+    HintProps,
     PortalProps,
     MagnifyContainerProps,
 } from 'src/types';

@@ -2,7 +2,7 @@
 import { forwardRef, memo } from 'react';
 import type { HintProps } from 'src/types';
 
-export const DefaultHint = memo(forwardRef<HTMLDivElement, HintProps>((props, ref): JSX.Element => {
+export const DefaultHint = memo(forwardRef<HTMLDivElement, HintProps<HTMLDivElement>>((props, ref): JSX.Element => {
     const {
         isMouseDetected,
         isTouchDetected,
@@ -23,8 +23,8 @@ export const DefaultHint = memo(forwardRef<HTMLDivElement, HintProps>((props, re
                 zIndex: 99,
                 ...style,
             }}
-            ref={ref}
             {...rest}
+            ref={ref}
         >
             <div
                 style={{
