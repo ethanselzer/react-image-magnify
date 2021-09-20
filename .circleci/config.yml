@@ -42,7 +42,7 @@ jobs:
     steps:
       - checkout
       - node/install-packages
-      - run: npm run test:ci
+      - run: npm run test
 
 workflows:
   version: 2
