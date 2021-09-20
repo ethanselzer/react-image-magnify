@@ -216,14 +216,13 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
         activationInteractionHint === INTERACTIONS.click
         || activationInteractionHint === INTERACTIONS.hover
     ) ? (
-        // @ts-expect-error
         <HintComponent
+            {...hintProps}
             hintTextMouse={hintProps?.hintTextMouse || `${capitalize(activationInteractionHint)} to Zoom`}
             hintTextTouch={hintProps?.hintTextTouch || 'Long-Touch to Zoom'}
             isMouseDetected={isMouseDetected}
             isTouchDetected={isTouchDetected}
             style={generateHintStyle(hintProps?.style)}
-            {...hintProps}
             onClick={lockedByHintInteraction ? handleHintClick : undefined}
             onTouchEnd={lockedByHintInteraction ? handleHintTouchEnd : undefined}
         />

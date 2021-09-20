@@ -5,7 +5,6 @@ import type {
     ForwardRefExoticComponent,
     HTMLProps,
     ImgHTMLAttributes,
-    MemoExoticComponent,
     TouchEvent as ReactTouchEvent,
 } from 'react';
 import type {
@@ -84,7 +83,7 @@ export interface LensProps extends HTMLProps<HTMLDivElement> {
     position: Point;
 }
 
-export interface HintProps<T extends HTMLElement = HTMLElement> extends HTMLProps<T> {
+export interface HintProps<T extends HTMLElement = any> extends Omit<HTMLProps<T>, 'ref'> {
     isMouseDetected?: boolean;
     isTouchDetected?: boolean;
     hintTextMouse: string;
@@ -136,10 +135,7 @@ CursorPositionProps,
     activationInteractionMouse?: Interactions['click'] | Interactions['hover'];
     activationInteractionTouch?: Interactions['press'] | Interactions['tap'] | Interactions['touch'];
     fadeDurationInMs?: number;
-    hintComponent?: ComponentType<HintProps>
-    | ForwardRefExoticComponent<HintProps>
-    | MemoExoticComponent<ComponentType<HintProps>
-    | ForwardRefExoticComponent<HintProps>>;
+    hintComponent?: ComponentType<HintProps>;
     hintProps?: HintProps;
     hoverDelayInMs?: number;
     hoverOffDelayInMs?: number;
