@@ -83,7 +83,7 @@ export interface LensProps extends HTMLProps<HTMLDivElement> {
     position: Point;
 }
 
-export interface HintProps<T extends HTMLElement = any> extends Omit<HTMLProps<T>, 'ref'> {
+export interface HintProps<T extends HTMLElement = any> extends Partial<Omit<HTMLProps<T>, 'ref'>> {
     isMouseDetected?: boolean;
     isTouchDetected?: boolean;
     hintTextMouse: string;
