@@ -83,11 +83,12 @@ export interface LensProps extends HTMLProps<HTMLDivElement> {
     position: Point;
 }
 
-export interface HintProps<T extends HTMLElement = any> extends Partial<Omit<HTMLProps<T>, 'ref'>> {
+export interface HintProps {
     isMouseDetected?: boolean;
     isTouchDetected?: boolean;
     hintTextMouse: string;
     hintTextTouch: string;
+    style?: CSSProperties | null;
 }
 
 export type PortalProps = Omit<Partial<Options>, 'modifiers' | 'placement'> & {
@@ -127,6 +128,7 @@ export interface CursorPositionProps extends HTMLProps<HTMLDivElement> {
     tapDurationInMs?: number;
     tapMoveThreshold?: number;
 }
+
 export interface ReactImageMagnifyProps extends Omit<
 CursorPositionProps,
 'activationInteractionMouse' | 'activationInteractionTouch' | 'children'
@@ -135,8 +137,8 @@ CursorPositionProps,
     activationInteractionMouse?: Interactions['click'] | Interactions['hover'];
     activationInteractionTouch?: Interactions['press'] | Interactions['tap'] | Interactions['touch'];
     fadeDurationInMs?: number;
-    hintComponent?: ComponentType<HintProps>;
-    hintProps?: HintProps;
+    hintComponent?: ComponentType<HintProps & any>;
+    hintProps?: HintProps & any;
     hoverDelayInMs?: number;
     hoverOffDelayInMs?: number;
     imageComponent?: ComponentType<HTMLProps<HTMLImageElement>>;

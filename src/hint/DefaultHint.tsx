@@ -1,7 +1,9 @@
-import { memo } from 'react';
+import { HTMLProps, memo } from 'react';
 import type { HintProps } from 'src/types';
 
-export const DefaultHint = memo((props: HintProps<HTMLDivElement>): JSX.Element => {
+export type PropTypes = HintProps & HTMLProps<HTMLDivElement>;
+
+export const DefaultHint = memo((props: PropTypes): JSX.Element => {
     const {
         isMouseDetected,
         isTouchDetected,
