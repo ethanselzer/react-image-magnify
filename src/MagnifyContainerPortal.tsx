@@ -8,7 +8,7 @@ import type { Placement } from '@popperjs/core';
 
 import { MagnifyContainer } from 'src/MaginfyContainer';
 import { useLazyRef } from 'src/hooks/useLazyRef';
-import { styleToCssText } from 'src/utils';
+// import { styleToCssText } from 'src/utils';
 import { DEFAULT_PORTAL_ID, MagnifiedImagePosition } from 'src/constants';
 import type { PortalProps } from 'src/types';
 
@@ -59,7 +59,7 @@ export const MagnifyContainerPortal = forwardRef<HTMLImageElement, PropTypes>((p
     const el = portalRef.current;
 
     el.id = id || `${DEFAULT_PORTAL_ID}-${randId.current}`;
-    el.style.cssText = styleToCssText({ zIndex: 101, ...style });
+    // el.style.cssText = styleToCssText({ zIndex: 101, ...style });
 
     if (className) {
         el.className = className;
@@ -81,7 +81,11 @@ export const MagnifyContainerPortal = forwardRef<HTMLImageElement, PropTypes>((p
     return createPortal(
         <div
             ref={popperRef}
-            style={popper.styles.popper}
+            style={{
+                zIndex: 101,
+                ...popper.styles.popper,
+                ...style,
+            }}
             {...popper.attributes.popper}
         >
             <MagnifyContainer isPortalRendered {...rest} />
