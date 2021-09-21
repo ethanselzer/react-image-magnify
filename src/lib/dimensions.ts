@@ -14,10 +14,28 @@ export function convertPercentageToDecimal(percentage: string | number, denomina
 export function getEnlargedImageContainerDimension(
     containerDimension: string | number,
     smallImageDimension: string | number,
-    isInPlaceMode?: boolean,
+    scale: number | undefined,
+    isInPlaceMode: boolean | undefined,
 ): string | number {
     if (isInPlaceMode) {
         return smallImageDimension;
+    }
+
+    if (scale) {
+        if (scale <= 0 && process?.env?.NODE_ENV !== 'production') {
+            // eslint-disable-next-line no-console
+            console.warn(`[ReactImageMagnify]
+                Warning! "scale" cannot be 0 or less (found ${scale}). Defaulting to 0.5.
+            `);
+
+            // eslint-disable-next-line no-param-reassign
+            scale = 0.5;
+        }
+
+        return (isPercentageFormat(smallImageDimension)
+            ? convertPercentageToDecimal(smallImageDimension)
+            : smallImageDimension as number)
+            * scale;
     }
 
     if (isPercentageFormat(containerDimension)) {

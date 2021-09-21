@@ -113,11 +113,13 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
         width: getEnlargedImageContainerDimension(
             magnifyContainerProps?.width || DEFAULT_MAGNIFY_CONTAINER_WIDTH,
             imageRef?.current?.offsetWidth || smallImage.width || DEFAULT_MAGNIFY_CONTAINER_WIDTH,
+            magnifyContainerProps?.scale,
             isInPlaceMode,
         ),
         height: getEnlargedImageContainerDimension(
             magnifyContainerProps?.height || DEFAULT_MAGNIFY_CONTAINER_HEIGHT,
             imageRef?.current?.offsetHeight || smallImage.height || DEFAULT_MAGNIFY_CONTAINER_HEIGHT,
+            magnifyContainerProps?.scale,
             isInPlaceMode,
         ),
     } as ContainerDimensions), [magnifyContainerProps, smallImage, isInPlaceMode]);

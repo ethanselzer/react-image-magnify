@@ -26,25 +26,25 @@ describe('Dimensions Library', () => {
 
     describe('getEnlargedImageContainerDimension', () => {
         it('returns correct value when container dimension is a percentage', () => {
-            const actual = getEnlargedImageContainerDimension('50%', 2);
+            const actual = getEnlargedImageContainerDimension('50%', 2, undefined, undefined);
 
             expect(actual).toEqual(1);
         });
 
         it('returns correct value when container dimension is a number', () => {
-            const actual = getEnlargedImageContainerDimension(4, 2);
+            const actual = getEnlargedImageContainerDimension(4, 2, undefined, undefined);
 
             expect(actual).toEqual(4);
         });
 
         it('ignores containerDimension value when isInPlaceMode is set', () => {
-            const actual = getEnlargedImageContainerDimension(4, 2, true);
+            const actual = getEnlargedImageContainerDimension(4, 2, undefined, true);
 
             expect(actual).toEqual(2);
         });
 
         it('honors user specified dimension when isInPlaceMode is not set', () => {
-            const actual = getEnlargedImageContainerDimension(4, 2, false);
+            const actual = getEnlargedImageContainerDimension(4, 2, undefined, false);
 
             expect(actual).toEqual(4);
         });

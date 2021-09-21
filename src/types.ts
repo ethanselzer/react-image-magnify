@@ -97,12 +97,17 @@ export type PortalProps = Omit<Partial<Options>, 'modifiers' | 'placement'> & {
     style?: CSSProperties;
     placement?: MagnifiedImagePosition;
     dataTestId?: string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     modifiers?: Modifier<any, any>[];
     horizontalOffset?: number;
     verticalOffset?: number;
 };
 
-export interface MagnifyContainerProps extends Omit<HTMLProps<HTMLDivElement>, 'height' | 'width'>, ContainerDimensions {}
+export interface MagnifyContainerProps extends Omit<HTMLProps<HTMLDivElement>, 'height' | 'width'> {
+    scale?: number;
+    height?: number;
+    width?: number;
+}
 
 export type ChildProps = {
     isActive: boolean;
@@ -137,7 +142,9 @@ CursorPositionProps,
     activationInteractionMouse?: Interactions['click'] | Interactions['hover'];
     activationInteractionTouch?: Interactions['press'] | Interactions['tap'] | Interactions['touch'];
     fadeDurationInMs?: number;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     hintComponent?: ComponentType<HintProps & any>;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     hintProps?: HintProps & any;
     hoverDelayInMs?: number;
     hoverOffDelayInMs?: number;

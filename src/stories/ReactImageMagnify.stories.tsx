@@ -118,3 +118,23 @@ MagnifiedImageContainerDimensions.args = {
         horizontalOffset: 10,
     },
 };
+
+export const MagnifiedImageContainerScaling = Template.bind({});
+MagnifiedImageContainerScaling.args = {
+    imageProps: {
+        alt: 'example small image',
+        src: 'https://picsum.photos/id/1018/200',
+    },
+    magnifiedImageProps: {
+        src: 'https://picsum.photos/id/1018/800',
+        height: 800,
+        width: 800,
+    },
+    magnifyContainerProps: {
+        scale: 2,
+    },
+    portalProps: {
+        id: 'portal-test-id',
+        horizontalOffset: 10,
+    },
+};
