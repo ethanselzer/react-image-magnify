@@ -23,7 +23,7 @@ import {
     getSmallImageStyle,
 } from 'src/lib/styles';
 import {
-    capitalize, imageToStrictDimensions, isFluid, isIntristic, resolveSmallImage, setSmallImageDimensionState,
+    capitalize, imageToStrictDimensions, isFluid, resolveSmallImage, setSmallImageDimensionState,
 } from 'src/utils';
 import {
     INPUT_TYPE,
@@ -93,7 +93,7 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
         ...portalPropsProp,
         placement: portalPropsProp?.placement || (isTouchDetected
             ? MagnifiedImagePosition.OVER
-            : MagnifiedImagePosition.LEFT),
+            : MagnifiedImagePosition.AUTO),
     };
     const isInPlaceMode = portalProps.placement === MagnifiedImagePosition.OVER;
     const shouldShowLens = !isInPlaceMode && !isTouchDetected;
@@ -143,7 +143,7 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
     }, [activationInteractionHint]);
 
     useEffect(() => {
-        if (isFluid(imageProps) || isIntristic(imageProps)) {
+        if (!isFluid(imageProps)) {
             setSmallImageDimensionState(imageRef.current, setSmallImage, imageProps);
 
             window.addEventListener('resize', resizeHandler);
@@ -205,7 +205,7 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
                     smallImage.onLoad(e);
                 }
 
-                if (isFluid(imageProps) || isIntristic(imageProps)) {
+                if (!isFluid(imageProps)) {
                     setSmallImageDimensionState(imageRef.current, setSmallImage, imageProps);
                 }
 

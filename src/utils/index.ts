@@ -5,31 +5,26 @@ import type {
     ContainerDimensions, ImageProps,
 } from 'src/types';
 
-const fluidCheckRegexp = new RegExp(/(%|vh|vw|vmin|vmax|fit-content|max-content|min-content|auto|stretch|available)$/gi);
+const fluidCheckRegexp = new RegExp(/(%|vh|vw|vmin|vmax|fit-content|max-content|min-content|auto|stretch|available)$/, 'gi');
 
 export function noop(): void {
     // noop
 }
 
-export function isIntristic(smallImage: ImageProps): boolean {
-    return typeof smallImage.height !== 'number'
-        && typeof smallImage.width !== 'number';
+export function isFluidDimension(value: string | number | undefined): boolean {
+    let result = typeof value !== 'number';
+
+    result = result && value !== undefined && fluidCheckRegexp.test(value as string);
+
+    fluidCheckRegexp.lastIndex = 0;
+
+    return result;
 }
 
 export function isFluid(smallImage: ImageProps): boolean {
-    return (
-        smallImage.height === undefined || smallImage.width === undefined
-    ) || (
-        isIntristic(smallImage)
-        && (
-            smallImage.height !== undefined
-            && fluidCheckRegexp.test(smallImage.height as string)
-        )
-        && (
-            smallImage.width !== undefined
-            && fluidCheckRegexp.test(smallImage.width as string)
-        )
-    );
+    const result = isFluidDimension(smallImage.height) && isFluidDimension(smallImage.width);
+
+    return (smallImage.height === undefined || smallImage.width === undefined) || result;
 }
 
 export function styleToCssText(style: CSSProperties): string {
@@ -66,13 +61,13 @@ export function imageToStrictDimensions(
 
 export function resolveSmallImage(
     smallImageProp: ImageProps,
-    smallImageHeight?: number,
-    smallImageWidth?: number,
+    smallImageHeight?: number | string,
+    smallImageWidth?: number | string,
 ): ImageProps {
     const smallImage = {
         ...smallImageProp,
-        height: smallImageHeight || smallImageProp.height || 0,
-        width: smallImageWidth || smallImageProp.width || 0,
+        height: smallImageHeight || smallImageProp.height || '100%',
+        width: smallImageWidth || smallImageProp.width || '100%',
     };
 
     if (!smallImage.onLoad) {
@@ -87,14 +82,14 @@ export function setSmallImageDimensionState(
     setSmallImage: Dispatch<SetStateAction<ImageProps>>,
     smallImageProp: ImageProps,
 ): void {
-    if (img && isIntristic(smallImageProp)) {
+    if (img) {
         const {
             naturalHeight, naturalWidth, offsetHeight, offsetWidth,
         } = img;
         const newSmallImage = resolveSmallImage(
             smallImageProp,
-            offsetHeight || naturalHeight,
-            offsetWidth || naturalWidth,
+            isFluidDimension(smallImageProp.height) ? smallImageProp.height : offsetHeight || naturalHeight,
+            isFluidDimension(smallImageProp.width) ? smallImageProp.width : offsetWidth || naturalWidth,
         );
 
         setSmallImage(newSmallImage);

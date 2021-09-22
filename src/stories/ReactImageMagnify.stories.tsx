@@ -14,6 +14,8 @@ MagnifyOnHoverWithNoHint.args = {
     imageProps: {
         alt: 'example small image',
         src: 'https://picsum.photos/id/1018/200',
+        height: 200,
+        width: 200,
     },
     magnifiedImageProps: {
         src: 'https://picsum.photos/id/1018/800',
@@ -31,6 +33,8 @@ MagnifyOnHoverWithHint.args = {
     imageProps: {
         alt: 'example small image',
         src: 'https://picsum.photos/id/1018/200',
+        height: 200,
+        width: 200,
     },
     magnifiedImageProps: {
         src: 'https://picsum.photos/id/1018/800',
@@ -48,6 +52,8 @@ MagnifyOnHintClick.args = {
     imageProps: {
         alt: 'example small image',
         src: 'https://picsum.photos/id/1018/200',
+        height: 200,
+        width: 200,
     },
     magnifiedImageProps: {
         src: 'https://picsum.photos/id/1018/800',
@@ -84,7 +90,7 @@ FluidImageDimensions.args = {
     imageProps: {
         alt: 'example small image',
         src: 'https://picsum.photos/id/1018/200',
-        height: '25%',
+        height: '25vh',
         width: '25%',
     },
     magnifiedImageProps: {
@@ -103,6 +109,8 @@ MagnifiedImageContainerDimensions.args = {
     imageProps: {
         alt: 'example small image',
         src: 'https://picsum.photos/id/1018/200',
+        height: 200,
+        width: 200,
     },
     magnifiedImageProps: {
         src: 'https://picsum.photos/id/1018/800',
@@ -124,6 +132,8 @@ MagnifiedImageContainerScaling.args = {
     imageProps: {
         alt: 'example small image',
         src: 'https://picsum.photos/id/1018/200',
+        height: 200,
+        width: 200,
     },
     magnifiedImageProps: {
         src: 'https://picsum.photos/id/1018/800',

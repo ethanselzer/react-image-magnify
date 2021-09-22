@@ -6,7 +6,7 @@ import type {
     Point,
     ImageProps,
 } from 'src/types';
-import { isFluid } from 'src/utils';
+import { isFluidDimension } from 'src/utils';
 
 export function getContainerStyle(
     smallImage: ImageProps,
@@ -18,52 +18,23 @@ export function getContainerStyle(
         height,
     } = smallImage;
 
-    const priorityContainerStyle = isFluid(smallImage)
-        ? {
-            width: 'auto',
-            height: 'auto',
-            fontSize: '0px',
-            position: 'relative',
-        }
-        : {
-            width: `${width}px`,
-            height: `${height}px`,
-            position: 'relative',
-        };
-
-    const compositContainerStyle = {
+    return {
         cursor: lockedByHintInteraction ? 'default' : 'crosshair',
-        ...priorityContainerStyle,
+        position: 'relative',
+        height: isFluidDimension(height) ? height : `${height}px`,
+        width: isFluidDimension(width) ? width : `${width}px`,
         ...style,
-    };
-
-    return compositContainerStyle as CSSProperties;
+    } as CSSProperties;
 }
 
 export function getSmallImageStyle(
     smallImage: ImageProps,
     style: CSSProperties | undefined,
 ): CSSProperties {
-    const {
-        width,
-        height,
-    } = smallImage;
-
-    const prioritySmallImageStyle = isFluid(smallImage)
-        ? {
-            width: '100%',
-            height: 'auto',
-            display: 'block',
-            pointerEvents: 'none',
-        }
-        : {
-            width: `${width}px`,
-            height: `${height}px`,
-            pointerEvents: 'none',
-        };
-
     const compositSmallImageStyle = {
-        ...prioritySmallImageStyle,
+        pointerEvents: 'none',
+        height: '100%',
+        width: '100%',
         ...style,
     };
 
