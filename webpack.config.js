@@ -37,7 +37,7 @@ module.exports = [{
                         target: 'es6',
                     },
                     getCustomTransformers: () => ({
-                        before: IS_PRODUCTION ? [] : [ReactRefreshTypeScript()],
+                        before: [!IS_PRODUCTION && ReactRefreshTypeScript()].filter(Boolean),
                     }),
                 },
             },

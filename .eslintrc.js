@@ -16,9 +16,15 @@ module.exports = {
             files: ['*.spec.ts'],
             rules: {
                 'no-unused-expressions': 'off',
+                'import/no-extraneous-dependencies': 'off',
             },
         }, {
             files: ['*.js'],
+            rules: {
+                'import/no-extraneous-dependencies': 'off',
+            },
+        }, {
+            files: ['*.js', '*.d.ts'],
             rules: {
                 '@typescript-eslint/no-var-requires': 'off',
             },
@@ -27,11 +33,6 @@ module.exports = {
             files: ['*.ts', '*.tsx'],
             rules: {
                 '@typescript-eslint/explicit-function-return-type': ['error'],
-            },
-        }, {
-            files: ['*.d.ts'],
-            rules: {
-                '@typescript-eslint/no-unused-vars': 'off',
             },
         }, {
             files: ['src/stories/*.tsx'],
@@ -44,7 +45,7 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     parserOptions: {
         tsconfigRootDir: __dirname,
-        ecmaVersion: 10,
+        ecmaVersion: 12,
         ecmaFeatures: {
             jsx: true,
         },
@@ -203,10 +204,7 @@ module.exports = {
             version: 'detect',
         },
         'import/parsers': {
-            '@typescript-eslint/parser': [
-                '.ts',
-                '.tsx',
-            ],
+            '@typescript-eslint/parser': ['.ts', '.tsx'],
         },
         'import/extensions': [
             '.js',
