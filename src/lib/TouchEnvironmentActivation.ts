@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Activation, ActivationOptions } from 'src/lib/Activation';
 import type { TouchEvent } from 'src/types';

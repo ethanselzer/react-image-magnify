@@ -37,7 +37,7 @@ export interface PropTypes extends Omit<HTMLProps<HTMLDivElement>, 'ref'> {
     sourceImageDimensions: ContainerDimensions;
 }
 
-export const MagnifyContainer = (props: PropTypes): JSX.Element => {
+export const MagnifyContainer = (props: PropTypes): JSX.Element | null => {
     const {
         containerDimensions,
         cursorOffset,
@@ -119,22 +119,18 @@ export const MagnifyContainer = (props: PropTypes): JSX.Element => {
         ...getMagnifiedImageTranslationStyle(imageCoordinates),
     };
 
-    return (
-        <>
-            {isVisible && (
-                <div
-                    {...rest}
-                    style={computedContainerStyle}
-                >
-                    <ImageComponent
-                        {...imageProps}
-                        alt={imageProps.alt || ''}
-                        style={computedImageStyle}
-                        onLoad={imageProps.onLoad || noop}
-                        onError={imageProps.onError || noop}
-                    />
-                </div>
-            )}
-        </>
-    );
+    return isVisible ? (
+        <div
+            {...rest}
+            style={computedContainerStyle}
+        >
+            <ImageComponent
+                {...imageProps}
+                alt={imageProps.alt || ''}
+                style={computedImageStyle}
+                onError={imageProps.onError || noop}
+                onLoad={imageProps.onLoad || noop}
+            />
+        </div>
+    ) : null;
 };

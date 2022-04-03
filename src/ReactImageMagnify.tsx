@@ -194,25 +194,23 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
         }
     };
 
-    const MemodImageComponent = useMemo(() => (
-        <ImageComponent
-            {...imageProps}
-            alt={smallImage.alt}
-            style={getSmallImageStyle(smallImage, imageProps.style)}
-            ref={imageRef}
-            onLoad={(e: SyntheticEvent<HTMLImageElement, Event>): void => {
-                if (smallImage.onLoad) {
-                    smallImage.onLoad(e);
-                }
+    const onImageComplete = (): void => {
+        if (!isFluid(imageProps)) {
+            setSmallImageDimensionState(imageRef.current, setSmallImage, imageProps);
+        }
 
-                if (!isFluid(imageProps)) {
-                    setSmallImageDimensionState(imageRef.current, setSmallImage, imageProps);
-                }
+        setImageLoaded(true);
+    };
 
-                setImageLoaded(true);
-            }}
-        />
-    ), [ImageComponent, imageProps, smallImage]);
+    const handleImageLoadOrComplete = (e: SyntheticEvent<HTMLImageElement, Event>): void => {
+        if (!imageLoaded) {
+            if (smallImage.onLoad) {
+                smallImage.onLoad(e);
+            }
+
+            onImageComplete();
+        }
+    };
 
     const HintComponentOrNull = (
         activationInteractionHint === INTERACTIONS.click
@@ -232,6 +230,13 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
 
     const LensComponent = LensComponentProp || shouldUsePositiveSpaceLens ? PositiveSpaceLens : NegativeSpaceLens;
 
+    useEffect(() => {
+        if (imageRef.current?.complete && !imageLoaded) {
+            onImageComplete();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <CursorPosition
             shouldStopTouchMovePropagation
@@ -245,7 +250,13 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
         >
             {({ position, isActive, isPositionOutside }): JSX.Element => (
                 <>
-                    {MemodImageComponent}
+                    <ImageComponent
+                        {...imageProps}
+                        alt={smallImage.alt}
+                        ref={imageRef}
+                        style={getSmallImageStyle(smallImage, imageProps.style)}
+                        onLoad={handleImageLoadOrComplete}
+                    />
                     {imageLoaded && (
                         <>
                             {HintComponentOrNull}
@@ -265,10 +276,10 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
                                     containerDimensions={computedEnlargedImageContainerDimensions}
                                     cursorOffset={cursorOffset}
                                     fadeDurationInMs={fadeDurationInMs}
-                                    isActive={isActive}
-                                    isPositionOutside={isPositionOutside}
                                     imageComponent={magnifiedImageComponent}
                                     imageProps={magnifiedImageProps}
+                                    isActive={isActive}
+                                    isPositionOutside={isPositionOutside}
                                     position={position}
                                     sourceImageDimensions={imageToStrictDimensions(smallImage, imageRef)}
                                     {...magnifyContainerProps}
@@ -279,10 +290,10 @@ export const ReactImageMagnify = (props: ReactImageMagnifyProps): JSX.Element =>
                                     containerDimensions={computedEnlargedImageContainerDimensions}
                                     cursorOffset={cursorOffset}
                                     fadeDurationInMs={fadeDurationInMs}
-                                    isActive={isActive}
-                                    isPositionOutside={isPositionOutside}
                                     imageComponent={magnifiedImageComponent}
                                     imageProps={magnifiedImageProps}
+                                    isActive={isActive}
+                                    isPositionOutside={isPositionOutside}
                                     portalProps={portalProps}
                                     position={position}
                                     sourceImageDimensions={imageToStrictDimensions(smallImage, imageRef)}

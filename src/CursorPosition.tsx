@@ -421,16 +421,16 @@ export const CursorPosition = (props: PropTypes): JSX.Element => {
                 WebkitUserSelect: 'none',
             }}
             tabIndex={tabIndex}
-            onTouchStart={isEnabled ? handleTouchStart : undefined}
-            onTouchMove={isEnabled ? handleTouchMove : undefined}
-            onTouchEnd={isEnabled ? handleTouchEnd : undefined}
-            onTouchCancel={isEnabled ? handleTouchCancel : undefined}
-            onMouseEnter={isEnabled ? handleMouseEnter : undefined}
-            onMouseMove={isEnabled ? handleMouseMove : undefined}
-            onMouseLeave={isEnabled ? handleMouseLeave : undefined}
             onClick={isEnabled ? handleClick : undefined}
             onKeyDown={isEnabled ? handleKeyDown : undefined}
             onKeyUp={isEnabled ? handleKeyUp : undefined}
+            onMouseEnter={isEnabled ? handleMouseEnter : undefined}
+            onMouseLeave={isEnabled ? handleMouseLeave : undefined}
+            onMouseMove={isEnabled ? handleMouseMove : undefined}
+            onTouchCancel={isEnabled ? handleTouchCancel : undefined}
+            onTouchEnd={isEnabled ? handleTouchEnd : undefined}
+            onTouchMove={isEnabled ? handleTouchMove : undefined}
+            onTouchStart={isEnabled ? handleTouchStart : undefined}
             {...rest}
         >
             {children({

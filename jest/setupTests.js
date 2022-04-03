@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const { configure } = require('enzyme');
 const Adapter = require('@wojtekmaj/enzyme-adapter-react-17');
 

@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { Activation, ActivationOptions } from 'src/lib/Activation';
 
 export type { ActivationOptions as MouseActivationOptions };

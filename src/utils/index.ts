@@ -5,6 +5,7 @@ import type {
     ContainerDimensions, ImageProps,
 } from 'src/types';
 
+// eslint-disable-next-line prefer-regex-literals
 const fluidCheckRegexp = new RegExp(/(%|vh|vw|vmin|vmax|fit-content|max-content|min-content|auto|stretch|available)$/, 'gi');
 
 export function noop(): void {

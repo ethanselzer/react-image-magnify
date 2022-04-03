@@ -24,6 +24,10 @@ export type Interactions = {
 
 export type MagnifiedImagePosition = Placement | 'over';
 
+export type ActivationChangeEvent = {
+    isActive: boolean;
+};
+
 export type OnIsActiveChangedHandler = (event: ActivationChangeEvent) => void;
 
 export type TimerHandle = {
@@ -36,8 +40,9 @@ export type DetectedInputType = {
     isTouchDetected: boolean;
 };
 
-export type ActivationChangeEvent = {
-    isActive: boolean;
+export type Point = {
+    x: number;
+    y: number;
 };
 
 export type PositionChangeEvent = {
@@ -53,11 +58,6 @@ export type TouchEvent = {
 export type InputType = {
     mouse: 'mouse';
     touch: 'touch';
-};
-
-export type Point = {
-    x: number;
-    y: number;
 };
 
 export type ContainerDimensions = {

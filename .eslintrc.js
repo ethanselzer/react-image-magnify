@@ -58,22 +58,19 @@ module.exports = {
         'react',
     ],
     rules: {
-        'class-methods-use-this': 'off',
+        // For clarity, always require json extensions
         'import/extensions': ['error', {
             json: 'always',
             js: 'never',
             ts: 'never',
         }],
+        // Prefer named exports always
         'import/no-default-export': 'error',
-        'import/no-extraneous-dependencies': ['error', {
-            devDependencies: [
-                'jest/**',
-                'src/**/__tests__/**',
-                'src/**/__test__/**',
-                'webpack.config.js',
-            ],
-        }],
+        // Prefer named exports always
+        'import/no-named-as-default': 'error',
+        // Prefer named exports always
         'import/prefer-default-export': 'off',
+        // Turn off since we're using typescript's indent
         indent: 'off',
         // Override airbnb's max line length rule to:
         // - increase the line length limit to 120
@@ -98,26 +95,41 @@ module.exports = {
         'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
         // This is an old rule that is slowly not applicable anymore (i.e. for-of is ok now)
         'no-restricted-syntax': 'off',
+        // Replaced with typescript rule
         'no-shadow': 'off',
         'no-underscore-dangle': ['error', { allow: ['_embedded'] }],
-        'no-use-before-define': 'off',
+        // Prefer single quotes and template literals
+        quotes: ['error', 'single', { allowTemplateLiterals: true }],
+        'react/function-component-definition': [2, {
+            namedComponents: 'arrow-function',
+            unnamedComponents: 'arrow-function',
+        }],
         'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
+        // Match common indentation
         'react/jsx-indent': ['error', 4],
+        // Match common indentation
         'react/jsx-indent-props': ['error', 4],
         // This is silly to enable
         'react/jsx-props-no-spreading': 'off',
         'react/jsx-sort-props': ['error', {
             callbacksLast: true,
             ignoreCase: true,
-            noSortAlphabetically: true,
+            noSortAlphabetically: false,
             shorthandFirst: true,
         }],
+        'react/no-namespace': 'warn',
+        'react/prefer-exact-props': 'off',
+        'react/no-arrow-function-lifecycle': 'off',
+        'react/no-invalid-html-attribute': 'error',
+        'react/no-unused-class-component-methods': 'error',
+        // We use React 17+
         'react/jsx-uses-react': 'off',
+        // Since we do not use prop-types
         'react/prop-types': 'off',
+        // We use React 17+
         'react/react-in-jsx-scope': 'off',
+        // Since we do not use prop-types
         'react/require-default-props': 'off',
-        'react/state-in-constructor': 'off',
-        quotes: ['error', 'single', { allowTemplateLiterals: true }],
         // Sometimes we just need to
         '@typescript-eslint/ban-ts-ignore': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',
@@ -168,7 +180,11 @@ module.exports = {
             ignoreComments: false,
         }],
         '@typescript-eslint/no-shadow': ['error'],
-        '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
+        '@typescript-eslint/no-unused-vars': ['error', {
+            args: 'after-used',
+            argsIgnorePattern: '^_',
+            ignoreRestSiblings: true,
+        }],
         '@typescript-eslint/no-use-before-define': ['error'],
         '@typescript-eslint/type-annotation-spacing': ['error', {
             before: false,
