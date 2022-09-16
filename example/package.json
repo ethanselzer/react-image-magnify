@@ -8,7 +8,7 @@
     "react-scripts": "1.1.2"
   },
   "dependencies": {
-    "bootstrap": "3.3.7",
+    "bootstrap": "3.4.1",
     "react": "16.5.0",
     "react-bootstrap": "0.31.3",
     "react-dom": "16.5.0",
