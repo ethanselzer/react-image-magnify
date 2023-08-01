@@ -4,6 +4,7 @@ import objectAssign from 'object-assign';
 
 const BaseImageShape = {
     alt: PropTypes.string,
+    title: PropTypes.string,
     src: PropTypes.string.isRequired,
     srcSet: PropTypes.string,
     sizes: PropTypes.string,

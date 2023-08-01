@@ -333,6 +333,7 @@ class ReactImageMagnify extends React.Component {
                     srcSet: smallImage.srcSet,
                     sizes: smallImage.sizes,
                     alt: smallImage.alt,
+                    title: smallImage.title,
                     className: imageClassName,
                     style: getSmallImageStyle(smallImage, imageStyle),
                     ref: (el) => this.smallImageEl = el,
